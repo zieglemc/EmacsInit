@@ -500,6 +500,97 @@
         '(("BOOST_SP_TYPEID" (spp-arg-list ("T") 2344 . 2347) . ((symbol "typeid" 2348 . 2354) (semantic-list "(T)" 2354 . 2357)))
           ("BOOST_DETAIL_SP_TYPEINFO_HPP_INCLUDED")
           )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_SCOPED_ENUM_EMULATION_HPP" variable (:constant-flag t) nil [3573 3604])
+            ("boost/config.hpp" include (:system-flag t) nil [3606 3633])
+            ("boost/detail/workaround.hpp" include (:system-flag t) nil [3634 3672])
+            ("boost" type
+               (:members 
+                  ( ("underlying_type" type
+                       (:template 
+                          ( ("EnumType" type (:type "class") nil nil))                          
+                        :type "struct")
+                        (reparse-symbol namespacesubparts) [5773 5901])
+                    ("native_type" type
+                       (:template 
+                          ( ("EnumType" type (:type "class") nil nil))                          
+                        :type "struct"
+                        :members 
+                          ( ("type" type
+                               (:typedef ("EnumType" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [5963 5985]))                          )
+                        (reparse-symbol namespacesubparts) [5905 5990])
+                    ("underlying_cast" function
+                       (:template 
+                          ( ("UnderlyingType" type (:type "class") nil nil)
+                            ("EnumType" type (:type "class") nil nil))                          
+                        :type ("UnderlyingType" type (:type "class") nil nil)
+                        :arguments 
+                          ( ("v" variable (:type ("EnumType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6081 6092]))                          )
+                        (reparse-symbol namespacesubparts) [5994 6143])
+                    ("native_value" function
+                       (:template 
+                          ( ("EnumType" type (:type "class") nil nil))                          
+                        :type ("EnumType" type (:type "class") nil nil)
+                        :arguments 
+                          ( ("e" variable (:type ("EnumType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6209 6220]))                          
+                        :typemodifiers ("inline"))
+                        (reparse-symbol namespacesubparts) [6147 6241]))                  
+                :type "namespace")
+                nil [3674 6251])
+            ("BOOST_SCOPED_ENUM_UT_DECLARE_BEGIN" variable (:constant-flag t) nil [10627 10661])
+            ("BOOST_SCOPED_ENUM_DECLARE_BEGIN" variable (:constant-flag t) nil [10730 10761])
+            ("BOOST_SCOPED_ENUM_DECLARE_END2" variable (:constant-flag t) nil [10800 10830])
+            ("BOOST_SCOPED_ENUM_DECLARE_END" variable (:constant-flag t) nil [10841 10870])
+            ("BOOST_SCOPED_ENUM_NATIVE" variable (:constant-flag t) nil [10892 10916])
+            ("BOOST_SCOPED_ENUM_FORWARD_DECLARE" variable (:constant-flag t) nil [10944 10977])
+            ("BOOST_SCOPED_ENUM_START" variable (:constant-flag t) nil [11057 11080])
+            ("BOOST_SCOPED_ENUM_END" variable (:constant-flag t) nil [11133 11154])
+            ("BOOST_SCOPED_ENUM" variable (:constant-flag t) nil [11196 11213]))          
+      :file "scoped_enum_emulation.hpp"
+      :pointmax 11648
+      :fsize 11647
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("BOOST_SCOPED_ENUM" (spp-arg-list ("name") 11213 . 11219) . ((symbol "BOOST_SCOPED_ENUM_NATIVE" 11220 . 11244) (semantic-list "(name)" 11244 . 11250)))
+          ("BOOST_SCOPED_ENUM_END" . ((symbol "BOOST_SCOPED_ENUM_DECLARE_END2" 11155 . 11185) (semantic-list "()" 11185 . 11187)))
+          ("BOOST_SCOPED_ENUM_DECLARE_BEGIN" (spp-arg-list ("EnumType") 10761 . 10771) . 
+              ((ENUM "enum" 10772 . 10776) (CLASS "class" 10777 . 10782) (symbol "EnumType" 10783 . 10791)))
+          ("BOOST_SCOPED_ENUM_DECLARE_END2" (spp-arg-list nil 10830 . 10832))
+          ("BOOST_SCOPED_ENUM_DECLARE_END" (spp-arg-list ("EnumType") 10870 . 10880) . ((punctuation ";" 10881 . 10882)))
+          ("BOOST_SCOPED_ENUM_NATIVE" (spp-arg-list ("EnumType") 10916 . 10926) . ((symbol "EnumType" 10927 . 10935)))
+          ("BOOST_SCOPED_ENUM_START" (spp-arg-list ("name") 11080 . 11086) . ((symbol "BOOST_SCOPED_ENUM_DECLARE_BEGIN" 11087 . 11118) (semantic-list "(name)" 11118 . 11124)))
+          ("BOOST_SCOPED_ENUM_FORWARD_DECLARE" (spp-arg-list ("EnumType") 10977 . 10987) . 
+              ((ENUM "enum" 10988 . 10992) (CLASS "class" 10993 . 10998) (symbol "EnumType" 10999 . 11007)))
+          ("BOOST_SCOPED_ENUM_UT_DECLARE_BEGIN" (spp-arg-list ("EnumType" "UnderlyingType") 10661 . 10686) . 
+              ((ENUM "enum" 10687 . 10691) (CLASS "class" 10692 . 10697) (symbol "EnumType" 10698 . 10706) (punctuation ":" 10706 . 10707) (symbol "UnderlyingType" 10707 . 10721)))
+          ("BOOST_SCOPED_ENUM_EMULATION_HPP")
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_BITMASK_HPP" variable (:constant-flag t) nil [402 419])
+            ("boost/cstdint.hpp" include (:system-flag t) nil [421 449])
+            ("BOOST_BITMASK" variable (:constant-flag t) nil [459 472]))          
+      :file "bitmask.hpp"
+      :pointmax 2380
+      :fsize 2379
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("BOOST_BITMASK" (spp-arg-list ("Bitmask") 472 . 481) . 
+              ((INLINE "inline" 605 . 611) (symbol "Bitmask" 612 . 619) (OPERATOR "operator" 620 . 628) (punctuation "|" 628 . 629) (semantic-list "(Bitmask x , Bitmask y )" 630 . 654) (semantic-list "{ return static_cast<Bitmask>( static_cast<boost::int_least32_t>(x)     \\
+      | static_cast<boost::int_least32_t>(y)); }" 681 . 803) (INLINE "inline" 909 . 915) (symbol "Bitmask" 916 . 923) (OPERATOR "operator" 924 . 932) (punctuation "&" 932 . 933) (semantic-list "(Bitmask x , Bitmask y )" 934 . 958) (semantic-list "{ return static_cast<Bitmask>( static_cast<boost::int_least32_t>(x)     \\
+      & static_cast<boost::int_least32_t>(y)); }" 985 . 1107) (INLINE "inline" 1213 . 1219) (symbol "Bitmask" 1220 . 1227) (OPERATOR "operator" 1228 . 1236) (punctuation "^" 1236 . 1237) (semantic-list "(Bitmask x , Bitmask y )" 1238 . 1262) (semantic-list "{ return static_cast<Bitmask>( static_cast<boost::int_least32_t>(x)     \\
+      ^ static_cast<boost::int_least32_t>(y)); }" 1289 . 1411) (INLINE "inline" 1517 . 1523) (symbol "Bitmask" 1524 . 1531) (OPERATOR "operator" 1532 . 1540) (punctuation "~" 1540 . 1541) (semantic-list "(Bitmask x )" 1542 . 1554) (semantic-list "{ return static_cast<Bitmask>(~static_cast<boost::int_least32_t>(x)); }" 1593 . 1664) (INLINE "inline" 1745 . 1751) (symbol "Bitmask" 1752 . 1759) (punctuation "&" 1760 . 1761) (OPERATOR "operator" 1762 . 1770) (punctuation "&" 1770 . 1771) (punctuation "=" 1771 . 1772) (semantic-list "(Bitmask & x , Bitmask y)" 1772 . 1797) (semantic-list "{ x = x & y ; return x ; }" 1821 . 1847) (INLINE "inline" 1973 . 1979) (symbol "Bitmask" 1980 . 1987) (punctuation "&" 1988 . 1989) (OPERATOR "operator" 1990 . 1998) (punctuation "|" 1998 . 1999) (punctuation "=" 1999 . 2000) (semantic-list "(Bitmask & x , Bitmask y)" 2000 . 2025) (semantic-list "{ x = x | y ; return x ; }" 2049 . 2075) (INLINE "inline" 2201 . 2207) (symbol "Bitmask" 2208 . 2215) (punctuation "&" 2216 . 2217) (OPERATOR "operator" 2218 . 2226) (punctuation "^" 2226 . 2227) (punctuation "=" 2227 . 2228) (semantic-list "(Bitmask & x , Bitmask y)" 2228 . 2253) (semantic-list "{ x = x ^ y ; return x ; }" 2277 . 2303)))
+          ("BOOST_BITMASK_HPP")
+          )
 ))
   :file "!usr!include!boost!detail!semantic.cache"
   :semantic-tag-version "2.0"

@@ -273,13 +273,13 @@ Position the cursor at it's beginning, according to the current mode."
 (setq-default TeX-master nil)
 (add-hook 'TeX-mode-hook
           (lambda ()
-            (flyspell-mode 1)
+      (flyspell-mode 1)
             (TeX-fold-mode 1)
             (add-hook 'find-file-hook 'TeX-fold-buffer t t)
-            (local-set-key [C-tab] 'TeX-complete-symbol)
-            (local-set-key [C-c C-g] 'TeX-kill-job)
-            )
-          )
+      (local-set-key [C-tab] 'TeX-complete-symbol)
+      (local-set-key [C-c C-g] 'TeX-kill-job)
+      )
+    )
 
 (add-to-list 'auto-mode-alist '("\\.tex$" . TeX-mode))
 (add-to-list 'auto-mode-alist '("\\.sty$" . TeX-mode))

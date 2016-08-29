@@ -57,23 +57,23 @@
                                 :type "char")
                                 (reparse-symbol arg-sub-list) [1490 1504])
                             ("" variable (:type ("T" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1504 1506]))                          )
-                        (reparse-symbol namespacesubparts) [1444 11172]))                  
+                        (reparse-symbol namespacesubparts) [1444 11161]))                  
                 :type "namespace")
-                nil [1431 11174])
+                nil [1431 11163])
             ("main" function
                (:arguments 
-                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [11193 11202])
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [11182 11191])
                     ("argv" variable
                        (:pointer 1
                         :dereference 1
                         :type "char")
-                        (reparse-symbol arg-sub-list) [11203 11216]))                  
+                        (reparse-symbol arg-sub-list) [11192 11205]))                  
                 :type "int")
-                nil [11184 13325]))          
+                nil [11173 13314]))          
       :file "singleslice.cxx"
-      :pointmax 13326
-      :fsize 13325
-      :lastmodtime '(22468 20007 15013 958000)
+      :pointmax 13315
+      :fsize 13314
+      :lastmodtime '(22468 23601 264128 125000)
       :unmatched-syntax nil))
   :file "!home!zieglemc!PROGRAMMING!SingleSlice!singleslice-src!semantic.cache"
   :semantic-tag-version "2.0"

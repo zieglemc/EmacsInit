@@ -1681,6 +1681,208 @@
       :lexical-table 
         '(("BOOST_ITERATOR_ADAPTOR_23022003THW_HPP")
           )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_TRANSFORM_ITERATOR_23022003THW_HPP" variable (:constant-flag t) nil [328 368])
+            ("boost/iterator.hpp" include (:system-flag t) nil [370 399])
+            ("boost/iterator/detail/enable_if.hpp" include (:system-flag t) nil [400 446])
+            ("boost/iterator/iterator_adaptor.hpp" include (:system-flag t) nil [447 493])
+            ("boost/iterator/iterator_categories.hpp" include (:system-flag t) nil [494 543])
+            ("boost/mpl/not.hpp" include (:system-flag t) nil [544 572])
+            ("boost/mpl/bool.hpp" include (:system-flag t) nil [573 602])
+            ("boost/type_traits/function_traits.hpp" include (:system-flag t) nil [603 651])
+            ("boost/type_traits/is_const.hpp" include (:system-flag t) nil [652 693])
+            ("boost/type_traits/is_class.hpp" include (:system-flag t) nil [694 735])
+            ("boost/type_traits/is_function.hpp" include (:system-flag t) nil [736 780])
+            ("boost/type_traits/is_reference.hpp" include (:system-flag t) nil [781 826])
+            ("boost/type_traits/remove_const.hpp" include (:system-flag t) nil [827 872])
+            ("boost/type_traits/remove_reference.hpp" include (:system-flag t) nil [873 922])
+            ("boost/utility/result_of.hpp" include (:system-flag t) nil [923 961])
+            ("boost/iterator/detail/config_def.hpp" include (:system-flag t) nil [1083 1130])
+            ("boost" type
+               (:members 
+                  ( ("transform_iterator" type
+                       (:template 
+                          ( ("UnaryFunction" type (:type "class") nil nil)
+                            ("Iterator" type (:type "class") nil nil)
+                            ("Reference" type (:type "class") nil nil)
+                            ("Value" type (:type "class") nil nil))                          
+                        :type "class"
+                        :prototype t)
+                        (reparse-symbol namespacesubparts) [1153 1285])
+                    ("detail" type
+                       (:members 
+                          ( ("transform_iterator_base" type
+                               (:template 
+                                  ( ("UnaryFunc" type (:type "class") nil nil)
+                                    ("Iterator" type (:type "class") nil nil)
+                                    ("Reference" type (:type "class") nil nil)
+                                    ("Value" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :members 
+                                  ( ("private" label nil (reparse-symbol classsubparts) [1518 1526])
+                                    ("reference" variable (:type ("type" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1784 1799])
+                                    ("cv_value_type" variable (:type ("type" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2229 2248])
+                                    ("public" label nil (reparse-symbol classsubparts) [2255 2262])
+                                    ("type" type
+                                       (:typedef ("iterator_adaptor" type
+                                             (:template-specifier 
+                                                ( ("transform_iterator" type (:template-specifier 
+                                                    ( ("UnaryFunc" type nil nil nil)
+                                                      ("Iterator" type nil nil nil)
+                                                      ("Reference" type nil nil nil)
+                                                      ("Value" type nil nil nil))                                                    ) nil nil)
+                                                  ("Iterator" type nil nil nil)
+                                                  ("cv_value_type" type nil nil nil)
+                                                  ("use_default" type nil nil nil)
+                                                  ("reference" type nil nil nil))                                                
+                                              :type "class")
+                                              nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2271 2516]))                                  )
+                                (reparse-symbol namespacesubparts) [1399 2523]))                          
+                        :type "namespace")
+                        (reparse-symbol namespacesubparts) [1289 2527])
+                    ("transform_iterator" type
+                       (:template 
+                          ( ("UnaryFunc" type (:type "class") nil nil)
+                            ("Iterator" type (:type "class") nil nil)
+                            ("Reference" type (:type "class") nil nil)
+                            ("Value" type (:type "class") nil nil))                          
+                        :type "class"
+                        :members 
+                          ( ("super_t" type
+                               (:typedef ("boost::detail::transform_iterator_base::type" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [2736 2853])
+                            ("iterator_core_access" friend nil (reparse-symbol classsubparts) [2859 2892])
+                            ("public" label nil (reparse-symbol classsubparts) [2897 2904])
+                            ("transform_iterator" function
+                               (:constructor-flag t
+                                :type ("transform_iterator" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [2909 2933])
+                            ("transform_iterator" function
+                               (:constructor-flag t
+                                :arguments 
+                                  ( ("x" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("Iterator" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [2958 2976])
+                                    ("f" variable (:type ("UnaryFunc" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2977 2989]))                                  
+                                :type ("transform_iterator" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [2939 3020])
+                            ("transform_iterator" function
+                               (:constructor-flag t
+                                :arguments 
+                                  ( ("x" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("Iterator" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [3054 3072]))                                  
+                                :type ("transform_iterator" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [3035 3458])
+                            ("transform_iterator" function
+                               (:template 
+                                  ( ("OtherUnaryFunction" type (:type "class") nil nil)
+                                    ("OtherIterator" type (:type "class") nil nil)
+                                    ("OtherReference" type (:type "class") nil nil)
+                                    ("OtherValue" type (:type "class") nil nil))                                  
+                                :type ("transform_iterator" type (:type "class") nil nil)
+                                :arguments 
+                                  ( ("t" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("transform_iterator" type
+                                             (:template-specifier 
+                                                ( ("OtherUnaryFunction" type nil nil nil)
+                                                  ("OtherIterator" type nil nil nil)
+                                                  ("OtherReference" type nil nil nil)
+                                                  ("OtherValue" type nil nil nil))                                                
+                                              :type "class")
+                                              nil nil))
+                                        (reparse-symbol arg-sub-list) [3624 3723])
+                                    ("" variable
+                                       (:typemodifiers ("typename")
+                                        :type ("enable_if_convertible" type
+                                             (:template-specifier 
+                                                ( ("OtherIterator" type nil nil nil)
+                                                  ("Iterator" type nil nil nil))                                                
+                                              :type "class")
+                                              nil nil))
+                                        (reparse-symbol arg-sub-list) [3724 3780])
+                                    ("" variable
+                                       (:pointer 1
+                                        :type ("type" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [3781 3790])
+                                    ("" variable
+                                       (:typemodifiers ("typename")
+                                        :type ("enable_if_convertible" type
+                                             (:template-specifier 
+                                                ( ("OtherUnaryFunction" type nil nil nil)
+                                                  ("UnaryFunc" type nil nil nil))                                                
+                                              :type "class")
+                                              nil nil))
+                                        (reparse-symbol arg-sub-list) [3843 3905])
+                                    ("" variable
+                                       (:pointer 1
+                                        :type ("type" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [3906 3915]))                                  
+                                :constructor-flag t)
+                                (reparse-symbol classsubparts) [3464 3979])
+                            ("functor" function
+                               (:methodconst-flag t
+                                :type ("UnaryFunc" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [3985 4032])
+                            ("private" label nil (reparse-symbol classsubparts) [4036 4044])
+                            ("dereference" function
+                               (:methodconst-flag t
+                                :typemodifiers ("typename")
+                                :type ("super_t::reference" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [4049 4131])
+                            ("m_f" variable (:type ("UnaryFunc" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4254 4268]))                          
+                        :superclasses 
+                          ( ("boost::detail::transform_iterator_base::type" type
+                               (:protection "public"
+                                :type "class")
+                                nil nil))                          )
+                        (reparse-symbol namespacesubparts) [2531 4273])
+                    ("make_transform_iterator" function
+                       (:template 
+                          ( ("UnaryFunc" type (:type "class") nil nil)
+                            ("Iterator" type (:type "class") nil nil))                          
+                        :type ("transform_iterator" type
+                             (:template-specifier 
+                                ( ("UnaryFunc" type nil nil nil)
+                                  ("Iterator" type nil nil nil))                                
+                              :type "class")
+                              nil nil)
+                        :arguments 
+                          ( ("it" variable (:type ("Iterator" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4388 4400])
+                            ("fun" variable (:type ("UnaryFunc" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4401 4415]))                          )
+                        (reparse-symbol namespacesubparts) [4277 4486])
+                    ("make_transform_iterator" function
+                       (:template 
+                          ( ("UnaryFunc" type (:type "class") nil nil)
+                            ("Iterator" type (:type "class") nil nil))                          
+                        :type ("iterators::enable_if::type" type (:type "class") nil nil)
+                        :arguments 
+                          ( ("it" variable (:type ("Iterator" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5168 5180]))                          
+                        :typemodifiers ("typename"))
+                        (reparse-symbol namespacesubparts) [4783 5259]))                  
+                :type "namespace")
+                nil [1133 5646])
+            ("boost/iterator/detail/config_undef.hpp" include (:system-flag t) nil [5667 5716]))          
+      :file "transform_iterator.hpp"
+      :pointmax 5769
+      :fsize 5768
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax '((punctuation 3905 . 3906) (punctuation 3904 . 3905) (punctuation 3780 . 3781) (punctuation 3779 . 3780) (EXPLICIT 3026 . 3034) (punctuation 2892 . 2893) (punctuation 2228 . 2229) (punctuation 2227 . 2228) (punctuation 2226 . 2227) (punctuation 2216 . 2217) (symbol 2207 . 2216) (punctuation 2206 . 2207) (symbol 2190 . 2206) (punctuation 2188 . 2189) (symbol 2172 . 2177) (punctuation 2158 . 2159) (symbol 2146 . 2158) (TYPENAME 2137 . 2145) (TYPEDEF 2129 . 2136) (punctuation 1783 . 1784) (punctuation 1782 . 1783) (punctuation 1781 . 1782) (punctuation 1771 . 1772) (semantic-list 1719 . 1771) (symbol 1710 . 1719) (CONST 1704 . 1709) (punctuation 1703 . 1704) (symbol 1694 . 1703) (punctuation 1692 . 1693) (symbol 1672 . 1681) (punctuation 1658 . 1659) (symbol 1646 . 1658) (TYPENAME 1637 . 1645) (TYPEDEF 1629 . 1636))
+      :lexical-table 
+        '(("BOOST_TRANSFORM_ITERATOR_23022003THW_HPP")
+          )
 ))
   :file "!usr!include!boost!iterator!semantic.cache"
   :semantic-tag-version "2.0"

@@ -8901,9 +8901,63 @@
           )
 )
     (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("__EXCEPTION__" variable (:constant-flag t) nil [1161 1174])
+            ("bits/c++config.h" include (:system-flag t) nil [1241 1268])
+            ("bits/atomic_lockfree_defines.h" include (:system-flag t) nil [1269 1310])
+            ("__gnu_cxx" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "namespace"
+                :members 
+                  ( ("__verbose_terminate_handler" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol namespacesubparts) [4798 4833]))                  )
+                (reparse-symbol extern-c-contents) [4268 4867])
+            ("std" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "namespace"
+                :members 
+                  ( ("exception" type
+                       (:members 
+                          ( ("public" label nil (reparse-symbol classsubparts) [1869 1876]))                          
+                        :type "class")
+                        (reparse-symbol namespacesubparts) [1847 2138])
+                    ("bad_exception" type
+                       (:superclasses 
+                          ( ("exception" type
+                               (:protection "public"
+                                :type "class")
+                                nil nil))                          
+                        :members 
+                          ( ("public" label nil (reparse-symbol classsubparts) [2320 2327]))                          
+                        :type "class")
+                        (reparse-symbol namespacesubparts) [2275 2636])
+                    ("terminate_handler" function
+                       (:prototype-flag t
+                        :function-pointer t
+                        :type "void")
+                        (reparse-symbol namespacesubparts) [2726 2755])
+                    ("unexpected_handler" function
+                       (:prototype-flag t
+                        :function-pointer t
+                        :type "void")
+                        (reparse-symbol namespacesubparts) [2846 2876])
+                    ("unexpected" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol namespacesubparts) [3545 3594]))                  )
+                (reparse-symbol extern-c-contents) [1328 4249]))          
       :file "exception"
+      :pointmax 5070
       :fsize 5069
-      :lastmodtime '(22093 55977 0 0))
+      :lastmodtime '(22093 55977 0 0)
+      :unmatched-syntax '((symbol 4924 . 4927) (symbol 4913 . 4923) (symbol 4909 . 4912) (symbol 4902 . 4908) (punctuation 4901 . 4902) (symbol 4857 . 4865) (punctuation 4220 . 4221) (semantic-list "()" 4172 . 4193) (THROW "throw" 4172 . 4193) (semantic-list 4169 . 4171) (symbol 4151 . 4169) (BOOL 4146 . 4150) (punctuation 3405 . 3406) (semantic-list "()" 3384 . 3405) (THROW "throw" 3384 . 3405) (semantic-list 3363 . 3383) (symbol 3349 . 3363) (symbol 3330 . 3348) (punctuation 3248 . 3249) (semantic-list "()" 3196 . 3217) (THROW "throw" 3196 . 3217) (semantic-list 3193 . 3195) (symbol 3184 . 3193) (VOID 3179 . 3183) (punctuation 3029 . 3030) (semantic-list "()" 3008 . 3029) (THROW "throw" 3008 . 3029) (semantic-list 2988 . 3007) (symbol 2975 . 2988) (symbol 2957 . 2974) (TYPEDEF 2838 . 2845) (TYPEDEF 2718 . 2725) (punctuation 2630 . 2631) (semantic-list "()" 2609 . 2630) (THROW "throw" 2609 . 2630) (CONST 2603 . 2608) (semantic-list 2600 . 2602) (symbol 2596 . 2600) (punctuation 2594 . 2595) (CHAR 2590 . 2594) (CONST 2584 . 2589) (VIRTUAL 2576 . 2583) (punctuation 2530 . 2531) (semantic-list "()" 2509 . 2530) (THROW "throw" 2509 . 2530) (semantic-list 2506 . 2508) (symbol 2493 . 2506) (punctuation 2492 . 2493) (VIRTUAL 2484 . 2491) (semantic-list 2370 . 2373) (semantic-list "()" 2348 . 2369) (THROW "throw" 2348 . 2369) (semantic-list 2345 . 2347) (symbol 2332 . 2345) (punctuation 2132 . 2133) (semantic-list "()" 2111 . 2132) (THROW "throw" 2111 . 2132) (CONST 2105 . 2110) (semantic-list 2102 . 2104) (symbol 2098 . 2102) (punctuation 2096 . 2097) (CHAR 2092 . 2096) (CONST 2086 . 2091) (VIRTUAL 2078 . 2085) (punctuation 1965 . 1966) (semantic-list "()" 1944 . 1965) (THROW "throw" 1944 . 1965) (semantic-list 1941 . 1943) (symbol 1932 . 1941) (punctuation 1931 . 1932) (VIRTUAL 1923 . 1930) (semantic-list 1915 . 1918) (semantic-list "()" 1893 . 1914) (THROW "throw" 1893 . 1914) (semantic-list 1890 . 1892) (symbol 1881 . 1890) (semantic-list 1230 . 1239) (symbol 1226 . 1230) (DEFAULT 1231 . 1238) (symbol 1215 . 1225) (DEFAULT 1231 . 1238) (symbol 1211 . 1214) (symbol 1204 . 1210) (punctuation 1203 . 1204) (symbol 1188 . 1201) (symbol 1184 . 1187) (symbol 1177 . 1183) (punctuation 1176 . 1177))
+      :lexical-table 
+        '(("__EXCEPTION__")
+          )
+)
     (semanticdb-table "semanticdb-table"
       :major-mode c++-mode
       :tags 
@@ -15217,6 +15271,806 @@
       :unmatched-syntax '((symbol 40204 . 40212) (OPERATOR "operator" 38963 . 39007) (punctuation ">" 38963 . 39007) (symbol "result_type" 38963 . 39007) (punctuation ":" 38963 . 39007) (punctuation ":" 38963 . 39007) (punctuation ">" 38963 . 39007) (symbol "_Tp" 38963 . 39007) (punctuation "," 38963 . 39007) (punctuation "<" 38963 . 39007) (symbol "__fun" 38963 . 39007) (TYPENAME "typename" 38963 . 39007) (punctuation "," 38963 . 39007) (punctuation ">" 38963 . 39007) (symbol "_Tp" 38963 . 39007) (punctuation "," 38963 . 39007) (symbol "_Tp" 38963 . 39007) (punctuation "," 38963 . 39007) (symbol "_ValArray" 38963 . 39007) (punctuation "," 38963 . 39007) (symbol "_Constant" 38963 . 39007) (punctuation "," 38963 . 39007) (punctuation "<" 38963 . 39007) (symbol "_BinClos" 38963 . 39007) (punctuation "<" 38963 . 39007) (symbol "_Expr" 38963 . 39007) (INLINE "inline" 38963 . 39007) (punctuation ">" 38963 . 39007) (symbol "_Tp" 38963 . 39007) (TYPENAME "typename" 38963 . 39007) (punctuation "<" 38963 . 39007) (TEMPLATE "template" 38963 . 39007) (OPERATOR "operator" 38963 . 39007) (punctuation ">" 38963 . 39007) (symbol "result_type" 38963 . 39007) (punctuation ":" 38963 . 39007) (punctuation ":" 38963 . 39007) (punctuation ">" 38963 . 39007) (symbol "_Tp" 38963 . 39007) (punctuation "," 38963 . 39007) (punctuation "<" 38963 . 39007) (symbol "__fun" 38963 . 39007) (TYPENAME "typename" 38963 . 39007) (punctuation "," 38963 . 39007) (punctuation ">" 38963 . 39007) (symbol "_Tp" 38963 . 39007) (punctuation "," 38963 . 39007) (symbol "_Tp" 38963 . 39007) (punctuation "," 38963 . 39007) (symbol "_Constant" 38963 . 39007) (punctuation "," 38963 . 39007) (symbol "_ValArray" 38963 . 39007) (punctuation "," 38963 . 39007) (punctuation "<" 38963 . 39007) (symbol "_BinClos" 38963 . 39007) (punctuation "<" 38963 . 39007) (symbol "_Expr" 38963 . 39007) (INLINE "inline" 38963 . 39007) (punctuation ">" 38963 . 39007) (symbol "_Tp" 38963 . 39007) (TYPENAME "typename" 38963 . 39007) (punctuation "<" 38963 . 39007) (TEMPLATE "template" 38963 . 39007) (OPERATOR "operator" 38963 . 39007) (punctuation ">" 38963 . 39007) (symbol "result_type" 38963 . 39007) (punctuation ":" 38963 . 39007) (punctuation ":" 38963 . 39007) (punctuation ">" 38963 . 39007) (symbol "_Tp" 38963 . 39007) (punctuation "," 38963 . 39007) (punctuation "<" 38963 . 39007) (symbol "__fun" 38963 . 39007) (TYPENAME "typename" 38963 . 39007) (punctuation "," 38963 . 39007) (punctuation ">" 38963 . 39007) (symbol "_Tp" 38963 . 39007) (punctuation "," 38963 . 39007) (symbol "_Tp" 38963 . 39007) (punctuation "," 38963 . 39007) (symbol "_ValArray" 38963 . 39007) (punctuation "," 38963 . 39007) (symbol "_ValArray" 38963 . 39007) (punctuation "," 38963 . 39007) (punctuation "<" 38963 . 39007) (symbol "_BinClos" 38963 . 39007) (punctuation "<" 38963 . 39007) (symbol "_Expr" 38963 . 39007) (INLINE "inline" 38963 . 39007) (punctuation ">" 38963 . 39007) (symbol "_Tp" 38963 . 39007) (TYPENAME "typename" 38963 . 39007) (punctuation "<" 38963 . 39007) (TEMPLATE "template" 38963 . 39007) (OPERATOR "operator" 38921 . 38962) (punctuation ">" 38921 . 38962) (symbol "result_type" 38921 . 38962) (punctuation ":" 38921 . 38962) (punctuation ":" 38921 . 38962) (punctuation ">" 38921 . 38962) (symbol "_Tp" 38921 . 38962) (punctuation "," 38921 . 38962) (punctuation "<" 38921 . 38962) (symbol "__fun" 38921 . 38962) (TYPENAME "typename" 38921 . 38962) (punctuation "," 38921 . 38962) (punctuation ">" 38921 . 38962) (symbol "_Tp" 38921 . 38962) (punctuation "," 38921 . 38962) (symbol "_Tp" 38921 . 38962) (punctuation "," 38921 . 38962) (symbol "_ValArray" 38921 . 38962) (punctuation "," 38921 . 38962) (symbol "_Constant" 38921 . 38962) (punctuation "," 38921 . 38962) (punctuation "<" 38921 . 38962) (symbol "_BinClos" 38921 . 38962) (punctuation "<" 38921 . 38962) (symbol "_Expr" 38921 . 38962) (INLINE "inline" 38921 . 38962) (punctuation ">" 38921 . 38962) (symbol "_Tp" 38921 . 38962) (TYPENAME "typename" 38921 . 38962) (punctuation "<" 38921 . 38962) (TEMPLATE "template" 38921 . 38962) (OPERATOR "operator" 38921 . 38962) (punctuation ">" 38921 . 38962) (symbol "result_type" 38921 . 38962) (punctuation ":" 38921 . 38962) (punctuation ":" 38921 . 38962) (punctuation ">" 38921 . 38962) (symbol "_Tp" 38921 . 38962) (punctuation "," 38921 . 38962) (punctuation "<" 38921 . 38962) (symbol "__fun" 38921 . 38962) (TYPENAME "typename" 38921 . 38962) (punctuation "," 38921 . 38962) (punctuation ">" 38921 . 38962) (symbol "_Tp" 38921 . 38962) (punctuation "," 38921 . 38962) (symbol "_Tp" 38921 . 38962) (punctuation "," 38921 . 38962) (symbol "_Constant" 38921 . 38962) (punctuation "," 38921 . 38962) (symbol "_ValArray" 38921 . 38962) (punctuation "," 38921 . 38962) (punctuation "<" 38921 . 38962) (symbol "_BinClos" 38921 . 38962) (punctuation "<" 38921 . 38962) (symbol "_Expr" 38921 . 38962) (INLINE "inline" 38921 . 38962) (punctuation ">" 38921 . 38962) (symbol "_Tp" 38921 . 38962) (TYPENAME "typename" 38921 . 38962) (punctuation "<" 38921 . 38962) (TEMPLATE "template" 38921 . 38962) (OPERATOR "operator" 38921 . 38962) (punctuation ">" 38921 . 38962) (symbol "result_type" 38921 . 38962) (punctuation ":" 38921 . 38962) (punctuation ":" 38921 . 38962) (punctuation ">" 38921 . 38962) (symbol "_Tp" 38921 . 38962) (punctuation "," 38921 . 38962) (punctuation "<" 38921 . 38962) (symbol "__fun" 38921 . 38962) (TYPENAME "typename" 38921 . 38962) (punctuation "," 38921 . 38962) (punctuation ">" 38921 . 38962) (symbol "_Tp" 38921 . 38962) (punctuation "," 38921 . 38962) (symbol "_Tp" 38921 . 38962) (punctuation "," 38921 . 38962) (symbol "_ValArray" 38921 . 38962) (punctuation "," 38921 . 38962) (symbol "_ValArray" 38921 . 38962) (punctuation "," 38921 . 38962) (punctuation "<" 38921 . 38962) (symbol "_BinClos" 38921 . 38962) (punctuation "<" 38921 . 38962) (symbol "_Expr" 38921 . 38962) (INLINE "inline" 38921 . 38962) (punctuation ">" 38921 . 38962) (symbol "_Tp" 38921 . 38962) (TYPENAME "typename" 38921 . 38962) (punctuation "<" 38921 . 38962) (TEMPLATE "template" 38921 . 38962) (OPERATOR "operator" 38883 . 38920) (punctuation ">" 38883 . 38920) (symbol "result_type" 38883 . 38920) (punctuation ":" 38883 . 38920) (punctuation ":" 38883 . 38920) (punctuation ">" 38883 . 38920) (symbol "_Tp" 38883 . 38920) (punctuation "," 38883 . 38920) (punctuation "<" 38883 . 38920) (symbol "__fun" 38883 . 38920) (TYPENAME "typename" 38883 . 38920) (punctuation "," 38883 . 38920) (punctuation ">" 38883 . 38920) (symbol "_Tp" 38883 . 38920) (punctuation "," 38883 . 38920) (symbol "_Tp" 38883 . 38920) (punctuation "," 38883 . 38920) (symbol "_ValArray" 38883 . 38920) (punctuation "," 38883 . 38920) (symbol "_Constant" 38883 . 38920) (punctuation "," 38883 . 38920) (punctuation "<" 38883 . 38920) (symbol "_BinClos" 38883 . 38920) (punctuation "<" 38883 . 38920) (symbol "_Expr" 38883 . 38920) (INLINE "inline" 38883 . 38920) (punctuation ">" 38883 . 38920) (symbol "_Tp" 38883 . 38920) (TYPENAME "typename" 38883 . 38920) (punctuation "<" 38883 . 38920) (TEMPLATE "template" 38883 . 38920) (OPERATOR "operator" 38883 . 38920) (punctuation ">" 38883 . 38920) (symbol "result_type" 38883 . 38920) (punctuation ":" 38883 . 38920) (punctuation ":" 38883 . 38920) (punctuation ">" 38883 . 38920) (symbol "_Tp" 38883 . 38920) (punctuation "," 38883 . 38920) (punctuation "<" 38883 . 38920) (symbol "__fun" 38883 . 38920) (TYPENAME "typename" 38883 . 38920) (punctuation "," 38883 . 38920) (punctuation ">" 38883 . 38920) (symbol "_Tp" 38883 . 38920) (punctuation "," 38883 . 38920) (symbol "_Tp" 38883 . 38920) (punctuation "," 38883 . 38920) (symbol "_Constant" 38883 . 38920) (punctuation "," 38883 . 38920) (symbol "_ValArray" 38883 . 38920) (punctuation "," 38883 . 38920) (punctuation "<" 38883 . 38920) (symbol "_BinClos" 38883 . 38920) (punctuation "<" 38883 . 38920) (symbol "_Expr" 38883 . 38920) (INLINE "inline" 38883 . 38920) (punctuation ">" 38883 . 38920) (symbol "_Tp" 38883 . 38920) (TYPENAME "typename" 38883 . 38920) (punctuation "<" 38883 . 38920) (TEMPLATE "template" 38883 . 38920) (OPERATOR "operator" 38883 . 38920) (punctuation ">" 38883 . 38920) (symbol "result_type" 38883 . 38920) (punctuation ":" 38883 . 38920) (punctuation ":" 38883 . 38920) (punctuation ">" 38883 . 38920) (symbol "_Tp" 38883 . 38920) (punctuation "," 38883 . 38920) (punctuation "<" 38883 . 38920) (symbol "__fun" 38883 . 38920) (TYPENAME "typename" 38883 . 38920) (punctuation "," 38883 . 38920) (punctuation ">" 38883 . 38920) (symbol "_Tp" 38883 . 38920) (punctuation "," 38883 . 38920) (symbol "_Tp" 38883 . 38920) (punctuation "," 38883 . 38920) (symbol "_ValArray" 38883 . 38920) (punctuation "," 38883 . 38920) (symbol "_ValArray" 38883 . 38920) (punctuation "," 38883 . 38920) (punctuation "<" 38883 . 38920) (symbol "_BinClos" 38883 . 38920) (punctuation "<" 38883 . 38920) (symbol "_Expr" 38883 . 38920) (INLINE "inline" 38883 . 38920) (punctuation ">" 38883 . 38920) (symbol "_Tp" 38883 . 38920) (TYPENAME "typename" 38883 . 38920) (punctuation "<" 38883 . 38920) (TEMPLATE "template" 38883 . 38920) (OPERATOR "operator" 38848 . 38882) (punctuation ">" 38848 . 38882) (symbol "result_type" 38848 . 38882) (punctuation ":" 38848 . 38882) (punctuation ":" 38848 . 38882) (punctuation ">" 38848 . 38882) (symbol "_Tp" 38848 . 38882) (punctuation "," 38848 . 38882) (punctuation "<" 38848 . 38882) (symbol "__fun" 38848 . 38882) (TYPENAME "typename" 38848 . 38882) (punctuation "," 38848 . 38882) (punctuation ">" 38848 . 38882) (symbol "_Tp" 38848 . 38882) (punctuation "," 38848 . 38882) (symbol "_Tp" 38848 . 38882) (punctuation "," 38848 . 38882) (symbol "_ValArray" 38848 . 38882) (punctuation "," 38848 . 38882) (symbol "_Constant" 38848 . 38882) (punctuation "," 38848 . 38882) (punctuation "<" 38848 . 38882) (symbol "_BinClos" 38848 . 38882) (punctuation "<" 38848 . 38882) (symbol "_Expr" 38848 . 38882) (INLINE "inline" 38848 . 38882) (punctuation ">" 38848 . 38882) (symbol "_Tp" 38848 . 38882) (TYPENAME "typename" 38848 . 38882) (punctuation "<" 38848 . 38882) (TEMPLATE "template" 38848 . 38882) (OPERATOR "operator" 38848 . 38882) (punctuation ">" 38848 . 38882) (symbol "result_type" 38848 . 38882) (punctuation ":" 38848 . 38882) (punctuation ":" 38848 . 38882) (punctuation ">" 38848 . 38882) (symbol "_Tp" 38848 . 38882) (punctuation "," 38848 . 38882) (punctuation "<" 38848 . 38882) (symbol "__fun" 38848 . 38882) (TYPENAME "typename" 38848 . 38882) (punctuation "," 38848 . 38882) (punctuation ">" 38848 . 38882) (symbol "_Tp" 38848 . 38882) (punctuation "," 38848 . 38882) (symbol "_Tp" 38848 . 38882) (punctuation "," 38848 . 38882) (symbol "_Constant" 38848 . 38882) (punctuation "," 38848 . 38882) (symbol "_ValArray" 38848 . 38882) (punctuation "," 38848 . 38882) (punctuation "<" 38848 . 38882) (symbol "_BinClos" 38848 . 38882) (punctuation "<" 38848 . 38882) (symbol "_Expr" 38848 . 38882) (INLINE "inline" 38848 . 38882) (punctuation ">" 38848 . 38882) (symbol "_Tp" 38848 . 38882) (TYPENAME "typename" 38848 . 38882) (punctuation "<" 38848 . 38882) (TEMPLATE "template" 38848 . 38882) (OPERATOR "operator" 38848 . 38882) (punctuation ">" 38848 . 38882) (symbol "result_type" 38848 . 38882) (punctuation ":" 38848 . 38882) (punctuation ":" 38848 . 38882) (punctuation ">" 38848 . 38882) (symbol "_Tp" 38848 . 38882) (punctuation "," 38848 . 38882) (punctuation "<" 38848 . 38882) (symbol "__fun" 38848 . 38882) (TYPENAME "typename" 38848 . 38882) (punctuation "," 38848 . 38882) (punctuation ">" 38848 . 38882) (symbol "_Tp" 38848 . 38882) (punctuation "," 38848 . 38882) (symbol "_Tp" 38848 . 38882) (punctuation "," 38848 . 38882) (symbol "_ValArray" 38848 . 38882) (punctuation "," 38848 . 38882) (symbol "_ValArray" 38848 . 38882) (punctuation "," 38848 . 38882) (punctuation "<" 38848 . 38882) (symbol "_BinClos" 38848 . 38882) (punctuation "<" 38848 . 38882) (symbol "_Expr" 38848 . 38882) (INLINE "inline" 38848 . 38882) (punctuation ">" 38848 . 38882) (symbol "_Tp" 38848 . 38882) (TYPENAME "typename" 38848 . 38882) (punctuation "<" 38848 . 38882) (TEMPLATE "template" 38848 . 38882) (OPERATOR "operator" 38804 . 38847) (punctuation ">" 38804 . 38847) (symbol "result_type" 38804 . 38847) (punctuation ":" 38804 . 38847) (punctuation ":" 38804 . 38847) (punctuation ">" 38804 . 38847) (symbol "_Tp" 38804 . 38847) (punctuation "," 38804 . 38847) (punctuation "<" 38804 . 38847) (symbol "__fun" 38804 . 38847) (TYPENAME "typename" 38804 . 38847) (punctuation "," 38804 . 38847) (punctuation ">" 38804 . 38847) (symbol "_Tp" 38804 . 38847) (punctuation "," 38804 . 38847) (symbol "_Tp" 38804 . 38847) (punctuation "," 38804 . 38847) (symbol "_ValArray" 38804 . 38847) (punctuation "," 38804 . 38847) (symbol "_Constant" 38804 . 38847) (punctuation "," 38804 . 38847) (punctuation "<" 38804 . 38847) (symbol "_BinClos" 38804 . 38847) (punctuation "<" 38804 . 38847) (symbol "_Expr" 38804 . 38847) (INLINE "inline" 38804 . 38847) (punctuation ">" 38804 . 38847) (symbol "_Tp" 38804 . 38847) (TYPENAME "typename" 38804 . 38847) (punctuation "<" 38804 . 38847) (TEMPLATE "template" 38804 . 38847) (OPERATOR "operator" 38804 . 38847) (punctuation ">" 38804 . 38847) (symbol "result_type" 38804 . 38847) (punctuation ":" 38804 . 38847) (punctuation ":" 38804 . 38847) (punctuation ">" 38804 . 38847) (symbol "_Tp" 38804 . 38847) (punctuation "," 38804 . 38847) (punctuation "<" 38804 . 38847) (symbol "__fun" 38804 . 38847) (TYPENAME "typename" 38804 . 38847) (punctuation "," 38804 . 38847) (punctuation ">" 38804 . 38847) (symbol "_Tp" 38804 . 38847) (punctuation "," 38804 . 38847) (symbol "_Tp" 38804 . 38847) (punctuation "," 38804 . 38847) (symbol "_Constant" 38804 . 38847) (punctuation "," 38804 . 38847) (symbol "_ValArray" 38804 . 38847) (punctuation "," 38804 . 38847) (punctuation "<" 38804 . 38847) (symbol "_BinClos" 38804 . 38847) (punctuation "<" 38804 . 38847) (symbol "_Expr" 38804 . 38847) (INLINE "inline" 38804 . 38847) (punctuation ">" 38804 . 38847) (symbol "_Tp" 38804 . 38847) (TYPENAME "typename" 38804 . 38847) (punctuation "<" 38804 . 38847) (TEMPLATE "template" 38804 . 38847) (OPERATOR "operator" 38804 . 38847) (punctuation ">" 38804 . 38847) (symbol "result_type" 38804 . 38847) (punctuation ":" 38804 . 38847) (punctuation ":" 38804 . 38847) (punctuation ">" 38804 . 38847) (symbol "_Tp" 38804 . 38847) (punctuation "," 38804 . 38847) (punctuation "<" 38804 . 38847) (symbol "__fun" 38804 . 38847) (TYPENAME "typename" 38804 . 38847) (punctuation "," 38804 . 38847) (punctuation ">" 38804 . 38847) (symbol "_Tp" 38804 . 38847) (punctuation "," 38804 . 38847) (symbol "_Tp" 38804 . 38847) (punctuation "," 38804 . 38847) (symbol "_ValArray" 38804 . 38847) (punctuation "," 38804 . 38847) (symbol "_ValArray" 38804 . 38847) (punctuation "," 38804 . 38847) (punctuation "<" 38804 . 38847) (symbol "_BinClos" 38804 . 38847) (punctuation "<" 38804 . 38847) (symbol "_Expr" 38804 . 38847) (INLINE "inline" 38804 . 38847) (punctuation ">" 38804 . 38847) (symbol "_Tp" 38804 . 38847) (TYPENAME "typename" 38804 . 38847) (punctuation "<" 38804 . 38847) (TEMPLATE "template" 38804 . 38847) (OPERATOR "operator" 38764 . 38803) (punctuation ">" 38764 . 38803) (symbol "result_type" 38764 . 38803) (punctuation ":" 38764 . 38803) (punctuation ":" 38764 . 38803) (punctuation ">" 38764 . 38803) (symbol "_Tp" 38764 . 38803) (punctuation "," 38764 . 38803) (punctuation "<" 38764 . 38803) (symbol "__fun" 38764 . 38803) (TYPENAME "typename" 38764 . 38803) (punctuation "," 38764 . 38803) (punctuation ">" 38764 . 38803) (symbol "_Tp" 38764 . 38803) (punctuation "," 38764 . 38803) (symbol "_Tp" 38764 . 38803) (punctuation "," 38764 . 38803) (symbol "_ValArray" 38764 . 38803) (punctuation "," 38764 . 38803) (symbol "_Constant" 38764 . 38803) (punctuation "," 38764 . 38803) (punctuation "<" 38764 . 38803) (symbol "_BinClos" 38764 . 38803) (punctuation "<" 38764 . 38803) (symbol "_Expr" 38764 . 38803) (INLINE "inline" 38764 . 38803) (punctuation ">" 38764 . 38803) (symbol "_Tp" 38764 . 38803) (TYPENAME "typename" 38764 . 38803) (punctuation "<" 38764 . 38803) (TEMPLATE "template" 38764 . 38803) (OPERATOR "operator" 38764 . 38803) (punctuation ">" 38764 . 38803) (symbol "result_type" 38764 . 38803) (punctuation ":" 38764 . 38803) (punctuation ":" 38764 . 38803) (punctuation ">" 38764 . 38803) (symbol "_Tp" 38764 . 38803) (punctuation "," 38764 . 38803) (punctuation "<" 38764 . 38803) (symbol "__fun" 38764 . 38803) (TYPENAME "typename" 38764 . 38803) (punctuation "," 38764 . 38803) (punctuation ">" 38764 . 38803) (symbol "_Tp" 38764 . 38803) (punctuation "," 38764 . 38803) (symbol "_Tp" 38764 . 38803) (punctuation "," 38764 . 38803) (symbol "_Constant" 38764 . 38803) (punctuation "," 38764 . 38803) (symbol "_ValArray" 38764 . 38803) (punctuation "," 38764 . 38803) (punctuation "<" 38764 . 38803) (symbol "_BinClos" 38764 . 38803) (punctuation "<" 38764 . 38803) (symbol "_Expr" 38764 . 38803) (INLINE "inline" 38764 . 38803) (punctuation ">" 38764 . 38803) (symbol "_Tp" 38764 . 38803) (TYPENAME "typename" 38764 . 38803) (punctuation "<" 38764 . 38803) (TEMPLATE "template" 38764 . 38803) (OPERATOR "operator" 38764 . 38803) (punctuation ">" 38764 . 38803) (symbol "result_type" 38764 . 38803) (punctuation ":" 38764 . 38803) (punctuation ":" 38764 . 38803) (punctuation ">" 38764 . 38803) (symbol "_Tp" 38764 . 38803) (punctuation "," 38764 . 38803) (punctuation "<" 38764 . 38803) (symbol "__fun" 38764 . 38803) (TYPENAME "typename" 38764 . 38803) (punctuation "," 38764 . 38803) (punctuation ">" 38764 . 38803) (symbol "_Tp" 38764 . 38803) (punctuation "," 38764 . 38803) (symbol "_Tp" 38764 . 38803) (punctuation "," 38764 . 38803) (symbol "_ValArray" 38764 . 38803) (punctuation "," 38764 . 38803) (symbol "_ValArray" 38764 . 38803) (punctuation "," 38764 . 38803) (punctuation "<" 38764 . 38803) (symbol "_BinClos" 38764 . 38803) (punctuation "<" 38764 . 38803) (symbol "_Expr" 38764 . 38803) (INLINE "inline" 38764 . 38803) (punctuation ">" 38764 . 38803) (symbol "_Tp" 38764 . 38803) (TYPENAME "typename" 38764 . 38803) (punctuation "<" 38764 . 38803) (TEMPLATE "template" 38764 . 38803) (OPERATOR "operator" 38722 . 38763) (punctuation ">" 38722 . 38763) (symbol "result_type" 38722 . 38763) (punctuation ":" 38722 . 38763) (punctuation ":" 38722 . 38763) (punctuation ">" 38722 . 38763) (symbol "_Tp" 38722 . 38763) (punctuation "," 38722 . 38763) (punctuation "<" 38722 . 38763) (symbol "__fun" 38722 . 38763) (TYPENAME "typename" 38722 . 38763) (punctuation "," 38722 . 38763) (punctuation ">" 38722 . 38763) (symbol "_Tp" 38722 . 38763) (punctuation "," 38722 . 38763) (symbol "_Tp" 38722 . 38763) (punctuation "," 38722 . 38763) (symbol "_ValArray" 38722 . 38763) (punctuation "," 38722 . 38763) (symbol "_Constant" 38722 . 38763) (punctuation "," 38722 . 38763) (punctuation "<" 38722 . 38763) (symbol "_BinClos" 38722 . 38763) (punctuation "<" 38722 . 38763) (symbol "_Expr" 38722 . 38763) (INLINE "inline" 38722 . 38763) (punctuation ">" 38722 . 38763) (symbol "_Tp" 38722 . 38763) (TYPENAME "typename" 38722 . 38763) (punctuation "<" 38722 . 38763) (TEMPLATE "template" 38722 . 38763) (OPERATOR "operator" 38722 . 38763) (punctuation ">" 38722 . 38763) (symbol "result_type" 38722 . 38763) (punctuation ":" 38722 . 38763) (punctuation ":" 38722 . 38763) (punctuation ">" 38722 . 38763) (symbol "_Tp" 38722 . 38763) (punctuation "," 38722 . 38763) (punctuation "<" 38722 . 38763) (symbol "__fun" 38722 . 38763) (TYPENAME "typename" 38722 . 38763) (punctuation "," 38722 . 38763) (punctuation ">" 38722 . 38763) (symbol "_Tp" 38722 . 38763) (punctuation "," 38722 . 38763) (symbol "_Tp" 38722 . 38763) (punctuation "," 38722 . 38763) (symbol "_Constant" 38722 . 38763) (punctuation "," 38722 . 38763) (symbol "_ValArray" 38722 . 38763) (punctuation "," 38722 . 38763) (punctuation "<" 38722 . 38763) (symbol "_BinClos" 38722 . 38763) (punctuation "<" 38722 . 38763) (symbol "_Expr" 38722 . 38763) (INLINE "inline" 38722 . 38763) (punctuation ">" 38722 . 38763) (symbol "_Tp" 38722 . 38763) (TYPENAME "typename" 38722 . 38763) (punctuation "<" 38722 . 38763) (TEMPLATE "template" 38722 . 38763) (OPERATOR "operator" 38722 . 38763) (punctuation ">" 38722 . 38763) (symbol "result_type" 38722 . 38763) (punctuation ":" 38722 . 38763) (punctuation ":" 38722 . 38763) (punctuation ">" 38722 . 38763) (symbol "_Tp" 38722 . 38763) (punctuation "," 38722 . 38763) (punctuation "<" 38722 . 38763) (symbol "__fun" 38722 . 38763) (TYPENAME "typename" 38722 . 38763) (punctuation "," 38722 . 38763) (punctuation ">" 38722 . 38763) (symbol "_Tp" 38722 . 38763) (punctuation "," 38722 . 38763) (symbol "_Tp" 38722 . 38763) (punctuation "," 38722 . 38763) (symbol "_ValArray" 38722 . 38763) (punctuation "," 38722 . 38763) (symbol "_ValArray" 38722 . 38763) (punctuation "," 38722 . 38763) (punctuation "<" 38722 . 38763) (symbol "_BinClos" 38722 . 38763) (punctuation "<" 38722 . 38763) (symbol "_Expr" 38722 . 38763) (INLINE "inline" 38722 . 38763) (punctuation ">" 38722 . 38763) (symbol "_Tp" 38722 . 38763) (TYPENAME "typename" 38722 . 38763) (punctuation "<" 38722 . 38763) (TEMPLATE "template" 38722 . 38763) (OPERATOR "operator" 38679 . 38721) (punctuation ">" 38679 . 38721) (symbol "result_type" 38679 . 38721) (punctuation ":" 38679 . 38721) (punctuation ":" 38679 . 38721) (punctuation ">" 38679 . 38721) (symbol "_Tp" 38679 . 38721) (punctuation "," 38679 . 38721) (punctuation "<" 38679 . 38721) (symbol "__fun" 38679 . 38721) (TYPENAME "typename" 38679 . 38721) (punctuation "," 38679 . 38721) (punctuation ">" 38679 . 38721) (symbol "_Tp" 38679 . 38721) (punctuation "," 38679 . 38721) (symbol "_Tp" 38679 . 38721) (punctuation "," 38679 . 38721) (symbol "_ValArray" 38679 . 38721) (punctuation "," 38679 . 38721) (symbol "_Constant" 38679 . 38721) (punctuation "," 38679 . 38721) (punctuation "<" 38679 . 38721) (symbol "_BinClos" 38679 . 38721) (punctuation "<" 38679 . 38721) (symbol "_Expr" 38679 . 38721) (INLINE "inline" 38679 . 38721) (punctuation ">" 38679 . 38721) (symbol "_Tp" 38679 . 38721) (TYPENAME "typename" 38679 . 38721) (punctuation "<" 38679 . 38721) (TEMPLATE "template" 38679 . 38721) (OPERATOR "operator" 38679 . 38721) (punctuation ">" 38679 . 38721) (symbol "result_type" 38679 . 38721) (punctuation ":" 38679 . 38721) (punctuation ":" 38679 . 38721) (punctuation ">" 38679 . 38721) (symbol "_Tp" 38679 . 38721) (punctuation "," 38679 . 38721) (punctuation "<" 38679 . 38721) (symbol "__fun" 38679 . 38721) (TYPENAME "typename" 38679 . 38721) (punctuation "," 38679 . 38721) (punctuation ">" 38679 . 38721) (symbol "_Tp" 38679 . 38721) (punctuation "," 38679 . 38721) (symbol "_Tp" 38679 . 38721) (punctuation "," 38679 . 38721) (symbol "_Constant" 38679 . 38721) (punctuation "," 38679 . 38721) (symbol "_ValArray" 38679 . 38721) (punctuation "," 38679 . 38721) (punctuation "<" 38679 . 38721) (symbol "_BinClos" 38679 . 38721) (punctuation "<" 38679 . 38721) (symbol "_Expr" 38679 . 38721) (INLINE "inline" 38679 . 38721) (punctuation ">" 38679 . 38721) (symbol "_Tp" 38679 . 38721) (TYPENAME "typename" 38679 . 38721) (punctuation "<" 38679 . 38721) (TEMPLATE "template" 38679 . 38721) (OPERATOR "operator" 38679 . 38721) (punctuation ">" 38679 . 38721) (symbol "result_type" 38679 . 38721) (punctuation ":" 38679 . 38721) (punctuation ":" 38679 . 38721) (punctuation ">" 38679 . 38721) (symbol "_Tp" 38679 . 38721) (punctuation "," 38679 . 38721) (punctuation "<" 38679 . 38721) (symbol "__fun" 38679 . 38721) (TYPENAME "typename" 38679 . 38721) (punctuation "," 38679 . 38721) (punctuation ">" 38679 . 38721) (symbol "_Tp" 38679 . 38721) (punctuation "," 38679 . 38721) (symbol "_Tp" 38679 . 38721) (punctuation "," 38679 . 38721) (symbol "_ValArray" 38679 . 38721) (punctuation "," 38679 . 38721) (symbol "_ValArray" 38679 . 38721) (punctuation "," 38679 . 38721) (punctuation "<" 38679 . 38721) (symbol "_BinClos" 38679 . 38721) (punctuation "<" 38679 . 38721) (symbol "_Expr" 38679 . 38721) (INLINE "inline" 38679 . 38721) (punctuation ">" 38679 . 38721) (symbol "_Tp" 38679 . 38721) (TYPENAME "typename" 38679 . 38721) (punctuation "<" 38679 . 38721) (TEMPLATE "template" 38679 . 38721) (OPERATOR "operator" 38636 . 38678) (punctuation ">" 38636 . 38678) (symbol "result_type" 38636 . 38678) (punctuation ":" 38636 . 38678) (punctuation ":" 38636 . 38678) (punctuation ">" 38636 . 38678) (symbol "_Tp" 38636 . 38678) (punctuation "," 38636 . 38678) (punctuation "<" 38636 . 38678) (symbol "__fun" 38636 . 38678) (TYPENAME "typename" 38636 . 38678) (punctuation "," 38636 . 38678) (punctuation ">" 38636 . 38678) (symbol "_Tp" 38636 . 38678) (punctuation "," 38636 . 38678) (symbol "_Tp" 38636 . 38678) (punctuation "," 38636 . 38678) (symbol "_ValArray" 38636 . 38678) (punctuation "," 38636 . 38678) (symbol "_Constant" 38636 . 38678) (punctuation "," 38636 . 38678) (punctuation "<" 38636 . 38678) (symbol "_BinClos" 38636 . 38678) (punctuation "<" 38636 . 38678) (symbol "_Expr" 38636 . 38678) (INLINE "inline" 38636 . 38678) (punctuation ">" 38636 . 38678) (symbol "_Tp" 38636 . 38678) (TYPENAME "typename" 38636 . 38678) (punctuation "<" 38636 . 38678) (TEMPLATE "template" 38636 . 38678) (OPERATOR "operator" 38636 . 38678) (punctuation ">" 38636 . 38678) (symbol "result_type" 38636 . 38678) (punctuation ":" 38636 . 38678) (punctuation ":" 38636 . 38678) (punctuation ">" 38636 . 38678) (symbol "_Tp" 38636 . 38678) (punctuation "," 38636 . 38678) (punctuation "<" 38636 . 38678) (symbol "__fun" 38636 . 38678) (TYPENAME "typename" 38636 . 38678) (punctuation "," 38636 . 38678) (punctuation ">" 38636 . 38678) (symbol "_Tp" 38636 . 38678) (punctuation "," 38636 . 38678) (symbol "_Tp" 38636 . 38678) (punctuation "," 38636 . 38678) (symbol "_Constant" 38636 . 38678) (punctuation "," 38636 . 38678) (symbol "_ValArray" 38636 . 38678) (punctuation "," 38636 . 38678) (punctuation "<" 38636 . 38678) (symbol "_BinClos" 38636 . 38678) (punctuation "<" 38636 . 38678) (symbol "_Expr" 38636 . 38678) (INLINE "inline" 38636 . 38678) (punctuation ">" 38636 . 38678) (symbol "_Tp" 38636 . 38678) (TYPENAME "typename" 38636 . 38678) (punctuation "<" 38636 . 38678) (TEMPLATE "template" 38636 . 38678) (OPERATOR "operator" 38636 . 38678) (punctuation ">" 38636 . 38678) (symbol "result_type" 38636 . 38678) (punctuation ":" 38636 . 38678) (punctuation ":" 38636 . 38678) (punctuation ">" 38636 . 38678) (symbol "_Tp" 38636 . 38678) (punctuation "," 38636 . 38678) (punctuation "<" 38636 . 38678) (symbol "__fun" 38636 . 38678) (TYPENAME "typename" 38636 . 38678) (punctuation "," 38636 . 38678) (punctuation ">" 38636 . 38678) (symbol "_Tp" 38636 . 38678) (punctuation "," 38636 . 38678) (symbol "_Tp" 38636 . 38678) (punctuation "," 38636 . 38678) (symbol "_ValArray" 38636 . 38678) (punctuation "," 38636 . 38678) (symbol "_ValArray" 38636 . 38678) (punctuation "," 38636 . 38678) (punctuation "<" 38636 . 38678) (symbol "_BinClos" 38636 . 38678) (punctuation "<" 38636 . 38678) (symbol "_Expr" 38636 . 38678) (INLINE "inline" 38636 . 38678) (punctuation ">" 38636 . 38678) (symbol "_Tp" 38636 . 38678) (TYPENAME "typename" 38636 . 38678) (punctuation "<" 38636 . 38678) (TEMPLATE "template" 38636 . 38678) (OPERATOR "operator" 38594 . 38635) (punctuation ">" 38594 . 38635) (symbol "result_type" 38594 . 38635) (punctuation ":" 38594 . 38635) (punctuation ":" 38594 . 38635) (punctuation ">" 38594 . 38635) (symbol "_Tp" 38594 . 38635) (punctuation "," 38594 . 38635) (punctuation "<" 38594 . 38635) (symbol "__fun" 38594 . 38635) (TYPENAME "typename" 38594 . 38635) (punctuation "," 38594 . 38635) (punctuation ">" 38594 . 38635) (symbol "_Tp" 38594 . 38635) (punctuation "," 38594 . 38635) (symbol "_Tp" 38594 . 38635) (punctuation "," 38594 . 38635) (symbol "_ValArray" 38594 . 38635) (punctuation "," 38594 . 38635) (symbol "_Constant" 38594 . 38635) (punctuation "," 38594 . 38635) (punctuation "<" 38594 . 38635) (symbol "_BinClos" 38594 . 38635) (punctuation "<" 38594 . 38635) (symbol "_Expr" 38594 . 38635) (INLINE "inline" 38594 . 38635) (punctuation ">" 38594 . 38635) (symbol "_Tp" 38594 . 38635) (TYPENAME "typename" 38594 . 38635) (punctuation "<" 38594 . 38635) (TEMPLATE "template" 38594 . 38635) (OPERATOR "operator" 38594 . 38635) (punctuation ">" 38594 . 38635) (symbol "result_type" 38594 . 38635) (punctuation ":" 38594 . 38635) (punctuation ":" 38594 . 38635) (punctuation ">" 38594 . 38635) (symbol "_Tp" 38594 . 38635) (punctuation "," 38594 . 38635) (punctuation "<" 38594 . 38635) (symbol "__fun" 38594 . 38635) (TYPENAME "typename" 38594 . 38635) (punctuation "," 38594 . 38635) (punctuation ">" 38594 . 38635) (symbol "_Tp" 38594 . 38635) (punctuation "," 38594 . 38635) (symbol "_Tp" 38594 . 38635) (punctuation "," 38594 . 38635) (symbol "_Constant" 38594 . 38635) (punctuation "," 38594 . 38635) (symbol "_ValArray" 38594 . 38635) (punctuation "," 38594 . 38635) (punctuation "<" 38594 . 38635) (symbol "_BinClos" 38594 . 38635) (punctuation "<" 38594 . 38635) (symbol "_Expr" 38594 . 38635) (INLINE "inline" 38594 . 38635) (punctuation ">" 38594 . 38635) (symbol "_Tp" 38594 . 38635) (TYPENAME "typename" 38594 . 38635) (punctuation "<" 38594 . 38635) (TEMPLATE "template" 38594 . 38635) (OPERATOR "operator" 38594 . 38635) (punctuation ">" 38594 . 38635) (symbol "result_type" 38594 . 38635) (punctuation ":" 38594 . 38635) (punctuation ":" 38594 . 38635) (punctuation ">" 38594 . 38635) (symbol "_Tp" 38594 . 38635) (punctuation "," 38594 . 38635) (punctuation "<" 38594 . 38635) (symbol "__fun" 38594 . 38635) (TYPENAME "typename" 38594 . 38635) (punctuation "," 38594 . 38635) (punctuation ">" 38594 . 38635) (symbol "_Tp" 38594 . 38635) (punctuation "," 38594 . 38635) (symbol "_Tp" 38594 . 38635) (punctuation "," 38594 . 38635) (symbol "_ValArray" 38594 . 38635) (punctuation "," 38594 . 38635) (symbol "_ValArray" 38594 . 38635) (punctuation "," 38594 . 38635) (punctuation "<" 38594 . 38635) (symbol "_BinClos" 38594 . 38635) (punctuation "<" 38594 . 38635) (symbol "_Expr" 38594 . 38635) (INLINE "inline" 38594 . 38635) (punctuation ">" 38594 . 38635) (symbol "_Tp" 38594 . 38635) (TYPENAME "typename" 38594 . 38635) (punctuation "<" 38594 . 38635) (TEMPLATE "template" 38594 . 38635) (OPERATOR "operator" 38553 . 38593) (punctuation ">" 38553 . 38593) (symbol "result_type" 38553 . 38593) (punctuation ":" 38553 . 38593) (punctuation ":" 38553 . 38593) (punctuation ">" 38553 . 38593) (symbol "_Tp" 38553 . 38593) (punctuation "," 38553 . 38593) (punctuation "<" 38553 . 38593) (symbol "__fun" 38553 . 38593) (TYPENAME "typename" 38553 . 38593) (punctuation "," 38553 . 38593) (punctuation ">" 38553 . 38593) (symbol "_Tp" 38553 . 38593) (punctuation "," 38553 . 38593) (symbol "_Tp" 38553 . 38593) (punctuation "," 38553 . 38593) (symbol "_ValArray" 38553 . 38593) (punctuation "," 38553 . 38593) (symbol "_Constant" 38553 . 38593) (punctuation "," 38553 . 38593) (punctuation "<" 38553 . 38593) (symbol "_BinClos" 38553 . 38593) (punctuation "<" 38553 . 38593) (symbol "_Expr" 38553 . 38593) (INLINE "inline" 38553 . 38593) (punctuation ">" 38553 . 38593) (symbol "_Tp" 38553 . 38593) (TYPENAME "typename" 38553 . 38593) (punctuation "<" 38553 . 38593) (TEMPLATE "template" 38553 . 38593) (OPERATOR "operator" 38553 . 38593) (punctuation ">" 38553 . 38593) (symbol "result_type" 38553 . 38593) (punctuation ":" 38553 . 38593) (punctuation ":" 38553 . 38593) (punctuation ">" 38553 . 38593) (symbol "_Tp" 38553 . 38593) (punctuation "," 38553 . 38593) (punctuation "<" 38553 . 38593) (symbol "__fun" 38553 . 38593) (TYPENAME "typename" 38553 . 38593) (punctuation "," 38553 . 38593) (punctuation ">" 38553 . 38593) (symbol "_Tp" 38553 . 38593) (punctuation "," 38553 . 38593) (symbol "_Tp" 38553 . 38593) (punctuation "," 38553 . 38593) (symbol "_Constant" 38553 . 38593) (punctuation "," 38553 . 38593) (symbol "_ValArray" 38553 . 38593) (punctuation "," 38553 . 38593) (punctuation "<" 38553 . 38593) (symbol "_BinClos" 38553 . 38593) (punctuation "<" 38553 . 38593) (symbol "_Expr" 38553 . 38593) (INLINE "inline" 38553 . 38593) (punctuation ">" 38553 . 38593) (symbol "_Tp" 38553 . 38593) (TYPENAME "typename" 38553 . 38593) (punctuation "<" 38553 . 38593) (TEMPLATE "template" 38553 . 38593) (OPERATOR "operator" 38553 . 38593) (punctuation ">" 38553 . 38593) (symbol "result_type" 38553 . 38593) (punctuation ":" 38553 . 38593) (punctuation ":" 38553 . 38593) (punctuation ">" 38553 . 38593) (symbol "_Tp" 38553 . 38593) (punctuation "," 38553 . 38593) (punctuation "<" 38553 . 38593) (symbol "__fun" 38553 . 38593) (TYPENAME "typename" 38553 . 38593) (punctuation "," 38553 . 38593) (punctuation ">" 38553 . 38593) (symbol "_Tp" 38553 . 38593) (punctuation "," 38553 . 38593) (symbol "_Tp" 38553 . 38593) (punctuation "," 38553 . 38593) (symbol "_ValArray" 38553 . 38593) (punctuation "," 38553 . 38593) (symbol "_ValArray" 38553 . 38593) (punctuation "," 38553 . 38593) (punctuation "<" 38553 . 38593) (symbol "_BinClos" 38553 . 38593) (punctuation "<" 38553 . 38593) (symbol "_Expr" 38553 . 38593) (INLINE "inline" 38553 . 38593) (punctuation ">" 38553 . 38593) (symbol "_Tp" 38553 . 38593) (TYPENAME "typename" 38553 . 38593) (punctuation "<" 38553 . 38593) (TEMPLATE "template" 38553 . 38593) (OPERATOR "operator" 38511 . 38552) (punctuation ">" 38511 . 38552) (symbol "result_type" 38511 . 38552) (punctuation ":" 38511 . 38552) (punctuation ":" 38511 . 38552) (punctuation ">" 38511 . 38552) (symbol "_Tp" 38511 . 38552) (punctuation "," 38511 . 38552) (punctuation "<" 38511 . 38552) (symbol "__fun" 38511 . 38552) (TYPENAME "typename" 38511 . 38552) (punctuation "," 38511 . 38552) (punctuation ">" 38511 . 38552) (symbol "_Tp" 38511 . 38552) (punctuation "," 38511 . 38552) (symbol "_Tp" 38511 . 38552) (punctuation "," 38511 . 38552) (symbol "_ValArray" 38511 . 38552) (punctuation "," 38511 . 38552) (symbol "_Constant" 38511 . 38552) (punctuation "," 38511 . 38552) (punctuation "<" 38511 . 38552) (symbol "_BinClos" 38511 . 38552) (punctuation "<" 38511 . 38552) (symbol "_Expr" 38511 . 38552) (INLINE "inline" 38511 . 38552) (punctuation ">" 38511 . 38552) (symbol "_Tp" 38511 . 38552) (TYPENAME "typename" 38511 . 38552) (punctuation "<" 38511 . 38552) (TEMPLATE "template" 38511 . 38552) (OPERATOR "operator" 38511 . 38552) (punctuation ">" 38511 . 38552) (symbol "result_type" 38511 . 38552) (punctuation ":" 38511 . 38552) (punctuation ":" 38511 . 38552) (punctuation ">" 38511 . 38552) (symbol "_Tp" 38511 . 38552) (punctuation "," 38511 . 38552) (punctuation "<" 38511 . 38552) (symbol "__fun" 38511 . 38552) (TYPENAME "typename" 38511 . 38552) (punctuation "," 38511 . 38552) (punctuation ">" 38511 . 38552) (symbol "_Tp" 38511 . 38552) (punctuation "," 38511 . 38552) (symbol "_Tp" 38511 . 38552) (punctuation "," 38511 . 38552) (symbol "_Constant" 38511 . 38552) (punctuation "," 38511 . 38552) (symbol "_ValArray" 38511 . 38552) (punctuation "," 38511 . 38552) (punctuation "<" 38511 . 38552) (symbol "_BinClos" 38511 . 38552) (punctuation "<" 38511 . 38552) (symbol "_Expr" 38511 . 38552) (INLINE "inline" 38511 . 38552) (punctuation ">" 38511 . 38552) (symbol "_Tp" 38511 . 38552) (TYPENAME "typename" 38511 . 38552) (punctuation "<" 38511 . 38552) (TEMPLATE "template" 38511 . 38552) (OPERATOR "operator" 38511 . 38552) (punctuation ">" 38511 . 38552) (symbol "result_type" 38511 . 38552) (punctuation ":" 38511 . 38552) (punctuation ":" 38511 . 38552) (punctuation ">" 38511 . 38552) (symbol "_Tp" 38511 . 38552) (punctuation "," 38511 . 38552) (punctuation "<" 38511 . 38552) (symbol "__fun" 38511 . 38552) (TYPENAME "typename" 38511 . 38552) (punctuation "," 38511 . 38552) (punctuation ">" 38511 . 38552) (symbol "_Tp" 38511 . 38552) (punctuation "," 38511 . 38552) (symbol "_Tp" 38511 . 38552) (punctuation "," 38511 . 38552) (symbol "_ValArray" 38511 . 38552) (punctuation "," 38511 . 38552) (symbol "_ValArray" 38511 . 38552) (punctuation "," 38511 . 38552) (punctuation "<" 38511 . 38552) (symbol "_BinClos" 38511 . 38552) (punctuation "<" 38511 . 38552) (symbol "_Expr" 38511 . 38552) (INLINE "inline" 38511 . 38552) (punctuation ">" 38511 . 38552) (symbol "_Tp" 38511 . 38552) (TYPENAME "typename" 38511 . 38552) (punctuation "<" 38511 . 38552) (TEMPLATE "template" 38511 . 38552) (OPERATOR "operator" 38469 . 38510) (punctuation ">" 38469 . 38510) (symbol "result_type" 38469 . 38510) (punctuation ":" 38469 . 38510) (punctuation ":" 38469 . 38510) (punctuation ">" 38469 . 38510) (symbol "_Tp" 38469 . 38510) (punctuation "," 38469 . 38510) (punctuation "<" 38469 . 38510) (symbol "__fun" 38469 . 38510) (TYPENAME "typename" 38469 . 38510) (punctuation "," 38469 . 38510) (punctuation ">" 38469 . 38510) (symbol "_Tp" 38469 . 38510) (punctuation "," 38469 . 38510) (symbol "_Tp" 38469 . 38510) (punctuation "," 38469 . 38510) (symbol "_ValArray" 38469 . 38510) (punctuation "," 38469 . 38510) (symbol "_Constant" 38469 . 38510) (punctuation "," 38469 . 38510) (punctuation "<" 38469 . 38510) (symbol "_BinClos" 38469 . 38510) (punctuation "<" 38469 . 38510) (symbol "_Expr" 38469 . 38510) (INLINE "inline" 38469 . 38510) (punctuation ">" 38469 . 38510) (symbol "_Tp" 38469 . 38510) (TYPENAME "typename" 38469 . 38510) (punctuation "<" 38469 . 38510) (TEMPLATE "template" 38469 . 38510) (OPERATOR "operator" 38469 . 38510) (punctuation ">" 38469 . 38510) (symbol "result_type" 38469 . 38510) (punctuation ":" 38469 . 38510) (punctuation ":" 38469 . 38510) (punctuation ">" 38469 . 38510) (symbol "_Tp" 38469 . 38510) (punctuation "," 38469 . 38510) (punctuation "<" 38469 . 38510) (symbol "__fun" 38469 . 38510) (TYPENAME "typename" 38469 . 38510) (punctuation "," 38469 . 38510) (punctuation ">" 38469 . 38510) (symbol "_Tp" 38469 . 38510) (punctuation "," 38469 . 38510) (symbol "_Tp" 38469 . 38510) (punctuation "," 38469 . 38510) (symbol "_Constant" 38469 . 38510) (punctuation "," 38469 . 38510) (symbol "_ValArray" 38469 . 38510) (punctuation "," 38469 . 38510) (punctuation "<" 38469 . 38510) (symbol "_BinClos" 38469 . 38510) (punctuation "<" 38469 . 38510) (symbol "_Expr" 38469 . 38510) (INLINE "inline" 38469 . 38510) (punctuation ">" 38469 . 38510) (symbol "_Tp" 38469 . 38510) (TYPENAME "typename" 38469 . 38510) (punctuation "<" 38469 . 38510) (TEMPLATE "template" 38469 . 38510) (OPERATOR "operator" 38469 . 38510) (punctuation ">" 38469 . 38510) (symbol "result_type" 38469 . 38510) (punctuation ":" 38469 . 38510) (punctuation ":" 38469 . 38510) (punctuation ">" 38469 . 38510) (symbol "_Tp" 38469 . 38510) (punctuation "," 38469 . 38510) (punctuation "<" 38469 . 38510) (symbol "__fun" 38469 . 38510) (TYPENAME "typename" 38469 . 38510) (punctuation "," 38469 . 38510) (punctuation ">" 38469 . 38510) (symbol "_Tp" 38469 . 38510) (punctuation "," 38469 . 38510) (symbol "_Tp" 38469 . 38510) (punctuation "," 38469 . 38510) (symbol "_ValArray" 38469 . 38510) (punctuation "," 38469 . 38510) (symbol "_ValArray" 38469 . 38510) (punctuation "," 38469 . 38510) (punctuation "<" 38469 . 38510) (symbol "_BinClos" 38469 . 38510) (punctuation "<" 38469 . 38510) (symbol "_Expr" 38469 . 38510) (INLINE "inline" 38469 . 38510) (punctuation ">" 38469 . 38510) (symbol "_Tp" 38469 . 38510) (TYPENAME "typename" 38469 . 38510) (punctuation "<" 38469 . 38510) (TEMPLATE "template" 38469 . 38510) (OPERATOR "operator" 38431 . 38468) (punctuation ">" 38431 . 38468) (symbol "result_type" 38431 . 38468) (punctuation ":" 38431 . 38468) (punctuation ":" 38431 . 38468) (punctuation ">" 38431 . 38468) (symbol "_Tp" 38431 . 38468) (punctuation "," 38431 . 38468) (punctuation "<" 38431 . 38468) (symbol "__fun" 38431 . 38468) (TYPENAME "typename" 38431 . 38468) (punctuation "," 38431 . 38468) (punctuation ">" 38431 . 38468) (symbol "_Tp" 38431 . 38468) (punctuation "," 38431 . 38468) (symbol "_Tp" 38431 . 38468) (punctuation "," 38431 . 38468) (symbol "_ValArray" 38431 . 38468) (punctuation "," 38431 . 38468) (symbol "_Constant" 38431 . 38468) (punctuation "," 38431 . 38468) (punctuation "<" 38431 . 38468) (symbol "_BinClos" 38431 . 38468) (punctuation "<" 38431 . 38468) (symbol "_Expr" 38431 . 38468) (INLINE "inline" 38431 . 38468) (punctuation ">" 38431 . 38468) (symbol "_Tp" 38431 . 38468) (TYPENAME "typename" 38431 . 38468) (punctuation "<" 38431 . 38468) (TEMPLATE "template" 38431 . 38468) (OPERATOR "operator" 38431 . 38468) (punctuation ">" 38431 . 38468) (symbol "result_type" 38431 . 38468) (punctuation ":" 38431 . 38468) (punctuation ":" 38431 . 38468) (punctuation ">" 38431 . 38468) (symbol "_Tp" 38431 . 38468) (punctuation "," 38431 . 38468) (punctuation "<" 38431 . 38468) (symbol "__fun" 38431 . 38468) (TYPENAME "typename" 38431 . 38468) (punctuation "," 38431 . 38468) (punctuation ">" 38431 . 38468) (symbol "_Tp" 38431 . 38468) (punctuation "," 38431 . 38468) (symbol "_Tp" 38431 . 38468) (punctuation "," 38431 . 38468) (symbol "_Constant" 38431 . 38468) (punctuation "," 38431 . 38468) (symbol "_ValArray" 38431 . 38468) (punctuation "," 38431 . 38468) (punctuation "<" 38431 . 38468) (symbol "_BinClos" 38431 . 38468) (punctuation "<" 38431 . 38468) (symbol "_Expr" 38431 . 38468) (INLINE "inline" 38431 . 38468) (punctuation ">" 38431 . 38468) (symbol "_Tp" 38431 . 38468) (TYPENAME "typename" 38431 . 38468) (punctuation "<" 38431 . 38468) (TEMPLATE "template" 38431 . 38468) (OPERATOR "operator" 38431 . 38468) (punctuation ">" 38431 . 38468) (symbol "result_type" 38431 . 38468) (punctuation ":" 38431 . 38468) (punctuation ":" 38431 . 38468) (punctuation ">" 38431 . 38468) (symbol "_Tp" 38431 . 38468) (punctuation "," 38431 . 38468) (punctuation "<" 38431 . 38468) (symbol "__fun" 38431 . 38468) (TYPENAME "typename" 38431 . 38468) (punctuation "," 38431 . 38468) (punctuation ">" 38431 . 38468) (symbol "_Tp" 38431 . 38468) (punctuation "," 38431 . 38468) (symbol "_Tp" 38431 . 38468) (punctuation "," 38431 . 38468) (symbol "_ValArray" 38431 . 38468) (punctuation "," 38431 . 38468) (symbol "_ValArray" 38431 . 38468) (punctuation "," 38431 . 38468) (punctuation "<" 38431 . 38468) (symbol "_BinClos" 38431 . 38468) (punctuation "<" 38431 . 38468) (symbol "_Expr" 38431 . 38468) (INLINE "inline" 38431 . 38468) (punctuation ">" 38431 . 38468) (symbol "_Tp" 38431 . 38468) (TYPENAME "typename" 38431 . 38468) (punctuation "<" 38431 . 38468) (TEMPLATE "template" 38431 . 38468) (OPERATOR "operator" 38393 . 38430) (punctuation ">" 38393 . 38430) (symbol "result_type" 38393 . 38430) (punctuation ":" 38393 . 38430) (punctuation ":" 38393 . 38430) (punctuation ">" 38393 . 38430) (symbol "_Tp" 38393 . 38430) (punctuation "," 38393 . 38430) (punctuation "<" 38393 . 38430) (symbol "__fun" 38393 . 38430) (TYPENAME "typename" 38393 . 38430) (punctuation "," 38393 . 38430) (punctuation ">" 38393 . 38430) (symbol "_Tp" 38393 . 38430) (punctuation "," 38393 . 38430) (symbol "_Tp" 38393 . 38430) (punctuation "," 38393 . 38430) (symbol "_ValArray" 38393 . 38430) (punctuation "," 38393 . 38430) (symbol "_Constant" 38393 . 38430) (punctuation "," 38393 . 38430) (punctuation "<" 38393 . 38430) (symbol "_BinClos" 38393 . 38430) (punctuation "<" 38393 . 38430) (symbol "_Expr" 38393 . 38430) (INLINE "inline" 38393 . 38430) (punctuation ">" 38393 . 38430) (symbol "_Tp" 38393 . 38430) (TYPENAME "typename" 38393 . 38430) (punctuation "<" 38393 . 38430) (TEMPLATE "template" 38393 . 38430) (OPERATOR "operator" 38393 . 38430) (punctuation ">" 38393 . 38430) (symbol "result_type" 38393 . 38430) (punctuation ":" 38393 . 38430) (punctuation ":" 38393 . 38430) (punctuation ">" 38393 . 38430) (symbol "_Tp" 38393 . 38430) (punctuation "," 38393 . 38430) (punctuation "<" 38393 . 38430) (symbol "__fun" 38393 . 38430) (TYPENAME "typename" 38393 . 38430) (punctuation "," 38393 . 38430) (punctuation ">" 38393 . 38430) (symbol "_Tp" 38393 . 38430) (punctuation "," 38393 . 38430) (symbol "_Tp" 38393 . 38430) (punctuation "," 38393 . 38430) (symbol "_Constant" 38393 . 38430) (punctuation "," 38393 . 38430) (symbol "_ValArray" 38393 . 38430) (punctuation "," 38393 . 38430) (punctuation "<" 38393 . 38430) (symbol "_BinClos" 38393 . 38430) (punctuation "<" 38393 . 38430) (symbol "_Expr" 38393 . 38430) (INLINE "inline" 38393 . 38430) (punctuation ">" 38393 . 38430) (symbol "_Tp" 38393 . 38430) (TYPENAME "typename" 38393 . 38430) (punctuation "<" 38393 . 38430) (TEMPLATE "template" 38393 . 38430) (OPERATOR "operator" 38393 . 38430) (punctuation ">" 38393 . 38430) (symbol "result_type" 38393 . 38430) (punctuation ":" 38393 . 38430) (punctuation ":" 38393 . 38430) (punctuation ">" 38393 . 38430) (symbol "_Tp" 38393 . 38430) (punctuation "," 38393 . 38430) (punctuation "<" 38393 . 38430) (symbol "__fun" 38393 . 38430) (TYPENAME "typename" 38393 . 38430) (punctuation "," 38393 . 38430) (punctuation ">" 38393 . 38430) (symbol "_Tp" 38393 . 38430) (punctuation "," 38393 . 38430) (symbol "_Tp" 38393 . 38430) (punctuation "," 38393 . 38430) (symbol "_ValArray" 38393 . 38430) (punctuation "," 38393 . 38430) (symbol "_ValArray" 38393 . 38430) (punctuation "," 38393 . 38430) (punctuation "<" 38393 . 38430) (symbol "_BinClos" 38393 . 38430) (punctuation "<" 38393 . 38430) (symbol "_Expr" 38393 . 38430) (INLINE "inline" 38393 . 38430) (punctuation ">" 38393 . 38430) (symbol "_Tp" 38393 . 38430) (TYPENAME "typename" 38393 . 38430) (punctuation "<" 38393 . 38430) (TEMPLATE "template" 38393 . 38430) (OPERATOR "operator" 38352 . 38392) (punctuation ">" 38352 . 38392) (symbol "result_type" 38352 . 38392) (punctuation ":" 38352 . 38392) (punctuation ":" 38352 . 38392) (punctuation ">" 38352 . 38392) (symbol "_Tp" 38352 . 38392) (punctuation "," 38352 . 38392) (punctuation "<" 38352 . 38392) (symbol "__fun" 38352 . 38392) (TYPENAME "typename" 38352 . 38392) (punctuation "," 38352 . 38392) (punctuation ">" 38352 . 38392) (symbol "_Tp" 38352 . 38392) (punctuation "," 38352 . 38392) (symbol "_Tp" 38352 . 38392) (punctuation "," 38352 . 38392) (symbol "_ValArray" 38352 . 38392) (punctuation "," 38352 . 38392) (symbol "_Constant" 38352 . 38392) (punctuation "," 38352 . 38392) (punctuation "<" 38352 . 38392) (symbol "_BinClos" 38352 . 38392) (punctuation "<" 38352 . 38392) (symbol "_Expr" 38352 . 38392) (INLINE "inline" 38352 . 38392) (punctuation ">" 38352 . 38392) (symbol "_Tp" 38352 . 38392) (TYPENAME "typename" 38352 . 38392) (punctuation "<" 38352 . 38392) (TEMPLATE "template" 38352 . 38392) (OPERATOR "operator" 38352 . 38392) (punctuation ">" 38352 . 38392) (symbol "result_type" 38352 . 38392) (punctuation ":" 38352 . 38392) (punctuation ":" 38352 . 38392) (punctuation ">" 38352 . 38392) (symbol "_Tp" 38352 . 38392) (punctuation "," 38352 . 38392) (punctuation "<" 38352 . 38392) (symbol "__fun" 38352 . 38392) (TYPENAME "typename" 38352 . 38392) (punctuation "," 38352 . 38392) (punctuation ">" 38352 . 38392) (symbol "_Tp" 38352 . 38392) (punctuation "," 38352 . 38392) (symbol "_Tp" 38352 . 38392) (punctuation "," 38352 . 38392) (symbol "_Constant" 38352 . 38392) (punctuation "," 38352 . 38392) (symbol "_ValArray" 38352 . 38392) (punctuation "," 38352 . 38392) (punctuation "<" 38352 . 38392) (symbol "_BinClos" 38352 . 38392) (punctuation "<" 38352 . 38392) (symbol "_Expr" 38352 . 38392) (INLINE "inline" 38352 . 38392) (punctuation ">" 38352 . 38392) (symbol "_Tp" 38352 . 38392) (TYPENAME "typename" 38352 . 38392) (punctuation "<" 38352 . 38392) (TEMPLATE "template" 38352 . 38392) (OPERATOR "operator" 38352 . 38392) (punctuation ">" 38352 . 38392) (symbol "result_type" 38352 . 38392) (punctuation ":" 38352 . 38392) (punctuation ":" 38352 . 38392) (punctuation ">" 38352 . 38392) (symbol "_Tp" 38352 . 38392) (punctuation "," 38352 . 38392) (punctuation "<" 38352 . 38392) (symbol "__fun" 38352 . 38392) (TYPENAME "typename" 38352 . 38392) (punctuation "," 38352 . 38392) (punctuation ">" 38352 . 38392) (symbol "_Tp" 38352 . 38392) (punctuation "," 38352 . 38392) (symbol "_Tp" 38352 . 38392) (punctuation "," 38352 . 38392) (symbol "_ValArray" 38352 . 38392) (punctuation "," 38352 . 38392) (symbol "_ValArray" 38352 . 38392) (punctuation "," 38352 . 38392) (punctuation "<" 38352 . 38392) (symbol "_BinClos" 38352 . 38392) (punctuation "<" 38352 . 38392) (symbol "_Expr" 38352 . 38392) (INLINE "inline" 38352 . 38392) (punctuation ">" 38352 . 38392) (symbol "_Tp" 38352 . 38392) (TYPENAME "typename" 38352 . 38392) (punctuation "<" 38352 . 38392) (TEMPLATE "template" 38352 . 38392) (OPERATOR "operator" 38316 . 38351) (punctuation ">" 38316 . 38351) (symbol "result_type" 38316 . 38351) (punctuation ":" 38316 . 38351) (punctuation ":" 38316 . 38351) (punctuation ">" 38316 . 38351) (symbol "_Tp" 38316 . 38351) (punctuation "," 38316 . 38351) (punctuation "<" 38316 . 38351) (symbol "__fun" 38316 . 38351) (TYPENAME "typename" 38316 . 38351) (punctuation "," 38316 . 38351) (punctuation ">" 38316 . 38351) (symbol "_Tp" 38316 . 38351) (punctuation "," 38316 . 38351) (symbol "_Tp" 38316 . 38351) (punctuation "," 38316 . 38351) (symbol "_ValArray" 38316 . 38351) (punctuation "," 38316 . 38351) (symbol "_Constant" 38316 . 38351) (punctuation "," 38316 . 38351) (punctuation "<" 38316 . 38351) (symbol "_BinClos" 38316 . 38351) (punctuation "<" 38316 . 38351) (symbol "_Expr" 38316 . 38351) (INLINE "inline" 38316 . 38351) (punctuation ">" 38316 . 38351) (symbol "_Tp" 38316 . 38351) (TYPENAME "typename" 38316 . 38351) (punctuation "<" 38316 . 38351) (TEMPLATE "template" 38316 . 38351) (OPERATOR "operator" 38316 . 38351) (punctuation ">" 38316 . 38351) (symbol "result_type" 38316 . 38351) (punctuation ":" 38316 . 38351) (punctuation ":" 38316 . 38351) (punctuation ">" 38316 . 38351) (symbol "_Tp" 38316 . 38351) (punctuation "," 38316 . 38351) (punctuation "<" 38316 . 38351) (symbol "__fun" 38316 . 38351) (TYPENAME "typename" 38316 . 38351) (punctuation "," 38316 . 38351) (punctuation ">" 38316 . 38351) (symbol "_Tp" 38316 . 38351) (punctuation "," 38316 . 38351) (symbol "_Tp" 38316 . 38351) (punctuation "," 38316 . 38351) (symbol "_Constant" 38316 . 38351) (punctuation "," 38316 . 38351) (symbol "_ValArray" 38316 . 38351) (punctuation "," 38316 . 38351) (punctuation "<" 38316 . 38351) (symbol "_BinClos" 38316 . 38351) (punctuation "<" 38316 . 38351) (symbol "_Expr" 38316 . 38351) (INLINE "inline" 38316 . 38351) (punctuation ">" 38316 . 38351) (symbol "_Tp" 38316 . 38351) (TYPENAME "typename" 38316 . 38351) (punctuation "<" 38316 . 38351) (TEMPLATE "template" 38316 . 38351) (OPERATOR "operator" 38316 . 38351) (punctuation ">" 38316 . 38351) (symbol "result_type" 38316 . 38351) (punctuation ":" 38316 . 38351) (punctuation ":" 38316 . 38351) (punctuation ">" 38316 . 38351) (symbol "_Tp" 38316 . 38351) (punctuation "," 38316 . 38351) (punctuation "<" 38316 . 38351) (symbol "__fun" 38316 . 38351) (TYPENAME "typename" 38316 . 38351) (punctuation "," 38316 . 38351) (punctuation ">" 38316 . 38351) (symbol "_Tp" 38316 . 38351) (punctuation "," 38316 . 38351) (symbol "_Tp" 38316 . 38351) (punctuation "," 38316 . 38351) (symbol "_ValArray" 38316 . 38351) (punctuation "," 38316 . 38351) (symbol "_ValArray" 38316 . 38351) (punctuation "," 38316 . 38351) (punctuation "<" 38316 . 38351) (symbol "_BinClos" 38316 . 38351) (punctuation "<" 38316 . 38351) (symbol "_Expr" 38316 . 38351) (INLINE "inline" 38316 . 38351) (punctuation ">" 38316 . 38351) (symbol "_Tp" 38316 . 38351) (TYPENAME "typename" 38316 . 38351) (punctuation "<" 38316 . 38351) (TEMPLATE "template" 38316 . 38351) (OPERATOR "operator" 38281 . 38315) (punctuation ">" 38281 . 38315) (symbol "result_type" 38281 . 38315) (punctuation ":" 38281 . 38315) (punctuation ":" 38281 . 38315) (punctuation ">" 38281 . 38315) (symbol "_Tp" 38281 . 38315) (punctuation "," 38281 . 38315) (punctuation "<" 38281 . 38315) (symbol "__fun" 38281 . 38315) (TYPENAME "typename" 38281 . 38315) (punctuation "," 38281 . 38315) (punctuation ">" 38281 . 38315) (symbol "_Tp" 38281 . 38315) (punctuation "," 38281 . 38315) (symbol "_Tp" 38281 . 38315) (punctuation "," 38281 . 38315) (symbol "_ValArray" 38281 . 38315) (punctuation "," 38281 . 38315) (symbol "_Constant" 38281 . 38315) (punctuation "," 38281 . 38315) (punctuation "<" 38281 . 38315) (symbol "_BinClos" 38281 . 38315) (punctuation "<" 38281 . 38315) (symbol "_Expr" 38281 . 38315) (INLINE "inline" 38281 . 38315) (punctuation ">" 38281 . 38315) (symbol "_Tp" 38281 . 38315) (TYPENAME "typename" 38281 . 38315) (punctuation "<" 38281 . 38315) (TEMPLATE "template" 38281 . 38315) (OPERATOR "operator" 38281 . 38315) (punctuation ">" 38281 . 38315) (symbol "result_type" 38281 . 38315) (punctuation ":" 38281 . 38315) (punctuation ":" 38281 . 38315) (punctuation ">" 38281 . 38315) (symbol "_Tp" 38281 . 38315) (punctuation "," 38281 . 38315) (punctuation "<" 38281 . 38315) (symbol "__fun" 38281 . 38315) (TYPENAME "typename" 38281 . 38315) (punctuation "," 38281 . 38315) (punctuation ">" 38281 . 38315) (symbol "_Tp" 38281 . 38315) (punctuation "," 38281 . 38315) (symbol "_Tp" 38281 . 38315) (punctuation "," 38281 . 38315) (symbol "_Constant" 38281 . 38315) (punctuation "," 38281 . 38315) (symbol "_ValArray" 38281 . 38315) (punctuation "," 38281 . 38315) (punctuation "<" 38281 . 38315) (symbol "_BinClos" 38281 . 38315) (punctuation "<" 38281 . 38315) (symbol "_Expr" 38281 . 38315) (INLINE "inline" 38281 . 38315) (punctuation ">" 38281 . 38315) (symbol "_Tp" 38281 . 38315) (TYPENAME "typename" 38281 . 38315) (punctuation "<" 38281 . 38315) (TEMPLATE "template" 38281 . 38315) (OPERATOR "operator" 38281 . 38315) (punctuation ">" 38281 . 38315) (symbol "result_type" 38281 . 38315) (punctuation ":" 38281 . 38315) (punctuation ":" 38281 . 38315) (punctuation ">" 38281 . 38315) (symbol "_Tp" 38281 . 38315) (punctuation "," 38281 . 38315) (punctuation "<" 38281 . 38315) (symbol "__fun" 38281 . 38315) (TYPENAME "typename" 38281 . 38315) (punctuation "," 38281 . 38315) (punctuation ">" 38281 . 38315) (symbol "_Tp" 38281 . 38315) (punctuation "," 38281 . 38315) (symbol "_Tp" 38281 . 38315) (punctuation "," 38281 . 38315) (symbol "_ValArray" 38281 . 38315) (punctuation "," 38281 . 38315) (symbol "_ValArray" 38281 . 38315) (punctuation "," 38281 . 38315) (punctuation "<" 38281 . 38315) (symbol "_BinClos" 38281 . 38315) (punctuation "<" 38281 . 38315) (symbol "_Expr" 38281 . 38315) (INLINE "inline" 38281 . 38315) (punctuation ">" 38281 . 38315) (symbol "_Tp" 38281 . 38315) (TYPENAME "typename" 38281 . 38315) (punctuation "<" 38281 . 38315) (TEMPLATE "template" 38281 . 38315) (OPERATOR "operator" 36531 . 36592) (punctuation ":" 36531 . 36592) (punctuation ":" 36531 . 36592) (punctuation ">" 36531 . 36592) (symbol "_Tp" 36531 . 36592) (punctuation "<" 36531 . 36592) (symbol "valarray" 36531 . 36592) (punctuation "&" 36531 . 36592) (punctuation ">" 36531 . 36592) (symbol "_Tp" 36531 . 36592) (punctuation "<" 36531 . 36592) (symbol "valarray" 36531 . 36592) (INLINE "inline" 36531 . 36592) (punctuation ">" 36531 . 36592) (symbol "_Dom" 36531 . 36592) (CLASS "class" 36531 . 36592) (punctuation "<" 36531 . 36592) (TEMPLATE "template" 36531 . 36592) (punctuation ">" 36531 . 36592) (symbol "_Tp" 36531 . 36592) (CLASS "class" 36531 . 36592) (punctuation "<" 36531 . 36592) (TEMPLATE "template" 36531 . 36592) (OPERATOR "operator" 36470 . 36530) (punctuation ":" 36470 . 36530) (punctuation ":" 36470 . 36530) (punctuation ">" 36470 . 36530) (symbol "_Tp" 36470 . 36530) (punctuation "<" 36470 . 36530) (symbol "valarray" 36470 . 36530) (punctuation "&" 36470 . 36530) (punctuation ">" 36470 . 36530) (symbol "_Tp" 36470 . 36530) (punctuation "<" 36470 . 36530) (symbol "valarray" 36470 . 36530) (INLINE "inline" 36470 . 36530) (punctuation ">" 36470 . 36530) (symbol "_Dom" 36470 . 36530) (CLASS "class" 36470 . 36530) (punctuation "<" 36470 . 36530) (TEMPLATE "template" 36470 . 36530) (punctuation ">" 36470 . 36530) (symbol "_Tp" 36470 . 36530) (CLASS "class" 36470 . 36530) (punctuation "<" 36470 . 36530) (TEMPLATE "template" 36470 . 36530) (OPERATOR "operator" 36410 . 36469) (punctuation ":" 36410 . 36469) (punctuation ":" 36410 . 36469) (punctuation ">" 36410 . 36469) (symbol "_Tp" 36410 . 36469) (punctuation "<" 36410 . 36469) (symbol "valarray" 36410 . 36469) (punctuation "&" 36410 . 36469) (punctuation ">" 36410 . 36469) (symbol "_Tp" 36410 . 36469) (punctuation "<" 36410 . 36469) (symbol "valarray" 36410 . 36469) (INLINE "inline" 36410 . 36469) (punctuation ">" 36410 . 36469) (symbol "_Dom" 36410 . 36469) (CLASS "class" 36410 . 36469) (punctuation "<" 36410 . 36469) (TEMPLATE "template" 36410 . 36469) (punctuation ">" 36410 . 36469) (symbol "_Tp" 36410 . 36469) (CLASS "class" 36410 . 36469) (punctuation "<" 36410 . 36469) (TEMPLATE "template" 36410 . 36469) (OPERATOR "operator" 36349 . 36409) (punctuation ":" 36349 . 36409) (punctuation ":" 36349 . 36409) (punctuation ">" 36349 . 36409) (symbol "_Tp" 36349 . 36409) (punctuation "<" 36349 . 36409) (symbol "valarray" 36349 . 36409) (punctuation "&" 36349 . 36409) (punctuation ">" 36349 . 36409) (symbol "_Tp" 36349 . 36409) (punctuation "<" 36349 . 36409) (symbol "valarray" 36349 . 36409) (INLINE "inline" 36349 . 36409) (punctuation ">" 36349 . 36409) (symbol "_Dom" 36349 . 36409) (CLASS "class" 36349 . 36409) (punctuation "<" 36349 . 36409) (TEMPLATE "template" 36349 . 36409) (punctuation ">" 36349 . 36409) (symbol "_Tp" 36349 . 36409) (CLASS "class" 36349 . 36409) (punctuation "<" 36349 . 36409) (TEMPLATE "template" 36349 . 36409) (OPERATOR "operator" 36288 . 36348) (punctuation ":" 36288 . 36348) (punctuation ":" 36288 . 36348) (punctuation ">" 36288 . 36348) (symbol "_Tp" 36288 . 36348) (punctuation "<" 36288 . 36348) (symbol "valarray" 36288 . 36348) (punctuation "&" 36288 . 36348) (punctuation ">" 36288 . 36348) (symbol "_Tp" 36288 . 36348) (punctuation "<" 36288 . 36348) (symbol "valarray" 36288 . 36348) (INLINE "inline" 36288 . 36348) (punctuation ">" 36288 . 36348) (symbol "_Dom" 36288 . 36348) (CLASS "class" 36288 . 36348) (punctuation "<" 36288 . 36348) (TEMPLATE "template" 36288 . 36348) (punctuation ">" 36288 . 36348) (symbol "_Tp" 36288 . 36348) (CLASS "class" 36288 . 36348) (punctuation "<" 36288 . 36348) (TEMPLATE "template" 36288 . 36348) (OPERATOR "operator" 36231 . 36287) (punctuation ":" 36231 . 36287) (punctuation ":" 36231 . 36287) (punctuation ">" 36231 . 36287) (symbol "_Tp" 36231 . 36287) (punctuation "<" 36231 . 36287) (symbol "valarray" 36231 . 36287) (punctuation "&" 36231 . 36287) (punctuation ">" 36231 . 36287) (symbol "_Tp" 36231 . 36287) (punctuation "<" 36231 . 36287) (symbol "valarray" 36231 . 36287) (INLINE "inline" 36231 . 36287) (punctuation ">" 36231 . 36287) (symbol "_Dom" 36231 . 36287) (CLASS "class" 36231 . 36287) (punctuation "<" 36231 . 36287) (TEMPLATE "template" 36231 . 36287) (punctuation ">" 36231 . 36287) (symbol "_Tp" 36231 . 36287) (CLASS "class" 36231 . 36287) (punctuation "<" 36231 . 36287) (TEMPLATE "template" 36231 . 36287) (OPERATOR "operator" 36174 . 36230) (punctuation ":" 36174 . 36230) (punctuation ":" 36174 . 36230) (punctuation ">" 36174 . 36230) (symbol "_Tp" 36174 . 36230) (punctuation "<" 36174 . 36230) (symbol "valarray" 36174 . 36230) (punctuation "&" 36174 . 36230) (punctuation ">" 36174 . 36230) (symbol "_Tp" 36174 . 36230) (punctuation "<" 36174 . 36230) (symbol "valarray" 36174 . 36230) (INLINE "inline" 36174 . 36230) (punctuation ">" 36174 . 36230) (symbol "_Dom" 36174 . 36230) (CLASS "class" 36174 . 36230) (punctuation "<" 36174 . 36230) (TEMPLATE "template" 36174 . 36230) (punctuation ">" 36174 . 36230) (symbol "_Tp" 36174 . 36230) (CLASS "class" 36174 . 36230) (punctuation "<" 36174 . 36230) (TEMPLATE "template" 36174 . 36230) (OPERATOR "operator" 36114 . 36173) (punctuation ":" 36114 . 36173) (punctuation ":" 36114 . 36173) (punctuation ">" 36114 . 36173) (symbol "_Tp" 36114 . 36173) (punctuation "<" 36114 . 36173) (symbol "valarray" 36114 . 36173) (punctuation "&" 36114 . 36173) (punctuation ">" 36114 . 36173) (symbol "_Tp" 36114 . 36173) (punctuation "<" 36114 . 36173) (symbol "valarray" 36114 . 36173) (INLINE "inline" 36114 . 36173) (punctuation ">" 36114 . 36173) (symbol "_Dom" 36114 . 36173) (CLASS "class" 36114 . 36173) (punctuation "<" 36114 . 36173) (TEMPLATE "template" 36114 . 36173) (punctuation ">" 36114 . 36173) (symbol "_Tp" 36114 . 36173) (CLASS "class" 36114 . 36173) (punctuation "<" 36114 . 36173) (TEMPLATE "template" 36114 . 36173) (OPERATOR "operator" 36059 . 36113) (punctuation ":" 36059 . 36113) (punctuation ":" 36059 . 36113) (punctuation ">" 36059 . 36113) (symbol "_Tp" 36059 . 36113) (punctuation "<" 36059 . 36113) (symbol "valarray" 36059 . 36113) (punctuation "&" 36059 . 36113) (punctuation ">" 36059 . 36113) (symbol "_Tp" 36059 . 36113) (punctuation "<" 36059 . 36113) (symbol "valarray" 36059 . 36113) (INLINE "inline" 36059 . 36113) (punctuation ">" 36059 . 36113) (symbol "_Dom" 36059 . 36113) (CLASS "class" 36059 . 36113) (punctuation "<" 36059 . 36113) (TEMPLATE "template" 36059 . 36113) (punctuation ">" 36059 . 36113) (symbol "_Tp" 36059 . 36113) (CLASS "class" 36059 . 36113) (punctuation "<" 36059 . 36113) (TEMPLATE "template" 36059 . 36113) (OPERATOR "operator" 36005 . 36058) (punctuation ":" 36005 . 36058) (punctuation ":" 36005 . 36058) (punctuation ">" 36005 . 36058) (symbol "_Tp" 36005 . 36058) (punctuation "<" 36005 . 36058) (symbol "valarray" 36005 . 36058) (punctuation "&" 36005 . 36058) (punctuation ">" 36005 . 36058) (symbol "_Tp" 36005 . 36058) (punctuation "<" 36005 . 36058) (symbol "valarray" 36005 . 36058) (INLINE "inline" 36005 . 36058) (punctuation ">" 36005 . 36058) (symbol "_Dom" 36005 . 36058) (CLASS "class" 36005 . 36058) (punctuation "<" 36005 . 36058) (TEMPLATE "template" 36005 . 36058) (punctuation ">" 36005 . 36058) (symbol "_Tp" 36005 . 36058) (CLASS "class" 36005 . 36058) (punctuation "<" 36005 . 36058) (TEMPLATE "template" 36005 . 36058) (OPERATOR "operator" 35558 . 35614) (punctuation ":" 35558 . 35614) (punctuation ":" 35558 . 35614) (punctuation ">" 35558 . 35614) (symbol "_Tp" 35558 . 35614) (punctuation "<" 35558 . 35614) (symbol "valarray" 35558 . 35614) (punctuation "&" 35558 . 35614) (punctuation ">" 35558 . 35614) (symbol "_Tp" 35558 . 35614) (punctuation "<" 35558 . 35614) (symbol "valarray" 35558 . 35614) (INLINE "inline" 35558 . 35614) (punctuation ">" 35558 . 35614) (symbol "_Tp" 35558 . 35614) (CLASS "class" 35558 . 35614) (punctuation "<" 35558 . 35614) (TEMPLATE "template" 35558 . 35614) (OPERATOR "operator" 35558 . 35614) (punctuation ":" 35558 . 35614) (punctuation ":" 35558 . 35614) (punctuation ">" 35558 . 35614) (symbol "_Tp" 35558 . 35614) (punctuation "<" 35558 . 35614) (symbol "valarray" 35558 . 35614) (punctuation "&" 35558 . 35614) (punctuation ">" 35558 . 35614) (symbol "_Tp" 35558 . 35614) (punctuation "<" 35558 . 35614) (symbol "valarray" 35558 . 35614) (INLINE "inline" 35558 . 35614) (punctuation ">" 35558 . 35614) (symbol "_Tp" 35558 . 35614) (CLASS "class" 35558 . 35614) (punctuation "<" 35558 . 35614) (TEMPLATE "template" 35558 . 35614) (OPERATOR "operator" 35502 . 35557) (punctuation ":" 35502 . 35557) (punctuation ":" 35502 . 35557) (punctuation ">" 35502 . 35557) (symbol "_Tp" 35502 . 35557) (punctuation "<" 35502 . 35557) (symbol "valarray" 35502 . 35557) (punctuation "&" 35502 . 35557) (punctuation ">" 35502 . 35557) (symbol "_Tp" 35502 . 35557) (punctuation "<" 35502 . 35557) (symbol "valarray" 35502 . 35557) (INLINE "inline" 35502 . 35557) (punctuation ">" 35502 . 35557) (symbol "_Tp" 35502 . 35557) (CLASS "class" 35502 . 35557) (punctuation "<" 35502 . 35557) (TEMPLATE "template" 35502 . 35557) (OPERATOR "operator" 35502 . 35557) (punctuation ":" 35502 . 35557) (punctuation ":" 35502 . 35557) (punctuation ">" 35502 . 35557) (symbol "_Tp" 35502 . 35557) (punctuation "<" 35502 . 35557) (symbol "valarray" 35502 . 35557) (punctuation "&" 35502 . 35557) (punctuation ">" 35502 . 35557) (symbol "_Tp" 35502 . 35557) (punctuation "<" 35502 . 35557) (symbol "valarray" 35502 . 35557) (INLINE "inline" 35502 . 35557) (punctuation ">" 35502 . 35557) (symbol "_Tp" 35502 . 35557) (CLASS "class" 35502 . 35557) (punctuation "<" 35502 . 35557) (TEMPLATE "template" 35502 . 35557) (OPERATOR "operator" 35447 . 35501) (punctuation ":" 35447 . 35501) (punctuation ":" 35447 . 35501) (punctuation ">" 35447 . 35501) (symbol "_Tp" 35447 . 35501) (punctuation "<" 35447 . 35501) (symbol "valarray" 35447 . 35501) (punctuation "&" 35447 . 35501) (punctuation ">" 35447 . 35501) (symbol "_Tp" 35447 . 35501) (punctuation "<" 35447 . 35501) (symbol "valarray" 35447 . 35501) (INLINE "inline" 35447 . 35501) (punctuation ">" 35447 . 35501) (symbol "_Tp" 35447 . 35501) (CLASS "class" 35447 . 35501) (punctuation "<" 35447 . 35501) (TEMPLATE "template" 35447 . 35501) (OPERATOR "operator" 35447 . 35501) (punctuation ":" 35447 . 35501) (punctuation ":" 35447 . 35501) (punctuation ">" 35447 . 35501) (symbol "_Tp" 35447 . 35501) (punctuation "<" 35447 . 35501) (symbol "valarray" 35447 . 35501) (punctuation "&" 35447 . 35501) (punctuation ">" 35447 . 35501) (symbol "_Tp" 35447 . 35501) (punctuation "<" 35447 . 35501) (symbol "valarray" 35447 . 35501) (INLINE "inline" 35447 . 35501) (punctuation ">" 35447 . 35501) (symbol "_Tp" 35447 . 35501) (CLASS "class" 35447 . 35501) (punctuation "<" 35447 . 35501) (TEMPLATE "template" 35447 . 35501) (OPERATOR "operator" 35391 . 35446) (punctuation ":" 35391 . 35446) (punctuation ":" 35391 . 35446) (punctuation ">" 35391 . 35446) (symbol "_Tp" 35391 . 35446) (punctuation "<" 35391 . 35446) (symbol "valarray" 35391 . 35446) (punctuation "&" 35391 . 35446) (punctuation ">" 35391 . 35446) (symbol "_Tp" 35391 . 35446) (punctuation "<" 35391 . 35446) (symbol "valarray" 35391 . 35446) (INLINE "inline" 35391 . 35446) (punctuation ">" 35391 . 35446) (symbol "_Tp" 35391 . 35446) (CLASS "class" 35391 . 35446) (punctuation "<" 35391 . 35446) (TEMPLATE "template" 35391 . 35446) (OPERATOR "operator" 35391 . 35446) (punctuation ":" 35391 . 35446) (punctuation ":" 35391 . 35446) (punctuation ">" 35391 . 35446) (symbol "_Tp" 35391 . 35446) (punctuation "<" 35391 . 35446) (symbol "valarray" 35391 . 35446) (punctuation "&" 35391 . 35446) (punctuation ">" 35391 . 35446) (symbol "_Tp" 35391 . 35446) (punctuation "<" 35391 . 35446) (symbol "valarray" 35391 . 35446) (INLINE "inline" 35391 . 35446) (punctuation ">" 35391 . 35446) (symbol "_Tp" 35391 . 35446) (CLASS "class" 35391 . 35446) (punctuation "<" 35391 . 35446) (TEMPLATE "template" 35391 . 35446) (OPERATOR "operator" 35335 . 35390) (punctuation ":" 35335 . 35390) (punctuation ":" 35335 . 35390) (punctuation ">" 35335 . 35390) (symbol "_Tp" 35335 . 35390) (punctuation "<" 35335 . 35390) (symbol "valarray" 35335 . 35390) (punctuation "&" 35335 . 35390) (punctuation ">" 35335 . 35390) (symbol "_Tp" 35335 . 35390) (punctuation "<" 35335 . 35390) (symbol "valarray" 35335 . 35390) (INLINE "inline" 35335 . 35390) (punctuation ">" 35335 . 35390) (symbol "_Tp" 35335 . 35390) (CLASS "class" 35335 . 35390) (punctuation "<" 35335 . 35390) (TEMPLATE "template" 35335 . 35390) (OPERATOR "operator" 35335 . 35390) (punctuation ":" 35335 . 35390) (punctuation ":" 35335 . 35390) (punctuation ">" 35335 . 35390) (symbol "_Tp" 35335 . 35390) (punctuation "<" 35335 . 35390) (symbol "valarray" 35335 . 35390) (punctuation "&" 35335 . 35390) (punctuation ">" 35335 . 35390) (symbol "_Tp" 35335 . 35390) (punctuation "<" 35335 . 35390) (symbol "valarray" 35335 . 35390) (INLINE "inline" 35335 . 35390) (punctuation ">" 35335 . 35390) (symbol "_Tp" 35335 . 35390) (CLASS "class" 35335 . 35390) (punctuation "<" 35335 . 35390) (TEMPLATE "template" 35335 . 35390) (OPERATOR "operator" 35283 . 35334) (punctuation ":" 35283 . 35334) (punctuation ":" 35283 . 35334) (punctuation ">" 35283 . 35334) (symbol "_Tp" 35283 . 35334) (punctuation "<" 35283 . 35334) (symbol "valarray" 35283 . 35334) (punctuation "&" 35283 . 35334) (punctuation ">" 35283 . 35334) (symbol "_Tp" 35283 . 35334) (punctuation "<" 35283 . 35334) (symbol "valarray" 35283 . 35334) (INLINE "inline" 35283 . 35334) (punctuation ">" 35283 . 35334) (symbol "_Tp" 35283 . 35334) (CLASS "class" 35283 . 35334) (punctuation "<" 35283 . 35334) (TEMPLATE "template" 35283 . 35334) (OPERATOR "operator" 35283 . 35334) (punctuation ":" 35283 . 35334) (punctuation ":" 35283 . 35334) (punctuation ">" 35283 . 35334) (symbol "_Tp" 35283 . 35334) (punctuation "<" 35283 . 35334) (symbol "valarray" 35283 . 35334) (punctuation "&" 35283 . 35334) (punctuation ">" 35283 . 35334) (symbol "_Tp" 35283 . 35334) (punctuation "<" 35283 . 35334) (symbol "valarray" 35283 . 35334) (INLINE "inline" 35283 . 35334) (punctuation ">" 35283 . 35334) (symbol "_Tp" 35283 . 35334) (CLASS "class" 35283 . 35334) (punctuation "<" 35283 . 35334) (TEMPLATE "template" 35283 . 35334) (OPERATOR "operator" 35231 . 35282) (punctuation ":" 35231 . 35282) (punctuation ":" 35231 . 35282) (punctuation ">" 35231 . 35282) (symbol "_Tp" 35231 . 35282) (punctuation "<" 35231 . 35282) (symbol "valarray" 35231 . 35282) (punctuation "&" 35231 . 35282) (punctuation ">" 35231 . 35282) (symbol "_Tp" 35231 . 35282) (punctuation "<" 35231 . 35282) (symbol "valarray" 35231 . 35282) (INLINE "inline" 35231 . 35282) (punctuation ">" 35231 . 35282) (symbol "_Tp" 35231 . 35282) (CLASS "class" 35231 . 35282) (punctuation "<" 35231 . 35282) (TEMPLATE "template" 35231 . 35282) (OPERATOR "operator" 35231 . 35282) (punctuation ":" 35231 . 35282) (punctuation ":" 35231 . 35282) (punctuation ">" 35231 . 35282) (symbol "_Tp" 35231 . 35282) (punctuation "<" 35231 . 35282) (symbol "valarray" 35231 . 35282) (punctuation "&" 35231 . 35282) (punctuation ">" 35231 . 35282) (symbol "_Tp" 35231 . 35282) (punctuation "<" 35231 . 35282) (symbol "valarray" 35231 . 35282) (INLINE "inline" 35231 . 35282) (punctuation ">" 35231 . 35282) (symbol "_Tp" 35231 . 35282) (CLASS "class" 35231 . 35282) (punctuation "<" 35231 . 35282) (TEMPLATE "template" 35231 . 35282) (OPERATOR "operator" 35176 . 35230) (punctuation ":" 35176 . 35230) (punctuation ":" 35176 . 35230) (punctuation ">" 35176 . 35230) (symbol "_Tp" 35176 . 35230) (punctuation "<" 35176 . 35230) (symbol "valarray" 35176 . 35230) (punctuation "&" 35176 . 35230) (punctuation ">" 35176 . 35230) (symbol "_Tp" 35176 . 35230) (punctuation "<" 35176 . 35230) (symbol "valarray" 35176 . 35230) (INLINE "inline" 35176 . 35230) (punctuation ">" 35176 . 35230) (symbol "_Tp" 35176 . 35230) (CLASS "class" 35176 . 35230) (punctuation "<" 35176 . 35230) (TEMPLATE "template" 35176 . 35230) (OPERATOR "operator" 35176 . 35230) (punctuation ":" 35176 . 35230) (punctuation ":" 35176 . 35230) (punctuation ">" 35176 . 35230) (symbol "_Tp" 35176 . 35230) (punctuation "<" 35176 . 35230) (symbol "valarray" 35176 . 35230) (punctuation "&" 35176 . 35230) (punctuation ">" 35176 . 35230) (symbol "_Tp" 35176 . 35230) (punctuation "<" 35176 . 35230) (symbol "valarray" 35176 . 35230) (INLINE "inline" 35176 . 35230) (punctuation ">" 35176 . 35230) (symbol "_Tp" 35176 . 35230) (CLASS "class" 35176 . 35230) (punctuation "<" 35176 . 35230) (TEMPLATE "template" 35176 . 35230) (OPERATOR "operator" 35126 . 35175) (punctuation ":" 35126 . 35175) (punctuation ":" 35126 . 35175) (punctuation ">" 35126 . 35175) (symbol "_Tp" 35126 . 35175) (punctuation "<" 35126 . 35175) (symbol "valarray" 35126 . 35175) (punctuation "&" 35126 . 35175) (punctuation ">" 35126 . 35175) (symbol "_Tp" 35126 . 35175) (punctuation "<" 35126 . 35175) (symbol "valarray" 35126 . 35175) (INLINE "inline" 35126 . 35175) (punctuation ">" 35126 . 35175) (symbol "_Tp" 35126 . 35175) (CLASS "class" 35126 . 35175) (punctuation "<" 35126 . 35175) (TEMPLATE "template" 35126 . 35175) (OPERATOR "operator" 35126 . 35175) (punctuation ":" 35126 . 35175) (punctuation ":" 35126 . 35175) (punctuation ">" 35126 . 35175) (symbol "_Tp" 35126 . 35175) (punctuation "<" 35126 . 35175) (symbol "valarray" 35126 . 35175) (punctuation "&" 35126 . 35175) (punctuation ">" 35126 . 35175) (symbol "_Tp" 35126 . 35175) (punctuation "<" 35126 . 35175) (symbol "valarray" 35126 . 35175) (INLINE "inline" 35126 . 35175) (punctuation ">" 35126 . 35175) (symbol "_Tp" 35126 . 35175) (CLASS "class" 35126 . 35175) (punctuation "<" 35126 . 35175) (TEMPLATE "template" 35126 . 35175) (OPERATOR "operator" 35077 . 35125) (punctuation ":" 35077 . 35125) (punctuation ":" 35077 . 35125) (punctuation ">" 35077 . 35125) (symbol "_Tp" 35077 . 35125) (punctuation "<" 35077 . 35125) (symbol "valarray" 35077 . 35125) (punctuation "&" 35077 . 35125) (punctuation ">" 35077 . 35125) (symbol "_Tp" 35077 . 35125) (punctuation "<" 35077 . 35125) (symbol "valarray" 35077 . 35125) (INLINE "inline" 35077 . 35125) (punctuation ">" 35077 . 35125) (symbol "_Tp" 35077 . 35125) (CLASS "class" 35077 . 35125) (punctuation "<" 35077 . 35125) (TEMPLATE "template" 35077 . 35125) (OPERATOR "operator" 35077 . 35125) (punctuation ":" 35077 . 35125) (punctuation ":" 35077 . 35125) (punctuation ">" 35077 . 35125) (symbol "_Tp" 35077 . 35125) (punctuation "<" 35077 . 35125) (symbol "valarray" 35077 . 35125) (punctuation "&" 35077 . 35125) (punctuation ">" 35077 . 35125) (symbol "_Tp" 35077 . 35125) (punctuation "<" 35077 . 35125) (symbol "valarray" 35077 . 35125) (INLINE "inline" 35077 . 35125) (punctuation ">" 35077 . 35125) (symbol "_Tp" 35077 . 35125) (CLASS "class" 35077 . 35125) (punctuation "<" 35077 . 35125) (TEMPLATE "template" 35077 . 35125) (OPERATOR "operator" 34294 . 34344) (punctuation ":" 34294 . 34344) (punctuation ":" 34294 . 34344) (punctuation ">" 34294 . 34344) (symbol "_Tp" 34294 . 34344) (punctuation "<" 34294 . 34344) (symbol "valarray" 34294 . 34344) (symbol "_Rt" 34294 . 34344) (punctuation ":" 34294 . 34344) (punctuation ":" 34294 . 34344) (punctuation ">" 34294 . 34344) (punctuation "<" 34294 . 34344) (symbol "_UnaryOp" 34294 . 34344) (TEMPLATE "template" 34294 . 34344) (punctuation ":" 34294 . 34344) (punctuation ":" 34294 . 34344) (punctuation ">" 34294 . 34344) (symbol "_Tp" 34294 . 34344) (punctuation "<" 34294 . 34344) (symbol "valarray" 34294 . 34344) (TYPENAME "typename" 34294 . 34344) (INLINE "inline" 34294 . 34344) (punctuation ">" 34294 . 34344) (symbol "_Tp" 34294 . 34344) (TYPENAME "typename" 34294 . 34344) (punctuation "<" 34294 . 34344) (TEMPLATE "template" 34294 . 34344) (OPERATOR "operator" 34240 . 34289) (punctuation ":" 34240 . 34289) (punctuation ":" 34240 . 34289) (punctuation ">" 34240 . 34289) (symbol "_Tp" 34240 . 34289) (punctuation "<" 34240 . 34289) (symbol "valarray" 34240 . 34289) (symbol "_Rt" 34240 . 34289) (punctuation ":" 34240 . 34289) (punctuation ":" 34240 . 34289) (punctuation ">" 34240 . 34289) (punctuation "<" 34240 . 34289) (symbol "_UnaryOp" 34240 . 34289) (TEMPLATE "template" 34240 . 34289) (punctuation ":" 34240 . 34289) (punctuation ":" 34240 . 34289) (punctuation ">" 34240 . 34289) (symbol "_Tp" 34240 . 34289) (punctuation "<" 34240 . 34289) (symbol "valarray" 34240 . 34289) (TYPENAME "typename" 34240 . 34289) (INLINE "inline" 34240 . 34289) (punctuation ">" 34240 . 34289) (symbol "_Tp" 34240 . 34289) (TYPENAME "typename" 34240 . 34289) (punctuation "<" 34240 . 34289) (TEMPLATE "template" 34240 . 34289) (OPERATOR "operator" 34191 . 34235) (punctuation ":" 34191 . 34235) (punctuation ":" 34191 . 34235) (punctuation ">" 34191 . 34235) (symbol "_Tp" 34191 . 34235) (punctuation "<" 34191 . 34235) (symbol "valarray" 34191 . 34235) (symbol "_Rt" 34191 . 34235) (punctuation ":" 34191 . 34235) (punctuation ":" 34191 . 34235) (punctuation ">" 34191 . 34235) (punctuation "<" 34191 . 34235) (symbol "_UnaryOp" 34191 . 34235) (TEMPLATE "template" 34191 . 34235) (punctuation ":" 34191 . 34235) (punctuation ":" 34191 . 34235) (punctuation ">" 34191 . 34235) (symbol "_Tp" 34191 . 34235) (punctuation "<" 34191 . 34235) (symbol "valarray" 34191 . 34235) (TYPENAME "typename" 34191 . 34235) (INLINE "inline" 34191 . 34235) (punctuation ">" 34191 . 34235) (symbol "_Tp" 34191 . 34235) (TYPENAME "typename" 34191 . 34235) (punctuation "<" 34191 . 34235) (TEMPLATE "template" 34191 . 34235) (OPERATOR "operator" 34138 . 34186) (punctuation ":" 34138 . 34186) (punctuation ":" 34138 . 34186) (punctuation ">" 34138 . 34186) (symbol "_Tp" 34138 . 34186) (punctuation "<" 34138 . 34186) (symbol "valarray" 34138 . 34186) (symbol "_Rt" 34138 . 34186) (punctuation ":" 34138 . 34186) (punctuation ":" 34138 . 34186) (punctuation ">" 34138 . 34186) (punctuation "<" 34138 . 34186) (symbol "_UnaryOp" 34138 . 34186) (TEMPLATE "template" 34138 . 34186) (punctuation ":" 34138 . 34186) (punctuation ":" 34138 . 34186) (punctuation ">" 34138 . 34186) (symbol "_Tp" 34138 . 34186) (punctuation "<" 34138 . 34186) (symbol "valarray" 34138 . 34186) (TYPENAME "typename" 34138 . 34186) (INLINE "inline" 34138 . 34186) (punctuation ">" 34138 . 34186) (symbol "_Tp" 34138 . 34186) (TYPENAME "typename" 34138 . 34186) (punctuation "<" 34138 . 34186) (TEMPLATE "template" 34138 . 34186) (semantic-list 33539 . 33552) (semantic-list 33297 . 33302) (punctuation 26970 . 26971) (symbol 26967 . 26970) (TYPENAME 26958 . 26966) (punctuation 26957 . 26958) (TEMPLATE 26949 . 26957) (punctuation 23452 . 23453) (symbol 23449 . 23452) (TYPENAME 23440 . 23448) (punctuation 23439 . 23440) (TEMPLATE 23431 . 23439) (symbol 20320 . 20328) (punctuation 19914 . 19915) (punctuation 19913 . 19914) (symbol 19910 . 19913) (punctuation 19909 . 19910) (semantic-list 19446 . 19458) (semantic-list 18959 . 18964) (punctuation 13087 . 13088) (punctuation 13086 . 13087) (punctuation 13085 . 13086) (symbol 13072 . 13085) (punctuation 13071 . 13072) (symbol 13063 . 13071) (TYPENAME 13054 . 13062) (punctuation 12953 . 12954) (punctuation 12952 . 12953) (punctuation 12951 . 12952) (symbol 12938 . 12951) (punctuation 12937 . 12938) (symbol 12929 . 12937) (TYPENAME 12920 . 12928) (punctuation 12814 . 12815) (punctuation 12813 . 12814) (punctuation 12812 . 12813) (symbol 12804 . 12812) (punctuation 12803 . 12804) (symbol 12795 . 12803) (TYPENAME 12786 . 12794) (punctuation 12684 . 12685) (punctuation 12683 . 12684) (punctuation 12682 . 12683) (symbol 12670 . 12682) (punctuation 12669 . 12670) (symbol 12661 . 12669) (TYPENAME 12652 . 12660) (EXPLICIT 4062 . 4070) (punctuation 3777 . 3778) (punctuation 3776 . 3777) (punctuation 3775 . 3776) (symbol 3772 . 3775) (punctuation 3770 . 3771) (symbol 3767 . 3770) (punctuation 3766 . 3767) (symbol 3761 . 3766) (TYPENAME 3752 . 3760) (TYPEDEF 3744 . 3751) (symbol 2820 . 2828) (punctuation 2347 . 2348) (symbol 2343 . 2347) (CLASS 2337 . 2342) (punctuation 2335 . 2336) (symbol 2330 . 2335) (CLASS 2324 . 2329) (punctuation 2322 . 2323) (CLASS 2317 . 2322) (punctuation 2315 . 2316) (CLASS 2310 . 2315) (punctuation 2309 . 2310) (TEMPLATE 2301 . 2309) (punctuation 2300 . 2301) (TEMPLATE 2292 . 2300) (punctuation 2261 . 2262) (symbol 2257 . 2261) (CLASS 2251 . 2256) (punctuation 2249 . 2250) (symbol 2244 . 2249) (CLASS 2238 . 2243) (punctuation 2236 . 2237) (CLASS 2231 . 2236) (punctuation 2229 . 2230) (CLASS 2224 . 2229) (punctuation 2223 . 2224) (TEMPLATE 2215 . 2223) (punctuation 2214 . 2215) (TEMPLATE 2206 . 2214) (punctuation 2178 . 2179) (symbol 2174 . 2178) (CLASS 2168 . 2173) (punctuation 2166 . 2167) (symbol 2161 . 2166) (CLASS 2155 . 2160) (punctuation 2153 . 2154) (CLASS 2148 . 2153) (punctuation 2146 . 2147) (CLASS 2141 . 2146) (punctuation 2140 . 2141) (TEMPLATE 2132 . 2140) (punctuation 2131 . 2132) (TEMPLATE 2123 . 2131) (punctuation 2095 . 2096) (symbol 2091 . 2095) (CLASS 2085 . 2090) (punctuation 2083 . 2084) (symbol 2078 . 2083) (CLASS 2072 . 2077) (punctuation 2070 . 2071) (CLASS 2065 . 2070) (punctuation 2063 . 2064) (CLASS 2058 . 2063) (punctuation 2057 . 2058) (TEMPLATE 2049 . 2057) (punctuation 2048 . 2049) (TEMPLATE 2040 . 2048) (punctuation 2016 . 2017) (symbol 2012 . 2016) (CLASS 2006 . 2011) (punctuation 2004 . 2005) (symbol 1999 . 2004) (CLASS 1993 . 1998) (punctuation 1991 . 1992) (CLASS 1986 . 1991) (punctuation 1984 . 1985) (CLASS 1979 . 1984) (punctuation 1978 . 1979) (TEMPLATE 1970 . 1978) (punctuation 1969 . 1970) (TEMPLATE 1961 . 1969) (punctuation 1935 . 1936) (symbol 1930 . 1935) (CLASS 1924 . 1929) (punctuation 1922 . 1923) (symbol 1917 . 1922) (CLASS 1911 . 1916) (punctuation 1901 . 1902) (symbol 1895 . 1901) (CLASS 1889 . 1894) (punctuation 1887 . 1888) (CLASS 1882 . 1887) (punctuation 1880 . 1881) (CLASS 1875 . 1880) (punctuation 1874 . 1875) (TEMPLATE 1866 . 1874) (punctuation 1856 . 1857) (symbol 1850 . 1856) (CLASS 1844 . 1849) (punctuation 1842 . 1843) (CLASS 1837 . 1842) (punctuation 1835 . 1836) (CLASS 1830 . 1835) (punctuation 1829 . 1830) (TEMPLATE 1821 . 1829) (punctuation 1811 . 1812) (symbol 1806 . 1811) (CLASS 1800 . 1805) (punctuation 1799 . 1800) (TEMPLATE 1791 . 1799) (punctuation 1766 . 1767) (symbol 1762 . 1766) (CLASS 1756 . 1761) (punctuation 1754 . 1755) (symbol 1749 . 1754) (CLASS 1743 . 1748) (punctuation 1741 . 1742) (CLASS 1736 . 1741) (punctuation 1734 . 1735) (CLASS 1729 . 1734) (punctuation 1728 . 1729) (TEMPLATE 1720 . 1728) (punctuation 1718 . 1719) (symbol 1713 . 1718) (CLASS 1707 . 1712) (punctuation 1706 . 1707) (TEMPLATE 1698 . 1706) (symbol 1323 . 1336) (symbol 1319 . 1322) (symbol 1312 . 1318) (punctuation 1311 . 1312))
       :lexical-table 
         '(("_GLIBCXX_VALARRAY" . ((number "1" 1308 . 1309)))
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("assert.h" include (:system-flag t) nil [1601 1620]))          
+      :file "cassert"
+      :pointmax 1621
+      :fsize 1620
+      :lastmodtime '(22093 55977 0 0)
+      :unmatched-syntax '((symbol 1586 . 1599) (symbol 1582 . 1585) (symbol 1575 . 1581) (punctuation 1574 . 1575)))
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("_GLIBCXX_SET" variable (:constant-flag t) nil [2267 2279])
+            ("bits/stl_tree.h" include (:system-flag t) nil [2310 2336])
+            ("bits/stl_set.h" include (:system-flag t) nil [2337 2362])
+            ("bits/stl_multiset.h" include (:system-flag t) nil [2363 2393])
+            ("bits/range_access.h" include (:system-flag t) nil [2394 2424]))          
+      :file "set"
+      :pointmax 2560
+      :fsize 2559
+      :lastmodtime '(22093 55977 0 0)
+      :unmatched-syntax '((symbol 2295 . 2308) (symbol 2291 . 2294) (symbol 2284 . 2290) (punctuation 2283 . 2284))
+      :lexical-table 
+        '(("_GLIBCXX_SET" . ((number "1" 2280 . 2281)))
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("_GLIBCXX_LIST" variable (:constant-flag t) nil [2270 2283])
+            ("bits/stl_algobase.h" include (:system-flag t) nil [2314 2344])
+            ("bits/allocator.h" include (:system-flag t) nil [2345 2372])
+            ("bits/range_access.h" include (:system-flag t) nil [2373 2403])
+            ("bits/stl_list.h" include (:system-flag t) nil [2404 2430])
+            ("bits/list.tcc" include (:system-flag t) nil [2431 2455]))          
+      :file "list"
+      :pointmax 2595
+      :fsize 2594
+      :lastmodtime '(22093 55977 0 0)
+      :unmatched-syntax '((symbol 2299 . 2312) (symbol 2295 . 2298) (symbol 2288 . 2294) (punctuation 2287 . 2288))
+      :lexical-table 
+        '(("_GLIBCXX_LIST" . ((number "1" 2284 . 2285)))
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("_GLIBCXX_IOMANIP" variable (:constant-flag t) nil [1248 1264])
+            ("bits/c++config.h" include (:system-flag t) nil [1295 1322])
+            ("iosfwd" include (:system-flag t) nil [1323 1340])
+            ("bits/ios_base.h" include (:system-flag t) nil [1341 1367])
+            ("std" type
+               (:members 
+                  ( ("_Resetiosflags" type
+                       (:members 
+                          ( ("_M_mask" variable (:type ("ios_base::fmtflags" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1586 1613]))                          
+                        :type "struct")
+                        (reparse-symbol namespacesubparts) [1562 1616])
+                    ("resetiosflags" function
+                       (:typemodifiers ("inline")
+                        :arguments 
+                          ( ("__mask" variable (:type ("ios_base::fmtflags" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1869 1895]))                          
+                        :type ("_Resetiosflags" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [1830 1920])
+                    (">>" function
+                       (:template 
+                          ( ("_CharT" type (:type "class") nil nil)
+                            ("_Traits" type (:type "class") nil nil))                          
+                        :type ("basic_istream" type
+                             (:template-specifier 
+                                ( ("_CharT" type nil nil nil)
+                                  ("_Traits" type nil nil nil))                                
+                              :type "class")
+                              nil nil)
+                        :arguments 
+                          ( ("__is" variable
+                               (:reference 1
+                                :type ("basic_istream" type
+                                     (:template-specifier 
+                                        ( ("_CharT" type nil nil nil)
+                                          ("_Traits" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [2027 2064])
+                            ("__f" variable (:type ("_Resetiosflags" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2065 2084]))                          
+                        :typemodifiers ("inline")
+                        :operator-flag t)
+                        (reparse-symbol namespacesubparts) [1924 2171])
+                    ("<<" function
+                       (:template 
+                          ( ("_CharT" type (:type "class") nil nil)
+                            ("_Traits" type (:type "class") nil nil))                          
+                        :type ("basic_ostream" type
+                             (:template-specifier 
+                                ( ("_CharT" type nil nil nil)
+                                  ("_Traits" type nil nil nil))                                
+                              :type "class")
+                              nil nil)
+                        :arguments 
+                          ( ("__os" variable
+                               (:reference 1
+                                :type ("basic_ostream" type
+                                     (:template-specifier 
+                                        ( ("_CharT" type nil nil nil)
+                                          ("_Traits" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [2278 2315])
+                            ("__f" variable (:type ("_Resetiosflags" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2316 2335]))                          
+                        :typemodifiers ("inline")
+                        :operator-flag t)
+                        (reparse-symbol namespacesubparts) [2175 2422])
+                    ("_Setiosflags" type
+                       (:members 
+                          ( ("_M_mask" variable (:type ("ios_base::fmtflags" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2449 2476]))                          
+                        :type "struct")
+                        (reparse-symbol namespacesubparts) [2427 2479])
+                    ("setiosflags" function
+                       (:typemodifiers ("inline")
+                        :arguments 
+                          ( ("__mask" variable (:type ("ios_base::fmtflags" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2706 2732]))                          
+                        :type ("_Setiosflags" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [2671 2757])
+                    (">>" function
+                       (:template 
+                          ( ("_CharT" type (:type "class") nil nil)
+                            ("_Traits" type (:type "class") nil nil))                          
+                        :type ("basic_istream" type
+                             (:template-specifier 
+                                ( ("_CharT" type nil nil nil)
+                                  ("_Traits" type nil nil nil))                                
+                              :type "class")
+                              nil nil)
+                        :arguments 
+                          ( ("__is" variable
+                               (:reference 1
+                                :type ("basic_istream" type
+                                     (:template-specifier 
+                                        ( ("_CharT" type nil nil nil)
+                                          ("_Traits" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [2864 2901])
+                            ("__f" variable (:type ("_Setiosflags" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2902 2919]))                          
+                        :typemodifiers ("inline")
+                        :operator-flag t)
+                        (reparse-symbol namespacesubparts) [2761 2983])
+                    ("<<" function
+                       (:template 
+                          ( ("_CharT" type (:type "class") nil nil)
+                            ("_Traits" type (:type "class") nil nil))                          
+                        :type ("basic_ostream" type
+                             (:template-specifier 
+                                ( ("_CharT" type nil nil nil)
+                                  ("_Traits" type nil nil nil))                                
+                              :type "class")
+                              nil nil)
+                        :arguments 
+                          ( ("__os" variable
+                               (:reference 1
+                                :type ("basic_ostream" type
+                                     (:template-specifier 
+                                        ( ("_CharT" type nil nil nil)
+                                          ("_Traits" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [3090 3127])
+                            ("__f" variable (:type ("_Setiosflags" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3128 3145]))                          
+                        :typemodifiers ("inline")
+                        :operator-flag t)
+                        (reparse-symbol namespacesubparts) [2987 3209])
+                    ("_Setbase" type
+                       (:members 
+                          ( ("_M_base" variable (:type "int") (reparse-symbol classsubparts) [3232 3244]))                          
+                        :type "struct")
+                        (reparse-symbol namespacesubparts) [3214 3247])
+                    ("setbase" function
+                       (:typemodifiers ("inline")
+                        :arguments 
+                          ( ("__base" variable (:type "int") (reparse-symbol arg-sub-list) [3586 3597]))                          
+                        :type ("_Setbase" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [3559 3622])
+                    (">>" function
+                       (:template 
+                          ( ("_CharT" type (:type "class") nil nil)
+                            ("_Traits" type (:type "class") nil nil))                          
+                        :type ("basic_istream" type
+                             (:template-specifier 
+                                ( ("_CharT" type nil nil nil)
+                                  ("_Traits" type nil nil nil))                                
+                              :type "class")
+                              nil nil)
+                        :arguments 
+                          ( ("__is" variable
+                               (:reference 1
+                                :type ("basic_istream" type
+                                     (:template-specifier 
+                                        ( ("_CharT" type nil nil nil)
+                                          ("_Traits" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [3729 3766])
+                            ("__f" variable (:type ("_Setbase" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3767 3780]))                          
+                        :typemodifiers ("inline")
+                        :operator-flag t)
+                        (reparse-symbol namespacesubparts) [3626 3990])
+                    ("<<" function
+                       (:template 
+                          ( ("_CharT" type (:type "class") nil nil)
+                            ("_Traits" type (:type "class") nil nil))                          
+                        :type ("basic_ostream" type
+                             (:template-specifier 
+                                ( ("_CharT" type nil nil nil)
+                                  ("_Traits" type nil nil nil))                                
+                              :type "class")
+                              nil nil)
+                        :arguments 
+                          ( ("__os" variable
+                               (:reference 1
+                                :type ("basic_ostream" type
+                                     (:template-specifier 
+                                        ( ("_CharT" type nil nil nil)
+                                          ("_Traits" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [4099 4136])
+                            ("__f" variable (:type ("_Setbase" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4137 4150]))                          
+                        :typemodifiers ("inline")
+                        :operator-flag t)
+                        (reparse-symbol namespacesubparts) [3996 4360])
+                    ("_Setfill" type
+                       (:template 
+                          ( ("_CharT" type (:type "class") nil nil))                          
+                        :type "struct"
+                        :members 
+                          ( ("_M_c" variable (:type ("_CharT" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4415 4427]))                          )
+                        (reparse-symbol namespacesubparts) [4367 4430])
+                    ("setfill" function
+                       (:template 
+                          ( ("_CharT" type (:type "class") nil nil))                          
+                        :type ("_Setfill" type
+                             (:template-specifier 
+                                ( ("_CharT" type nil nil nil))                                
+                              :type "class")
+                              nil nil)
+                        :arguments 
+                          ( ("__c" variable (:type ("_CharT" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4688 4699]))                          
+                        :typemodifiers ("inline"))
+                        (reparse-symbol namespacesubparts) [4622 4723])
+                    (">>" function
+                       (:template 
+                          ( ("_CharT" type (:type "class") nil nil)
+                            ("_Traits" type (:type "class") nil nil))                          
+                        :type ("basic_istream" type
+                             (:template-specifier 
+                                ( ("_CharT" type nil nil nil)
+                                  ("_Traits" type nil nil nil))                                
+                              :type "class")
+                              nil nil)
+                        :arguments 
+                          ( ("__is" variable
+                               (:reference 1
+                                :type ("basic_istream" type
+                                     (:template-specifier 
+                                        ( ("_CharT" type nil nil nil)
+                                          ("_Traits" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [4830 4867])
+                            ("__f" variable (:type ("_Setfill" type
+                                 (:template-specifier 
+                                    ( ("_CharT" type nil nil nil))                                    
+                                  :type "class")
+                                  nil nil)) (reparse-symbol arg-sub-list) [4868 4889]))                          
+                        :typemodifiers ("inline")
+                        :operator-flag t)
+                        (reparse-symbol namespacesubparts) [4727 4950])
+                    ("<<" function
+                       (:template 
+                          ( ("_CharT" type (:type "class") nil nil)
+                            ("_Traits" type (:type "class") nil nil))                          
+                        :type ("basic_ostream" type
+                             (:template-specifier 
+                                ( ("_CharT" type nil nil nil)
+                                  ("_Traits" type nil nil nil))                                
+                              :type "class")
+                              nil nil)
+                        :arguments 
+                          ( ("__os" variable
+                               (:reference 1
+                                :type ("basic_ostream" type
+                                     (:template-specifier 
+                                        ( ("_CharT" type nil nil nil)
+                                          ("_Traits" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [5057 5094])
+                            ("__f" variable (:type ("_Setfill" type
+                                 (:template-specifier 
+                                    ( ("_CharT" type nil nil nil))                                    
+                                  :type "class")
+                                  nil nil)) (reparse-symbol arg-sub-list) [5095 5116]))                          
+                        :typemodifiers ("inline")
+                        :operator-flag t)
+                        (reparse-symbol namespacesubparts) [4954 5177])
+                    ("_Setprecision" type
+                       (:members 
+                          ( ("_M_n" variable (:type "int") (reparse-symbol classsubparts) [5205 5214]))                          
+                        :type "struct")
+                        (reparse-symbol namespacesubparts) [5182 5217])
+                    ("setprecision" function
+                       (:typemodifiers ("inline")
+                        :arguments 
+                          ( ("__n" variable (:type "int") (reparse-symbol arg-sub-list) [5451 5459]))                          
+                        :type ("_Setprecision" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [5414 5481])
+                    (">>" function
+                       (:template 
+                          ( ("_CharT" type (:type "class") nil nil)
+                            ("_Traits" type (:type "class") nil nil))                          
+                        :type ("basic_istream" type
+                             (:template-specifier 
+                                ( ("_CharT" type nil nil nil)
+                                  ("_Traits" type nil nil nil))                                
+                              :type "class")
+                              nil nil)
+                        :arguments 
+                          ( ("__is" variable
+                               (:reference 1
+                                :type ("basic_istream" type
+                                     (:template-specifier 
+                                        ( ("_CharT" type nil nil nil)
+                                          ("_Traits" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [5588 5625])
+                            ("__f" variable (:type ("_Setprecision" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5626 5644]))                          
+                        :typemodifiers ("inline")
+                        :operator-flag t)
+                        (reparse-symbol namespacesubparts) [5485 5710])
+                    ("<<" function
+                       (:template 
+                          ( ("_CharT" type (:type "class") nil nil)
+                            ("_Traits" type (:type "class") nil nil))                          
+                        :type ("basic_ostream" type
+                             (:template-specifier 
+                                ( ("_CharT" type nil nil nil)
+                                  ("_Traits" type nil nil nil))                                
+                              :type "class")
+                              nil nil)
+                        :arguments 
+                          ( ("__os" variable
+                               (:reference 1
+                                :type ("basic_ostream" type
+                                     (:template-specifier 
+                                        ( ("_CharT" type nil nil nil)
+                                          ("_Traits" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [5817 5854])
+                            ("__f" variable (:type ("_Setprecision" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5855 5873]))                          
+                        :typemodifiers ("inline")
+                        :operator-flag t)
+                        (reparse-symbol namespacesubparts) [5714 5939])
+                    ("_Setw" type
+                       (:members 
+                          ( ("_M_n" variable (:type "int") (reparse-symbol classsubparts) [5959 5968]))                          
+                        :type "struct")
+                        (reparse-symbol namespacesubparts) [5944 5971])
+                    ("setw" function
+                       (:typemodifiers ("inline")
+                        :arguments 
+                          ( ("__n" variable (:type "int") (reparse-symbol arg-sub-list) [6177 6185]))                          
+                        :type ("_Setw" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [6156 6207])
+                    (">>" function
+                       (:template 
+                          ( ("_CharT" type (:type "class") nil nil)
+                            ("_Traits" type (:type "class") nil nil))                          
+                        :type ("basic_istream" type
+                             (:template-specifier 
+                                ( ("_CharT" type nil nil nil)
+                                  ("_Traits" type nil nil nil))                                
+                              :type "class")
+                              nil nil)
+                        :arguments 
+                          ( ("__is" variable
+                               (:reference 1
+                                :type ("basic_istream" type
+                                     (:template-specifier 
+                                        ( ("_CharT" type nil nil nil)
+                                          ("_Traits" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [6314 6351])
+                            ("__f" variable (:type ("_Setw" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6352 6362]))                          
+                        :typemodifiers ("inline")
+                        :operator-flag t)
+                        (reparse-symbol namespacesubparts) [6211 6422])
+                    ("<<" function
+                       (:template 
+                          ( ("_CharT" type (:type "class") nil nil)
+                            ("_Traits" type (:type "class") nil nil))                          
+                        :type ("basic_ostream" type
+                             (:template-specifier 
+                                ( ("_CharT" type nil nil nil)
+                                  ("_Traits" type nil nil nil))                                
+                              :type "class")
+                              nil nil)
+                        :arguments 
+                          ( ("__os" variable
+                               (:reference 1
+                                :type ("basic_ostream" type
+                                     (:template-specifier 
+                                        ( ("_CharT" type nil nil nil)
+                                          ("_Traits" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [6529 6566])
+                            ("__f" variable (:type ("_Setw" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6567 6577]))                          
+                        :typemodifiers ("inline")
+                        :operator-flag t)
+                        (reparse-symbol namespacesubparts) [6426 6637])
+                    ("<<" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("ostream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [9879 9888])
+                            ("" variable (:type ("_Setfill" type
+                                 (:template-specifier 
+                                    ( ("char" type nil nil nil))                                    
+                                  :type "class")
+                                  nil nil)) (reparse-symbol arg-sub-list) [9889 9904]))                          
+                        :type ("ostream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [9859 9905])
+                    ("<<" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("ostream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [9944 9953])
+                            ("" variable (:type ("_Setiosflags" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9954 9967]))                          
+                        :type ("ostream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [9924 9968])
+                    ("<<" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("ostream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10007 10016])
+                            ("" variable (:type ("_Resetiosflags" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10017 10032]))                          
+                        :type ("ostream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [9987 10033])
+                    ("<<" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("ostream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10072 10081])
+                            ("" variable (:type ("_Setbase" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10082 10091]))                          
+                        :type ("ostream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10052 10092])
+                    ("<<" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("ostream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10131 10140])
+                            ("" variable (:type ("_Setprecision" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10141 10155]))                          
+                        :type ("ostream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10111 10156])
+                    ("<<" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("ostream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10195 10204])
+                            ("" variable (:type ("_Setw" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10205 10211]))                          
+                        :type ("ostream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10175 10212])
+                    (">>" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("istream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10251 10260])
+                            ("" variable (:type ("_Setfill" type
+                                 (:template-specifier 
+                                    ( ("char" type nil nil nil))                                    
+                                  :type "class")
+                                  nil nil)) (reparse-symbol arg-sub-list) [10261 10276]))                          
+                        :type ("istream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10231 10277])
+                    (">>" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("istream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10316 10325])
+                            ("" variable (:type ("_Setiosflags" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10326 10339]))                          
+                        :type ("istream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10296 10340])
+                    (">>" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("istream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10379 10388])
+                            ("" variable (:type ("_Resetiosflags" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10389 10404]))                          
+                        :type ("istream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10359 10405])
+                    (">>" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("istream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10444 10453])
+                            ("" variable (:type ("_Setbase" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10454 10463]))                          
+                        :type ("istream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10424 10464])
+                    (">>" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("istream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10503 10512])
+                            ("" variable (:type ("_Setprecision" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10513 10527]))                          
+                        :type ("istream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10483 10528])
+                    (">>" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("istream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10567 10576])
+                            ("" variable (:type ("_Setw" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10577 10583]))                          
+                        :type ("istream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10547 10584])
+                    ("<<" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("wostream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10653 10663])
+                            ("" variable (:type ("_Setfill" type
+                                 (:template-specifier 
+                                    ( ("wchar_t" type nil nil nil))                                    
+                                  :type "class")
+                                  nil nil)) (reparse-symbol arg-sub-list) [10664 10682]))                          
+                        :type ("wostream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10632 10683])
+                    ("<<" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("wostream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10723 10733])
+                            ("" variable (:type ("_Setiosflags" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10734 10747]))                          
+                        :type ("wostream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10702 10748])
+                    ("<<" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("wostream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10788 10798])
+                            ("" variable (:type ("_Resetiosflags" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10799 10814]))                          
+                        :type ("wostream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10767 10815])
+                    ("<<" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("wostream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10855 10865])
+                            ("" variable (:type ("_Setbase" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10866 10875]))                          
+                        :type ("wostream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10834 10876])
+                    ("<<" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("wostream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10916 10926])
+                            ("" variable (:type ("_Setprecision" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10927 10941]))                          
+                        :type ("wostream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10895 10942])
+                    ("<<" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("wostream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10982 10992])
+                            ("" variable (:type ("_Setw" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10993 10999]))                          
+                        :type ("wostream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [10961 11000])
+                    (">>" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("wistream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [11040 11050])
+                            ("" variable (:type ("_Setfill" type
+                                 (:template-specifier 
+                                    ( ("wchar_t" type nil nil nil))                                    
+                                  :type "class")
+                                  nil nil)) (reparse-symbol arg-sub-list) [11051 11069]))                          
+                        :type ("wistream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [11019 11070])
+                    (">>" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("wistream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [11110 11120])
+                            ("" variable (:type ("_Setiosflags" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11121 11134]))                          
+                        :type ("wistream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [11089 11135])
+                    (">>" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("wistream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [11175 11185])
+                            ("" variable (:type ("_Resetiosflags" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11186 11201]))                          
+                        :type ("wistream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [11154 11202])
+                    (">>" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("wistream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [11242 11252])
+                            ("" variable (:type ("_Setbase" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11253 11262]))                          
+                        :type ("wistream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [11221 11263])
+                    (">>" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("wistream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [11303 11313])
+                            ("" variable (:type ("_Setprecision" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11314 11328]))                          
+                        :type ("wistream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [11282 11329])
+                    (">>" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("wistream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [11369 11379])
+                            ("" variable (:type ("_Setw" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11380 11386]))                          
+                        :type ("wistream" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [11348 11387]))                  
+                :type "namespace")
+                nil [1422 11435]))          
+      :file "iomanip"
+      :pointmax 11480
+      :fsize 11479
+      :lastmodtime '(22093 55977 0 0)
+      :unmatched-syntax '((symbol 11425 . 11433) (TEMPLATE 11339 . 11347) (EXTERN 11332 . 11338) (TEMPLATE 11273 . 11281) (EXTERN 11266 . 11272) (TEMPLATE 11212 . 11220) (EXTERN 11205 . 11211) (TEMPLATE 11145 . 11153) (EXTERN 11138 . 11144) (TEMPLATE 11080 . 11088) (EXTERN 11073 . 11079) (TEMPLATE 11010 . 11018) (EXTERN 11003 . 11009) (TEMPLATE 10952 . 10960) (EXTERN 10945 . 10951) (TEMPLATE 10886 . 10894) (EXTERN 10879 . 10885) (TEMPLATE 10825 . 10833) (EXTERN 10818 . 10824) (TEMPLATE 10758 . 10766) (EXTERN 10751 . 10757) (TEMPLATE 10693 . 10701) (EXTERN 10686 . 10692) (TEMPLATE 10623 . 10631) (EXTERN 10616 . 10622) (TEMPLATE 10538 . 10546) (EXTERN 10531 . 10537) (TEMPLATE 10474 . 10482) (EXTERN 10467 . 10473) (TEMPLATE 10415 . 10423) (EXTERN 10408 . 10414) (TEMPLATE 10350 . 10358) (EXTERN 10343 . 10349) (TEMPLATE 10287 . 10295) (EXTERN 10280 . 10286) (TEMPLATE 10222 . 10230) (EXTERN 10215 . 10221) (TEMPLATE 10166 . 10174) (EXTERN 10159 . 10165) (TEMPLATE 10102 . 10110) (EXTERN 10095 . 10101) (TEMPLATE 10043 . 10051) (EXTERN 10036 . 10042) (TEMPLATE 9978 . 9986) (EXTERN 9971 . 9977) (TEMPLATE 9915 . 9923) (EXTERN 9908 . 9914) (TEMPLATE 9850 . 9858) (EXTERN 9843 . 9849) (symbol 1280 . 1293) (symbol 1276 . 1279) (symbol 1269 . 1275) (punctuation 1268 . 1269))
+      :lexical-table 
+        '(("_GLIBCXX_IOMANIP" . ((number "1" 1265 . 1266)))
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :file "locale"
+      :fsize 1422
+      :lastmodtime '(22093 55977 0 0))
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("bits/c++config.h" include (:system-flag t) nil [1568 1595])
+            ("time.h" include (:system-flag t) nil [1596 1613])
+            ("_GLIBCXX_CTIME" variable (:constant-flag t) nil [1646 1660])
+            ("std" type
+               (:members 
+                  ( ("clock_t" variable (:type "int") (reparse-symbol namespacesubparts) [1895 1903])
+                    ("time_t" variable (:type "int") (reparse-symbol namespacesubparts) [1914 1921])
+                    ("tm" variable (:type "int") (reparse-symbol namespacesubparts) [1932 1935])
+                    ("clock" variable (:type "int") (reparse-symbol namespacesubparts) [1947 1953])
+                    ("difftime" variable (:type "int") (reparse-symbol namespacesubparts) [1964 1973])
+                    ("mktime" variable (:type "int") (reparse-symbol namespacesubparts) [1984 1991])
+                    ("time" variable (:type "int") (reparse-symbol namespacesubparts) [2002 2007])
+                    ("asctime" variable (:type "int") (reparse-symbol namespacesubparts) [2018 2026])
+                    ("ctime" variable (:type "int") (reparse-symbol namespacesubparts) [2037 2043])
+                    ("gmtime" variable (:type "int") (reparse-symbol namespacesubparts) [2054 2061])
+                    ("localtime" variable (:type "int") (reparse-symbol namespacesubparts) [2072 2082])
+                    ("strftime" variable (:type "int") (reparse-symbol namespacesubparts) [2093 2102]))                  
+                :type "namespace")
+                nil [1869 2104]))          
+      :file "ctime"
+      :pointmax 2126
+      :fsize 2125
+      :lastmodtime '(22093 55977 0 0)
+      :unmatched-syntax '((punctuation 2092 . 2093) (punctuation 2091 . 2092) (USING 2085 . 2090) (punctuation 2071 . 2072) (punctuation 2070 . 2071) (USING 2064 . 2069) (punctuation 2053 . 2054) (punctuation 2052 . 2053) (USING 2046 . 2051) (punctuation 2036 . 2037) (punctuation 2035 . 2036) (USING 2029 . 2034) (punctuation 2017 . 2018) (punctuation 2016 . 2017) (USING 2010 . 2015) (punctuation 2001 . 2002) (punctuation 2000 . 2001) (USING 1994 . 1999) (punctuation 1983 . 1984) (punctuation 1982 . 1983) (USING 1976 . 1981) (punctuation 1963 . 1964) (punctuation 1962 . 1963) (USING 1956 . 1961) (punctuation 1946 . 1947) (punctuation 1945 . 1946) (USING 1939 . 1944) (punctuation 1931 . 1932) (punctuation 1930 . 1931) (USING 1924 . 1929) (punctuation 1913 . 1914) (punctuation 1912 . 1913) (USING 1906 . 1911) (punctuation 1894 . 1895) (punctuation 1893 . 1894) (USING 1887 . 1892) (symbol 1553 . 1566) (symbol 1549 . 1552) (symbol 1542 . 1548) (punctuation 1541 . 1542))
+      :lexical-table 
+        '(("_GLIBCXX_CTIME" . ((number "1" 1661 . 1662)))
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("_GLIBCXX_STACK" variable (:constant-flag t) nil [2273 2287])
+            ("deque" include (:system-flag t) nil [2318 2334])
+            ("bits/stl_stack.h" include (:system-flag t) nil [2335 2362]))          
+      :file "stack"
+      :pointmax 2392
+      :fsize 2391
+      :lastmodtime '(22093 55977 0 0)
+      :unmatched-syntax '((symbol 2303 . 2316) (symbol 2299 . 2302) (symbol 2292 . 2298) (punctuation 2291 . 2292))
+      :lexical-table 
+        '(("_GLIBCXX_STACK" . ((number "1" 2288 . 2289)))
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("_GLIBCXX_DEQUE" variable (:constant-flag t) nil [2268 2282])
+            ("bits/stl_algobase.h" include (:system-flag t) nil [2313 2343])
+            ("bits/allocator.h" include (:system-flag t) nil [2344 2371])
+            ("bits/stl_construct.h" include (:system-flag t) nil [2372 2403])
+            ("bits/stl_uninitialized.h" include (:system-flag t) nil [2404 2439])
+            ("bits/stl_deque.h" include (:system-flag t) nil [2440 2467])
+            ("bits/range_access.h" include (:system-flag t) nil [2468 2498])
+            ("bits/deque.tcc" include (:system-flag t) nil [2499 2524]))          
+      :file "deque"
+      :pointmax 2666
+      :fsize 2665
+      :lastmodtime '(22093 55977 0 0)
+      :unmatched-syntax '((symbol 2298 . 2311) (symbol 2294 . 2297) (symbol 2287 . 2293) (punctuation 2286 . 2287))
+      :lexical-table 
+        '(("_GLIBCXX_DEQUE" . ((number "1" 2283 . 2284)))
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("errno.h" include (:system-flag t) nil [1566 1584])
+            ("_GLIBCXX_CERRNO" variable (:constant-flag t) nil [1618 1633])
+            ("errno" variable (:constant-flag t) nil [1716 1721]))          
+      :file "cerrno"
+      :pointmax 1743
+      :fsize 1742
+      :lastmodtime '(22093 55977 0 0)
+      :unmatched-syntax '((symbol 1551 . 1564) (symbol 1547 . 1550) (symbol 1540 . 1546) (punctuation 1539 . 1540))
+      :lexical-table 
+        '(("_GLIBCXX_CERRNO" . ((number "1" 1634 . 1635)))
+          ("errno" . ((symbol "errno" 1722 . 1727)))
           )
 ))
   :file "!usr!include!c++!4.8.2!semantic.cache"

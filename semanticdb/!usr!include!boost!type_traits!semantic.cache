@@ -2880,6 +2880,647 @@
       :lexical-table 
         '(("BOOST_TT_HAS_TRIVIAL_COPY_HPP_INCLUDED")
           )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_TT_FUNCTION_TRAITS_HPP_INCLUDED" variable (:constant-flag t) nil [404 441])
+            ("boost/config.hpp" include (:system-flag t) nil [443 470])
+            ("boost/type_traits/is_function.hpp" include (:system-flag t) nil [471 515])
+            ("boost/type_traits/add_pointer.hpp" include (:system-flag t) nil [516 560])
+            ("boost" type
+               (:members 
+                  ( ("detail" type
+                       (:members 
+                          ( ("function_traits_helper" type
+                               (:template 
+                                  ( ("Function" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :prototype t)
+                                (reparse-symbol namespacesubparts) [650 708])
+                            ("function_traits_helper" type
+                               (:template 
+                                  ( ("R" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :members 
+                                  ( ("BOOST_STATIC_CONSTANT" function
+                                       (:prototype-flag t
+                                        :arguments 
+                                          ( ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [800 809])
+                                            ("" variable (:type ("arity" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [810 819]))                                          
+                                        :type "int")
+                                        (reparse-symbol classsubparts) [778 821])
+                                    ("result_type" type
+                                       (:typedef ("R" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [824 846]))                                  
+                                :template-specifier 
+                                  ( ("R" type (:typevar "*") nil nil))                                  )
+                                (reparse-symbol namespacesubparts) [710 849])
+                            ("function_traits_helper" type
+                               (:template 
+                                  ( ("R" type (:type "class") nil nil)
+                                    ("T1" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :members 
+                                  ( ("BOOST_STATIC_CONSTANT" function
+                                       (:prototype-flag t
+                                        :arguments 
+                                          ( ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [952 961])
+                                            ("" variable (:type ("arity" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [962 971]))                                          
+                                        :type "int")
+                                        (reparse-symbol classsubparts) [930 973])
+                                    ("result_type" type
+                                       (:typedef ("R" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [976 998])
+                                    ("arg1_type" type
+                                       (:typedef ("T1" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1001 1022])
+                                    ("argument_type" type
+                                       (:typedef ("T1" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1025 1050]))                                  
+                                :template-specifier 
+                                  ( ("R" type (:typevar "*") nil nil))                                  )
+                                (reparse-symbol namespacesubparts) [851 1053])
+                            ("function_traits_helper" type
+                               (:template 
+                                  ( ("R" type (:type "class") nil nil)
+                                    ("T1" type (:type "class") nil nil)
+                                    ("T2" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :members 
+                                  ( ("BOOST_STATIC_CONSTANT" function
+                                       (:prototype-flag t
+                                        :arguments 
+                                          ( ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [1173 1182])
+                                            ("" variable (:type ("arity" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1183 1192]))                                          
+                                        :type "int")
+                                        (reparse-symbol classsubparts) [1151 1194])
+                                    ("result_type" type
+                                       (:typedef ("R" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1197 1219])
+                                    ("arg1_type" type
+                                       (:typedef ("T1" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1222 1243])
+                                    ("arg2_type" type
+                                       (:typedef ("T2" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1246 1267])
+                                    ("first_argument_type" type
+                                       (:typedef ("T1" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1270 1301])
+                                    ("second_argument_type" type
+                                       (:typedef ("T2" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1304 1336]))                                  
+                                :template-specifier 
+                                  ( ("R" type (:typevar "*") nil nil))                                  )
+                                (reparse-symbol namespacesubparts) [1055 1339])
+                            ("function_traits_helper" type
+                               (:template 
+                                  ( ("R" type (:type "class") nil nil)
+                                    ("T1" type (:type "class") nil nil)
+                                    ("T2" type (:type "class") nil nil)
+                                    ("T3" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :members 
+                                  ( ("BOOST_STATIC_CONSTANT" function
+                                       (:prototype-flag t
+                                        :arguments 
+                                          ( ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [1476 1485])
+                                            ("" variable (:type ("arity" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1486 1495]))                                          
+                                        :type "int")
+                                        (reparse-symbol classsubparts) [1454 1497])
+                                    ("result_type" type
+                                       (:typedef ("R" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1500 1522])
+                                    ("arg1_type" type
+                                       (:typedef ("T1" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1525 1546])
+                                    ("arg2_type" type
+                                       (:typedef ("T2" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1549 1570])
+                                    ("arg3_type" type
+                                       (:typedef ("T3" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1573 1594]))                                  
+                                :template-specifier 
+                                  ( ("R" type (:typevar "*") nil nil))                                  )
+                                (reparse-symbol namespacesubparts) [1341 1597])
+                            ("function_traits_helper" type
+                               (:template 
+                                  ( ("R" type (:type "class") nil nil)
+                                    ("T1" type (:type "class") nil nil)
+                                    ("T2" type (:type "class") nil nil)
+                                    ("T3" type (:type "class") nil nil)
+                                    ("T4" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :members 
+                                  ( ("BOOST_STATIC_CONSTANT" function
+                                       (:prototype-flag t
+                                        :arguments 
+                                          ( ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [1751 1760])
+                                            ("" variable (:type ("arity" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1761 1770]))                                          
+                                        :type "int")
+                                        (reparse-symbol classsubparts) [1729 1772])
+                                    ("result_type" type
+                                       (:typedef ("R" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1775 1797])
+                                    ("arg1_type" type
+                                       (:typedef ("T1" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1800 1821])
+                                    ("arg2_type" type
+                                       (:typedef ("T2" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1824 1845])
+                                    ("arg3_type" type
+                                       (:typedef ("T3" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1848 1869])
+                                    ("arg4_type" type
+                                       (:typedef ("T4" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [1872 1893]))                                  
+                                :template-specifier 
+                                  ( ("R" type (:typevar "*") nil nil))                                  )
+                                (reparse-symbol namespacesubparts) [1599 1896])
+                            ("function_traits_helper" type
+                               (:template 
+                                  ( ("R" type (:type "class") nil nil)
+                                    ("T1" type (:type "class") nil nil)
+                                    ("T2" type (:type "class") nil nil)
+                                    ("T3" type (:type "class") nil nil)
+                                    ("T4" type (:type "class") nil nil)
+                                    ("T5" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :members 
+                                  ( ("BOOST_STATIC_CONSTANT" function
+                                       (:prototype-flag t
+                                        :arguments 
+                                          ( ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [2076 2085])
+                                            ("" variable (:type ("arity" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2086 2095]))                                          
+                                        :type "int")
+                                        (reparse-symbol classsubparts) [2054 2097])
+                                    ("result_type" type
+                                       (:typedef ("R" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2100 2122])
+                                    ("arg1_type" type
+                                       (:typedef ("T1" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2125 2146])
+                                    ("arg2_type" type
+                                       (:typedef ("T2" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2149 2170])
+                                    ("arg3_type" type
+                                       (:typedef ("T3" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2173 2194])
+                                    ("arg4_type" type
+                                       (:typedef ("T4" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2197 2218])
+                                    ("arg5_type" type
+                                       (:typedef ("T5" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2221 2242]))                                  
+                                :template-specifier 
+                                  ( ("R" type (:typevar "*") nil nil))                                  )
+                                (reparse-symbol namespacesubparts) [1898 2245])
+                            ("function_traits_helper" type
+                               (:template 
+                                  ( ("R" type (:type "class") nil nil)
+                                    ("T1" type (:type "class") nil nil)
+                                    ("T2" type (:type "class") nil nil)
+                                    ("T3" type (:type "class") nil nil)
+                                    ("T4" type (:type "class") nil nil)
+                                    ("T5" type (:type "class") nil nil)
+                                    ("T6" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :members 
+                                  ( ("BOOST_STATIC_CONSTANT" function
+                                       (:prototype-flag t
+                                        :arguments 
+                                          ( ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [2442 2451])
+                                            ("" variable (:type ("arity" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2452 2461]))                                          
+                                        :type "int")
+                                        (reparse-symbol classsubparts) [2420 2463])
+                                    ("result_type" type
+                                       (:typedef ("R" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2466 2488])
+                                    ("arg1_type" type
+                                       (:typedef ("T1" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2491 2512])
+                                    ("arg2_type" type
+                                       (:typedef ("T2" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2515 2536])
+                                    ("arg3_type" type
+                                       (:typedef ("T3" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2539 2560])
+                                    ("arg4_type" type
+                                       (:typedef ("T4" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2563 2584])
+                                    ("arg5_type" type
+                                       (:typedef ("T5" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2587 2608])
+                                    ("arg6_type" type
+                                       (:typedef ("T6" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2611 2632]))                                  
+                                :template-specifier 
+                                  ( ("R" type (:typevar "*") nil nil))                                  )
+                                (reparse-symbol namespacesubparts) [2247 2635])
+                            ("function_traits_helper" type
+                               (:template 
+                                  ( ("R" type (:type "class") nil nil)
+                                    ("T1" type (:type "class") nil nil)
+                                    ("T2" type (:type "class") nil nil)
+                                    ("T3" type (:type "class") nil nil)
+                                    ("T4" type (:type "class") nil nil)
+                                    ("T5" type (:type "class") nil nil)
+                                    ("T6" type (:type "class") nil nil)
+                                    ("T7" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :members 
+                                  ( ("BOOST_STATIC_CONSTANT" function
+                                       (:prototype-flag t
+                                        :arguments 
+                                          ( ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [2849 2858])
+                                            ("" variable (:type ("arity" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2859 2868]))                                          
+                                        :type "int")
+                                        (reparse-symbol classsubparts) [2827 2870])
+                                    ("result_type" type
+                                       (:typedef ("R" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2873 2895])
+                                    ("arg1_type" type
+                                       (:typedef ("T1" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2898 2919])
+                                    ("arg2_type" type
+                                       (:typedef ("T2" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2922 2943])
+                                    ("arg3_type" type
+                                       (:typedef ("T3" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2946 2967])
+                                    ("arg4_type" type
+                                       (:typedef ("T4" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2970 2991])
+                                    ("arg5_type" type
+                                       (:typedef ("T5" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [2994 3015])
+                                    ("arg6_type" type
+                                       (:typedef ("T6" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3018 3039])
+                                    ("arg7_type" type
+                                       (:typedef ("T7" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3042 3063]))                                  
+                                :template-specifier 
+                                  ( ("R" type (:typevar "*") nil nil))                                  )
+                                (reparse-symbol namespacesubparts) [2637 3066])
+                            ("function_traits_helper" type
+                               (:template 
+                                  ( ("R" type (:type "class") nil nil)
+                                    ("T1" type (:type "class") nil nil)
+                                    ("T2" type (:type "class") nil nil)
+                                    ("T3" type (:type "class") nil nil)
+                                    ("T4" type (:type "class") nil nil)
+                                    ("T5" type (:type "class") nil nil)
+                                    ("T6" type (:type "class") nil nil)
+                                    ("T7" type (:type "class") nil nil)
+                                    ("T8" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :members 
+                                  ( ("BOOST_STATIC_CONSTANT" function
+                                       (:prototype-flag t
+                                        :arguments 
+                                          ( ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [3297 3306])
+                                            ("" variable (:type ("arity" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3307 3316]))                                          
+                                        :type "int")
+                                        (reparse-symbol classsubparts) [3275 3318])
+                                    ("result_type" type
+                                       (:typedef ("R" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3321 3343])
+                                    ("arg1_type" type
+                                       (:typedef ("T1" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3346 3367])
+                                    ("arg2_type" type
+                                       (:typedef ("T2" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3370 3391])
+                                    ("arg3_type" type
+                                       (:typedef ("T3" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3394 3415])
+                                    ("arg4_type" type
+                                       (:typedef ("T4" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3418 3439])
+                                    ("arg5_type" type
+                                       (:typedef ("T5" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3442 3463])
+                                    ("arg6_type" type
+                                       (:typedef ("T6" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3466 3487])
+                                    ("arg7_type" type
+                                       (:typedef ("T7" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3490 3511])
+                                    ("arg8_type" type
+                                       (:typedef ("T8" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3514 3535]))                                  
+                                :template-specifier 
+                                  ( ("R" type (:typevar "*") nil nil))                                  )
+                                (reparse-symbol namespacesubparts) [3068 3538])
+                            ("function_traits_helper" type
+                               (:template 
+                                  ( ("R" type (:type "class") nil nil)
+                                    ("T1" type (:type "class") nil nil)
+                                    ("T2" type (:type "class") nil nil)
+                                    ("T3" type (:type "class") nil nil)
+                                    ("T4" type (:type "class") nil nil)
+                                    ("T5" type (:type "class") nil nil)
+                                    ("T6" type (:type "class") nil nil)
+                                    ("T7" type (:type "class") nil nil)
+                                    ("T8" type (:type "class") nil nil)
+                                    ("T9" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :members 
+                                  ( ("BOOST_STATIC_CONSTANT" function
+                                       (:prototype-flag t
+                                        :arguments 
+                                          ( ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [3786 3795])
+                                            ("" variable (:type ("arity" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3796 3805]))                                          
+                                        :type "int")
+                                        (reparse-symbol classsubparts) [3764 3807])
+                                    ("result_type" type
+                                       (:typedef ("R" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3810 3832])
+                                    ("arg1_type" type
+                                       (:typedef ("T1" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3835 3856])
+                                    ("arg2_type" type
+                                       (:typedef ("T2" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3859 3880])
+                                    ("arg3_type" type
+                                       (:typedef ("T3" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3883 3904])
+                                    ("arg4_type" type
+                                       (:typedef ("T4" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3907 3928])
+                                    ("arg5_type" type
+                                       (:typedef ("T5" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3931 3952])
+                                    ("arg6_type" type
+                                       (:typedef ("T6" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3955 3976])
+                                    ("arg7_type" type
+                                       (:typedef ("T7" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [3979 4000])
+                                    ("arg8_type" type
+                                       (:typedef ("T8" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [4003 4024])
+                                    ("arg9_type" type
+                                       (:typedef ("T9" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [4027 4048]))                                  
+                                :template-specifier 
+                                  ( ("R" type (:typevar "*") nil nil))                                  )
+                                (reparse-symbol namespacesubparts) [3540 4051])
+                            ("function_traits_helper" type
+                               (:template 
+                                  ( ("R" type (:type "class") nil nil)
+                                    ("T1" type (:type "class") nil nil)
+                                    ("T2" type (:type "class") nil nil)
+                                    ("T3" type (:type "class") nil nil)
+                                    ("T4" type (:type "class") nil nil)
+                                    ("T5" type (:type "class") nil nil)
+                                    ("T6" type (:type "class") nil nil)
+                                    ("T7" type (:type "class") nil nil)
+                                    ("T8" type (:type "class") nil nil)
+                                    ("T9" type (:type "class") nil nil)
+                                    ("T10" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :members 
+                                  ( ("BOOST_STATIC_CONSTANT" function
+                                       (:prototype-flag t
+                                        :arguments 
+                                          ( ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [4327 4336])
+                                            ("" variable (:type ("arity" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4337 4347]))                                          
+                                        :type "int")
+                                        (reparse-symbol classsubparts) [4305 4349])
+                                    ("result_type" type
+                                       (:typedef ("R" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [4352 4374])
+                                    ("arg1_type" type
+                                       (:typedef ("T1" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [4377 4398])
+                                    ("arg2_type" type
+                                       (:typedef ("T2" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [4401 4422])
+                                    ("arg3_type" type
+                                       (:typedef ("T3" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [4425 4446])
+                                    ("arg4_type" type
+                                       (:typedef ("T4" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [4449 4470])
+                                    ("arg5_type" type
+                                       (:typedef ("T5" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [4473 4494])
+                                    ("arg6_type" type
+                                       (:typedef ("T6" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [4497 4518])
+                                    ("arg7_type" type
+                                       (:typedef ("T7" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [4521 4542])
+                                    ("arg8_type" type
+                                       (:typedef ("T8" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [4545 4566])
+                                    ("arg9_type" type
+                                       (:typedef ("T9" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [4569 4590])
+                                    ("arg10_type" type
+                                       (:typedef ("T10" type (:type "class") nil nil)
+                                        :type "typedef")
+                                        (reparse-symbol classsubparts) [4593 4616]))                                  
+                                :template-specifier 
+                                  ( ("R" type (:typevar "*") nil nil))                                  )
+                                (reparse-symbol namespacesubparts) [4053 4619]))                          
+                        :type "namespace")
+                        (reparse-symbol namespacesubparts) [630 4622]))                  
+                :type "namespace")
+                nil [562 7024]))          
+      :file "function_traits.hpp"
+      :pointmax 7074
+      :fsize 7073
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax '((punctuation 4797 . 4798) (semantic-list 4794 . 4797) (punctuation 4792 . 4793) (symbol 4788 . 4792) (punctuation 4787 . 4788) (punctuation 4786 . 4787) (punctuation 4785 . 4786) (symbol 4777 . 4785) (punctuation 4776 . 4777) (symbol 4765 . 4776) (punctuation 4764 . 4765) (punctuation 4763 . 4764) (symbol 4758 . 4763) (TYPENAME 4749 . 4757) (punctuation 4748 . 4749) (symbol 4726 . 4748) (punctuation 4725 . 4726) (punctuation 4724 . 4725) (symbol 4718 . 4724) (punctuation 4717 . 4718) (punctuation 4716 . 4717) (symbol 4711 . 4716) (PUBLIC 4704 . 4710) (punctuation 4699 . 4700) (symbol 4683 . 4698) (STRUCT 4676 . 4682) (punctuation 4674 . 4675) (symbol 4666 . 4674) (TYPENAME 4657 . 4665) (punctuation 4656 . 4657) (TEMPLATE 4648 . 4656))
+      :lexical-table 
+        '(("BOOST_TT_FUNCTION_TRAITS_HPP_INCLUDED")
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_TT_DECAY_HPP_INCLUDED" variable (:constant-flag t) nil [393 420])
+            ("boost/type_traits/config.hpp" include (:system-flag t) nil [422 461])
+            ("boost/type_traits/is_array.hpp" include (:system-flag t) nil [462 503])
+            ("boost/type_traits/is_function.hpp" include (:system-flag t) nil [504 548])
+            ("boost/type_traits/remove_bounds.hpp" include (:system-flag t) nil [549 595])
+            ("boost/type_traits/add_pointer.hpp" include (:system-flag t) nil [596 640])
+            ("boost/type_traits/remove_reference.hpp" include (:system-flag t) nil [641 690])
+            ("boost/mpl/eval_if.hpp" include (:system-flag t) nil [691 723])
+            ("boost/mpl/identity.hpp" include (:system-flag t) nil [724 757])
+            ("boost" type
+               (:members 
+                  ( ("decay" type
+                       (:template 
+                          ( ("T" type (:type "class") nil nil))                          
+                        :type "struct"
+                        :members 
+                          ( ("private" label nil (reparse-symbol classsubparts) [830 838])
+                            ("Ty" variable (:type ("type" type (:type "class") nil nil)) (reparse-symbol classsubparts) [899 907])
+                            ("public" label nil (reparse-symbol classsubparts) [912 919])
+                            ("type" variable (:type ("type" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1251 1261]))                          )
+                        (reparse-symbol namespacesubparts) [783 1268]))                  
+                :type "namespace")
+                nil [759 1275]))          
+      :file "decay.hpp"
+      :pointmax 1335
+      :fsize 1334
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax '((punctuation 1250 . 1251) (punctuation 1249 . 1250) (punctuation 1248 . 1249) (punctuation 1238 . 1239) (punctuation 1224 . 1225) (symbol 1222 . 1224) (punctuation 1221 . 1222) (symbol 1213 . 1221) (punctuation 1212 . 1213) (punctuation 1211 . 1212) (symbol 1208 . 1211) (punctuation 1190 . 1191) (punctuation 1189 . 1190) (symbol 1187 . 1189) (punctuation 1186 . 1187) (symbol 1175 . 1186) (punctuation 1157 . 1158) (punctuation 1156 . 1157) (symbol 1154 . 1156) (punctuation 1153 . 1154) (symbol 1142 . 1153) (punctuation 1123 . 1124) (symbol 1116 . 1123) (punctuation 1115 . 1116) (punctuation 1114 . 1115) (symbol 1111 . 1114) (symbol 1088 . 1110) (punctuation 1074 . 1075) (punctuation 1073 . 1074) (punctuation 1072 . 1073) (symbol 1068 . 1072) (punctuation 1067 . 1068) (punctuation 1066 . 1067) (punctuation 1065 . 1066) (symbol 1063 . 1065) (punctuation 1062 . 1063) (symbol 1049 . 1062) (symbol 1026 . 1048) (punctuation 1025 . 1026) (symbol 1017 . 1025) (punctuation 1016 . 1017) (punctuation 1015 . 1016) (symbol 1012 . 1015) (punctuation 998 . 999) (punctuation 997 . 998) (symbol 995 . 997) (punctuation 994 . 995) (symbol 986 . 994) (punctuation 971 . 972) (symbol 964 . 971) (punctuation 963 . 964) (punctuation 962 . 963) (symbol 959 . 962) (symbol 936 . 958) (TYPEDEF 928 . 935) (punctuation 898 . 899) (punctuation 897 . 898) (punctuation 896 . 897) (symbol 895 . 896) (punctuation 894 . 895) (symbol 878 . 894) (symbol 855 . 877) (TYPEDEF 847 . 854))
+      :lexical-table 
+        '(("BOOST_TT_DECAY_HPP_INCLUDED")
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_TT_REMOVE_BOUNDS_HPP_INCLUDED" variable (:constant-flag t) nil [426 461])
+            ("boost/config.hpp" include (:system-flag t) nil [463 490])
+            ("cstddef" include (:system-flag t) nil [491 509])
+            ("boost/detail/workaround.hpp" include (:system-flag t) nil [510 548])
+            ("boost/type_traits/detail/type_trait_def.hpp" include (:system-flag t) nil [681 735])
+            ("boost" type (:type "namespace") nil [779 1882])
+            ("boost/type_traits/detail/type_trait_undef.hpp" include (:system-flag t) nil [1911 1967]))          
+      :file "remove_bounds.hpp"
+      :pointmax 2015
+      :fsize 2014
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax '((semantic-list 1803 . 1865) (symbol 1764 . 1803) (semantic-list 1845 . 1847) (semantic-list 1713 . 1763) (symbol 1674 . 1713) (semantic-list 1749 . 1751) (semantic-list 1629 . 1673) (symbol 1590 . 1629) (semantic-list 1662 . 1664) (semantic-list 1557 . 1589) (symbol 1518 . 1557) (semantic-list 1584 . 1586) (semantic-list 1296 . 1378) (symbol 1257 . 1296) (semantic-list 1352 . 1355) (semantic-list 1186 . 1256) (symbol 1147 . 1186) (semantic-list 1236 . 1239) (semantic-list 1082 . 1146) (symbol 1043 . 1082) (semantic-list 1129 . 1132) (semantic-list 990 . 1042) (symbol 951 . 990) (semantic-list 1031 . 1034) (semantic-list 826 . 845) (symbol 798 . 826))
+      :lexical-table 
+        '(("BOOST_TT_REMOVE_BOUNDS_HPP_INCLUDED")
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_TT_HAS_TRIVIAL_DESTRUCTOR_HPP_INCLUDED" variable (:constant-flag t) nil [435 479])
+            ("boost/type_traits/config.hpp" include (:system-flag t) nil [481 520])
+            ("boost/type_traits/intrinsics.hpp" include (:system-flag t) nil [521 564])
+            ("boost/type_traits/is_pod.hpp" include (:system-flag t) nil [565 604])
+            ("boost/type_traits/detail/ice_or.hpp" include (:system-flag t) nil [605 651])
+            ("boost/type_traits/detail/bool_trait_def.hpp" include (:system-flag t) nil [684 738])
+            ("boost" type
+               (:members 
+                  ( ("detail" type
+                       (:members 
+                          ( ("has_trivial_dtor_impl" type
+                               (:template 
+                                  ( ("T" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :members 
+                                  ( ("BOOST_STATIC_CONSTANT" function
+                                       (:prototype-flag t
+                                        :arguments 
+                                          ( ("" variable (:type "bool") (reparse-symbol arg-sub-list) [972 977])
+                                            ("" variable (:type ("value" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [978 985])
+                                            ("" variable (:type ("boost::is_pod::value" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [988 1012]))                                          
+                                        :type "int")
+                                        (reparse-symbol classsubparts) [950 1013]))                                  )
+                                (reparse-symbol namespacesubparts) [779 1023]))                          
+                        :type "namespace")
+                        (reparse-symbol namespacesubparts) [759 1026]))                  
+                :type "namespace")
+                nil [740 1493])
+            ("boost/type_traits/detail/bool_trait_undef.hpp" include (:system-flag t) nil [1514 1570]))          
+      :file "has_trivial_destructor.hpp"
+      :pointmax 1627
+      :fsize 1626
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax '((semantic-list 1439 . 1483) (symbol 1410 . 1439) (semantic-list 1359 . 1409) (symbol 1330 . 1359) (semantic-list 1288 . 1329) (symbol 1259 . 1288) (semantic-list 1182 . 1217) (symbol 1153 . 1182) (semantic-list 1076 . 1151) (symbol 1048 . 1076) (punctuation 1103 . 1104) (punctuation 1102 . 1103) (punctuation 987 . 988) (punctuation 986 . 987) (punctuation 984 . 985))
+      :lexical-table 
+        '(("BOOST_TT_HAS_TRIVIAL_DESTRUCTOR_HPP_INCLUDED")
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_TT_COMPOSITE_TRAITS_HPP_INCLUDED" variable (:constant-flag t) nil [581 619])
+            ("boost/type_traits/is_array.hpp" include (:system-flag t) nil [621 662])
+            ("boost/type_traits/is_enum.hpp" include (:system-flag t) nil [663 703])
+            ("boost/type_traits/is_member_pointer.hpp" include (:system-flag t) nil [704 754])
+            ("boost/type_traits/is_member_function_pointer.hpp" include (:system-flag t) nil [755 814])
+            ("boost/type_traits/is_pointer.hpp" include (:system-flag t) nil [815 858])
+            ("boost/type_traits/is_reference.hpp" include (:system-flag t) nil [859 904])
+            ("boost/type_traits/is_union.hpp" include (:system-flag t) nil [905 946]))          
+      :file "composite_traits.hpp"
+      :pointmax 1002
+      :fsize 1001
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("BOOST_TT_COMPOSITE_TRAITS_HPP_INCLUDED")
+          )
 ))
   :file "!usr!include!boost!type_traits!semantic.cache"
   :semantic-tag-version "2.0"

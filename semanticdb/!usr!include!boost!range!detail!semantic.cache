@@ -681,6 +681,63 @@
       :lexical-table 
         '(("BOOST_RANGE_DETAIL_SFINAE_HPP")
           )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_RANGE_DETAIL_STR_TYPES_HPP" variable (:constant-flag t) nil [372 404])
+            ("boost/range/size_type.hpp" include (:system-flag t) nil [406 442])
+            ("boost/range/iterator.hpp" include (:system-flag t) nil [443 478])
+            ("boost" type
+               (:members 
+                  ( ("range_mutable_iterator" type
+                       (:template 
+                          ( ("T" type (:type "class") nil nil))                          
+                        :type "struct"
+                        :members 
+                          ( ("type" type
+                               (:typedef ("T" type (:type "class") nil nil)
+                                :pointer 1
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [574 590]))                          
+                        :template-specifier 
+                          ( ("T" type (:pointer 1) nil nil))                          )
+                        (reparse-symbol namespacesubparts) [502 597])
+                    ("range_const_iterator" type
+                       (:template 
+                          ( ("T" type (:type "class") nil nil))                          
+                        :type "struct"
+                        :members 
+                          ( ("type" type
+                               (:typedef ("T" type (:type "class") nil nil)
+                                :pointer 1
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [673 695]))                          
+                        :template-specifier 
+                          ( ("T" type (:pointer 1) nil nil))                          )
+                        (reparse-symbol namespacesubparts) [603 702])
+                    ("range_size" type
+                       (:template 
+                          ( ("T" type (:type "class") nil nil))                          
+                        :type "struct"
+                        :members 
+                          ( ("type" type
+                               (:typedef ("std::size_t" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [767 792]))                          
+                        :template-specifier 
+                          ( ("T" type (:pointer 1) nil nil))                          )
+                        (reparse-symbol namespacesubparts) [708 799]))                  
+                :type "namespace")
+                nil [480 805]))          
+      :file "str_types.hpp"
+      :pointmax 814
+      :fsize 813
+      :lastmodtime '(22095 6380 0 0)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("BOOST_RANGE_DETAIL_STR_TYPES_HPP")
+          )
 ))
   :file "!usr!include!boost!range!detail!semantic.cache"
   :semantic-tag-version "2.0"

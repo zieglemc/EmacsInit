@@ -10756,9 +10756,205 @@
           )
 )
     (semanticdb-table "semanticdb-table"
+      :major-mode c-mode
+      :tags 
+        '( ("_TIME_H" variable (:constant-flag t) nil [966 973])
+            ("features.h" include (:system-flag t) nil [976 998])
+            ("getdate_err" variable
+               (:type "int"
+                :typemodifiers ("extern" "\"C\"" "extern"))
+                (reparse-symbol extern-c-contents) [12496 12519])
+            ("__isleap" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [9195 9203])
+            ("timezone" variable
+               (:type "long int"
+                :typemodifiers ("extern" "\"C\"" "extern"))
+                (reparse-symbol extern-c-contents) [8887 8912])
+            ("daylight" variable
+               (:type "int"
+                :typemodifiers ("extern" "\"C\"" "extern"))
+                (reparse-symbol extern-c-contents) [8866 8886])
+            ("__timezone" variable
+               (:type "long int"
+                :typemodifiers ("extern" "\"C\"" "extern"))
+                (reparse-symbol extern-c-contents) [8517 8544])
+            ("__daylight" variable
+               (:type "int"
+                :typemodifiers ("extern" "\"C\"" "extern"))
+                (reparse-symbol extern-c-contents) [8446 8468])
+            ("xlocale.h" include
+               (:typemodifiers ("extern" "\"C\"")
+                :system-flag t)
+                (reparse-symbol extern-c-contents) [6304 6325])
+            ("__pid_t_defined" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [4822 4837])
+            ("pid_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :typedef ("__pid_t" type (:type "class") nil nil))
+                (reparse-symbol extern-c-contents) [4788 4810])
+            ("tm_zone" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type "char"
+                :constant-flag t
+                :pointer 1)
+                (reparse-symbol extern-c-contents) [4167 4187])
+            ("tm_gmtoff" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type "long int")
+                (reparse-symbol extern-c-contents) [4116 4135])
+            ("tm_isdst" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int")
+                (reparse-symbol extern-c-contents) [4059 4072])
+            ("tm_yday" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int")
+                (reparse-symbol extern-c-contents) [4015 4027])
+            ("tm_wday" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int")
+                (reparse-symbol extern-c-contents) [3973 3985])
+            ("tm_year" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int")
+                (reparse-symbol extern-c-contents) [3936 3948])
+            ("tm_mon" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int")
+                (reparse-symbol extern-c-contents) [3900 3911])
+            ("tm_mday" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int")
+                (reparse-symbol extern-c-contents) [3864 3876])
+            ("tm_hour" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int")
+                (reparse-symbol extern-c-contents) [3827 3839])
+            ("tm_min" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int")
+                (reparse-symbol extern-c-contents) [3789 3800])
+            ("tm_sec" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int")
+                (reparse-symbol extern-c-contents) [3735 3746])
+            ("tv_nsec" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type ("__syscall_slong_t" type (:type "class") nil nil))
+                (reparse-symbol extern-c-contents) [3503 3529])
+            ("tv_sec" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type ("__time_t" type (:type "class") nil nil))
+                (reparse-symbol extern-c-contents) [3465 3481])
+            ("bits/types.h" include
+               (:typemodifiers ("extern" "\"C\"")
+                :system-flag t)
+                (reparse-symbol extern-c-contents) [3253 3277])
+            ("__timespec_defined" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [3231 3249])
+            ("time_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :typedef ("__time_t" type (:type "class") nil nil))
+                (reparse-symbol extern-c-contents) [2104 2128])
+            ("bits/types.h" include
+               (:typemodifiers ("extern" "\"C\"")
+                :system-flag t)
+                (reparse-symbol extern-c-contents) [2029 2053])
+            ("__time_t_defined" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [2009 2025])
+            ("clock_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :typedef ("__clock_t" type (:type "class") nil nil))
+                (reparse-symbol extern-c-contents) [1682 1708])
+            ("bits/types.h" include
+               (:typemodifiers ("extern" "\"C\"")
+                :system-flag t)
+                (reparse-symbol extern-c-contents) [1606 1630])
+            ("__clock_t_defined" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1585 1602])
+            ("bits/time.h" include
+               (:typemodifiers ("extern" "\"C\"")
+                :system-flag t)
+                (reparse-symbol extern-c-contents) [1244 1267])
+            ("stddef.h" include
+               (:typemodifiers ("extern" "\"C\"")
+                :system-flag t)
+                (reparse-symbol extern-c-contents) [1126 1146])
+            ("__need_NULL" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1114 1125])
+            ("__need_size_t" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1091 1104]))          
       :file "time.h"
+      :pointmax 13725
       :fsize 13724
-      :lastmodtime '(22324 31545 0 0)))
+      :lastmodtime '(22324 31545 0 0)
+      :unmatched-syntax '((punctuation 13622 . 13623) (symbol 13612 . 13621) (punctuation 13600 . 13601) (symbol 13597 . 13599) (STRUCT 13590 . 13596) (punctuation 13580 . 13581) (symbol 13572 . 13580) (punctuation 13560 . 13561) (CHAR 13555 . 13559) (CONST 13549 . 13554) (symbol 13538 . 13547) (INT 13534 . 13537) (EXTERN 13527 . 13533) (punctuation 12897 . 12898) (symbol 12888 . 12896) (punctuation 12887 . 12888) (CHAR 12882 . 12886) (CONST 12876 . 12881) (symbol 12867 . 12874) (punctuation 12866 . 12867) (symbol 12863 . 12865) (STRUCT 12856 . 12862) (EXTERN 12849 . 12855) (punctuation 9760 . 9761) (symbol 9716 . 9722) (INT 9712 . 9715) (symbol 9704 . 9710) (INT 9700 . 9703) (EXTERN 9693 . 9699) (punctuation 9648 . 9649) (symbol 9635 . 9639) (punctuation 9634 . 9635) (symbol 9631 . 9633) (STRUCT 9624 . 9630) (symbol 9613 . 9622) (symbol 9606 . 9612) (EXTERN 9599 . 9605) (punctuation 9562 . 9563) (symbol 9549 . 9553) (punctuation 9548 . 9549) (symbol 9545 . 9547) (STRUCT 9538 . 9544) (symbol 9530 . 9536) (symbol 9523 . 9529) (EXTERN 9516 . 9522) (punctuation 9070 . 9071) (symbol 9055 . 9061) (punctuation 9054 . 9055) (symbol 9047 . 9053) (CONST 9041 . 9046) (symbol 9034 . 9039) (INT 9030 . 9033) (EXTERN 9023 . 9029) (punctuation 8808 . 8809) (VOID 8795 . 8799) (symbol 8788 . 8793) (VOID 8783 . 8787) (EXTERN 8776 . 8782) (punctuation 8639 . 8640) (number 8637 . 8638) (symbol 8630 . 8636) (punctuation 8629 . 8630) (CHAR 8624 . 8628) (EXTERN 8617 . 8623) (punctuation 8413 . 8414) (number 8411 . 8412) (symbol 8402 . 8410) (punctuation 8401 . 8402) (CHAR 8396 . 8400) (EXTERN 8389 . 8395) (punctuation 8326 . 8327) (symbol 8312 . 8317) (punctuation 8300 . 8301) (CHAR 8295 . 8299) (punctuation 8285 . 8286) (symbol 8278 . 8285) (punctuation 8266 . 8267) (symbol 8259 . 8265) (CONST 8253 . 8258) (symbol 8244 . 8251) (punctuation 8243 . 8244) (CHAR 8238 . 8242) (EXTERN 8231 . 8237) (punctuation 8160 . 8161) (symbol 8146 . 8151) (punctuation 8134 . 8135) (CHAR 8129 . 8133) (punctuation 8124 . 8125) (symbol 8120 . 8124) (punctuation 8108 . 8109) (symbol 8105 . 8107) (STRUCT 8098 . 8104) (CONST 8092 . 8097) (symbol 8081 . 8090) (punctuation 8080 . 8081) (CHAR 8075 . 8079) (EXTERN 8068 . 8074) (punctuation 7824 . 7825) (symbol 7808 . 7815) (punctuation 7807 . 7808) (symbol 7800 . 7806) (CONST 7794 . 7799) (symbol 7787 . 7792) (punctuation 7786 . 7787) (CHAR 7781 . 7785) (EXTERN 7774 . 7780) (punctuation 7719 . 7720) (symbol 7706 . 7710) (punctuation 7705 . 7706) (symbol 7702 . 7704) (STRUCT 7695 . 7701) (CONST 7689 . 7694) (symbol 7680 . 7687) (punctuation 7679 . 7680) (CHAR 7674 . 7678) (EXTERN 7667 . 7673) (punctuation 7498 . 7499) (symbol 7485 . 7489) (punctuation 7473 . 7474) (symbol 7470 . 7472) (STRUCT 7463 . 7469) (punctuation 7451 . 7452) (symbol 7444 . 7451) (punctuation 7432 . 7433) (symbol 7425 . 7431) (CONST 7419 . 7424) (symbol 7406 . 7417) (punctuation 7405 . 7406) (symbol 7402 . 7404) (STRUCT 7395 . 7401) (EXTERN 7388 . 7394) (punctuation 7281 . 7282) (symbol 7268 . 7272) (punctuation 7256 . 7257) (symbol 7253 . 7255) (STRUCT 7246 . 7252) (punctuation 7237 . 7238) (symbol 7230 . 7237) (punctuation 7218 . 7219) (symbol 7211 . 7217) (CONST 7205 . 7210) (symbol 7195 . 7203) (punctuation 7194 . 7195) (symbol 7191 . 7193) (STRUCT 7184 . 7190) (EXTERN 7177 . 7183) (punctuation 7010 . 7011) (symbol 6994 . 7001) (punctuation 6993 . 6994) (symbol 6986 . 6992) (CONST 6980 . 6985) (symbol 6969 . 6978) (punctuation 6968 . 6969) (symbol 6965 . 6967) (STRUCT 6958 . 6964) (EXTERN 6951 . 6957) (punctuation 6867 . 6868) (symbol 6851 . 6858) (punctuation 6850 . 6851) (symbol 6843 . 6849) (CONST 6837 . 6842) (symbol 6829 . 6835) (punctuation 6828 . 6829) (symbol 6825 . 6827) (STRUCT 6818 . 6824) (EXTERN 6811 . 6817) (punctuation 6662 . 6663) (symbol 6648 . 6653) (symbol 6637 . 6647) (punctuation 6631 . 6632) (symbol 6627 . 6631) (punctuation 6626 . 6627) (symbol 6623 . 6625) (STRUCT 6616 . 6622) (punctuation 6614 . 6615) (symbol 6609 . 6614) (punctuation 6597 . 6598) (CHAR 6592 . 6596) (CONST 6586 . 6591) (punctuation 6580 . 6581) (symbol 6577 . 6580) (punctuation 6565 . 6566) (CHAR 6560 . 6564) (CONST 6554 . 6559) (symbol 6542 . 6552) (punctuation 6541 . 6542) (CHAR 6536 . 6540) (EXTERN 6529 . 6535) (punctuation 6500 . 6501) (symbol 6486 . 6491) (symbol 6475 . 6485) (punctuation 6468 . 6469) (symbol 6464 . 6468) (punctuation 6452 . 6453) (symbol 6449 . 6451) (STRUCT 6442 . 6448) (CONST 6436 . 6441) (punctuation 6429 . 6430) (symbol 6421 . 6429) (punctuation 6409 . 6410) (CHAR 6404 . 6408) (CONST 6398 . 6403) (punctuation 6391 . 6392) (symbol 6382 . 6391) (symbol 6375 . 6381) (punctuation 6373 . 6374) (symbol 6370 . 6373) (punctuation 6358 . 6359) (CHAR 6353 . 6357) (symbol 6341 . 6351) (symbol 6334 . 6340) (EXTERN 6327 . 6333) (punctuation 6148 . 6149) (symbol 6130 . 6134) (punctuation 6129 . 6130) (symbol 6126 . 6128) (STRUCT 6119 . 6125) (punctuation 6117 . 6118) (symbol 6112 . 6117) (punctuation 6100 . 6101) (CHAR 6095 . 6099) (CONST 6089 . 6094) (punctuation 6078 . 6079) (symbol 6075 . 6078) (punctuation 6063 . 6064) (CHAR 6058 . 6062) (CONST 6052 . 6057) (symbol 6042 . 6050) (punctuation 6041 . 6042) (CHAR 6036 . 6040) (EXTERN 6029 . 6035) (punctuation 5839 . 5840) (symbol 5826 . 5830) (punctuation 5814 . 5815) (symbol 5811 . 5813) (STRUCT 5804 . 5810) (CONST 5798 . 5803) (punctuation 5793 . 5794) (symbol 5785 . 5793) (punctuation 5773 . 5774) (CHAR 5768 . 5772) (CONST 5762 . 5767) (punctuation 5757 . 5758) (symbol 5748 . 5757) (symbol 5741 . 5747) (punctuation 5739 . 5740) (symbol 5736 . 5739) (punctuation 5724 . 5725) (CHAR 5719 . 5723) (symbol 5709 . 5717) (symbol 5702 . 5708) (EXTERN 5695 . 5701) (punctuation 5524 . 5525) (symbol 5511 . 5515) (punctuation 5510 . 5511) (symbol 5507 . 5509) (STRUCT 5500 . 5506) (symbol 5492 . 5498) (symbol 5485 . 5491) (EXTERN 5478 . 5484) (punctuation 5409 . 5410) (symbol 5360 . 5367) (symbol 5353 . 5359) (punctuation 5351 . 5352) (symbol 5344 . 5351) (symbol 5337 . 5343) (symbol 5327 . 5335) (DOUBLE 5320 . 5326) (EXTERN 5313 . 5319) (punctuation 5256 . 5257) (symbol 5240 . 5247) (punctuation 5239 . 5240) (symbol 5232 . 5238) (symbol 5226 . 5230) (symbol 5219 . 5225) (EXTERN 5212 . 5218) (punctuation 5135 . 5136) (VOID 5122 . 5126) (symbol 5115 . 5120) (symbol 5107 . 5114) (EXTERN 5100 . 5106) (punctuation 4343 . 4344) (symbol 3728 . 3730) (STRUCT 3721 . 3727) (punctuation 3553 . 3554) (symbol 3448 . 3456) (STRUCT 3441 . 3447) (semantic-list 3069 . 3220) (punctuation 3067 . 3068) (punctuation 3066 . 3067) (close-paren 955 . 956) (symbol 940 . 955) (symbol 932 . 939) (punctuation 930 . 931))
+      :lexical-table 
+        '(("__pid_t_defined")
+          ("_TIME_H" . ((number "1" 974 . 975)))
+          ("__need_size_t")
+          ("__time_t_defined" . ((number "1" 2026 . 2027)))
+          ("__isleap" (spp-arg-list ("year") 9203 . 9209) . ((semantic-list "((year) % 4 == 0 && ((year) % 100 != 0 || (year) % 400 == 0))" 9214 . 9275)))
+          ("__timespec_defined" . ((number "1" 3250 . 3251)))
+          ("__need_NULL")
+          ("__clock_t_defined" . ((number "1" 1603 . 1604)))
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c-mode
+      :tags 
+        '( ("_ERRNO_H" variable (:constant-flag t) nil [1028 1036])
+            ("features.h" include (:system-flag t) nil [1039 1061])
+            ("program_invocation_short_name" variable
+               (:type "char"
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :pointer 1)
+                (reparse-symbol extern-c-contents) [1843 1912])
+            ("program_invocation_name" variable
+               (:type "char"
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :pointer 1)
+                (reparse-symbol extern-c-contents) [1843 1912])
+            ("errno" variable
+               (:type "int"
+                :typemodifiers ("extern" "\"C\"" "extern"))
+                (reparse-symbol extern-c-contents) [1592 1609])
+            ("bits/errno.h" include
+               (:typemodifiers ("extern" "\"C\"")
+                :system-flag t)
+                (reparse-symbol extern-c-contents) [1204 1227])
+            ("error_t" type
+               (:typedef ("int")
+                :type "typedef")
+                nil [2297 2317])
+            ("__error_t_defined" variable (:constant-flag t) nil [2328 2345]))          
+      :file "errno.h"
+      :pointmax 2386
+      :fsize 2385
+      :lastmodtime '(22324 31542 0 0)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("_ERRNO_H" . ((number "1" 1037 . 1038)))
+          ("__error_t_defined" . ((number "1" 2346 . 2347)))
+          )
+))
   :file "!usr!include!semantic.cache"
   :semantic-tag-version "2.0"
   :semanticdb-version "2.2")

@@ -98,6 +98,62 @@
           ("BOOST_PP_STRINGIZE" (spp-arg-list ("text") 932 . 938) . ((symbol "BOOST_PP_STRINGIZE_I" 939 . 959) (semantic-list "(text)" 959 . 965)))
           ("BOOST_PP_STRINGIZE_I" (spp-arg-list ("text") 1005 . 1011) . ((punctuation "#" 1012 . 1013) (symbol "text" 1013 . 1017)))
           )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_PREPROCESSOR_ITERATE_HPP" variable (:constant-flag t) nil [652 682])
+            ("boost/preprocessor/iteration/iterate.hpp" include (:system-flag t) nil [685 737]))          
+      :file "iterate.hpp"
+      :pointmax 748
+      :fsize 747
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax '((punctuation 738 . 739) (punctuation 683 . 684) (punctuation 601 . 602) (punctuation 543 . 544) (punctuation 541 . 542) (punctuation 1 . 2))
+      :lexical-table 
+        '(("BOOST_PREPROCESSOR_ITERATE_HPP")
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_PREPROCESSOR_ENUM_HPP" variable (:constant-flag t) nil [649 676])
+            ("boost/preprocessor/repetition/enum.hpp" include (:system-flag t) nil [679 729]))          
+      :file "enum.hpp"
+      :pointmax 740
+      :fsize 739
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax '((punctuation 730 . 731) (punctuation 677 . 678) (punctuation 601 . 602) (punctuation 543 . 544) (punctuation 541 . 542) (punctuation 1 . 2))
+      :lexical-table 
+        '(("BOOST_PREPROCESSOR_ENUM_HPP")
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_PREPROCESSOR_ENUM_PARAMS_HPP" variable (:constant-flag t) nil [656 690])
+            ("boost/preprocessor/repetition/enum_params.hpp" include (:system-flag t) nil [693 750]))          
+      :file "enum_params.hpp"
+      :pointmax 761
+      :fsize 760
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax '((punctuation 751 . 752) (punctuation 691 . 692) (punctuation 601 . 602) (punctuation 543 . 544) (punctuation 541 . 542) (punctuation 1 . 2))
+      :lexical-table 
+        '(("BOOST_PREPROCESSOR_ENUM_PARAMS_HPP")
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_PREPROCESSOR_REPEAT_HPP" variable (:constant-flag t) nil [651 680])
+            ("boost/preprocessor/repetition/repeat.hpp" include (:system-flag t) nil [683 735]))          
+      :file "repeat.hpp"
+      :pointmax 746
+      :fsize 745
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax '((punctuation 736 . 737) (punctuation 681 . 682) (punctuation 601 . 602) (punctuation 543 . 544) (punctuation 541 . 542) (punctuation 1 . 2))
+      :lexical-table 
+        '(("BOOST_PREPROCESSOR_REPEAT_HPP")
+          )
 ))
   :file "!usr!include!boost!preprocessor!semantic.cache"
   :semantic-tag-version "2.0"

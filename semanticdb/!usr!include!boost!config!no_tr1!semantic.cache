@@ -66,6 +66,22 @@
       :lexical-table 
         '(("BOOST_CONFIG_MEMORY")
           )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_CONFIG_FUNCTIONAL" variable (:constant-flag t) nil [553 576])
+            ("BOOST_TR1_NO_RECURSION" variable (:constant-flag t) nil [624 646])
+            ("BOOST_CONFIG_NO_FUNCTIONAL_RECURSION" variable (:constant-flag t) nil [660 696])
+            ("functional" include (:system-flag t) nil [707 730]))          
+      :file "functional.hpp"
+      :pointmax 879
+      :fsize 878
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("BOOST_CONFIG_FUNCTIONAL")
+          )
 ))
   :file "!usr!include!boost!config!no_tr1!semantic.cache"
   :semantic-tag-version "2.0"

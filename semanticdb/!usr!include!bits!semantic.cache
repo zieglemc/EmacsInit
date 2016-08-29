@@ -2037,7 +2037,15 @@
           ("SCHED_FIFO" . ((number "1" 1131 . 1132)))
           ("CLONE_VM" . ((number "0x00000100" 1401 . 1411)))
           )
-))
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c-mode
+      :tags nil
+      :file "errno.h"
+      :pointmax 2164
+      :fsize 2163
+      :lastmodtime '(22324 31542 0 0)
+      :unmatched-syntax nil))
   :file "!usr!include!bits!semantic.cache"
   :semantic-tag-version "2.0"
   :semanticdb-version "2.2")
