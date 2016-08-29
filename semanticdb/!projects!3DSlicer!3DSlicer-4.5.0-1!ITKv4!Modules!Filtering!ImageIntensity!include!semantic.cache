@@ -1,0 +1,166 @@
+;; Object semanticdb-project-database-file
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("itkMultiplyImageFilter_h" variable (:constant-flag t) nil [818 842])
+            ("itkBinaryFunctorImageFilter.h" include nil nil [844 884])
+            ("itk" type
+               (:members 
+                  ( ("Functor" type
+                       (:members 
+                          ( ("Mult" type
+                               (:template 
+                                  ( ("TInput1" type (:type "class") nil nil)
+                                    ("TInput2" type (:type "class") nil nil)
+                                    ("TOutput" type (:type "class") nil nil))                                  
+                                :type "class"
+                                :members 
+                                  ( ("public" label nil (reparse-symbol classsubparts) [1083 1090])
+                                    ("Mult" function
+                                       (:constructor-flag t
+                                        :type ("Mult" type (:type "class") nil nil))
+                                        (reparse-symbol classsubparts) [1093 1102])
+                                    ("Mult" function
+                                       (:destructor-flag t
+                                        :type "void")
+                                        (reparse-symbol classsubparts) [1105 1115])
+                                    ("!=" function
+                                       (:methodconst-flag t
+                                        :operator-flag t
+                                        :arguments 
+                                          ( ("" variable
+                                               (:reference 1
+                                                :constant-flag t
+                                                :type ("Mult" type (:type "class") nil nil))
+                                                (reparse-symbol arg-sub-list) [1134 1147]))                                          
+                                        :type "bool")
+                                        (reparse-symbol classsubparts) [1118 1179])
+                                    ("==" function
+                                       (:methodconst-flag t
+                                        :operator-flag t
+                                        :arguments 
+                                          ( ("other" variable
+                                               (:reference 1
+                                                :constant-flag t
+                                                :type ("Mult" type (:type "class") nil nil))
+                                                (reparse-symbol arg-sub-list) [1199 1218]))                                          
+                                        :type "bool")
+                                        (reparse-symbol classsubparts) [1183 1264])
+                                    ("()" function
+                                       (:methodconst-flag t
+                                        :operator-flag t
+                                        :typemodifiers ("inline")
+                                        :arguments 
+                                          ( ("A" variable
+                                               (:reference 1
+                                                :constant-flag t
+                                                :type ("TInput1" type (:type "class") nil nil))
+                                                (reparse-symbol arg-sub-list) [1294 1312])
+                                            ("B" variable
+                                               (:reference 1
+                                                :constant-flag t
+                                                :type ("TInput2" type (:type "class") nil nil))
+                                                (reparse-symbol arg-sub-list) [1313 1331]))                                          
+                                        :type ("TOutput" type (:type "class") nil nil))
+                                        (reparse-symbol classsubparts) [1268 1381]))                                  )
+                                (reparse-symbol namespacesubparts) [985 1384]))                          
+                        :type "namespace")
+                        (reparse-symbol namespacesubparts) [902 1386]))                  
+                :type "namespace")
+                nil [886 3813]))          
+      :file "itkMultiplyImageFilter.h"
+      :pointmax 3843
+      :fsize 3842
+      :lastmodtime '(22359 65197 31700 923000)
+      :unmatched-syntax '((punctuation 3810 . 3811) (semantic-list 2408 . 3810) (punctuation 2406 . 2407) (punctuation 2402 . 2403) (symbol 2392 . 2401) (punctuation 2391 . 2392) (punctuation 2390 . 2391) (symbol 2378 . 2390) (TYPENAME 2369 . 2377) (punctuation 2337 . 2338) (symbol 2328 . 2337) (punctuation 2327 . 2328) (punctuation 2326 . 2327) (symbol 2314 . 2326) (TYPENAME 2305 . 2313) (punctuation 2273 . 2274) (symbol 2264 . 2273) (punctuation 2263 . 2264) (punctuation 2262 . 2263) (symbol 2250 . 2262) (TYPENAME 2241 . 2249) (punctuation 2209 . 2210) (symbol 2205 . 2209) (punctuation 2204 . 2205) (punctuation 2203 . 2204) (symbol 2196 . 2203) (punctuation 2166 . 2167) (symbol 2154 . 2166) (punctuation 2152 . 2153) (symbol 2140 . 2152) (punctuation 2138 . 2139) (symbol 2126 . 2138) (punctuation 2124 . 2125) (symbol 2100 . 2124) (PUBLIC 2091 . 2097) (punctuation 2087 . 2088) (symbol 2068 . 2087) (CLASS 2062 . 2067) (punctuation 2060 . 2061) (symbol 2047 . 2059) (punctuation 2045 . 2046) (symbol 2032 . 2044) (TYPENAME 2023 . 2031) (punctuation 2021 . 2022) (symbol 2009 . 2021) (punctuation 2007 . 2008) (symbol 1994 . 2006) (TYPENAME 1985 . 1993) (punctuation 1983 . 1984) (symbol 1971 . 1983) (TYPENAME 1962 . 1970) (punctuation 1960 . 1961) (TEMPLATE 1952 . 1960))
+      :lexical-table 
+        '(("itkMultiplyImageFilter_h")
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("itkAddImageFilter_h" variable (:constant-flag t) nil [813 832])
+            ("itkBinaryFunctorImageFilter.h" include nil nil [834 874])
+            ("itkNumericTraits.h" include nil nil [875 904])
+            ("itk" type
+               (:members 
+                  ( ("Functor" type
+                       (:members 
+                          ( ("Add2" type
+                               (:template 
+                                  ( ("TInput1" type (:type "class") nil nil)
+                                    ("TInput2" type (:type "class") nil nil)
+                                    ("TOutput" type (:type "class") nil nil))                                  
+                                :type "class"
+                                :members 
+                                  ( ("public" label nil (reparse-symbol classsubparts) [1103 1110])
+                                    ("AccumulatorType" variable (:type ("AccumulateType" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1156 1187])
+                                    ("Add2" function
+                                       (:constructor-flag t
+                                        :type ("Add2" type (:type "class") nil nil))
+                                        (reparse-symbol classsubparts) [1190 1199])
+                                    ("Add2" function
+                                       (:destructor-flag t
+                                        :type "void")
+                                        (reparse-symbol classsubparts) [1202 1212])
+                                    ("!=" function
+                                       (:methodconst-flag t
+                                        :operator-flag t
+                                        :arguments 
+                                          ( ("" variable
+                                               (:reference 1
+                                                :constant-flag t
+                                                :type ("Add2" type (:type "class") nil nil))
+                                                (reparse-symbol arg-sub-list) [1231 1244]))                                          
+                                        :type "bool")
+                                        (reparse-symbol classsubparts) [1215 1276])
+                                    ("==" function
+                                       (:methodconst-flag t
+                                        :operator-flag t
+                                        :arguments 
+                                          ( ("other" variable
+                                               (:reference 1
+                                                :constant-flag t
+                                                :type ("Add2" type (:type "class") nil nil))
+                                                (reparse-symbol arg-sub-list) [1296 1315]))                                          
+                                        :type "bool")
+                                        (reparse-symbol classsubparts) [1280 1361])
+                                    ("()" function
+                                       (:methodconst-flag t
+                                        :operator-flag t
+                                        :typemodifiers ("inline")
+                                        :arguments 
+                                          ( ("A" variable
+                                               (:reference 1
+                                                :constant-flag t
+                                                :type ("TInput1" type (:type "class") nil nil))
+                                                (reparse-symbol arg-sub-list) [1391 1409])
+                                            ("B" variable
+                                               (:reference 1
+                                                :constant-flag t
+                                                :type ("TInput2" type (:type "class") nil nil))
+                                                (reparse-symbol arg-sub-list) [1410 1428]))                                          
+                                        :type ("TOutput" type (:type "class") nil nil))
+                                        (reparse-symbol classsubparts) [1365 1524]))                                  )
+                                (reparse-symbol namespacesubparts) [1005 1527]))                          
+                        :type "namespace")
+                        (reparse-symbol namespacesubparts) [922 1529]))                  
+                :type "namespace")
+                nil [906 4934]))          
+      :file "itkAddImageFilter.h"
+      :pointmax 4964
+      :fsize 4963
+      :lastmodtime '(22359 65197 27700 923000)
+      :unmatched-syntax '((punctuation 4931 . 4932) (semantic-list 3617 . 4931) (punctuation 3614 . 3615) (punctuation 3610 . 3611) (symbol 3600 . 3609) (punctuation 3599 . 3600) (punctuation 3598 . 3599) (symbol 3586 . 3598) (TYPENAME 3577 . 3585) (punctuation 3545 . 3546) (symbol 3536 . 3545) (punctuation 3535 . 3536) (punctuation 3534 . 3535) (symbol 3522 . 3534) (TYPENAME 3513 . 3521) (punctuation 3481 . 3482) (symbol 3472 . 3481) (punctuation 3471 . 3472) (punctuation 3470 . 3471) (symbol 3458 . 3470) (TYPENAME 3449 . 3457) (punctuation 3417 . 3418) (symbol 3413 . 3417) (punctuation 3412 . 3413) (punctuation 3411 . 3412) (symbol 3404 . 3411) (punctuation 3374 . 3375) (symbol 3362 . 3374) (punctuation 3360 . 3361) (symbol 3348 . 3360) (punctuation 3346 . 3347) (symbol 3334 . 3346) (punctuation 3332 . 3333) (symbol 3308 . 3332) (PUBLIC 3299 . 3305) (punctuation 3295 . 3296) (symbol 3281 . 3295) (CLASS 3275 . 3280) (punctuation 3273 . 3274) (symbol 3260 . 3272) (punctuation 3258 . 3259) (symbol 3245 . 3257) (TYPENAME 3236 . 3244) (punctuation 3234 . 3235) (symbol 3222 . 3234) (punctuation 3220 . 3221) (symbol 3207 . 3219) (TYPENAME 3198 . 3206) (punctuation 3196 . 3197) (symbol 3184 . 3196) (TYPENAME 3175 . 3183) (punctuation 3173 . 3174) (TEMPLATE 3165 . 3173) (punctuation 1155 . 1156) (punctuation 1154 . 1155) (punctuation 1153 . 1154) (symbol 1145 . 1152) (punctuation 1143 . 1144) (symbol 1130 . 1143) (TYPENAME 1121 . 1129) (TYPEDEF 1113 . 1120))
+      :lexical-table 
+        '(("itkAddImageFilter_h")
+          )
+))
+  :file "!projects!3DSlicer!3DSlicer-4.5.0-1!ITKv4!Modules!Filtering!ImageIntensity!include!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

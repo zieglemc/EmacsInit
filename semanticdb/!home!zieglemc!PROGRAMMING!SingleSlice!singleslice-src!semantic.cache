@@ -1,0 +1,80 @@
+;; Object semanticdb-project-database-file
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("itk/itkImage.h" include nil nil [32 57])
+            ("itk/itkImageFileReader.h" include nil nil [58 93])
+            ("itk/itkImageFileWriter.h" include nil nil [94 129])
+            ("itk/itkExtractImageFilter.h" include nil nil [130 168])
+            ("itk/itkMinimumMaximumImageCalculator.h" include nil nil [169 218])
+            ("itk/itkMultiplyImageFilter.h" include nil nil [219 258])
+            ("itk/itkCastImageFilter.h" include nil nil [259 294])
+            ("itk/itkAddImageFilter.h" include nil nil [295 329])
+            ("itk/itkImageIOBase.h" include nil nil [330 361])
+            ("itk/itkScaleTransform.h" include nil nil [362 396])
+            ("itk/itkResampleImageFilter.h" include nil nil [397 436])
+            ("itk/itkFlipImageFilter.h" include nil nil [437 472])
+            ("itk/itkLinearInterpolateImageFunction.h" include nil nil [473 523])
+            ("iostream" include (:system-flag t) nil [540 559])
+            ("cmath" include (:system-flag t) nil [560 576])
+            ("vector" include (:system-flag t) nil [577 594])
+            ("algorithm" include (:system-flag t) nil [595 615])
+            ("iterator" include (:system-flag t) nil [616 635])
+            ("fstream" include (:system-flag t) nil [636 654])
+            ("sstream" include (:system-flag t) nil [655 673])
+            ("iostream" include (:system-flag t) nil [674 693])
+            ("ostream" include (:system-flag t) nil [694 712])
+            ("string" include (:system-flag t) nil [713 730])
+            ("boost/format.hpp" include (:system-flag t) nil [731 758])
+            ("boost/lexical_cast.hpp" include (:system-flag t) nil [759 792])
+            ("std" using (:type ("std" type
+                 (:prototype t
+                  :type "namespace")
+                  nil nil)) nil [794 814])
+            ("Usage" function
+               (:arguments 
+                  ( ("pc" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [836 846]))                  
+                :type "void")
+                nil [824 1427])
+            ("unnamed" type
+               (:members 
+                  ( ("getSlice" function
+                       (:template 
+                          ( ("T" type (:type "class") nil nil))                          
+                        :type "int"
+                        :arguments 
+                          ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [1480 1489])
+                            ("argv" variable
+                               (:pointer 1
+                                :dereference 1
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [1490 1504])
+                            ("" variable (:type ("T" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1504 1506]))                          )
+                        (reparse-symbol namespacesubparts) [1444 11172]))                  
+                :type "namespace")
+                nil [1431 11174])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [11193 11202])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [11203 11216]))                  
+                :type "int")
+                nil [11184 13325]))          
+      :file "singleslice.cxx"
+      :pointmax 13326
+      :fsize 13325
+      :lastmodtime '(22468 20007 15013 958000)
+      :unmatched-syntax nil))
+  :file "!home!zieglemc!PROGRAMMING!SingleSlice!singleslice-src!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

@@ -1,0 +1,54 @@
+;; Object semanticdb-project-database-file
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_PREPROCESSOR_FACILITIES_IDENTITY_HPP" variable (:constant-flag t) nil [417 459])
+            ("boost/preprocessor/facilities/empty.hpp" include (:system-flag t) nil [462 513])
+            ("BOOST_PP_IDENTITY" variable (:constant-flag t) nil [553 570]))          
+      :file "identity.hpp"
+      :pointmax 607
+      :fsize 606
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax '((punctuation 597 . 598) (punctuation 542 . 543) (punctuation 516 . 517) (punctuation 514 . 515) (punctuation 460 . 461) (punctuation 354 . 355) (punctuation 296 . 297) (punctuation 294 . 295) (punctuation 252 . 253) (punctuation 250 . 251) (punctuation 1 . 2))
+      :lexical-table 
+        '(("BOOST_PREPROCESSOR_FACILITIES_IDENTITY_HPP")
+          ("BOOST_PP_IDENTITY" (spp-arg-list ("item") 570 . 576) . ((symbol "item" 577 . 581) (symbol "BOOST_PP_EMPTY" 582 . 596)))
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_PREPROCESSOR_FACILITIES_EMPTY_HPP" variable (:constant-flag t) nil [414 453])
+            ("BOOST_PP_EMPTY" variable (:constant-flag t) nil [490 504]))          
+      :file "empty.hpp"
+      :pointmax 517
+      :fsize 516
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax '((punctuation 507 . 508) (punctuation 479 . 480) (punctuation 456 . 457) (punctuation 454 . 455) (punctuation 354 . 355) (punctuation 296 . 297) (punctuation 294 . 295) (punctuation 252 . 253) (punctuation 250 . 251) (punctuation 1 . 2))
+      :lexical-table 
+        '(("BOOST_PREPROCESSOR_FACILITIES_EMPTY_HPP")
+          ("BOOST_PP_EMPTY" (spp-arg-list nil 504 . 506))
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_PREPROCESSOR_FACILITIES_OVERLOAD_HPP" variable (:constant-flag t) nil [845 887])
+            ("boost/preprocessor/cat.hpp" include (:system-flag t) nil [890 928])
+            ("boost/preprocessor/variadic/size.hpp" include (:system-flag t) nil [929 977]))          
+      :file "overload.hpp"
+      :pointmax 1151
+      :fsize 1150
+      :lastmodtime '(22095 6379 0 0)
+      :unmatched-syntax '((punctuation 1141 . 1142) (punctuation 1006 . 1007) (punctuation 980 . 981) (punctuation 978 . 979) (punctuation 888 . 889) (punctuation 782 . 783) (punctuation 724 . 725) (punctuation 722 . 723) (punctuation 1 . 2))
+      :lexical-table 
+        '(("BOOST_PREPROCESSOR_FACILITIES_OVERLOAD_HPP")
+          )
+))
+  :file "!usr!include!boost!preprocessor!facilities!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

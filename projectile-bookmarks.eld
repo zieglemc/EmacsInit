@@ -1,0 +1,1 @@
+("~/.emacs.d/" "/" "/projects/3DSlicer/3DSlicer-4.5.0-1/ITKv4/" "~/PROGRAMMING/SingleSlice/singleslice-src/")

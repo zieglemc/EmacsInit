@@ -1,0 +1,111 @@
+;; Object semanticdb-project-database-file
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_CONCEPT_DETAIL_CONCEPT_DEF_DWA200651_HPP" variable (:constant-flag t) nil [252 298])
+            ("boost/preprocessor/seq/for_each_i.hpp" include (:system-flag t) nil [299 348])
+            ("boost/preprocessor/seq/enum.hpp" include (:system-flag t) nil [349 392])
+            ("boost/preprocessor/comma_if.hpp" include (:system-flag t) nil [393 436])
+            ("boost/preprocessor/cat.hpp" include (:system-flag t) nil [437 475])
+            ("BOOST_concept" variable (:constant-flag t) nil [2007 2020])
+            ("BOOST_CONCEPT_typename" variable (:constant-flag t) nil [3037 3059]))          
+      :file "concept_def.hpp"
+      :pointmax 3125
+      :fsize 3124
+      :lastmodtime '(22095 6380 0 0)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("BOOST_CONCEPT_typename" (spp-arg-list ("r" "ignored" "index" "t") 3059 . 3081) . 
+              ((symbol "BOOST_PP_COMMA_IF" 3088 . 3105) (semantic-list "(index)" 3105 . 3112) (TYPENAME "typename" 3113 . 3121) (symbol "t" 3122 . 3123)))
+          ("BOOST_concept" (spp-arg-list ("name" "params") 2020 . 2034) . 
+              ((TEMPLATE "template" 2084 . 2092) (punctuation "<" 2093 . 2094) (symbol "BOOST_PP_SEQ_FOR_EACH_I" 2095 . 2118) (semantic-list "(BOOST_CONCEPT_typename,~,params)" 2118 . 2151) (punctuation ">" 2152 . 2153) (STRUCT "struct" 2166 . 2172) (symbol "name" 2173 . 2177) (punctuation ";" 2177 . 2178) (TEMPLATE "template" 2330 . 2338) (punctuation "<" 2339 . 2340) (symbol "BOOST_PP_SEQ_FOR_EACH_I" 2341 . 2364) (semantic-list "(BOOST_CONCEPT_typename,~,params)" 2364 . 2397) (punctuation ">" 2398 . 2399) (STRUCT "struct" 2412 . 2418) (symbol "BOOST_PP_CAT" 2419 . 2431) (semantic-list "(name,Concept)" 2431 . 2445) (punctuation ":" 2496 . 2497) (symbol "name" 2498 . 2502) (punctuation "<" 2502 . 2503) (symbol "BOOST_PP_SEQ_ENUM" 2504 . 2521) (semantic-list "(params)" 2521 . 2529) (punctuation ">" 2530 . 2531) (semantic-list "{                                                                           \\
+    }" 2576 . 2659) (punctuation ";" 2659 . 2660) (TEMPLATE "template" 2822 . 2830) (punctuation "<" 2831 . 2832) (symbol "BOOST_PP_SEQ_FOR_EACH_I" 2833 . 2856) (semantic-list "(BOOST_CONCEPT_typename,~,params)" 2856 . 2889) (punctuation ">" 2890 . 2891) (STRUCT "struct" 2904 . 2910) (symbol "name" 2911 . 2915)))
+          ("BOOST_CONCEPT_DETAIL_CONCEPT_DEF_DWA200651_HPP")
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags nil
+      :file "concept_undef.hpp"
+      :pointmax 241
+      :fsize 240
+      :lastmodtime '(22095 6380 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_CONCEPT_DETAIL_GENERAL_DWA2006429_HPP" variable (:constant-flag t) nil [249 292])
+            ("boost/preprocessor/cat.hpp" include (:system-flag t) nil [294 332])
+            ("boost/concept/detail/backward_compatibility.hpp" include (:system-flag t) nil [333 392])
+            ("boost/static_assert.hpp" include (:system-flag t) nil [393 428])
+            ("boost" type
+               (:members 
+                  ( ("concepts" type
+                       (:members 
+                          ( ("requirement_" type
+                               (:template 
+                                  ( ("ModelFn" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :prototype t)
+                                (reparse-symbol namespacesubparts) [673 718])
+                            ("detail" type
+                               (:members 
+                                  ( ("instantiate" type
+                                       (:template 
+                                          ( ("void" type (:typevar "*") nil nil))                                          
+                                        :type "struct")
+                                        (reparse-symbol namespacesubparts) [741 784]))                                  
+                                :type "namespace")
+                                (reparse-symbol namespacesubparts) [720 786])
+                            ("requirement" type
+                               (:template 
+                                  ( ("Model" type (:type "class") nil nil))                                  
+                                :type "struct"
+                                :members 
+                                  ( ("failed" function
+                                       (:typemodifiers ("static")
+                                        :type "void")
+                                        (reparse-symbol classsubparts) [836 883]))                                  )
+                                (reparse-symbol namespacesubparts) [788 886])
+                            ("failed" type (:type "struct") (reparse-symbol namespacesubparts) [888 905])
+                            ("BOOST_CONCEPT_ASSERT_FN" variable (:constant-flag t) (reparse-symbol namespacesubparts) [1614 1637]))                          
+                        :type "namespace")
+                        (reparse-symbol namespacesubparts) [651 1893]))                  
+                :type "namespace")
+                nil [633 1894]))          
+      :file "general.hpp"
+      :pointmax 1950
+      :fsize 1949
+      :lastmodtime '(22095 6380 0 0)
+      :unmatched-syntax '((punctuation 1590 . 1591) (semantic-list 1588 . 1590) (punctuation 1586 . 1587) (punctuation 1585 . 1586) (punctuation 1584 . 1585) (punctuation 1583 . 1584) (punctuation 1582 . 1583) (punctuation 1581 . 1582) (punctuation 1580 . 1581) (punctuation 1579 . 1580) (punctuation 1578 . 1579) (punctuation 1577 . 1578) (punctuation 1576 . 1577) (punctuation 1575 . 1576) (punctuation 1574 . 1575) (punctuation 1573 . 1574) (punctuation 1572 . 1573) (symbol 1567 . 1572) (punctuation 1565 . 1566) (punctuation 1564 . 1565) (punctuation 1563 . 1564) (punctuation 1562 . 1563) (punctuation 1561 . 1562) (punctuation 1560 . 1561) (punctuation 1559 . 1560) (punctuation 1558 . 1559) (punctuation 1557 . 1558) (punctuation 1556 . 1557) (punctuation 1555 . 1556) (punctuation 1554 . 1555) (symbol 1547 . 1553) (punctuation 1546 . 1547) (symbol 1535 . 1546) (punctuation 1533 . 1534) (punctuation 1527 . 1528) (semantic-list 1520 . 1527) (semantic-list 1517 . 1520) (VOID 1513 . 1517) (punctuation 1512 . 1513) (symbol 1500 . 1512) (STRUCT 1493 . 1499) (punctuation 1491 . 1492) (symbol 1486 . 1491) (CLASS 1480 . 1485) (punctuation 1479 . 1480) (TEMPLATE 1470 . 1478) (punctuation 1045 . 1046) (semantic-list 990 . 1045) (punctuation 988 . 989) (punctuation 987 . 988) (punctuation 986 . 987) (punctuation 985 . 986) (punctuation 984 . 985) (punctuation 983 . 984) (punctuation 982 . 983) (punctuation 981 . 982) (punctuation 980 . 981) (punctuation 979 . 980) (punctuation 978 . 979) (punctuation 977 . 978) (punctuation 976 . 977) (punctuation 975 . 976) (punctuation 974 . 975) (symbol 969 . 974) (punctuation 967 . 968) (punctuation 966 . 967) (punctuation 965 . 966) (punctuation 964 . 965) (punctuation 963 . 964) (punctuation 962 . 963) (punctuation 961 . 962) (punctuation 960 . 961) (punctuation 959 . 960) (punctuation 958 . 959) (punctuation 957 . 958) (punctuation 956 . 957) (symbol 949 . 955) (punctuation 948 . 949) (symbol 937 . 948) (STRUCT 930 . 936) (punctuation 928 . 929) (symbol 923 . 928) (CLASS 917 . 922) (punctuation 916 . 917) (TEMPLATE 907 . 915))
+      :lexical-table 
+        '(("BOOST_CONCEPT_DETAIL_GENERAL_DWA2006429_HPP")
+          ("BOOST_CONCEPT_ASSERT_FN" (spp-arg-list ("ModelFnPtr") 1637 . 1651) . 
+              ((TYPEDEF "typedef" 1670 . 1677) (punctuation ":" 1678 . 1679) (punctuation ":" 1679 . 1680) (symbol "boost" 1680 . 1685) (punctuation ":" 1685 . 1686) (punctuation ":" 1686 . 1687) (symbol "concepts" 1687 . 1695) (punctuation ":" 1695 . 1696) (punctuation ":" 1696 . 1697) (symbol "detail" 1697 . 1703) (punctuation ":" 1703 . 1704) (punctuation ":" 1704 . 1705) (symbol "instantiate" 1705 . 1716) (punctuation "<" 1716 . 1717) (punctuation "&" 1733 . 1734) (punctuation ":" 1734 . 1735) (punctuation ":" 1735 . 1736) (symbol "boost" 1736 . 1741) (punctuation ":" 1741 . 1742) (punctuation ":" 1742 . 1743) (symbol "concepts" 1743 . 1751) (punctuation ":" 1751 . 1752) (punctuation ":" 1752 . 1753) (symbol "requirement_" 1753 . 1765) (punctuation "<" 1765 . 1766) (symbol "ModelFnPtr" 1766 . 1776) (punctuation ">" 1776 . 1777) (punctuation ":" 1777 . 1778) (punctuation ":" 1778 . 1779) (symbol "failed" 1779 . 1785) (punctuation ">" 1785 . 1786) (symbol "BOOST_PP_CAT" 1798 . 1810) (semantic-list "(boost_concept_check,__LINE__)" 1810 . 1840) (symbol "BOOST_STATIC_ASSERT_UNUSED_ATTRIBUTE" 1854 . 1890)))
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("BOOST_CONCEPT_BACKWARD_COMPATIBILITY_DWA200968_HPP" variable (:constant-flag t) nil [256 306])
+            ("boost" type
+               (:members 
+                  ( ("concepts" type (:type "namespace") (reparse-symbol namespacesubparts) [328 349]))                  
+                :type "namespace")
+                nil [308 473]))          
+      :file "backward_compatibility.hpp"
+      :pointmax 564
+      :fsize 563
+      :lastmodtime '(22095 6380 0 0)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("BOOST_CONCEPT_BACKWARD_COMPATIBILITY_DWA200968_HPP")
+          )
+))
+  :file "!usr!include!boost!concept!detail!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")
