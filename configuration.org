@@ -1,5 +1,3 @@
-#+TITLE: Emacs Configuration
-
 * Set additional repositories
 Add MELPA and MARMALADE as repositories for additional packages
 #+BEGIN_SRC emacs-lisp
@@ -274,7 +272,7 @@ My setup of helm
 
 #+END_SRC 
 ** Magit
-#+BEGIN_SRC 
+#+BEGIN_SRC emacs-lisp
 (require 'magit)
 #+END_SRC
 * Programming Stuff
@@ -315,7 +313,7 @@ We add modes for several programming languages and local keybindings
 #+END_SRC
 
 ** JULIA MODE 
-#+BEGIN_SRC 
+#+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.jl$" . julia-mode))
 #+END_SRC
 
@@ -386,20 +384,26 @@ Everything that corresponds to latex
 * ORG-MODE
 My org-mode setup
 #+BEGIN_SRC emacs-lisp
-(require 'ox-reveal)
-(require 'ox-twbs)
-(setq org-reveal-root "file:///home/zieglemc/src/reveal.js-master/js/reveal.js")
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(add-to-list 'auto-mode-alist '("\\.todo$" . org-mode))
+  (require 'ox-reveal)
+  (require 'ox-twbs)
+  (setq org-reveal-root "file:///home/zieglemc/src/reveal.js-master/js/reveal.js")
+  (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+  (add-to-list 'auto-mode-alist '("\\.todo$" . org-mode))
 
-(setq org-hide-leading-stars t)
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  (setq org-hide-leading-stars t)
+  (setq org-ellipsis " ↷")  
+  (require 'org-bullets)
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
-(setq org-agenda-custom-commands
-    '(("W" agenda "" ((org-agenda-ndays 21)))))
 
-(setq org-agenda-files (quote ("~/Stuff/ToDo/agenda.org" "~/Stuff/ToDo/worktime.org" "~/Stuff/ToDo/todo.org")))
+  (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+
+  (setq org-agenda-custom-commands
+      '(("W" agenda "" ((org-agenda-ndays 21)))))
+
+  (setq org-agenda-files (quote ("~/Stuff/ToDo/agenda.org" "~/Stuff/ToDo/worktime.org" "~/Stuff/ToDo/todo.org")))
+
 
 #+END_SRC
 

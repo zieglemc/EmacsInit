@@ -229,6 +229,8 @@ Position the cursor at it's beginning, according to the current mode."
 (define-key helm-grep-mode-map (kbd "n")  'helm-grep-mode-jump-other-window-forward)
 (define-key helm-grep-mode-map (kbd "p")  'helm-grep-mode-jump-other-window-backward)
 
+(require 'magit)
+
 ;; setup GDB
 (setq gdb-many-windows t ;; use gdb-many-windows by default
       gdb-show-main t  ;; Non-nil means display source file containing the main routine at startup
@@ -257,6 +259,8 @@ Position the cursor at it's beginning, according to the current mode."
 (add-hook 'matlab-mode-hook 'auto-complete-mode)
 (add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
 
+(add-to-list 'auto-mode-alist '("\\.jl$" . julia-mode))
+
 (add-to-list 'auto-mode-alist '("\\.el$" . lisp-mode))
 
 (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
@@ -276,13 +280,13 @@ Position the cursor at it's beginning, according to the current mode."
 (setq-default TeX-master nil)
 (add-hook 'TeX-mode-hook
           (lambda ()
-      (flyspell-mode 1)
+            (flyspell-mode 1)
             (TeX-fold-mode 1)
             (add-hook 'find-file-hook 'TeX-fold-buffer t t)
-      (local-set-key [C-tab] 'TeX-complete-symbol)
-      (local-set-key [C-c C-g] 'TeX-kill-job)
-      )
-    )
+            (local-set-key [C-tab] 'TeX-complete-symbol)
+            (local-set-key [C-c C-g] 'TeX-kill-job)
+            )
+          )
 
 (add-to-list 'auto-mode-alist '("\\.tex$" . TeX-mode))
 (add-to-list 'auto-mode-alist '("\\.sty$" . TeX-mode))
@@ -316,8 +320,13 @@ Position the cursor at it's beginning, according to the current mode."
 (add-to-list 'auto-mode-alist '("\\.todo$" . org-mode))
 
 (setq org-hide-leading-stars t)
+(setq org-ellipsis " ↷")  
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+
+(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
 
 (setq org-agenda-custom-commands
     '(("W" agenda "" ((org-agenda-ndays 21)))))
