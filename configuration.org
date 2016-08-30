@@ -116,13 +116,11 @@ Parenthesis mode, highlighting etc
 (indent-guide-global-mode)
 (setq indent-guide-recursive t)
 
-(require 'company)
-(global-company-mode 1)
-
 (require 'semantic)
 (global-semanticdb-minor-mode 1)
 (global-semantic-idle-scheduler-mode 1)
 (global-semantic-stickyfunc-mode 1)
+(semantic-add-system-include "/usr/include/itk" 'c++-mode)
 (semantic-mode 1)
 
 
@@ -130,6 +128,7 @@ Parenthesis mode, highlighting etc
 (add-hook 'after-init-hook 'global-company-mode)
 (add-to-list 'company-backends 'company-c-headers)
 (add-to-list 'company-backends 'company-irony)
+(global-company-mode 1)
 
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
@@ -444,6 +443,12 @@ My org-mode setup
 (global-set-key (kbd "M-g <down>") 'windmove-down)
 
 (global-set-key (kbd "C-x g") 'magit-status)
+
+(define-key winner-mode-map (kbd "C-c <left>") nil)
+(define-key winner-mode-map (kbd "C-c <right>") nil)
+
+(global-set-key (kbd "M-g <prior>") 'winner-undo)
+(global-set-key (kbd "M-g <next>") 'winner-redo)
 
 #+END_SRC
 ** Global Helm Keybindings

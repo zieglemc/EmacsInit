@@ -88,13 +88,11 @@ Position the cursor at it's beginning, according to the current mode."
 (indent-guide-global-mode)
 (setq indent-guide-recursive t)
 
-(require 'company)
-(global-company-mode 1)
-
 (require 'semantic)
 (global-semanticdb-minor-mode 1)
 (global-semantic-idle-scheduler-mode 1)
 (global-semantic-stickyfunc-mode 1)
+(semantic-add-system-include "/usr/include/itk" 'c++-mode)
 (semantic-mode 1)
 
 
@@ -102,6 +100,7 @@ Position the cursor at it's beginning, according to the current mode."
 (add-hook 'after-init-hook 'global-company-mode)
 (add-to-list 'company-backends 'company-c-headers)
 (add-to-list 'company-backends 'company-irony)
+(global-company-mode 1)
 
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
@@ -247,9 +246,13 @@ Position the cursor at it's beginning, according to the current mode."
   (turn-on-auto-fill)
   (global-set-key [f6] 'run-cfile)
   (global-set-key [C-c C-y] 'uncomment-region)
+  (irony-mode)
 )
 
 (add-hook 'c-mode-common-hook   'my-c-mode-common-hook)
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
 
 (add-hook 'matlab-mode-hook 'auto-complete-mode)
 (add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
@@ -358,6 +361,12 @@ Position the cursor at it's beginning, according to the current mode."
 (global-set-key (kbd "M-g <down>") 'windmove-down)
 
 (global-set-key (kbd "C-x g") 'magit-status)
+
+(define-key winner-mode-map (kbd "C-c <left>") nil)
+(define-key winner-mode-map (kbd "C-c <right>") nil)
+
+(global-set-key (kbd "M-g <prior>") 'winner-undo)
+(global-set-key (kbd "M-g <next>") 'winner-redo)
 
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we

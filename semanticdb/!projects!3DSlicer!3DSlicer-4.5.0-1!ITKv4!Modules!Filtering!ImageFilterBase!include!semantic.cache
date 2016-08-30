@@ -126,6 +126,504 @@
       :lexical-table 
         '(("itkCastImageFilter_hxx")
           )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("itkBinaryFunctorImageFilter_h" variable (:constant-flag t) nil [823 852])
+            ("itkInPlaceImageFilter.h" include nil nil [854 888])
+            ("itkSimpleDataObjectDecorator.h" include nil nil [889 930])
+            ("itk" type
+               (:members 
+                  ( ("BinaryFunctorImageFilter" type
+                       (:template 
+                          ( ("TInputImage1" type (:type "class") nil nil)
+                            ("TInputImage2" type (:type "class") nil nil)
+                            ("TOutputImage" type (:type "class") nil nil)
+                            ("TFunction" type (:type "class") nil nil))                          
+                        :type "class"
+                        :members 
+                          ( ("public" label nil (reparse-symbol classsubparts) [2237 2244])
+                            ("Self" type
+                               (:typedef ("BinaryFunctorImageFilter" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [2281 2343])
+                            ("Superclass" type
+                               (:typedef ("InPlaceImageFilter" type
+                                     (:template-specifier 
+                                        ( ("TInputImage1" type nil nil nil)
+                                          ("TOutputImage" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [2346 2414])
+                            ("Pointer" type
+                               (:typedef ("SmartPointer" type
+                                     (:template-specifier 
+                                        ( ("Self" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [2417 2482])
+                            ("ConstPointer" type
+                               (:typedef ("SmartPointer" type
+                                     (:template-specifier 
+                                        ( ("Self" type (:constant-flag t) nil nil))                                        
+                                      :type "class")
+                                      nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [2485 2555])
+                            ("itkNewMacro" function
+                               (:prototype-flag t
+                                :arguments 
+                                  ( ("" variable (:type ("Self" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2628 2633]))                                  
+                                :type "int")
+                                (reparse-symbol classsubparts) [2616 2634])
+                            ("itkTypeMacro" function
+                               (:prototype-flag t
+                                :arguments 
+                                  ( ("" variable (:type ("BinaryFunctorImageFilter" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2709 2734])
+                                    ("" variable (:type ("InPlaceImageFilter" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2735 2754]))                                  
+                                :type "int")
+                                (reparse-symbol classsubparts) [2696 2755])
+                            ("FunctorType" type
+                               (:typedef ("TFunction" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [2794 2853])
+                            ("Input1ImageType" type
+                               (:typedef ("TInputImage1" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [2856 2919])
+                            ("Input1ImagePointer" type
+                               (:typedef ("Input1ImageType::ConstPointer" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [2922 2988])
+                            ("Input1ImageRegionType" type
+                               (:typedef ("Input1ImageType::RegionType" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [2991 3060])
+                            ("Input1ImagePixelType" type
+                               (:typedef ("Input1ImageType::PixelType" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [3063 3131])
+                            ("DecoratedInput1ImagePixelType" type
+                               (:typedef ("SimpleDataObjectDecorator" type
+                                     (:template-specifier 
+                                        ( ("Input1ImagePixelType" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [3134 3269])
+                            ("Input2ImageType" type
+                               (:typedef ("TInputImage2" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [3273 3336])
+                            ("Input2ImagePointer" type
+                               (:typedef ("Input2ImageType::ConstPointer" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [3339 3405])
+                            ("Input2ImageRegionType" type
+                               (:typedef ("Input2ImageType::RegionType" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [3408 3477])
+                            ("Input2ImagePixelType" type
+                               (:typedef ("Input2ImageType::PixelType" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [3480 3548])
+                            ("DecoratedInput2ImagePixelType" type
+                               (:typedef ("SimpleDataObjectDecorator" type
+                                     (:template-specifier 
+                                        ( ("Input2ImagePixelType" type nil nil nil))                                        
+                                      :type "class")
+                                      nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [3551 3686])
+                            ("OutputImageType" type
+                               (:typedef ("TOutputImage" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [3690 3751])
+                            ("OutputImagePointer" type
+                               (:typedef ("OutputImageType::Pointer" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [3754 3818])
+                            ("OutputImageRegionType" type
+                               (:typedef ("OutputImageType::RegionType" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [3821 3888])
+                            ("OutputImagePixelType" type
+                               (:typedef ("OutputImageType::PixelType" type (:type "class") nil nil)
+                                :type "typedef")
+                                (reparse-symbol classsubparts) [3891 3957])
+                            ("SetInput1" function
+                               (:prototype-flag t
+                                :typemodifiers ("virtual")
+                                :arguments 
+                                  ( ("image1" variable
+                                       (:pointer 1
+                                        :constant-flag t
+                                        :type ("TInputImage1" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [4046 4073]))                                  
+                                :type "void")
+                                (reparse-symbol classsubparts) [4023 4074])
+                            ("SetInput1" function
+                               (:prototype-flag t
+                                :typemodifiers ("virtual")
+                                :arguments 
+                                  ( ("input1" variable
+                                       (:pointer 1
+                                        :constant-flag t
+                                        :type ("DecoratedInput1ImagePixelType" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [4100 4144]))                                  
+                                :type "void")
+                                (reparse-symbol classsubparts) [4077 4145])
+                            ("SetInput1" function
+                               (:prototype-flag t
+                                :typemodifiers ("virtual")
+                                :arguments 
+                                  ( ("input1" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("Input1ImagePixelType" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [4171 4206]))                                  
+                                :type "void")
+                                (reparse-symbol classsubparts) [4148 4207])
+                            ("SetConstant1" function
+                               (:prototype-flag t
+                                :typemodifiers ("virtual")
+                                :arguments 
+                                  ( ("input1" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("Input1ImagePixelType" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [4282 4317]))                                  
+                                :type "void")
+                                (reparse-symbol classsubparts) [4256 4318])
+                            ("GetConstant1" function
+                               (:prototype-flag t
+                                :methodconst-flag t
+                                :typemodifiers ("virtual")
+                                :constant-flag t
+                                :type ("Input1ImagePixelType" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [4444 4502])
+                            ("SetInput2" function
+                               (:prototype-flag t
+                                :typemodifiers ("virtual")
+                                :arguments 
+                                  ( ("image2" variable
+                                       (:pointer 1
+                                        :constant-flag t
+                                        :type ("TInputImage2" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [4591 4618]))                                  
+                                :type "void")
+                                (reparse-symbol classsubparts) [4568 4619])
+                            ("SetInput2" function
+                               (:prototype-flag t
+                                :typemodifiers ("virtual")
+                                :arguments 
+                                  ( ("input2" variable
+                                       (:pointer 1
+                                        :constant-flag t
+                                        :type ("DecoratedInput2ImagePixelType" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [4645 4689]))                                  
+                                :type "void")
+                                (reparse-symbol classsubparts) [4622 4690])
+                            ("SetInput2" function
+                               (:prototype-flag t
+                                :typemodifiers ("virtual")
+                                :arguments 
+                                  ( ("input2" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("Input2ImagePixelType" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [4716 4751]))                                  
+                                :type "void")
+                                (reparse-symbol classsubparts) [4693 4752])
+                            ("SetConstant2" function
+                               (:prototype-flag t
+                                :typemodifiers ("virtual")
+                                :arguments 
+                                  ( ("input2" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("Input2ImagePixelType" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [4828 4863]))                                  
+                                :type "void")
+                                (reparse-symbol classsubparts) [4802 4864])
+                            ("SetConstant" function
+                               (:arguments 
+                                  ( ("ct" variable (:type ("Input2ImagePixelType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4884 4908]))                                  
+                                :type "void")
+                                (reparse-symbol classsubparts) [4867 4944])
+                            ("GetConstant" function
+                               (:methodconst-flag t
+                                :constant-flag t
+                                :type ("Input2ImagePixelType" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [4947 5036])
+                            ("GetConstant2" function
+                               (:prototype-flag t
+                                :methodconst-flag t
+                                :typemodifiers ("virtual")
+                                :constant-flag t
+                                :type ("Input2ImagePixelType" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [5165 5223])
+                            ("GetFunctor" function (:type ("FunctorType" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5457 5505])
+                            ("GetFunctor" function
+                               (:methodconst-flag t
+                                :constant-flag t
+                                :type ("FunctorType" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [5739 5807])
+                            ("SetFunctor" function
+                               (:arguments 
+                                  ( ("functor" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("FunctorType" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [6198 6226]))                                  
+                                :type "void")
+                                (reparse-symbol classsubparts) [6182 6333])
+                            ("itkStaticConstMacro" function
+                               (:prototype-flag t
+                                :arguments 
+                                  ( ("" variable (:type ("InputImage1Dimension" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6396 6417])
+                                    ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [6418 6431])
+                                    ("" variable (:type ("TInputImage1::ImageDimension" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6432 6461]))                                  
+                                :type "int")
+                                (reparse-symbol classsubparts) [6371 6462])
+                            ("itkStaticConstMacro" function
+                               (:prototype-flag t
+                                :arguments 
+                                  ( ("" variable (:type ("InputImage2Dimension" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6490 6511])
+                                    ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [6512 6525])
+                                    ("" variable (:type ("TInputImage2::ImageDimension" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6526 6555]))                                  
+                                :type "int")
+                                (reparse-symbol classsubparts) [6465 6556])
+                            ("itkStaticConstMacro" function
+                               (:prototype-flag t
+                                :arguments 
+                                  ( ("" variable (:type ("OutputImageDimension" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6584 6605])
+                                    ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [6606 6619])
+                                    ("" variable (:type ("TOutputImage::ImageDimension" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6620 6649]))                                  
+                                :type "int")
+                                (reparse-symbol classsubparts) [6559 6650])
+                            ("protected" label nil (reparse-symbol classsubparts) [7202 7212])
+                            ("BinaryFunctorImageFilter" function
+                               (:prototype-flag t
+                                :constructor-flag t
+                                :type ("BinaryFunctorImageFilter" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [7215 7242])
+                            ("BinaryFunctorImageFilter" function
+                               (:destructor-flag t
+                                :typemodifiers ("virtual")
+                                :type "void")
+                                (reparse-symbol classsubparts) [7245 7283])
+                            ("ITK_OVERRIDE" variable (:type "int") (reparse-symbol classsubparts) [7978 7991])
+                            ("ITK_OVERRIDE" variable (:type "int") (reparse-symbol classsubparts) [8149 8162])
+                            ("private" label nil (reparse-symbol classsubparts) [8164 8172])
+                            ("ITK_DELETE_FUNCTION" variable (:type "int") (reparse-symbol classsubparts) [8214 8234])
+                            ("ITK_DELETE_FUNCTION" variable (:type "int") (reparse-symbol classsubparts) [8266 8286])
+                            ("m_Functor" variable (:type ("FunctorType" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8290 8312]))                          
+                        :superclasses 
+                          ( ("InPlaceImageFilter" type
+                               (:protection "public"
+                                :type "class")
+                                nil nil))                          )
+                        (reparse-symbol namespacesubparts) [2032 8315]))                  
+                :type "namespace")
+                nil [932 8317])
+            ("itkBinaryFunctorImageFilter.hxx" include nil nil [8373 8415]))          
+      :file "itkBinaryFunctorImageFilter.h"
+      :pointmax 8431
+      :fsize 8430
+      :lastmodtime '(22359 65196 995700 924000)
+      :unmatched-syntax '((semantic-list 8251 . 8265) (punctuation 8250 . 8251) (OPERATOR 8242 . 8250) (VOID 8237 . 8241) (semantic-list 8199 . 8213) (symbol 8175 . 8199) (semantic-list 8146 . 8148) (symbol 8121 . 8146) (VOID 8116 . 8120) (VIRTUAL 8108 . 8115) (semantic-list 7873 . 7977) (symbol 7853 . 7873) (VOID 7848 . 7852))
+      :lexical-table 
+        '(("itkBinaryFunctorImageFilter_h")
+          )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("itkBinaryFunctorImageFilter_hxx" variable (:constant-flag t) nil [825 856])
+            ("itkBinaryFunctorImageFilter.h" include nil nil [858 898])
+            ("itkImageScanlineIterator.h" include nil nil [899 936])
+            ("itkProgressReporter.h" include nil nil [937 969])
+            ("itk" type
+               (:members 
+                  ( ("BinaryFunctorImageFilter" function
+                       (:template 
+                          ( ("TInputImage1" type (:type "class") nil nil)
+                            ("TInputImage2" type (:type "class") nil nil)
+                            ("TOutputImage" type (:type "class") nil nil)
+                            ("TFunction" type (:type "class") nil nil))                          
+                        :type ("BinaryFunctorImageFilter" type (:type "class") nil nil)
+                        :parent "BinaryFunctorImageFilter"
+                        :constructor-flag t)
+                        (reparse-symbol namespacesubparts) [1011 1294])
+                    ("SetInput1" function
+                       (:template 
+                          ( ("TInputImage1" type (:type "class") nil nil)
+                            ("TInputImage2" type (:type "class") nil nil)
+                            ("TOutputImage" type (:type "class") nil nil)
+                            ("TFunction" type (:type "class") nil nil))                          
+                        :type "void"
+                        :arguments 
+                          ( ("image1" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type ("TInputImage1" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1567 1594]))                          
+                        :parent "BinaryFunctorImageFilter")
+                        (reparse-symbol namespacesubparts) [1359 1739])
+                    ("SetInput1" function
+                       (:template 
+                          ( ("TInputImage1" type (:type "class") nil nil)
+                            ("TInputImage2" type (:type "class") nil nil)
+                            ("TOutputImage" type (:type "class") nil nil)
+                            ("TFunction" type (:type "class") nil nil))                          
+                        :type "void"
+                        :arguments 
+                          ( ("input1" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type ("DecoratedInput1ImagePixelType" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1949 1994]))                          
+                        :parent "BinaryFunctorImageFilter")
+                        (reparse-symbol namespacesubparts) [1741 2156])
+                    ("SetInput1" function
+                       (:template 
+                          ( ("TInputImage1" type (:type "class") nil nil)
+                            ("TInputImage2" type (:type "class") nil nil)
+                            ("TOutputImage" type (:type "class") nil nil)
+                            ("TFunction" type (:type "class") nil nil))                          
+                        :type "void"
+                        :arguments 
+                          ( ("input1" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("Input1ImagePixelType" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2366 2402]))                          
+                        :parent "BinaryFunctorImageFilter")
+                        (reparse-symbol namespacesubparts) [2158 2608])
+                    ("SetConstant1" function
+                       (:template 
+                          ( ("TInputImage1" type (:type "class") nil nil)
+                            ("TInputImage2" type (:type "class") nil nil)
+                            ("TOutputImage" type (:type "class") nil nil)
+                            ("TFunction" type (:type "class") nil nil))                          
+                        :type "void"
+                        :arguments 
+                          ( ("input1" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("Input1ImagePixelType" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2821 2857]))                          
+                        :parent "BinaryFunctorImageFilter")
+                        (reparse-symbol namespacesubparts) [2610 2888])
+                    ("GetConstant1" function
+                       (:methodconst-flag t
+                        :parent "BinaryFunctorImageFilter"
+                        :type ("Input1ImagePixelType" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [3097 3523])
+                    ("SetInput2" function
+                       (:template 
+                          ( ("TInputImage1" type (:type "class") nil nil)
+                            ("TInputImage2" type (:type "class") nil nil)
+                            ("TOutputImage" type (:type "class") nil nil)
+                            ("TFunction" type (:type "class") nil nil))                          
+                        :type "void"
+                        :arguments 
+                          ( ("image2" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type ("TInputImage2" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [3797 3824]))                          
+                        :parent "BinaryFunctorImageFilter")
+                        (reparse-symbol namespacesubparts) [3589 3969])
+                    ("SetInput2" function
+                       (:template 
+                          ( ("TInputImage1" type (:type "class") nil nil)
+                            ("TInputImage2" type (:type "class") nil nil)
+                            ("TOutputImage" type (:type "class") nil nil)
+                            ("TFunction" type (:type "class") nil nil))                          
+                        :type "void"
+                        :arguments 
+                          ( ("input2" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type ("DecoratedInput2ImagePixelType" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [4179 4224]))                          
+                        :parent "BinaryFunctorImageFilter")
+                        (reparse-symbol namespacesubparts) [3971 4386])
+                    ("SetInput2" function
+                       (:template 
+                          ( ("TInputImage1" type (:type "class") nil nil)
+                            ("TInputImage2" type (:type "class") nil nil)
+                            ("TOutputImage" type (:type "class") nil nil)
+                            ("TFunction" type (:type "class") nil nil))                          
+                        :type "void"
+                        :arguments 
+                          ( ("input2" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("Input2ImagePixelType" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [4596 4632]))                          
+                        :parent "BinaryFunctorImageFilter")
+                        (reparse-symbol namespacesubparts) [4388 4838])
+                    ("SetConstant2" function
+                       (:template 
+                          ( ("TInputImage1" type (:type "class") nil nil)
+                            ("TInputImage2" type (:type "class") nil nil)
+                            ("TOutputImage" type (:type "class") nil nil)
+                            ("TFunction" type (:type "class") nil nil))                          
+                        :type "void"
+                        :arguments 
+                          ( ("input2" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("Input2ImagePixelType" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [5051 5087]))                          
+                        :parent "BinaryFunctorImageFilter")
+                        (reparse-symbol namespacesubparts) [4840 5118])
+                    ("GetConstant2" function
+                       (:methodconst-flag t
+                        :parent "BinaryFunctorImageFilter"
+                        :type ("Input2ImagePixelType" type (:type "class") nil nil))
+                        (reparse-symbol namespacesubparts) [5327 5753])
+                    ("GenerateOutputInformation" function
+                       (:template 
+                          ( ("TInputImage1" type (:type "class") nil nil)
+                            ("TInputImage2" type (:type "class") nil nil)
+                            ("TOutputImage" type (:type "class") nil nil)
+                            ("TFunction" type (:type "class") nil nil))                          
+                        :type "void"
+                        :parent "BinaryFunctorImageFilter")
+                        (reparse-symbol namespacesubparts) [5756 6677])
+                    ("ThreadedGenerateData" function
+                       (:template 
+                          ( ("TInputImage1" type (:type "class") nil nil)
+                            ("TInputImage2" type (:type "class") nil nil)
+                            ("TOutputImage" type (:type "class") nil nil)
+                            ("TFunction" type (:type "class") nil nil))                          
+                        :type "void"
+                        :arguments 
+                          ( ("outputRegionForThread" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("OutputImageRegionType" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [6953 7005])
+                            ("threadId" variable (:type ("ThreadIdType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7029 7051]))                          
+                        :parent "BinaryFunctorImageFilter")
+                        (reparse-symbol namespacesubparts) [6744 10063]))                  
+                :type "namespace")
+                nil [972 10065]))          
+      :file "itkBinaryFunctorImageFilter.hxx"
+      :pointmax 10095
+      :fsize 10094
+      :lastmodtime '(22359 65196 995700 924000)
+      :unmatched-syntax '((punctuation 5326 . 5327) (punctuation 5325 . 5326) (punctuation 5324 . 5325) (symbol 5314 . 5323) (punctuation 5312 . 5313) (symbol 5300 . 5312) (punctuation 5298 . 5299) (symbol 5286 . 5298) (punctuation 5284 . 5285) (symbol 5272 . 5284) (punctuation 5270 . 5271) (symbol 5246 . 5270) (TYPENAME 5237 . 5245) (CONST 5231 . 5236) (punctuation 5229 . 5230) (symbol 5218 . 5227) (TYPENAME 5209 . 5217) (punctuation 5207 . 5208) (symbol 5195 . 5207) (TYPENAME 5186 . 5194) (punctuation 5174 . 5175) (symbol 5162 . 5174) (TYPENAME 5153 . 5161) (punctuation 5151 . 5152) (symbol 5139 . 5151) (TYPENAME 5130 . 5138) (punctuation 5128 . 5129) (TEMPLATE 5120 . 5128) (punctuation 3096 . 3097) (punctuation 3095 . 3096) (punctuation 3094 . 3095) (symbol 3084 . 3093) (punctuation 3082 . 3083) (symbol 3070 . 3082) (punctuation 3068 . 3069) (symbol 3056 . 3068) (punctuation 3054 . 3055) (symbol 3042 . 3054) (punctuation 3040 . 3041) (symbol 3016 . 3040) (TYPENAME 3007 . 3015) (CONST 3001 . 3006) (punctuation 2999 . 3000) (symbol 2988 . 2997) (TYPENAME 2979 . 2987) (punctuation 2977 . 2978) (symbol 2965 . 2977) (TYPENAME 2956 . 2964) (punctuation 2944 . 2945) (symbol 2932 . 2944) (TYPENAME 2923 . 2931) (punctuation 2921 . 2922) (symbol 2909 . 2921) (TYPENAME 2900 . 2908) (punctuation 2898 . 2899) (TEMPLATE 2890 . 2898))
+      :lexical-table 
+        '(("itkBinaryFunctorImageFilter_hxx")
+          )
 ))
   :file "!projects!3DSlicer!3DSlicer-4.5.0-1!ITKv4!Modules!Filtering!ImageFilterBase!include!semantic.cache"
   :semantic-tag-version "2.0"

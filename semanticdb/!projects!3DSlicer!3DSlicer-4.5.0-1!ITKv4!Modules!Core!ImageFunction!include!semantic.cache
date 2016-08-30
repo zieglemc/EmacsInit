@@ -688,6 +688,21 @@
       :lexical-table 
         '(("itkImageFunction_hxx")
           )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("itkExtrapolateImageFunction_h" variable (:constant-flag t) nil [823 852])
+            ("itkImageFunction.h" include nil nil [854 883])
+            ("itk" type (:type "namespace") nil [885 4190]))          
+      :file "itkExtrapolateImageFunction.h"
+      :pointmax 4220
+      :fsize 4219
+      :lastmodtime '(22359 65196 832700 930000)
+      :unmatched-syntax '((punctuation 4187 . 4188) (semantic-list 1667 . 4187) (punctuation 1665 . 1666) (symbol 1655 . 1664) (punctuation 1653 . 1654) (symbol 1645 . 1653) (punctuation 1644 . 1645) (punctuation 1643 . 1644) (punctuation 1642 . 1643) (symbol 1632 . 1641) (punctuation 1631 . 1632) (punctuation 1630 . 1631) (symbol 1619 . 1630) (TYPENAME 1610 . 1618) (punctuation 1608 . 1609) (symbol 1595 . 1608) (TYPENAME 1586 . 1594) (punctuation 1560 . 1561) (symbol 1549 . 1560) (punctuation 1547 . 1548) (symbol 1534 . 1547) (PUBLIC 1527 . 1533) (punctuation 1523 . 1524) (symbol 1499 . 1523) (CLASS 1493 . 1498) (punctuation 1491 . 1492) (FLOAT 1485 . 1490) (punctuation 1483 . 1484) (symbol 1473 . 1482) (TYPENAME 1464 . 1472) (punctuation 1462 . 1463) (symbol 1451 . 1462) (TYPENAME 1442 . 1450) (punctuation 1440 . 1441) (TEMPLATE 1432 . 1440))
+      :lexical-table 
+        '(("itkExtrapolateImageFunction_h")
+          )
 ))
   :file "!projects!3DSlicer!3DSlicer-4.5.0-1!ITKv4!Modules!Core!ImageFunction!include!semantic.cache"
   :semantic-tag-version "2.0"

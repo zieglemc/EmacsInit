@@ -16072,6 +16072,20 @@
         '(("_GLIBCXX_CERRNO" . ((number "1" 1634 . 1635)))
           ("errno" . ((symbol "errno" 1722 . 1727)))
           )
+)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("_GLIBCXX_FENV_H" variable (:constant-flag t) nil [1176 1191])
+            ("bits/c++config.h" include (:system-flag t) nil [1222 1249]))          
+      :file "fenv.h"
+      :pointmax 2021
+      :fsize 2020
+      :lastmodtime '(22093 55977 0 0)
+      :unmatched-syntax '((punctuation 1297 . 1298) (symbol 1296 . 1297) (punctuation 1295 . 1296) (symbol 1291 . 1295) (punctuation 1290 . 1291) (symbol 1277 . 1289) (punctuation 1275 . 1276) (symbol 1207 . 1220) (symbol 1203 . 1206) (symbol 1196 . 1202) (punctuation 1195 . 1196))
+      :lexical-table 
+        '(("_GLIBCXX_FENV_H" . ((number "1" 1192 . 1193)))
+          )
 ))
   :file "!usr!include!c++!4.8.2!semantic.cache"
   :semantic-tag-version "2.0"
