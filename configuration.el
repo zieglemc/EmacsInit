@@ -2,6 +2,9 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 
+(setq user-full-name "Marc Ziegler"
+      user-email-adress "marc.ziegler@uk-erlangen.de")
+
 (setq auto-save-default nil)
 (setq make-backup-files nil)
 (setq inhibit-splash-screen t)
@@ -280,13 +283,13 @@ Position the cursor at it's beginning, according to the current mode."
 (setq-default TeX-master nil)
 (add-hook 'TeX-mode-hook
           (lambda ()
-            (flyspell-mode 1)
+      (flyspell-mode 1)
             (TeX-fold-mode 1)
             (add-hook 'find-file-hook 'TeX-fold-buffer t t)
-            (local-set-key [C-tab] 'TeX-complete-symbol)
-            (local-set-key [C-c C-g] 'TeX-kill-job)
-            )
-          )
+      (local-set-key [C-tab] 'TeX-complete-symbol)
+      (local-set-key [C-c C-g] 'TeX-kill-job)
+      )
+    )
 
 (add-to-list 'auto-mode-alist '("\\.tex$" . TeX-mode))
 (add-to-list 'auto-mode-alist '("\\.sty$" . TeX-mode))
@@ -315,6 +318,18 @@ Position the cursor at it's beginning, according to the current mode."
 
 (require 'ox-reveal)
 (require 'ox-twbs)
+(require 'org-contacts)
+(setq org-directory "/home/zieglemc/Stuff/ToDo")
+
+(defun org-file-path (filename)
+  "Return the absolute adress of an org file, given its relative name"
+  (interactive)
+  (concat (file-name-as-directory org-directory) filename)
+  )
+
+(setq org-archive-location
+      (concat (org-file-path "archive.org") "::* From %s" ))
+
 (setq org-reveal-root "file:///home/zieglemc/src/reveal.js-master/js/reveal.js")
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.todo$" . org-mode))
@@ -329,9 +344,43 @@ Position the cursor at it's beginning, according to the current mode."
 (setq org-src-tab-acts-natively t)
 
 (setq org-agenda-custom-commands
-    '(("W" agenda "" ((org-agenda-ndays 21)))))
+      '(("W" agenda "" ((org-agenda-ndays 21)))))
 
-(setq org-agenda-files (quote ("~/Stuff/ToDo/agenda.org" "~/Stuff/ToDo/worktime.org" "~/Stuff/ToDo/todo.org")))
+(setq org-agenda-files (quote ("~/Stuff/ToDo/agenda.org" "~/Stuff/ToDo/worktime.org" "~/Stuff/ToDo/todo.org" "~/Stuff/ToDo/ideas.org" "~/Stuff/ToDo/to-read.org")))
+
+(setq org-agenda-files `(
+          ,(org-file-path "worktime.org")
+          ,(org-file-path "todo.org")
+          ,(org-file-path "ideas.org") 
+          ,(org-file-path "to-read.org")
+          ,(org-file-path "agenda.org")))
+
+(defun mark-done-and-archive ()
+  "Mark the state of an org-mode item as DONE and archive it."
+  (interactive)
+  (org-todo 'done)
+  (org-archive-subtree))
+
+(define-key global-map "\C-c\C-x\C-s" 'mark-done-and-archive)
+
+(setq org-log-done 'time)
+
+(org-babel-do-load-languages 'org-babel-load-languages 
+                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) ))
+(setq org-confirm-babel-evaluate nil)
+
+(setq org-capture-templates
+      '(
+        ("t" "Todo"
+         entry
+         (file (org-file-path "todo.org")))
+        ("i" "Ideas"
+         entry
+         (file (org-file-path "ideas.org")))
+        ("r" "To Read"
+         checkitem
+         (file (org-file-path "to-read.org")))
+        ))
 
 ;; PACKAGE: comment-dwim-2
 (global-set-key (kbd "M-;") 'comment-dwim-2)

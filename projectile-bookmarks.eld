@@ -1,1 +1,1 @@
-("~/.emacs.d/" "/" "/projects/3DSlicer/3DSlicer-4.5.0-1/ITKv4/" "~/PROGRAMMING/SingleSlice/singleslice-src/" "~/PROGRAMMING/VeroTracking/CTfromVeroData/")
+("~/.emacs.d/" "~/PROGRAMMING/DoseCalculation/" "/home/woelfejs/PROGRAMMING/MarkerDetection/MarkerDetection-src/" "/" "/projects/3DSlicer/3DSlicer-4.5.0-1/ITKv4/" "~/PROGRAMMING/SingleSlice/singleslice-src/" "~/PROGRAMMING/VeroTracking/CTfromVeroData/")
