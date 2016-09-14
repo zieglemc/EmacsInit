@@ -1,6 +1,7 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
 (setq user-full-name "Marc Ziegler"
       user-email-adress "marc.ziegler@uk-erlangen.de")
@@ -38,6 +39,8 @@
 (global-linum-mode t)
 (display-time-mode t)
 (global-prettify-symbols-mode t)
+(add-hook 'org-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'fundamental-mode-hook #'rainbow-delimiters-mode)
 (setq frame-title-format
       (list (format "%s %%S: %%j " (system-name))
             '(buffer-file-name "%f" (dired-directory dired-directory "%b"))
@@ -55,36 +58,63 @@
 (set-face-attribute 'default nil :height 95)
 
 (defun emacs-reload()
-  "Reload the emacs ini file (~/.emacs.d/init.el)"
-  (interactive)
-  (load-file '"~/.emacs.d/init.el")
-)
+    "Reload the emacs ini file (~/.emacs.d/init.el)"
+    (interactive)
+    (load-file '"~/.emacs.d/init.el")
+  )
 
-(defun indent-buffer ()
-  "Indents an entire buffer using the default intenting scheme."
-  (interactive)
-  (point-to-register 'o)
-  (delete-trailing-whitespace)
-  (indent-region (point-min) (point-max) nil)
-  (untabify (point-min) (point-max))
-  (jump-to-register 'o)
-)
+  (defun indent-buffer ()
+    "Indents an entire buffer using the default intenting scheme."
+    (interactive)
+    (point-to-register 'o)
+    (delete-trailing-whitespace)
+    (indent-region (point-min) (point-max) nil)
+    (untabify (point-min) (point-max))
+    (jump-to-register 'o)
+  )
 
-(defun prelude-smart-open-line-above ()
-  "Insert an empty line above the current line.
-Position the cursor at it's beginning, according to the current mode."
+  (defun prelude-smart-open-line-above ()
+    "Insert an empty line above the current line.
+  Position the cursor at it's beginning, according to the current mode."
+    (interactive)
+    (move-beginning-of-line nil)
+    (newline-and-indent)
+    (forward-line -1)
+    (indent-according-to-mode))
+
+(defun mark-done-and-archive ()
+  "Mark the state of an org-mode item as DONE and archive it."
   (interactive)
-  (move-beginning-of-line nil)
-  (newline-and-indent)
-  (forward-line -1)
-  (indent-according-to-mode))
+  (org-todo 'done)
+  (org-archive-subtree))
+
+  (defmacro def-pairs (pairs)
+    `(progn
+       ,@(cl-loop for (key . val) in pairs
+            collect
+              `(defun ,(read (concat
+                              "wrap-with-"
+                              (prin1-to-string key)
+                              "s"))
+                   (&optional arg)
+                 (interactive "p")
+                 (sp-wrap-with-pair ,val)))))
+
+  (def-pairs ((paren        . "(")
+              (bracket      . "[")
+              (brace        . "{")
+              (single-quote . "'")
+              (double-quote . "\"")
+              (back-quote   . "`"));     (global-set-key (kbd "M-p \" ") 'wrap-with-double-quotes)
+  )
 
 (require 'smartparens)
+(require 'smartparens-config)
 (setq sp-base-key-bindings 'paredit)
-(setq sp-autoskip-closing-pair 'always)
+;(setq sp-autoskip-closing-pair 'always)
 (setq sp-hybrid-kill-entire-symbol nil)
 (sp-use-paredit-bindings)
-(show-smartparens-global-mode +1)
+;(show-smartparens-global-mode +1)
 (smartparens-global-mode 1)
 
 (require 'indent-guide)
@@ -98,6 +128,7 @@ Position the cursor at it's beginning, according to the current mode."
 (semantic-add-system-include "/usr/include/itk" 'c++-mode)
 (semantic-mode 1)
 
+(require 'multiple-cursors)
 
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
@@ -248,6 +279,7 @@ Position the cursor at it's beginning, according to the current mode."
   (hs-minor-mode)
   (setq flycheck-checker 'c/c++-gcc)
   (flycheck-mode)
+  (rainbow-delimiters-mode)
   (turn-on-auto-fill)
   (global-set-key [f6] 'run-cfile)
   (global-set-key [C-c C-y] 'uncomment-region)
@@ -260,10 +292,13 @@ Position the cursor at it's beginning, according to the current mode."
 (add-hook 'objc-mode-hook 'irony-mode)
 
 (add-hook 'matlab-mode-hook 'auto-complete-mode)
+(add-hook 'matlab-mode-hook #'rainbow-delimiters-mode)
 (add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
 
+(add-hook 'julia-mode-hook #'rainbow-delimiters-mode)
 (add-to-list 'auto-mode-alist '("\\.jl$" . julia-mode))
 
+(add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
 (add-to-list 'auto-mode-alist '("\\.el$" . lisp-mode))
 
 (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
@@ -274,6 +309,12 @@ Position the cursor at it's beginning, according to the current mode."
 
 (add-hook 'gnuplot-mode-hook
           (lambda () (local-set-key (kbd "C-c C-c") 'gnuplot-run-buffer)))
+(add-hook 'gnuplot-mode-hook #'rainbow-delimiters-mode)
+
+(add-hook 'shell-script-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'shell-script-mode-hook #'rainbow-mode)
+(add-hook 'sh-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'sh-mode-hook #'rainbow-mode)
 
 (require 'company-auctex)
 (company-auctex-init)
@@ -306,7 +347,7 @@ Position the cursor at it's beginning, according to the current mode."
         (local-set-key [C-tab] 'TeX-complete-symbol)))
 (require 'auto-dictionary)
 (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1)))
-
+(add-hook 'TeX-mode-hook #'rainbow-delimiters-mode)
 (setq TeX-view-program-selection
    (quote
     (((output-dvi style-pstricks)
@@ -317,70 +358,74 @@ Position the cursor at it's beginning, according to the current mode."
 (setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)"))))
 
 (require 'ox-reveal)
-(require 'ox-twbs)
-(require 'org-contacts)
-(setq org-directory "/home/zieglemc/Stuff/ToDo")
+    (require 'ox-twbs)
+;;    (require 'org-contacts)
+    (setq org-directory "/home/zieglemc/Stuff/ToDo")
 
-(defun org-file-path (filename)
-  "Return the absolute adress of an org file, given its relative name"
-  (interactive)
-  (concat (file-name-as-directory org-directory) filename)
-  )
+    (defun org-file-path (filename)
+      "Return the absolute adress of an org file, given its relative name"
+      (interactive)
+      (concat (file-name-as-directory org-directory) filename)
+      )
 
-(setq org-archive-location
-      (concat (org-file-path "archive.org") "::* From %s" ))
+    (setq org-archive-location
+          (concat (org-file-path "archive.org") "::* From %s" ))
 
-(setq org-reveal-root "file:///home/zieglemc/src/reveal.js-master/js/reveal.js")
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(add-to-list 'auto-mode-alist '("\\.todo$" . org-mode))
+    (setq org-reveal-root "file:///home/zieglemc/src/reveal.js-master/js/reveal.js")
+    (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+    (add-to-list 'auto-mode-alist '("\\.todo$" . org-mode))
 
-(setq org-hide-leading-stars t)
-(setq org-ellipsis " ↷")  
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+    (setq org-hide-leading-stars t)
+    (setq org-ellipsis " ↷")
+    (require 'org-bullets)
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 
-(setq org-src-fontify-natively t)
-(setq org-src-tab-acts-natively t)
+    (setq org-src-fontify-natively t)
+    (setq org-src-tab-acts-natively t)
 
-(setq org-agenda-custom-commands
-      '(("W" agenda "" ((org-agenda-ndays 21)))))
+    (setq org-agenda-custom-commands
+          '(("W" agenda "" ((org-agenda-ndays 21)))))
 
-(setq org-agenda-files (quote ("~/Stuff/ToDo/agenda.org" "~/Stuff/ToDo/worktime.org" "~/Stuff/ToDo/todo.org" "~/Stuff/ToDo/ideas.org" "~/Stuff/ToDo/to-read.org")))
+    (setq org-agenda-files (quote ("~/Stuff/ToDo/agenda.org" "~/Stuff/ToDo/worktime.org" "~/Stuff/ToDo/todo.org" "~/Stuff/ToDo/ideas.org" "~/Stuff/ToDo/to-read.org")))
 
-(setq org-agenda-files `(
-          ,(org-file-path "worktime.org")
-          ,(org-file-path "todo.org")
-          ,(org-file-path "ideas.org") 
-          ,(org-file-path "to-read.org")
-          ,(org-file-path "agenda.org")))
+    (setq org-agenda-files `(
+              ,(org-file-path "worktime.org")
+              ,(org-file-path "todo.org")
+              ,(org-file-path "ideas.org")
+              ,(org-file-path "to-read.org")
+              ,(org-file-path "agenda.org")
+              ,(org-file-path "contacts.org")))
 
-(defun mark-done-and-archive ()
-  "Mark the state of an org-mode item as DONE and archive it."
-  (interactive)
-  (org-todo 'done)
-  (org-archive-subtree))
+    (define-key global-map "\C-c\C-x\C-s" 'mark-done-and-archive)
 
-(define-key global-map "\C-c\C-x\C-s" 'mark-done-and-archive)
+    (setq org-log-done 'time)
 
-(setq org-log-done 'time)
-
-(org-babel-do-load-languages 'org-babel-load-languages 
-                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) ))
-(setq org-confirm-babel-evaluate nil)
+    (org-babel-do-load-languages 'org-babel-load-languages
+                                 '((emacs-lisp . t) (ruby . t) (gnuplot . t) ))
+    (setq org-confirm-babel-evaluate nil)
 
 (setq org-capture-templates
-      '(
-        ("t" "Todo"
-         entry
-         (file (org-file-path "todo.org")))
-        ("i" "Ideas"
-         entry
-         (file (org-file-path "ideas.org")))
-        ("r" "To Read"
-         checkitem
-         (file (org-file-path "to-read.org")))
-        ))
+        '(
+          ("t" "Todo"
+           entry
+           (file (org-file-path "todo.org")))
+          ("i" "Ideas"
+           entry
+           (file (org-file-path "ideas.org")))
+          ("r" "To Read"
+           checkitem
+           (file (org-file-path "to-read.org")))
+          ("h" "How-To"
+           entry
+           (file (org-file-path "how-to.org")))
+          ))
+;; (add-to-list 'org-capture-templates
+;;              '("c" "Contacts" entry (file (org-file-path "contacts.org"))
+;;                "* %(org-contacts-template-name)
+;; :PROPERTIES:
+;; :EMAIL: %(org-contacts-template-email)
+;; :END:"))
 
 ;; PACKAGE: comment-dwim-2
 (global-set-key (kbd "M-;") 'comment-dwim-2)
@@ -395,7 +440,6 @@ Position the cursor at it's beginning, according to the current mode."
                                (interactive)
                                (setq-local compilation-read-command nil)
                                (call-interactively 'compile)))
-(global-set-key [C-c C-y] 'uncomment-region)
 
 (fset 'make_newline
       [?\C-e tab return])
@@ -417,14 +461,45 @@ Position the cursor at it's beginning, according to the current mode."
 (global-set-key (kbd "M-g <right>") 'windmove-right)
 (global-set-key (kbd "M-g <up>") 'windmove-up)
 (global-set-key (kbd "M-g <down>") 'windmove-down)
-
-(global-set-key (kbd "C-x g") 'magit-status)
-
+(global-set-key (kbd "M-g <prior>") 'winner-undo)
+(global-set-key (kbd "M-g <next>") 'winner-redo)
 (define-key winner-mode-map (kbd "C-c <left>") nil)
 (define-key winner-mode-map (kbd "C-c <right>") nil)
 
-(global-set-key (kbd "M-g <prior>") 'winner-undo)
-(global-set-key (kbd "M-g <next>") 'winner-redo)
+(global-set-key (kbd "C-x g") 'magit-status)
+
+;; smartparens bindings
+(global-set-key (kbd "M-p a") 'sp-beginning-of-sexp)
+(global-set-key (kbd "M-p e") 'sp-end-of-sexp)
+(global-set-key (kbd "M-p <down>") 'sp-down-sexp)
+(global-set-key (kbd "M-p <up>") 'sp-up-sexp)
+(global-set-key (kbd "M-p f") 'sp-forward-sexp)
+(global-set-key (kbd "M-p b") 'sp-backward-sexp)
+(global-set-key (kbd "M-p n") 'sp-next-sexp)
+(global-set-key (kbd "M-p r") 'sp-rewrap-sexp)
+(global-set-key (kbd "M-p <left>") 'sp-backward-slurp-sexp)
+(global-set-key (kbd "M-p <right>") 'sp-forward-slurp-sexp)
+(global-set-key (kbd "M-p C-<left>") 'sp-backward-barf-sexp)
+(global-set-key (kbd "M-p C-<right>") 'sp-previous-barf-sexp)
+(define-key smartparens-mode-map (kbd "C-<left>") nil)
+(define-key smartparens-mode-map (kbd "C-<right>") nil)
+(global-set-key (kbd "M-p t") 'sp-transpose-sexp)
+(global-set-key (kbd "M-p k") 'sp-kill-sexp)
+(global-set-key (kbd "M-p ( ")  'wrap-with-parens)
+(global-set-key (kbd "M-p [ ")  'wrap-with-brackets)
+(global-set-key (kbd "M-p { ")  'wrap-with-braces)
+(global-set-key (kbd "M-p ' ")  'wrap-with-single-quotes)
+(global-set-key (kbd "M-p _ ")  'wrap-with-underscores)
+(global-set-key (kbd "M-p ` ")  'wrap-with-back-quotes)
+
+;; multiple cursors
+(global-set-key (kbd "M-n <right>") 'mc/mark-next-like-this)
+(global-set-key (kbd "M-n <left>") 'mc/mark-previous-like-this)
+(global-set-key (kbd "M-n C-<right>") 'mc/skip-to-next-like-this)
+(global-set-key (kbd "M-n C-<left>") 'mc/skip-to-previous-like-this)
+(global-set-key (kbd "M-n <") 'mc/unmark-next-like-this)
+(global-set-key (kbd "M-n >") 'mc/unmark-previous-like-this)
+(global-set-key (kbd "M-n a") 'mc/mark-all-like-this)
 
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
@@ -434,7 +509,8 @@ Position the cursor at it's beginning, according to the current mode."
 
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-x b") 'helm-mini)
+;(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "C-x b") 'switch-to-buffer)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 (global-set-key (kbd "C-c h o") 'helm-occur)
@@ -468,3 +544,6 @@ Position the cursor at it's beginning, according to the current mode."
 (global-set-key (kbd "<f9>") 'gud-step);; equiv matlab step in
 (global-set-key (kbd "<f8>") 'gud-next) ;; equiv matlab step 1
 (global-set-key (kbd "<f7>") 'gud-finish) ;; equiv matlab step out
+
+;; this is down here because it destroyes parens matching and coloring
+(global-set-key (kbd "M-p \" ") 'wrap-with-double-quotes)

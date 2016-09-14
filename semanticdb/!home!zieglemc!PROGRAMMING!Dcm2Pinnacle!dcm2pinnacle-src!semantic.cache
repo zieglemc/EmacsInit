@@ -1,0 +1,157 @@
+;; Object semanticdb-project-database-file
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("/projects/3DSlicer/3DSlicer/ITKv4/Modules/Core/Common/include/itkImage.h" include nil nil [31 114])
+            ("itkImageFileReader.h" include nil nil [115 146])
+            ("itkImageFileWriter.h" include nil nil [147 178])
+            ("itkMultiplyImageFilter.h" include nil nil [206 241])
+            ("itkAddImageFilter.h" include nil nil [242 272])
+            ("itkFlipImageFilter.h" include nil nil [273 304])
+            ("itkGDCMImageIO.h" include nil nil [328 355])
+            ("itkGDCMSeriesFileNames.h" include nil nil [356 391])
+            ("itkMetaDataObject.h" include nil nil [392 422])
+            ("itkImageSeriesReader.h" include nil nil [423 456])
+            ("itkRawImageIO.h" include nil nil [457 483])
+            ("iostream" include (:system-flag t) nil [501 520])
+            ("cmath" include (:system-flag t) nil [521 537])
+            ("vector" include (:system-flag t) nil [538 555])
+            ("algorithm" include (:system-flag t) nil [556 576])
+            ("iterator" include (:system-flag t) nil [577 596])
+            ("fstream" include (:system-flag t) nil [597 615])
+            ("sstream" include (:system-flag t) nil [616 634])
+            ("ostream" include (:system-flag t) nil [635 653])
+            ("string" include (:system-flag t) nil [654 671])
+            ("boost/format.hpp" include (:system-flag t) nil [672 699])
+            ("boost/lexical_cast.hpp" include (:system-flag t) nil [700 733])
+            ("std" using (:type ("std" type
+                 (:prototype t
+                  :type "namespace")
+                  nil nil)) nil [735 755])
+            ("Usage" function
+               (:arguments 
+                  ( ("pc" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [777 787]))                  
+                :type "void")
+                nil [765 1663])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [1675 1684])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1685 1698]))                  
+                :type "int")
+                nil [1666 30857]))          
+      :file "dcm2pinnacle.cxx"
+      :pointmax 30858
+      :fsize 30857
+      :lastmodtime '(22477 13403 613771 128000)
+      :unmatched-syntax nil)
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("sstream" include (:system-flag t) nil [1 19])
+            ("iostream" include (:system-flag t) nil [20 39])
+            ("fstream" include (:system-flag t) nil [40 58])
+            ("iomanip" include (:system-flag t) nil [59 77])
+            ("algorithm" include (:system-flag t) nil [78 98])
+            ("boost/lexical_cast.hpp" include (:system-flag t) nil [99 132])
+            ("boost/algorithm/string.hpp" include (:system-flag t) nil [133 170])
+            ("boost/algorithm/string/trim.hpp" include (:system-flag t) nil [171 213])
+            ("basics.h" include nil nil [215 234])
+            ("<<" function
+               (:operator-flag t
+                :arguments 
+                  ( ("os" variable
+                       (:reference 1
+                        :type ("ostream" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [280 292])
+                    ("patName" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("name" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [293 314]))                  
+                :type ("ostream" type (:type "class") nil nil))
+                nil [259 383])
+            ("name" function
+               (:constructor-flag t
+                :parent "name"
+                :arguments 
+                  ( ("sstring" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [397 413]))                  
+                :type ("name" type (:type "class") nil nil))
+                nil [385 809])
+            ("<<" function
+               (:operator-flag t
+                :arguments 
+                  ( ("os" variable
+                       (:reference 1
+                        :type ("ostream" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [857 869])
+                    ("patDate" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("date" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [870 891]))                  
+                :type ("ostream" type (:type "class") nil nil))
+                nil [836 1074])
+            ("date" function
+               (:constructor-flag t
+                :parent "date"
+                :arguments 
+                  ( ("sstring" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1088 1104]))                  
+                :type ("date" type (:type "class") nil nil))
+                nil [1076 1774])
+            ("s_time" function
+               (:constructor-flag t
+                :parent "s_time"
+                :arguments 
+                  ( ("sstring" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1791 1806]))                  
+                :type ("s_time" type (:type "class") nil nil))
+                nil [1776 2173])
+            ("regression" function
+               (:constructor-flag t
+                :parent "regression"
+                :type ("regression" type (:type "class") nil nil))
+                nil [2176 2237])
+            ("regression" function
+               (:constructor-flag t
+                :parent "regression"
+                :arguments 
+                  ( ("sl" variable (:type "double") (reparse-symbol arg-sub-list) [2263 2273])
+                    ("in" variable (:type "double") (reparse-symbol arg-sub-list) [2274 2285]))                  
+                :type ("regression" type (:type "class") nil nil))
+                nil [2239 2320])
+            ("<<" function
+               (:operator-flag t
+                :arguments 
+                  ( ("os" variable
+                       (:reference 1
+                        :type ("ostream" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2362 2374])
+                    ("Coordinate" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("coordinate" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2375 2405]))                  
+                :type ("ostream" type (:type "class") nil nil))
+                nil [2341 2488]))          
+      :file "basics.cxx"
+      :pointmax 2489
+      :fsize 2488
+      :lastmodtime '(22394 26552 315863 838000)
+      :unmatched-syntax nil)
+    (semanticdb-table "semanticdb-table"
+      :file "basics.h"
+      :fsize 1345
+      :lastmodtime '(22398 19277 162651 135000)))
+  :file "!home!zieglemc!PROGRAMMING!Dcm2Pinnacle!dcm2pinnacle-src!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

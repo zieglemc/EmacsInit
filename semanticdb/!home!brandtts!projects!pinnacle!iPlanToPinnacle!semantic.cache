@@ -1,0 +1,287 @@
+;; Object semanticdb-project-database-file
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semanticdb-project-database-file"
+  :tables
+  (list
+    (semanticdb-table "semanticdb-table"
+      :major-mode c++-mode
+      :tags 
+        '( ("iostream" include (:system-flag t) nil [1 20])
+            ("sstream" include (:system-flag t) nil [21 39])
+            ("fstream" include (:system-flag t) nil [40 58])
+            ("vector" include (:system-flag t) nil [59 76])
+            ("stdexcept" include (:system-flag t) nil [77 97])
+            ("algorithm" include (:system-flag t) nil [98 118])
+            ("limits" include (:system-flag t) nil [139 156])
+            ("cmath" include (:system-flag t) nil [157 173])
+            ("boost/lexical_cast.hpp" include (:system-flag t) nil [174 207])
+            ("dcmtk/dcmdata/dcfilefo.h" include nil nil [209 244])
+            ("dcmtk/dcmdata/dcdeftag.h" include nil nil [245 280])
+            ("DICOMRTtoPinnacle.h" include nil nil [282 312])
+            ("std::cout" using (:type ("std::cout" type
+                 (:prototype t
+                  :type "class")
+                  nil nil)) nil [314 330])
+            ("std::cerr" using (:type ("std::cerr" type
+                 (:prototype t
+                  :type "class")
+                  nil nil)) nil [331 347])
+            ("std::endl" using (:type ("std::endl" type
+                 (:prototype t
+                  :type "class")
+                  nil nil)) nil [348 364])
+            ("std::string" using (:type ("std::string" type
+                 (:prototype t
+                  :type "class")
+                  nil nil)) nil [365 383])
+            ("errorHandling" function
+               (:arguments 
+                  ( ("key" variable (:type ("DcmTagKey" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [404 418]))                  
+                :type "void")
+                nil [385 532])
+            ("getSequenceItem" function
+               (:pointer 1
+                :arguments 
+                  ( ("source" variable
+                       (:pointer 1
+                        :type ("DcmItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [559 575])
+                    ("key" variable (:type ("DcmTagKey" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [576 590]))                  
+                :type ("DcmItem" type (:type "class") nil nil))
+                nil [534 743])
+            ("getOFString" function
+               (:arguments 
+                  ( ("source" variable
+                       (:pointer 1
+                        :type ("DcmItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [766 782])
+                    ("key" variable (:type ("DcmTagKey" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [783 797]))                  
+                :type ("OFString" type (:type "class") nil nil))
+                nil [745 939])
+            ("getOFStringArray" function
+               (:arguments 
+                  ( ("source" variable
+                       (:pointer 1
+                        :type ("DcmItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [967 983])
+                    ("key" variable (:type ("DcmTagKey" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [984 998]))                  
+                :type ("OFString" type (:type "class") nil nil))
+                nil [941 1145])
+            ("getSint32" function
+               (:arguments 
+                  ( ("source" variable
+                       (:pointer 1
+                        :type ("DcmItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1164 1180])
+                    ("key" variable (:type ("DcmTagKey" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1181 1195]))                  
+                :type ("Sint32" type (:type "class") nil nil))
+                nil [1147 1333])
+            ("getFloat64" function
+               (:arguments 
+                  ( ("source" variable
+                       (:pointer 1
+                        :type ("DcmItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1354 1370])
+                    ("key" variable (:type ("DcmTagKey" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1371 1385]))                  
+                :type ("Float64" type (:type "class") nil nil))
+                nil [1335 1525])
+            ("getElement" function
+               (:pointer 1
+                :arguments 
+                  ( ("source" variable
+                       (:pointer 1
+                        :type ("DcmItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1550 1566])
+                    ("key" variable (:type ("DcmTagKey" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1567 1581]))                  
+                :type ("DcmElement" type (:type "class") nil nil))
+                nil [1527 1725])
+            ("getSequence" function
+               (:pointer 1
+                :arguments 
+                  ( ("source" variable
+                       (:pointer 1
+                        :type ("DcmItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1759 1775])
+                    ("key" variable (:type ("DcmTagKey" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1776 1790]))                  
+                :type ("DcmSequenceOfItems" type (:type "class") nil nil))
+                nil [1727 1950])
+            ("Isocenter" function
+               (:constructor-flag t
+                :parent "Isocenter"
+                :type ("Isocenter" type (:type "class") nil nil))
+                nil [1952 2115])
+            ("readFromDICOM" function
+               (:parent "Isocenter"
+                :arguments 
+                  ( ("point" variable
+                       (:pointer 1
+                        :type ("DcmElement" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2147 2165]))                  
+                :type "void")
+                nil [2117 2398])
+            ("valid" function
+               (:methodconst-flag t
+                :parent "Isocenter"
+                :type "bool")
+                nil [2400 2484])
+            ("toString" function
+               (:methodconst-flag t
+                :parent "Isocenter"
+                :type ("string" type (:type "class") nil nil))
+                nil [2486 2960])
+            ("<<" function
+               (:operator-flag t
+                :arguments 
+                  ( ("os" variable
+                       (:reference 1
+                        :type ("std::ostream" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2987 3004])
+                    ("iso" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("Isocenter" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3005 3026]))                  
+                :type ("std::ostream" type (:type "class") nil nil))
+                nil [2962 3123])
+            ("Prescription" function
+               (:constructor-flag t
+                :parent "Prescription"
+                :type ("Prescription" type (:type "class") nil nil))
+                nil [3125 3202])
+            ("readFromDICOM" function
+               (:parent "Prescription"
+                :arguments 
+                  ( ("fractionGroup" variable
+                       (:pointer 1
+                        :type ("DcmItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3237 3260]))                  
+                :type "void")
+                nil [3204 3486])
+            ("toString" function
+               (:methodconst-flag t
+                :parent "Prescription"
+                :type ("string" type (:type "class") nil nil))
+                nil [3490 3898])
+            ("ControlPoint" function
+               (:constructor-flag t
+                :parent "ControlPoint"
+                :arguments 
+                  ( ("parentBeam" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Beam" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3927 3950]))                  
+                :type ("ControlPoint" type (:type "class") nil nil))
+                nil [3900 4511])
+            ("ControlPoint" function
+               (:constructor-flag t
+                :parent "ControlPoint"
+                :arguments 
+                  ( ("cp" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("ControlPoint" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4540 4563]))                  
+                :type ("ControlPoint" type (:type "class") nil nil))
+                nil [4513 4853])
+            ("readFromDICOM" function
+               (:parent "ControlPoint"
+                :arguments 
+                  ( ("controlPointItem" variable
+                       (:pointer 1
+                        :type ("DcmItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4931 4957])
+                    ("beamItem" variable
+                       (:pointer 1
+                        :type ("DcmItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4958 4976]))                  
+                :type "void")
+                nil [4898 8803])
+            ("toString" function
+               (:methodconst-flag t
+                :parent "ControlPoint"
+                :type ("string" type (:type "class") nil nil))
+                nil [8805 10957])
+            ("Beam" function
+               (:constructor-flag t
+                :parent "Beam"
+                :type ("Beam" type (:type "class") nil nil))
+                nil [10959 11096])
+            ("readFromDICOM" function
+               (:parent "Beam"
+                :arguments 
+                  ( ("beam" variable
+                       (:pointer 1
+                        :type ("DcmItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11123 11137])
+                    ("refBeam" variable
+                       (:pointer 1
+                        :type ("DcmItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11138 11155]))                  
+                :type "void")
+                nil [11098 12665])
+            ("determineBeamType" function
+               (:methodconst-flag t
+                :parent "Beam"
+                :type ("BeamType" type (:type "class") nil nil))
+                nil [12667 13086])
+            ("toString" function
+               (:methodconst-flag t
+                :parent "Beam"
+                :type ("string" type (:type "class") nil nil))
+                nil [13088 15320])
+            ("Plan" function
+               (:constructor-flag t
+                :parent "Plan"
+                :type ("Plan" type (:type "class") nil nil))
+                nil [15322 15339])
+            ("readFromDICOM" function
+               (:parent "Plan"
+                :arguments 
+                  ( ("dataset" variable
+                       (:pointer 1
+                        :type ("DcmDataset" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [15366 15386]))                  
+                :type "void")
+                nil [15341 16762])
+            ("toString" function
+               (:methodconst-flag t
+                :parent "Plan"
+                :type ("string" type (:type "class") nil nil))
+                nil [16764 17789])
+            ("<<" function
+               (:operator-flag t
+                :arguments 
+                  ( ("os" variable
+                       (:reference 1
+                        :type ("std::ostream" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17816 17833])
+                    ("beam" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("Beam" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17834 17851]))                  
+                :type ("std::ostream" type (:type "class") nil nil))
+                nil [17791 18049])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [18131 18140])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18141 18154]))                  
+                :type "int")
+                nil [18121 18855]))          
+      :file "DICOMRTtoPinnacle.cpp"
+      :pointmax 18856
+      :fsize 18855
+      :lastmodtime '(21961 41485 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "semanticdb-table"
+      :file "DICOMRTtoPinnacle.h"
+      :fsize 1718
+      :lastmodtime '(21919 39602 0 0)))
+  :file "!home!brandtts!projects!pinnacle!iPlanToPinnacle!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")
