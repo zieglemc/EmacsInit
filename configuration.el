@@ -1,16 +1,19 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
 (setq user-full-name "Marc Ziegler"
       user-email-adress "marc.ziegler@uk-erlangen.de")
+
+(setq custom-file "~/.emacs.d/emacs-custom.el")
 
 (setq auto-save-default nil)
 (setq make-backup-files nil)
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 (setq gc-cons-threshold 100000000)
+(setq byte-compile-warnings '(not free-vars ))
 (defalias 'yes-or-no-p 'y-or-n-p)
 (winner-mode t)
 
@@ -40,6 +43,7 @@
 (display-time-mode t)
 (global-prettify-symbols-mode t)
 (add-hook 'org-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'org-mode-hook #'rainbow-mode)
 (add-hook 'fundamental-mode-hook #'rainbow-delimiters-mode)
 (setq frame-title-format
       (list (format "%s %%S: %%j " (system-name))
@@ -53,6 +57,10 @@
             ;; We remove Which Function Mode from the mode line, because it's mostly
             ;; invisible here anyway.
             (assq-delete-all 'which-func-mode mode-line-misc-info))
+(require 'smart-mode-line)
+(setq sml/theme 'powerline)
+(setq sml/no-confirm-load-theme t)
+(sml/setup)
 
 (load-theme 'CrapCram t)
 (set-face-attribute 'default nil :height 95)
@@ -108,6 +116,7 @@
               (back-quote   . "`"));     (global-set-key (kbd "M-p \" ") 'wrap-with-double-quotes)
   )
 
+(require 'cl)
 (require 'smartparens)
 (require 'smartparens-config)
 (setq sp-base-key-bindings 'paredit)
@@ -165,6 +174,8 @@
 (require 'anzu)
 (global-anzu-mode)
 
+(require 'sr-speedbar)
+
 (require 'yasnippet)
 (yas-global-mode 1)
 
@@ -208,45 +219,45 @@
 (require 'helm-flycheck)
 (require 'helm-flyspell)
 (require 'helm-company)
+  (defvar helm-alive-p)
+  (when (executable-find "curl")
+    (setq helm-google-suggest-use-curl-p t))
 
-(when (executable-find "curl")
-  (setq helm-google-suggest-use-curl-p t))
+  (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+        helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+        helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+        helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+        helm-ff-file-name-history-use-recentf t)
 
-(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-      helm-ff-file-name-history-use-recentf t)
+  (helm-autoresize-mode t)
 
-(helm-autoresize-mode t)
-
-(setq helm-apropos-fuzzy-match t)
-(setq helm-buffers-fuzzy-matching t
-      helm-recentf-fuzzy-match    t)
-(setq helm-semantic-fuzzy-match t
-      helm-imenu-fuzzy-match    t)
+  (setq helm-apropos-fuzzy-match t)
+  (setq helm-buffers-fuzzy-matching t
+        helm-recentf-fuzzy-match    t)
+  (setq helm-semantic-fuzzy-match t
+        helm-imenu-fuzzy-match    t)
 
 
-;; Enable helm-gtags-mode
-(require 'helm-gtags)
+  ;; Enable helm-gtags-mode
+  (require 'helm-gtags)
 
-(setq
- helm-gtags-ignore-case t
- helm-gtags-auto-update t
- helm-gtags-use-input-at-cursor t
- helm-gtags-pulse-at-cursor t
- helm-gtags-prefix-key "\C-cg"
- helm-gtags-suggested-key-mapping t
- )
+  (setq
+   helm-gtags-ignore-case t
+   helm-gtags-auto-update t
+   helm-gtags-use-input-at-cursor t
+   helm-gtags-pulse-at-cursor t
+   helm-gtags-prefix-key "\C-cg"
+   helm-gtags-suggested-key-mapping t
+   )
 
-(add-hook 'dired-mode-hook 'helm-gtags-mode)
-(add-hook 'eshell-mode-hook 'helm-gtags-mode)
-(add-hook 'c-mode-hook 'helm-gtags-mode)
-(add-hook 'c++-mode-hook 'helm-gtags-mode)
+  (add-hook 'dired-mode-hook 'helm-gtags-mode)
+  (add-hook 'eshell-mode-hook 'helm-gtags-mode)
+  (add-hook 'c-mode-hook 'helm-gtags-mode)
+  (add-hook 'c++-mode-hook 'helm-gtags-mode)
 
-(require 'helm-grep)
+  (require 'helm-grep)
 
-(helm-mode 1)
+  (helm-mode 1)
 
 (define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
 (define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
@@ -279,6 +290,7 @@
   (hs-minor-mode)
   (setq flycheck-checker 'c/c++-gcc)
   (flycheck-mode)
+  (rainbow-mode)
   (rainbow-delimiters-mode)
   (turn-on-auto-fill)
   (global-set-key [f6] 'run-cfile)
@@ -290,6 +302,9 @@
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
+
+(add-hook 'R-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'R-mode-hook #'rainbow-mode)
 
 (add-hook 'matlab-mode-hook 'auto-complete-mode)
 (add-hook 'matlab-mode-hook #'rainbow-delimiters-mode)
@@ -310,6 +325,7 @@
 (add-hook 'gnuplot-mode-hook
           (lambda () (local-set-key (kbd "C-c C-c") 'gnuplot-run-buffer)))
 (add-hook 'gnuplot-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'gnuplot-mode-hook #'rainbow-mode)
 
 (add-hook 'shell-script-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'shell-script-mode-hook #'rainbow-mode)
@@ -348,6 +364,7 @@
 (require 'auto-dictionary)
 (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1)))
 (add-hook 'TeX-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'TeX-mode-hook #'rainbow-mode)
 (setq TeX-view-program-selection
    (quote
     (((output-dvi style-pstricks)
@@ -356,6 +373,8 @@
      (output-pdf "Okular")
      (output-html "xdg-open"))))
 (setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)"))))
+
+(add-to-list 'auto-mode-alist '("\\.sql$" . sql-mode))
 
 (require 'ox-reveal)
     (require 'ox-twbs)
@@ -429,32 +448,22 @@
 
 ;; PACKAGE: comment-dwim-2
 (global-set-key (kbd "M-;") 'comment-dwim-2)
-
 (global-set-key (kbd "M-%") 'anzu-query-replace)
 (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
-
 (global-set-key (kbd "M-o") 'prelude-smart-open-line)
-
 (global-set-key (kbd "<f12>") 'eval-buffer)
 (global-set-key (kbd "<f5>") (lambda ()
                                (interactive)
                                (setq-local compilation-read-command nil)
                                (call-interactively 'compile)))
-
 (fset 'make_newline
       [?\C-e tab return])
-
 (global-set-key (kbd "C-<return>") 'make_newline)
-
 (global-set-key "\C-x\\" 'indent-buffer)
-
 (global-set-key (kbd "RET") 'newline-and-indent)  ; automatically indent when press RET
-
 (global-set-key (kbd "C-<tab>") 'company-complete)
 (define-key global-map (kbd "C-.") 'company-files)
-
 (global-set-key (kbd "C-!") 'repeat)
-
 (global-set-key (kbd "C-x g") 'magit-status)
 
 (global-set-key (kbd "M-g <left>") 'windmove-left)
@@ -465,8 +474,6 @@
 (global-set-key (kbd "M-g <next>") 'winner-redo)
 (define-key winner-mode-map (kbd "C-c <left>") nil)
 (define-key winner-mode-map (kbd "C-c <right>") nil)
-
-(global-set-key (kbd "C-x g") 'magit-status)
 
 ;; smartparens bindings
 (global-set-key (kbd "M-p a") 'sp-beginning-of-sexp)
@@ -491,6 +498,7 @@
 (global-set-key (kbd "M-p ' ")  'wrap-with-single-quotes)
 (global-set-key (kbd "M-p _ ")  'wrap-with-underscores)
 (global-set-key (kbd "M-p ` ")  'wrap-with-back-quotes)
+(global-set-key (kbd "M-p d") 'sp-unwrap-sexp)
 
 ;; multiple cursors
 (global-set-key (kbd "M-n <right>") 'mc/mark-next-like-this)
@@ -500,6 +508,9 @@
 (global-set-key (kbd "M-n <") 'mc/unmark-next-like-this)
 (global-set-key (kbd "M-n >") 'mc/unmark-previous-like-this)
 (global-set-key (kbd "M-n a") 'mc/mark-all-like-this)
+
+;; sr-speedbar
+(global-set-key (kbd "M-g f") 'sr-speedbar-toggle)
 
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
