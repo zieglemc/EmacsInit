@@ -7,6 +7,7 @@
     ;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
   #+END_SRC
+
 * Personal Information
   #+BEGIN_SRC emacs-lisp
     (setq user-full-name "Marc Ziegler"
@@ -16,6 +17,7 @@
   Some basic settings, such as no autosave, etc
   #+BEGIN_SRC emacs-lisp
     (setq custom-file "~/.emacs.d/emacs-custom.el")
+    (setq package-file "~/.emacs.d/package-list.el")
 
     (setq auto-save-default nil)
     (setq make-backup-files nil)
@@ -87,60 +89,96 @@
 * Utility functions
   Define several useful functions
   #+BEGIN_SRC emacs-lisp
-    (defun emacs-reload()
-      "Reload the emacs ini file (~/.emacs.d/init.el)"
+      (defun emacs-reload()
+        "Reload the emacs ini file (~/.emacs.d/init.el)"
+        (interactive)
+        (load-file '"~/.emacs.d/init.el")
+      )
+
+      (defun indent-buffer ()
+        "Indents an entire buffer using the default intenting scheme."
+        (interactive)
+        (point-to-register 'o)
+        (delete-trailing-whitespace)
+        (indent-region (point-min) (point-max) nil)
+        (untabify (point-min) (point-max))
+        (jump-to-register 'o)
+      )
+
+      (defun prelude-smart-open-line-above ()
+        "Insert an empty line above the current line.
+      Position the cursor at it's beginning, according to the current mode."
+        (interactive)
+        (move-beginning-of-line nil)
+        (newline-and-indent)
+        (forward-line -1)
+        (indent-according-to-mode))
+
+    (defun mark-done-and-archive ()
+      "Mark the state of an org-mode item as DONE and archive it."
       (interactive)
-      (load-file '"~/.emacs.d/init.el")
-    )
+      (org-todo 'done)
+      (org-archive-subtree))
 
-    (defun indent-buffer ()
-      "Indents an entire buffer using the default intenting scheme."
-      (interactive)
-      (point-to-register 'o)
-      (delete-trailing-whitespace)
-      (indent-region (point-min) (point-max) nil)
-      (untabify (point-min) (point-max))
-      (jump-to-register 'o)
-    )
+      (defmacro def-pairs (pairs)
+        `(progn
+           ,@(cl-loop for (key . val) in pairs
+                collect
+                  `(defun ,(read (concat
+                                  "wrap-with-"
+                                  (prin1-to-string key)
+                                  "s"))
+                       (&optional arg)
+                     (interactive "p")
+                     (sp-wrap-with-pair ,val)))))
 
-    (defun prelude-smart-open-line-above ()
-      "Insert an empty line above the current line.
-    Position the cursor at it's beginning, according to the current mode."
-      (interactive)
-      (move-beginning-of-line nil)
-      (newline-and-indent)
-      (forward-line -1)
-      (indent-according-to-mode))
+      (def-pairs ((paren        . "(")
+                  (bracket      . "[")
+                  (brace        . "{")
+                  (single-quote . "'")
+                  (double-quote . "\"")
+                  (back-quote   . "`"));     (global-set-key (kbd "M-p \" ") 'wrap-with-double-quotes)
+      )
 
-  (defun mark-done-and-archive ()
-    "Mark the state of an org-mode item as DONE and archive it."
-    (interactive)
-    (org-todo 'done)
-    (org-archive-subtree))
+      (defun print-list (list)
+        (dotimes (item (length list))
+          (insert (prin1-to-string (elt list item)))
+          (insert " ")
+          )
+        )
 
-    (defmacro def-pairs (pairs)
-      `(progn
-         ,@(cl-loop for (key . val) in pairs
-              collect
-                `(defun ,(read (concat
-                                "wrap-with-"
-                                (prin1-to-string key)
-                                "s"))
-                     (&optional arg)
-                   (interactive "p")
-                   (sp-wrap-with-pair ,val)))))
+      (defun write-package-install ()
+        (insert "
+      (unless package-archive-contents
+        (package-refresh-contents))
+      (dolist (package mypackages)
+        (unless (package-installed-p package)
+          (package-install package)))"
+        )
+        )
 
-    (def-pairs ((paren        . "(")
-                (bracket      . "[")
-                (brace        . "{")
-                (single-quote . "'")
-                (double-quote . "\"")
-                (back-quote   . "`"));     (global-set-key (kbd "M-p \" ") 'wrap-with-double-quotes)
-    )
+
+      (defun print-package-list ()
+        (interactive)
+        (find-file package-file)
+        (erase-buffer)
+        (insert "(defvar mypackages '(")
+        (print-list package-activated-list)
+        (insert "))")
+        (write-package-install)
+        (save-buffer)
+        (kill-buffer)
+        )
+
 
   #+END_SRC
 
 * Activate global packages
+** Install missing packages
+  I occasionally save all my packages within my package-file. Here I check if any packages are missing.
+  #+BEGIN_SRC emacs-lisp
+    (load package-file)
+  #+END_SRC
 ** Global modes and packages
    Parenthesis mode, highlighting etc
    #+BEGIN_SRC emacs-lisp
@@ -370,8 +408,9 @@
 
 ** LISP MODE
    #+BEGIN_SRC emacs-lisp
-  (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
-  (add-to-list 'auto-mode-alist '("\\.el$" . lisp-mode))
+     (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
+     (add-to-list 'company-backends 'company-elisp)
+     (add-to-list 'auto-mode-alist '("\\.el$" . lisp-mode))
    #+END_SRC
 
 ** GNUPLOT MODE

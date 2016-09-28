@@ -7,6 +7,7 @@
       user-email-adress "marc.ziegler@uk-erlangen.de")
 
 (setq custom-file "~/.emacs.d/emacs-custom.el")
+(setq package-file "~/.emacs.d/package-list.el")
 
 (setq auto-save-default nil)
 (setq make-backup-files nil)
@@ -115,6 +116,38 @@
               (double-quote . "\"")
               (back-quote   . "`"));     (global-set-key (kbd "M-p \" ") 'wrap-with-double-quotes)
   )
+
+  (defun print-list (list)
+    (dotimes (item (length list))
+      (insert (prin1-to-string (elt list item)))
+      (insert " ")
+      )
+    )
+
+  (defun write-package-install ()
+    (insert "
+  (unless package-archive-contents
+    (package-refresh-contents))
+  (dolist (package mypackages)
+    (unless (package-installed-p package)
+      (package-install package)))"
+    )
+    )
+
+
+  (defun print-package-list ()
+    (interactive)
+    (find-file package-file)
+    (erase-buffer)
+    (insert "(defvar mypackages '(")
+    (print-list package-activated-list)
+    (insert "))")
+    (write-package-install)
+    (save-buffer)
+    (kill-buffer)
+    )
+
+(load package-file)
 
 (require 'cl)
 (require 'smartparens)
@@ -314,6 +347,7 @@
 (add-to-list 'auto-mode-alist '("\\.jl$" . julia-mode))
 
 (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
+(add-to-list 'company-backends 'company-elisp)
 (add-to-list 'auto-mode-alist '("\\.el$" . lisp-mode))
 
 (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
