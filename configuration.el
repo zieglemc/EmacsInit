@@ -3,11 +3,13 @@
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 ;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
+(setq package-file "~/.emacs.d/package-list.el")
+(load package-file)
+
 (setq user-full-name "Marc Ziegler"
       user-email-adress "marc.ziegler@uk-erlangen.de")
 
 (setq custom-file "~/.emacs.d/emacs-custom.el")
-(setq package-file "~/.emacs.d/package-list.el")
 
 (setq auto-save-default nil)
 (setq make-backup-files nil)
@@ -146,8 +148,6 @@
     (save-buffer)
     (kill-buffer)
     )
-
-(load package-file)
 
 (require 'cl)
 (require 'smartparens)
@@ -348,7 +348,7 @@
 
 (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
 (add-to-list 'company-backends 'company-elisp)
-(add-to-list 'auto-mode-alist '("\\.el$" . lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.el$" . lisp-interaction-mode))
 
 (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
 (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot mode" t)

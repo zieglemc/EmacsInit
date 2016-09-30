@@ -4,9 +4,9 @@
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (package-initialize)
-(benchmark-init/activate)
+;(benchmark-init/activate)
 
 (org-babel-load-file "~/.emacs.d/configuration.org")
 (load custom-file 'noerror)
 
-(benchmark-init/deactivate)
+;(benchmark-init/deactivate)

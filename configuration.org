@@ -7,6 +7,11 @@
     ;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
   #+END_SRC
+  I occasionally save all my packages within my package-file. Here I check if any packages are missing.
+  #+BEGIN_SRC emacs-lisp
+    (setq package-file "~/.emacs.d/package-list.el")
+    (load package-file)
+  #+END_SRC
 
 * Personal Information
   #+BEGIN_SRC emacs-lisp
@@ -17,7 +22,6 @@
   Some basic settings, such as no autosave, etc
   #+BEGIN_SRC emacs-lisp
     (setq custom-file "~/.emacs.d/emacs-custom.el")
-    (setq package-file "~/.emacs.d/package-list.el")
 
     (setq auto-save-default nil)
     (setq make-backup-files nil)
@@ -174,11 +178,6 @@
   #+END_SRC
 
 * Activate global packages
-** Install missing packages
-  I occasionally save all my packages within my package-file. Here I check if any packages are missing.
-  #+BEGIN_SRC emacs-lisp
-    (load package-file)
-  #+END_SRC
 ** Global modes and packages
    Parenthesis mode, highlighting etc
    #+BEGIN_SRC emacs-lisp
@@ -410,7 +409,7 @@
    #+BEGIN_SRC emacs-lisp
      (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
      (add-to-list 'company-backends 'company-elisp)
-     (add-to-list 'auto-mode-alist '("\\.el$" . lisp-mode))
+     (add-to-list 'auto-mode-alist '("\\.el$" . lisp-interaction-mode))
    #+END_SRC
 
 ** GNUPLOT MODE
