@@ -182,13 +182,13 @@
    Parenthesis mode, highlighting etc
    #+BEGIN_SRC emacs-lisp
      (require 'cl)
+
      (require 'smartparens)
      (require 'smartparens-config)
      (setq sp-base-key-bindings 'paredit)
-     ;(setq sp-autoskip-closing-pair 'always)
      (setq sp-hybrid-kill-entire-symbol nil)
      (sp-use-paredit-bindings)
-     ;(show-smartparens-global-mode +1)
+     (show-smartparens-global-mode 1)
      (smartparens-global-mode 1)
 
      (require 'indent-guide)
@@ -205,10 +205,23 @@
      (require 'multiple-cursors)
 
      (require 'company)
+     (require 'company-irony-c-headers)
      (add-hook 'after-init-hook 'global-company-mode)
      (add-to-list 'company-backends 'company-c-headers)
      (add-to-list 'company-backends 'company-irony)
+     (add-to-list 'company-backends 'company-irony-c-headers)
      (global-company-mode 1)
+
+     (require 'rtags)
+     (require 'company-rtags)
+     (setq rtags-completions-enabled t)
+       (eval-after-load 'company
+        '(add-to-list
+        'company-backends 'company-rtags))
+     (setq rtags-autostart-diagnostics t)
+     (setq rtags-use-helm t)
+
+     (cmake-ide-setup)
 
      (require 'volatile-highlights)
      (volatile-highlights-mode t)
@@ -241,6 +254,7 @@
 
      (require 'sr-speedbar)
    #+END_SRC
+
 ** Yasnippet
    Additional Yasnippet stuff
    #+BEGIN_SRC emacs-lisp
@@ -375,6 +389,7 @@
        (flycheck-mode)
        (rainbow-mode)
        (rainbow-delimiters-mode)
+       (hs-minor-mode)
        (turn-on-auto-fill)
        (global-set-key [f6] 'run-cfile)
        (global-set-key [C-c C-y] 'uncomment-region)
@@ -391,27 +406,32 @@
    #+BEGIN_SRC emacs-lisp
      (add-hook 'R-mode-hook #'rainbow-delimiters-mode)
      (add-hook 'R-mode-hook #'rainbow-mode)
+     (add-hook 'R-mode-hook 'hs-minor-mode)
    #+END_SRC
 ** MATLAB MODE
    #+BEGIN_SRC emacs-lisp
-(add-hook 'matlab-mode-hook 'auto-complete-mode)
-(add-hook 'matlab-mode-hook #'rainbow-delimiters-mode)
-(add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
+     (add-hook 'matlab-mode-hook 'auto-complete-mode)
+     (add-hook 'matlab-mode-hook 'hs-minor-mode)
+     (add-hook 'matlab-mode-hook #'rainbow-delimiters-mode)
+     (add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
    #+END_SRC
 
 ** JULIA MODE
    #+BEGIN_SRC emacs-lisp
-(add-hook 'julia-mode-hook #'rainbow-delimiters-mode)
-(add-to-list 'auto-mode-alist '("\\.jl$" . julia-mode))
+     (add-hook 'julia-mode-hook #'rainbow-delimiters-mode)
+     (add-hook 'julia-mode-hook 'hs-minor-mode)
+     (add-to-list 'auto-mode-alist '("\\.jl$" . julia-mode))
    #+END_SRC
 
 ** LISP MODE
    #+BEGIN_SRC emacs-lisp
      (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
+     (add-hook 'lisp-mode-hook 'hs-minor-mode)
      (add-to-list 'company-backends 'company-elisp)
      (add-to-list 'auto-mode-alist '("\\.el$" . lisp-interaction-mode))
+     (add-hook 'lisp-interaction-mode #'rainbow-delimiters-mode)
+     (add-hook 'lisp-interaction-mode 'hs-minor-mode)
    #+END_SRC
-
 ** GNUPLOT MODE
    #+BEGIN_SRC emacs-lisp
      (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
@@ -424,15 +444,17 @@
                (lambda () (local-set-key (kbd "C-c C-c") 'gnuplot-run-buffer)))
      (add-hook 'gnuplot-mode-hook #'rainbow-delimiters-mode)
      (add-hook 'gnuplot-mode-hook #'rainbow-mode)
+     (add-hook 'gnuplot-mode-hook 'hs-minor-mode)
    #+END_SRC
 
 ** BASH MODE
    #+BEGIN_SRC emacs-lisp
-(add-hook 'shell-script-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'shell-script-mode-hook #'rainbow-mode)
-(add-hook 'sh-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'sh-mode-hook #'rainbow-mode)
-   #+END_SRC
+     (add-hook 'shell-script-mode-hook #'rainbow-delimiters-mode)
+     (add-hook 'shell-script-mode-hook #'rainbow-mode)
+     (add-hook 'sh-mode-hook #'rainbow-delimiters-mode)
+     (add-hook 'sh-mode-hook #'rainbow-mode)
+     (add-hook 'sh-mode-hook 'hs-minor-mode)
+     #+END_SRC
 
 ** AUCTEX
    Everything that corresponds to latex
@@ -445,13 +467,14 @@
      (setq-default TeX-master nil)
      (add-hook 'TeX-mode-hook
                (lambda ()
-           (flyspell-mode 1)
+                 (flyspell-mode 1)
                  (TeX-fold-mode 1)
+                 (hs-minor-mode)
                  (add-hook 'find-file-hook 'TeX-fold-buffer t t)
-           (local-set-key [C-tab] 'TeX-complete-symbol)
-           (local-set-key [C-c C-g] 'TeX-kill-job)
-           )
-         )
+                 (local-set-key [C-tab] 'TeX-complete-symbol)
+                 (local-set-key [C-c C-g] 'TeX-kill-job)
+                 )
+               )
 
      (add-to-list 'auto-mode-alist '("\\.tex$" . TeX-mode))
      (add-to-list 'auto-mode-alist '("\\.sty$" . TeX-mode))
@@ -464,19 +487,19 @@
 
      (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
      (add-hook 'LaTeX-mode-hook
-           (lambda()
-             (local-set-key [C-tab] 'TeX-complete-symbol)))
+               (lambda()
+                 (local-set-key [C-tab] 'TeX-complete-symbol)))
      (require 'auto-dictionary)
      (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1)))
      (add-hook 'TeX-mode-hook #'rainbow-delimiters-mode)
      (add-hook 'TeX-mode-hook #'rainbow-mode)
      (setq TeX-view-program-selection
-        (quote
-         (((output-dvi style-pstricks)
-           "dvips and gv")
-          (output-dvi "xdvi")
-          (output-pdf "Okular")
-          (output-html "xdg-open"))))
+           (quote
+            (((output-dvi style-pstricks)
+              "dvips and gv")
+             (output-dvi "xdvi")
+             (output-pdf "Okular")
+             (output-html "xdg-open"))))
      (setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)"))))
 
    #+END_SRC
@@ -510,6 +533,7 @@
     (setq org-ellipsis " ↷")
     (require 'org-bullets)
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+    (add-hook 'org-mode-hook (lambda () (hs-minor-mode 1)))
 
 
     (setq org-src-fontify-natively t)
@@ -609,6 +633,7 @@
      (global-set-key (kbd "M-p C-<right>") 'sp-previous-barf-sexp)
      (define-key smartparens-mode-map (kbd "C-<left>") nil)
      (define-key smartparens-mode-map (kbd "C-<right>") nil)
+     (define-key smartparens-mode-map (kbd "M-r") nil)
      (global-set-key (kbd "M-p t") 'sp-transpose-sexp)
      (global-set-key (kbd "M-p k") 'sp-kill-sexp)
      (global-set-key (kbd "M-p ( ")  'wrap-with-parens)
@@ -630,35 +655,54 @@
 
      ;; sr-speedbar
      (global-set-key (kbd "M-g f") 'sr-speedbar-toggle)
+
+     ;; hide and show region
+     (global-unset-key (kbd "M-h"))
+     (global-set-key (kbd "M-h a") 'hs-hide-all)
+     (global-set-key (kbd "M-h <tab>") 'hs-toggle-hiding)
+     (global-set-key (kbd "M-h s a") 'hs-show-all)
+     (global-set-key (kbd "M-h r") 'hs-hide-block)
+     (global-set-key (kbd "M-h s r") 'hs-show-block)
+
+     ;; rtags
+     (global-unset-key (kbd "M-r"))
+     (global-set-key (kbd "M-r d") 'rtags-find-symbol-at-point)
+     (global-set-key (kbd "M-r f") 'rtags-find-symbol)
+     (global-set-key (kbd "M-r <left>") 'rtags-location-stack-back)
+     (global-set-key (kbd "M-r <right>") 'rtags-location-stack-forward)
+     (global-set-key (kbd "M-r l") 'rtags-taglist)
+     (global-set-key (kbd "M-r r") 'rtags-rename-symbol)
+     (global-set-key (kbd "M-r p") 'rtags-reparse-file)
+
+
    #+END_SRC
 ** Global Helm Keybindings
    #+BEGIN_SRC emacs-lisp
-;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-unset-key (kbd "C-x c"))
+     ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+     ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+     ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+     (global-set-key (kbd "C-c h") 'helm-command-prefix)
+     (global-unset-key (kbd "C-x c"))
 
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-;(global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "C-x b") 'switch-to-buffer)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
-(global-set-key (kbd "C-c h o") 'helm-occur)
+     (global-set-key (kbd "M-x") 'helm-M-x)
+     (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+     ;(global-set-key (kbd "C-x b") 'helm-mini)
+     (global-set-key (kbd "C-x b") 'switch-to-buffer)
+     (global-set-key (kbd "C-x C-f") 'helm-find-files)
+     (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
+     (global-set-key (kbd "C-c h o") 'helm-occur)
 
-(global-set-key (kbd "C-c h C-c w") 'helm-wikipedia-suggest)
+     (global-set-key (kbd "C-c h C-c w") 'helm-wikipedia-suggest)
 
-(global-set-key (kbd "C-c h x") 'helm-register)
-;; (global-set-key (kbd "C-x r j") 'jump-to-register)
+     (global-set-key (kbd "C-c h x") 'helm-register)
+     ;; (global-set-key (kbd "C-x r j") 'jump-to-register)
 
-(define-key 'help-command (kbd "C-f") 'helm-apropos)
-(define-key 'help-command (kbd "r") 'helm-info-emacs)
-(define-key 'help-command (kbd "C-l") 'helm-locate-library)
+     (define-key 'help-command (kbd "C-f") 'helm-apropos)
+     (define-key 'help-command (kbd "r") 'helm-info-emacs)
+     (define-key 'help-command (kbd "C-l") 'helm-locate-library)
 
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-unset-key (kbd "C-x c"))
-
+     (global-set-key (kbd "C-c h") 'helm-command-prefix)
+     (global-unset-key (kbd "C-x c"))
    #+END_SRC
 ** Global Org Keybindings
    #+BEGIN_SRC emacs-lisp
