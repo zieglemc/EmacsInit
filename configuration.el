@@ -149,6 +149,22 @@
     (kill-buffer)
     )
 
+  (defun itk_compile ()
+    (interactive)
+    (if (file-exists-p "Makefile")
+      (progn 
+        (setq compile-command "make -j4")
+        (compile)
+        )
+      (progn
+        (insert "bla")
+        (setq compile-command 
+             (concat "cd " (replace-regexp-in-string "src" "build" (file-name-directory buffer-file-name)) " && make -j4"))
+        )
+      )
+    (compile)
+    )
+
 (require 'cl)
 
 (require 'smartparens)
@@ -285,32 +301,32 @@
 
 
   ;; Enable helm-gtags-mode
-  (require 'helm-gtags)
+  ;; (require 'helm-gtags)
 
-  (setq
-   helm-gtags-ignore-case t
-   helm-gtags-auto-update t
-   helm-gtags-use-input-at-cursor t
-   helm-gtags-pulse-at-cursor t
-   helm-gtags-prefix-key "\C-cg"
-   helm-gtags-suggested-key-mapping t
-   )
+  ;; (setq
+  ;;  helm-gtags-ignore-case t
+  ;;  helm-gtags-auto-update t
+  ;;  helm-gtags-use-input-at-cursor t
+  ;;  helm-gtags-pulse-at-cursor t
+  ;;  helm-gtags-prefix-key "\C-cg"
+  ;;  helm-gtags-suggested-key-mapping t
+  ;;  )
 
-  (add-hook 'dired-mode-hook 'helm-gtags-mode)
-  (add-hook 'eshell-mode-hook 'helm-gtags-mode)
-  (add-hook 'c-mode-hook 'helm-gtags-mode)
-  (add-hook 'c++-mode-hook 'helm-gtags-mode)
+  ;; (add-hook 'dired-mode-hook 'helm-gtags-mode)
+  ;; (add-hook 'eshell-mode-hook 'helm-gtags-mode)
+  ;; (add-hook 'c-mode-hook 'helm-gtags-mode)
+  ;; (add-hook 'c++-mode-hook 'helm-gtags-mode)
 
   (require 'helm-grep)
 
   (helm-mode 1)
 
-(define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
-(define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
-(define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
-(define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-(define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
-(define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
+;; (define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
+;; (define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
+;; (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
+;; (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
+;; (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
+;; (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebihnd tab to do persistent action
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
