@@ -149,7 +149,7 @@
     (kill-buffer)
     )
 
-  (defun itk_compile ()
+  (defun my_compile ()
     (interactive)
     (if (file-exists-p "Makefile")
       (progn 
@@ -157,12 +157,11 @@
         (compile)
         )
       (progn
-        (insert "bla")
         (setq compile-command 
              (concat "cd " (replace-regexp-in-string "src" "build" (file-name-directory buffer-file-name)) " && make -j4"))
         )
       )
-    (compile)
+    (compile compile-command)
     )
 
 (require 'cl)
@@ -526,13 +525,16 @@
 (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
 (global-set-key (kbd "M-o") 'prelude-smart-open-line)
 (global-set-key (kbd "<f12>") 'eval-buffer)
-(global-set-key (kbd "<f5>") (lambda ()
-                               (interactive)
-                               (setq-local compilation-read-command nil)
-                               (call-interactively 'compile)))
+;; (global-set-key (kbd "<f5>") (lambda ()
+;;                                (interactive)
+;;                                (setq-local compilation-read-command nil)
+;;                                (call-interactively 'compile)))
+(global-set-key (kbd "<f5>") 'my_compile)
+
 (fset 'make_newline
       [?\C-e tab return])
 (global-set-key (kbd "C-<return>") 'make_newline)
+
 (global-set-key "\C-x\\" 'indent-buffer)
 (global-set-key (kbd "RET") 'newline-and-indent)  ; automatically indent when press RET
 (global-set-key (kbd "C-<tab>") 'company-complete)
