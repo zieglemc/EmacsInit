@@ -38,7 +38,10 @@
 
 (setq-default indent-tabs-mode nil)
 (delete-selection-mode)
-(global-set-key (kbd "RET") 'newline-and-indent)
+
+(if (file-exists-p "~/PATIENTS/PatDB.el")
+    (load-file "~/PATIENTS/PatDB.el")
+  )
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
