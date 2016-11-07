@@ -157,7 +157,6 @@
     (if (file-exists-p "Makefile")
       (progn 
         (setq compile-command "make -j4")
-        (compile)
         )
       (progn
         (setq compile-command 
@@ -570,6 +569,7 @@
 (define-key smartparens-mode-map (kbd "C-<left>") nil)
 (define-key smartparens-mode-map (kbd "C-<right>") nil)
 (define-key smartparens-mode-map (kbd "M-r") nil)
+(define-key smartparens-mode-map (kbd "M-s") nil)
 (global-set-key (kbd "M-p t") 'sp-transpose-sexp)
 (global-set-key (kbd "M-p k") 'sp-kill-sexp)
 (global-set-key (kbd "M-p ( ")  'wrap-with-parens)
@@ -618,7 +618,8 @@
 
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-;(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "M-s") 'helm-swoop)
 (global-set-key (kbd "C-x b") 'switch-to-buffer)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
@@ -635,6 +636,8 @@
 
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
 (global-unset-key (kbd "C-x c"))
+
+(define-key org-mode-map (kbd "C-<tab>") nil)
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
