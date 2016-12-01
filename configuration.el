@@ -153,6 +153,7 @@
     )
 
   (defun my_compile ()
+    "Take the makefile in current folder or in build folder"
     (interactive)
     (if (file-exists-p "Makefile")
       (progn 
@@ -164,6 +165,18 @@
         )
       )
     (compile compile-command)
+    )
+
+  (defun  workwndw()
+    "Load specific files and the window accordingly"
+    (interactive)
+    (find-file "~/Stuff/ToDo/todo.org")
+    (split-window-right)
+    (find-file "~/Stuff/ToDo/agenda.org")
+    (split-window-below)
+    (find-file "~/Stuff/ToDo/worktime.org")
+    (windmove-right)
+    (outline-show-all)
     )
 
 (require 'cl)
@@ -554,7 +567,7 @@
 (define-key winner-mode-map (kbd "C-c <right>") nil)
 
 ;; smartparens bindings
-(global-set-key (kbd "M-p a") 'sp-beginning-of-sexp)
+(global-set-key (kbd "M-p a") 'sp-beginning-of-sexp)   
 (global-set-key (kbd "M-p e") 'sp-end-of-sexp)
 (global-set-key (kbd "M-p <down>") 'sp-down-sexp)
 (global-set-key (kbd "M-p <up>") 'sp-up-sexp)
