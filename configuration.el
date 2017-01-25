@@ -1,7 +1,7 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+                                        ;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
 (setq package-file "~/.emacs.d/package-list.el")
 (load package-file)
@@ -29,7 +29,7 @@
 (setq global-mark-ring-max 5000         ; increase mark ring to contains 5000 entries
       mark-ring-max 5000                ; increase kill ring to contains 5000 entries
       mode-require-final-newline t      ; add a newline to end of file
-)
+      )
 
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
@@ -54,15 +54,15 @@
 (setq frame-title-format
       (list (format "%s %%S: %%j " (system-name))
             '(buffer-file-name "%f" (dired-directory dired-directory "%b"))
+            )
       )
-)
 (which-function-mode)
 (setq-default header-line-format
               '((which-func-mode ("" which-func-format " "))))
 (setq mode-line-misc-info
-            ;; We remove Which Function Mode from the mode line, because it's mostly
-            ;; invisible here anyway.
-            (assq-delete-all 'which-func-mode mode-line-misc-info))
+      ;; We remove Which Function Mode from the mode line, because it's mostly
+      ;; invisible here anyway.
+      (assq-delete-all 'which-func-mode mode-line-misc-info))
 (require 'smart-mode-line)
 (setq sml/theme 'powerline)
 (setq sml/no-confirm-load-theme t)
@@ -72,29 +72,29 @@
 (set-face-attribute 'default nil :height 95)
 
 (defun emacs-reload()
-    "Reload the emacs ini file (~/.emacs.d/init.el)"
-    (interactive)
-    (load-file '"~/.emacs.d/init.el")
+  "Reload the emacs ini file (~/.emacs.d/init.el)"
+  (interactive)
+  (load-file '"~/.emacs.d/init.el")
   )
 
-  (defun indent-buffer ()
-    "Indents an entire buffer using the default intenting scheme."
-    (interactive)
-    (point-to-register 'o)
-    (delete-trailing-whitespace)
-    (indent-region (point-min) (point-max) nil)
-    (untabify (point-min) (point-max))
-    (jump-to-register 'o)
+(defun indent-buffer ()
+  "Indents an entire buffer using the default intenting scheme."
+  (interactive)
+  (point-to-register 'o)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max))
+  (jump-to-register 'o)
   )
 
-  (defun prelude-smart-open-line-above ()
-    "Insert an empty line above the current line.
-  Position the cursor at it's beginning, according to the current mode."
-    (interactive)
-    (move-beginning-of-line nil)
-    (newline-and-indent)
-    (forward-line -1)
-    (indent-according-to-mode))
+(defun prelude-smart-open-line-above ()
+  "Insert an empty line above the current line.
+          Position the cursor at it's beginning, according to the current mode."
+  (interactive)
+  (move-beginning-of-line nil)
+  (newline-and-indent)
+  (forward-line -1)
+  (indent-according-to-mode))
 
 (defun mark-done-and-archive ()
   "Mark the state of an org-mode item as DONE and archive it."
@@ -102,82 +102,110 @@
   (org-todo 'done)
   (org-archive-subtree))
 
-  (defmacro def-pairs (pairs)
-    `(progn
-       ,@(cl-loop for (key . val) in pairs
-            collect
-              `(defun ,(read (concat
-                              "wrap-with-"
-                              (prin1-to-string key)
-                              "s"))
-                   (&optional arg)
-                 (interactive "p")
-                 (sp-wrap-with-pair ,val)))))
+(defmacro def-pairs (pairs)
+  `(progn
+     ,@(cl-loop for (key . val) in pairs
+                collect
+                `(defun ,(read (concat
+                                "wrap-with-"
+                                (prin1-to-string key)
+                                "s"))
+                     (&optional arg)
+                   (interactive "p")
+                   (sp-wrap-with-pair ,val)))))
 
-  (def-pairs ((paren        . "(")
-              (bracket      . "[")
-              (brace        . "{")
-              (single-quote . "'")
-              (double-quote . "\"")
-              (back-quote   . "`"));     (global-set-key (kbd "M-p \" ") 'wrap-with-double-quotes)
+(def-pairs ((paren        . "(")
+            (bracket      . "[")
+            (brace        . "{")
+            (single-quote . "'")
+            (double-quote . "\"")
+            (back-quote   . "`"));     (global-set-key (kbd "M-p \" ") 'wrap-with-double-quotes)
   )
 
-  (defun print-list (list)
-    (dotimes (item (length list))
-      (insert (prin1-to-string (elt list item)))
-      (insert " ")
-      )
+(defun print-list (list)
+  (dotimes (item (length list))
+    (insert (prin1-to-string (elt list item)))
+    (insert " ")
     )
+  )
 
-  (defun write-package-install ()
-    (insert "
-  (unless package-archive-contents
-    (package-refresh-contents))
-  (dolist (package mypackages)
-    (unless (package-installed-p package)
-      (package-install package)))"
-    )
-    )
+(defun write-package-install ()
+  (insert "
+          (unless package-archive-contents
+            (package-refresh-contents))
+          (dolist (package mypackages)
+            (unless (package-installed-p package)
+              (package-install package)))"
+          )
+  )
 
 
-  (defun print-package-list ()
-    (interactive)
-    (find-file package-file)
-    (erase-buffer)
-    (insert "(defvar mypackages '(")
-    (print-list package-activated-list)
-    (insert "))")
-    (write-package-install)
-    (save-buffer)
-    (kill-buffer)
-    )
+(defun print-package-list ()
+  (interactive)
+  (find-file package-file)
+  (erase-buffer)
+  (insert "(defvar mypackages '(")
+  (print-list package-activated-list)
+  (insert "))")
+  (write-package-install)
+  (save-buffer)
+  (kill-buffer)
+  )
 
-  (defun my_compile ()
-    "Take the makefile in current folder or in build folder"
-    (interactive)
-    (if (file-exists-p "Makefile")
-      (progn 
+(defun my_compile ()
+  "Take the makefile in current folder or in build folder"
+  (interactive)
+  (if (file-exists-p "Makefile")
+      (progn
         (setq compile-command "make -j4")
         )
-      (progn
-        (setq compile-command 
-             (concat "cd " (replace-regexp-in-string "src" "build" (file-name-directory buffer-file-name)) " && make -j4"))
+    (progn
+      (setq compile-command
+            (concat "cd " (replace-regexp-in-string "src" "build" (file-name-directory buffer-file-name)) " && make -j4"))
+      )
+    )
+  (compile compile-command)
+  )
+
+(defun  workwndw()
+  "Load specific files and the window accordingly"
+  (interactive)
+  (find-file "~/Stuff/ToDo/todo.org")
+  (split-window-right)
+  (find-file "~/Stuff/ToDo/agenda.org")
+  (split-window-below)
+  (find-file "~/Stuff/ToDo/worktime.org")
+  (windmove-right)
+  (outline-show-all)
+  )
+
+
+(defun fast-calc()
+  "Parse for ++$1++ and substiute with the calculated result of $1."
+  (interactive)
+  (save-excursion)
+  (beginning-of-buffer)
+  (while (re-search-forward "\\+\\+" nil t)
+    (progn
+      (beginning-of-buffer)
+      (when (re-search-forward "\\+\\+[\\.0-9\\+\\(\\)\\*\\/\\-]+\\+\\+" nil t)
+        (setf
+         (point) (match-beginning 0)
+         (mark) (match-end 0)
+         )
+        )
+      (save-restriction
+        (narrow-to-region (region-beginning) (region-end))
+        (replace-string "++" "")
+        (exchange-point-and-mark)
+        (replace-string
+         (buffer-substring (region-beginning) (region-end))
+         (calc-eval (buffer-substring (region-beginning) (region-end)))
+         )
         )
       )
-    (compile compile-command)
     )
-
-  (defun  workwndw()
-    "Load specific files and the window accordingly"
-    (interactive)
-    (find-file "~/Stuff/ToDo/todo.org")
-    (split-window-right)
-    (find-file "~/Stuff/ToDo/agenda.org")
-    (split-window-below)
-    (find-file "~/Stuff/ToDo/worktime.org")
-    (windmove-right)
-    (outline-show-all)
-    )
+  )
 
 (require 'cl)
 
@@ -209,15 +237,6 @@
 (add-to-list 'company-backends 'company-irony)
 (add-to-list 'company-backends 'company-irony-c-headers)
 (global-company-mode 1)
-
-(require 'rtags)
-(require 'company-rtags)
-(setq rtags-completions-enabled t)
-  (eval-after-load 'company
-   '(add-to-list
-   'company-backends 'company-rtags))
-(setq rtags-autostart-diagnostics t)
-(setq rtags-use-helm t)
 
 (cmake-ide-setup)
 
@@ -295,45 +314,45 @@
 (require 'helm-flycheck)
 (require 'helm-flyspell)
 (require 'helm-company)
-  (defvar helm-alive-p)
-  (when (executable-find "curl")
-    (setq helm-google-suggest-use-curl-p t))
+(defvar helm-alive-p)
+(when (executable-find "curl")
+  (setq helm-google-suggest-use-curl-p t))
 
-  (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-        helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-        helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-        helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-        helm-ff-file-name-history-use-recentf t)
+(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+      helm-ff-file-name-history-use-recentf t)
 
-  (helm-autoresize-mode t)
+(helm-autoresize-mode t)
 
-  (setq helm-apropos-fuzzy-match t)
-  (setq helm-buffers-fuzzy-matching t
-        helm-recentf-fuzzy-match    t)
-  (setq helm-semantic-fuzzy-match t
-        helm-imenu-fuzzy-match    t)
+(setq helm-apropos-fuzzy-match t)
+(setq helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match    t)
+(setq helm-semantic-fuzzy-match t
+      helm-imenu-fuzzy-match    t)
 
 
-  ;; Enable helm-gtags-mode
-  ;; (require 'helm-gtags)
+;; Enable helm-gtags-mode
+;; (require 'helm-gtags)
 
-  ;; (setq
-  ;;  helm-gtags-ignore-case t
-  ;;  helm-gtags-auto-update t
-  ;;  helm-gtags-use-input-at-cursor t
-  ;;  helm-gtags-pulse-at-cursor t
-  ;;  helm-gtags-prefix-key "\C-cg"
-  ;;  helm-gtags-suggested-key-mapping t
-  ;;  )
+;; (setq
+;;  helm-gtags-ignore-case t
+;;  helm-gtags-auto-update t
+;;  helm-gtags-use-input-at-cursor t
+;;  helm-gtags-pulse-at-cursor t
+;;  helm-gtags-prefix-key "\C-cg"
+;;  helm-gtags-suggested-key-mapping t
+;;  )
 
-  ;; (add-hook 'dired-mode-hook 'helm-gtags-mode)
-  ;; (add-hook 'eshell-mode-hook 'helm-gtags-mode)
-  ;; (add-hook 'c-mode-hook 'helm-gtags-mode)
-  ;; (add-hook 'c++-mode-hook 'helm-gtags-mode)
+;; (add-hook 'dired-mode-hook 'helm-gtags-mode)
+;; (add-hook 'eshell-mode-hook 'helm-gtags-mode)
+;; (add-hook 'c-mode-hook 'helm-gtags-mode)
+;; (add-hook 'c++-mode-hook 'helm-gtags-mode)
 
-  (require 'helm-grep)
+(require 'helm-grep)
 
-  (helm-mode 1)
+(helm-mode 1)
 
 ;; (define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
 ;; (define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
@@ -352,13 +371,23 @@
 
 (require 'magit)
 
+(require 'rtags)
+(require 'company-rtags)
+(setq rtags-completions-enabled t)
+(eval-after-load 'company
+  '(add-to-list
+    'company-backends 'company-rtags))
+(setq rtags-autostart-diagnostics t)
+(require 'rtags-helm)
+(setq rtags-use-helm t)
+
 ;; setup GDB
 (setq gdb-many-windows t ;; use gdb-many-windows by default
       gdb-show-main t  ;; Non-nil means display source file containing the main routine at startup
-)
+      )
 (setq
  c-default-style "linux"
-)
+ )
 (defun my-c-mode-common-hook ()
   ;; my customizations for all of c-mode and related modes
   (require 'ede)
@@ -373,7 +402,7 @@
   (global-set-key [f6] 'run-cfile)
   (global-set-key [C-c C-y] 'uncomment-region)
   (irony-mode)
-)
+  )
 
 (add-hook 'c-mode-common-hook   'my-c-mode-common-hook)
 (add-hook 'c++-mode-hook 'irony-mode)
@@ -464,69 +493,69 @@
 (add-to-list 'auto-mode-alist '("\\.sql$" . sql-mode))
 
 (require 'ox-reveal)
-    (require 'ox-twbs)
+(require 'ox-twbs)
+
 ;;    (require 'org-contacts)
-    (setq org-directory "/home/zieglemc/Stuff/ToDo")
+(setq org-directory "/home/zieglemc/Stuff/ToDo")
 
-    (defun org-file-path (filename)
-      "Return the absolute adress of an org file, given its relative name"
-      (interactive)
-      (concat (file-name-as-directory org-directory) filename)
-      )
+(defun org-file-path (filename)
+  "Return the absolute adress of an org file, given its relative name"
+  (interactive)
+  (concat (file-name-as-directory org-directory) filename)
+  )
 
-    (setq org-archive-location
-          (concat (org-file-path "archive.org") "::* From %s" ))
+(setq org-archive-location
+      (concat (org-file-path "archive.org") "::* From %s" ))
 
-    (setq org-reveal-root "file:///home/zieglemc/src/reveal.js-master/js/reveal.js")
-    (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-    (add-to-list 'auto-mode-alist '("\\.todo$" . org-mode))
+(setq org-reveal-root "file:///home/zieglemc/src/reveal.js-master/js/reveal.js")
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(add-to-list 'auto-mode-alist '("\\.todo$" . org-mode))
 
-    (setq org-hide-leading-stars t)
-    (setq org-ellipsis " ↷")
-    (require 'org-bullets)
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-    (add-hook 'org-mode-hook (lambda () (hs-minor-mode 1)))
+(setq org-hide-leading-stars t)
+(setq org-ellipsis " ↷")
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(add-hook 'org-mode-hook (lambda () (hs-minor-mode 1)))
 
+(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
 
-    (setq org-src-fontify-natively t)
-    (setq org-src-tab-acts-natively t)
+(setq org-agenda-custom-commands
+      '(("W" agenda "" ((org-agenda-ndays 21)))))
 
-    (setq org-agenda-custom-commands
-          '(("W" agenda "" ((org-agenda-ndays 21)))))
+(setq org-agenda-files (quote ("~/Stuff/ToDo/agenda.org" "~/Stuff/ToDo/worktime.org" "~/Stuff/ToDo/todo.org" "~/Stuff/ToDo/ideas.org" "~/Stuff/ToDo/to-read.org")))
 
-    (setq org-agenda-files (quote ("~/Stuff/ToDo/agenda.org" "~/Stuff/ToDo/worktime.org" "~/Stuff/ToDo/todo.org" "~/Stuff/ToDo/ideas.org" "~/Stuff/ToDo/to-read.org")))
+(setq org-agenda-files `(
+                         ,(org-file-path "worktime.org")
+                         ,(org-file-path "todo.org")
+                         ,(org-file-path "ideas.org")
+                         ,(org-file-path "to-read.org")
+                         ,(org-file-path "agenda.org")
+                         ,(org-file-path "contacts.org")))
 
-    (setq org-agenda-files `(
-              ,(org-file-path "worktime.org")
-              ,(org-file-path "todo.org")
-              ,(org-file-path "ideas.org")
-              ,(org-file-path "to-read.org")
-              ,(org-file-path "agenda.org")
-              ,(org-file-path "contacts.org")))
+(define-key global-map "\C-c\C-x\C-s" 'mark-done-and-archive)
 
-    (define-key global-map "\C-c\C-x\C-s" 'mark-done-and-archive)
+(setq org-log-done 'time)
 
-    (setq org-log-done 'time)
-
-    (org-babel-do-load-languages 'org-babel-load-languages
-                                 '((emacs-lisp . t) (ruby . t) (gnuplot . t) ))
-    (setq org-confirm-babel-evaluate nil)
+(org-babel-do-load-languages 'org-babel-load-languages
+                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t)))
+(setq org-confirm-babel-evaluate nil)
 
 (setq org-capture-templates
-        '(
-          ("t" "Todo"
-           entry
-           (file (org-file-path "todo.org")))
-          ("i" "Ideas"
-           entry
-           (file (org-file-path "ideas.org")))
-          ("r" "To Read"
-           checkitem
-           (file (org-file-path "to-read.org")))
-          ("h" "How-To"
-           entry
-           (file (org-file-path "how-to.org")))
-          ))
+      '(
+        ("t" "Todo"
+         entry
+         (file (org-file-path "todo.org")))
+        ("i" "Ideas"
+         entry
+         (file (org-file-path "ideas.org")))
+        ("r" "To Read"
+         checkitem
+         (file (org-file-path "to-read.org")))
+        ("h" "How-To"
+         entry
+         (file (org-file-path "how-to.org")))
+        ))
 ;; (add-to-list 'org-capture-templates
 ;;              '("c" "Contacts" entry (file (org-file-path "contacts.org"))
 ;;                "* %(org-contacts-template-name)
@@ -545,6 +574,7 @@
 ;;                                (setq-local compilation-read-command nil)
 ;;                                (call-interactively 'compile)))
 (global-set-key (kbd "<f5>") 'my_compile)
+(global-set-key (kbd "M-+") 'fast-calc)
 
 (fset 'make_newline
       [?\C-e tab return])
@@ -567,7 +597,7 @@
 (define-key winner-mode-map (kbd "C-c <right>") nil)
 
 ;; smartparens bindings
-(global-set-key (kbd "M-p a") 'sp-beginning-of-sexp)   
+(global-set-key (kbd "M-p a") 'sp-beginning-of-sexp)
 (global-set-key (kbd "M-p e") 'sp-end-of-sexp)
 (global-set-key (kbd "M-p <down>") 'sp-down-sexp)
 (global-set-key (kbd "M-p <up>") 'sp-up-sexp)
