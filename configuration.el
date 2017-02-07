@@ -538,7 +538,7 @@
 (setq org-log-done 'time)
 
 (org-babel-do-load-languages 'org-babel-load-languages
-                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t)))
+                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t)))
 (setq org-confirm-babel-evaluate nil)
 
 (setq org-capture-templates
