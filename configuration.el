@@ -19,7 +19,7 @@
 (setq byte-compile-warnings '(not free-vars ))
 (setq max-lisp-eval-depth 10000)
 (setq max-specpdl-size 10000)
-(setq debug-on-error t)
+(setq debug-on-error nil)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (winner-mode t)
 
