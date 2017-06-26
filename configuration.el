@@ -50,13 +50,14 @@
 (scroll-bar-mode -1)
 (global-linum-mode t)
 (display-time-mode t)
+(column-number-mode t)
 (global-prettify-symbols-mode t)
 (add-hook 'org-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'org-mode-hook #'rainbow-mode)
 (add-hook 'fundamental-mode-hook #'rainbow-delimiters-mode)
 (setq frame-title-format
       (list (format "%s %%S: %%j " (system-name))
-            '(buffer-file-name "%f" (dired-directory dired-directory "%b"))
+            '(buffer-file-name "%f" (dired-directory dired-directory "%b"))                
             )
       )
 (which-function-mode)
@@ -205,7 +206,7 @@
   (while (re-search-forward "\\+\\+" nil t)
     (progn
       (beginning-of-buffer)
-      (when (re-search-forward "\\+\\+[\\.0-9\\+\\(\\)\\*\\/\\-]+\\+\\+" nil t)
+      (when (re-search-forward "\\+\\+[ \\.0-9\\+\\(\\)\\*\\/\\-]+\\+\\+" nil t)
         (setf
          (point) (match-beginning 0)
          (mark) (match-end 0)
@@ -235,8 +236,8 @@
 (smartparens-global-mode 1)
 
 (require 'indent-guide)
-(indent-guide-global-mode)
-(setq indent-guide-recursive t)
+(indent-guide-global-mode 1)
+;(setq indent-guide-recursive t)
 
 (require 'semantic)
 (global-semanticdb-minor-mode 1)
@@ -247,6 +248,8 @@
 
 (require 'multiple-cursors)
 
+(hlinum-activate)
+
 (require 'company)
 (require 'company-irony-c-headers)
 (add-hook 'after-init-hook 'global-company-mode)
@@ -254,8 +257,6 @@
 (add-to-list 'company-backends 'company-irony)
 (add-to-list 'company-backends 'company-irony-c-headers)
 (global-company-mode 1)
-
-(cmake-ide-setup)
 
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
@@ -391,13 +392,15 @@
 
 (require 'rtags)
 (require 'company-rtags)
+(require 'flycheck-rtags)
 (setq rtags-completions-enabled t)
 (eval-after-load 'company
   '(add-to-list
     'company-backends 'company-rtags))
 (setq rtags-autostart-diagnostics t)
 (require 'helm-rtags)
-                                        ;(setq rtags-use-helm t)
+(cmake-ide-setup)
+;(setq rtags-use-helm t)
 
 ;; setup GDB
 (setq gdb-many-windows t ;; use gdb-many-windows by default
@@ -411,7 +414,10 @@
   (require 'ede)
   (global-ede-mode)
   (hs-minor-mode)
+  (require 'flycheck)
+  (require 'flycheck-rtags)
   (setq flycheck-checker 'c/c++-gcc)
+  ;(flycheck-select-checker 'rtags)
   (flycheck-mode)
   (rainbow-mode)
   (rainbow-delimiters-mode)
@@ -423,6 +429,7 @@
   )
 
 (add-hook 'c-mode-common-hook   'my-c-mode-common-hook)
+(add-hook 'c++-mode-hook 'my-c-mode-common-hook)
 (add-hook 'c++-mode-hook 'irony-mode)
 (add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
@@ -467,11 +474,11 @@
 (add-hook 'julia-mode-hook 'hs-minor-mode)
 (add-to-list 'auto-mode-alist '("\\.jl$" . julia-mode))
 
-(add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
 (add-to-list 'company-backends 'company-elisp)
 (add-to-list 'auto-mode-alist '("\\.el$" . lisp-interaction-mode))
-(add-hook 'lisp-interaction-mode #'rainbow-delimiters-mode)
+(add-hook 'lisp-interaction-mode 'rainbow-delimiters-mode)
 (add-hook 'lisp-interaction-mode 'hs-minor-mode)
 
 (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
@@ -618,7 +625,8 @@
 ;;                                (interactive)
 ;;                                (setq-local compilation-read-command nil)
 ;;                                (call-interactively 'compile)))
-(global-set-key (kbd "<f5>") 'mz/my_compile)
+;;(global-set-key (kbd "<f5>") 'mz/my_compile)
+(global-set-key (kbd "<f5>") 'cmake-ide-compile)
 (global-set-key (kbd "M-+") 'mz/fast-calc)
 
 (fset 'make_newline
@@ -680,6 +688,9 @@
 ;; sr-speedbar
 (global-set-key (kbd "M-g f") 'sr-speedbar-toggle)
 
+;; ibuffer
+(global-unset-key (kbd "C-x C-b"))
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 ;; hide and show region
 (global-unset-key (kbd "M-h"))
 (global-set-key (kbd "M-h a") 'hs-hide-all)
