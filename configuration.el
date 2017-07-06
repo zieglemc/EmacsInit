@@ -29,6 +29,9 @@
 ;; set appearance of a tab that is represented by 4 spaces
 (setq-default tab-width 2)
 
+;; for fill column mode
+(setq fill-column 100)
+
 (setq global-mark-ring-max 5000         ; increase mark ring to contains 5000 entries
       mark-ring-max 5000                ; increase kill ring to contains 5000 entries
       mode-require-final-newline t      ; add a newline to end of file
@@ -57,7 +60,7 @@
 (add-hook 'fundamental-mode-hook #'rainbow-delimiters-mode)
 (setq frame-title-format
       (list (format "%s %%S: %%j " (system-name))
-            '(buffer-file-name "%f" (dired-directory dired-directory "%b"))                
+            '(buffer-file-name "%f" (dired-directory dired-directory "%b"))
             )
       )
 (which-function-mode)
@@ -237,7 +240,7 @@
 
 (require 'indent-guide)
 (indent-guide-global-mode 1)
-;(setq indent-guide-recursive t)
+                                        ;(setq indent-guide-recursive t)
 
 (require 'semantic)
 (global-semanticdb-minor-mode 1)
@@ -400,7 +403,7 @@
 (setq rtags-autostart-diagnostics t)
 (require 'helm-rtags)
 (cmake-ide-setup)
-;(setq rtags-use-helm t)
+                                        ;(setq rtags-use-helm t)
 
 ;; setup GDB
 (setq gdb-many-windows t ;; use gdb-many-windows by default
@@ -417,7 +420,7 @@
   (require 'flycheck)
   (require 'flycheck-rtags)
   (setq flycheck-checker 'c/c++-gcc)
-  ;(flycheck-select-checker 'rtags)
+                                        ;(flycheck-select-checker 'rtags)
   (flycheck-mode)
   (rainbow-mode)
   (rainbow-delimiters-mode)
@@ -544,6 +547,19 @@
 
 (add-to-list 'auto-mode-alist '("\\.sql$" . sql-mode))
 
+(require 'sgml-mode)
+(require 'nxml-mode)
+(add-to-list 'hs-special-modes-alist
+             '(nxml-mode
+               "<!--\\|<[^/>]*[^/]>"
+               "-->\\|</[^/>]*[^/]>"
+
+               "<!--"
+               sgml-skip-tag-forward
+               nil))
+(add-hook 'nxml-mode-hook 'hs-minor-mode)
+(define-key nxml-mode-map (kbd "M-h") nil)
+
 (require 'ox-reveal)
 (require 'ox-twbs)
 
@@ -590,7 +606,7 @@
 (setq org-log-done 'time)
 
 (org-babel-do-load-languages 'org-babel-load-languages
-                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t)))
+                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (R . t) (gnuplot . t)))
 (setq org-confirm-babel-evaluate nil)
 
 (setq org-capture-templates
