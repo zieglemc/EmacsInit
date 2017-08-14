@@ -30,7 +30,7 @@
 (setq-default tab-width 2)
 
 ;; for fill column mode
-(setq fill-column 100)
+(setq-default fill-column 100)
 
 (setq global-mark-ring-max 5000         ; increase mark ring to contains 5000 entries
       mark-ring-max 5000                ; increase kill ring to contains 5000 entries
@@ -286,11 +286,12 @@
 (require 'undo-tree)
 (global-undo-tree-mode)
 
-;; GROUP: Editing -> Matching -> Isearch -> Anzu
 (require 'anzu)
 (global-anzu-mode)
 
 (require 'sr-speedbar)
+
+(require 'dictcc)
 
 (require 'yasnippet)
 (yas-global-mode 1)
@@ -409,9 +410,9 @@
 (setq gdb-many-windows t ;; use gdb-many-windows by default
       gdb-show-main t  ;; Non-nil means display source file containing the main routine at startup
       )
-(setq
- c-default-style "linux"
- )
+(setq c-default-style "linux" )
+
+(setq c-basic-offset 4)
 (defun my-c-mode-common-hook ()
   ;; my customizations for all of c-mode and related modes
   (require 'ede)
@@ -479,6 +480,8 @@
 
 (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
+(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
 (add-to-list 'company-backends 'company-elisp)
 (add-to-list 'auto-mode-alist '("\\.el$" . lisp-interaction-mode))
 (add-hook 'lisp-interaction-mode 'rainbow-delimiters-mode)
@@ -560,9 +563,6 @@
 (add-hook 'nxml-mode-hook 'hs-minor-mode)
 (define-key nxml-mode-map (kbd "M-h") nil)
 
-(require 'ox-reveal)
-(require 'ox-twbs)
-
 ;;    (require 'org-contacts)
 (setq org-directory "/home/zieglemc/Stuff/ToDo")
 
@@ -599,15 +599,28 @@
                          ,(org-file-path "ideas.org")
                          ,(org-file-path "to-read.org")
                          ,(org-file-path "agenda.org")
-                         ,(org-file-path "contacts.org")))
+                         ))
 
 (define-key global-map "\C-c\C-x\C-s" 'mz/mark-done-and-archive)
 
 (setq org-log-done 'time)
 
 (org-babel-do-load-languages 'org-babel-load-languages
-                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (R . t) (gnuplot . t)))
+                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (R . t) (gnuplot . t) (shell . t)))
 (setq org-confirm-babel-evaluate nil)
+
+(require 'ox-reveal)
+(require 'ox-twbs)
+(require 'ox-pandoc)
+(require 'org-ref)
+
+(setq org-odt-preferred-output-format "docx")
+
+(setq helm-bibtex-format-citation-functions
+      '((org-mode . (lambda (x) (insert (concat
+                                         "\\cite{"
+                                         (mapconcat 'identity x ",")
+                                         "}")) ""))))
 
 (setq org-capture-templates
       '(
@@ -631,18 +644,11 @@
 ;; :EMAIL: %(org-contacts-template-email)
 ;; :END:"))
 
-;; PACKAGE: comment-dwim-2
-(global-set-key (kbd "M-;") 'comment-dwim-2)
 (global-set-key (kbd "M-%") 'anzu-query-replace)
 (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
 (global-set-key (kbd "M-o") 'mz/prelude-smart-open-line)
 (global-set-key (kbd "<f12>") 'eval-buffer)
-;; (global-set-key (kbd "<f5>") (lambda ()
-;;                                (interactive)
-;;                                (setq-local compilation-read-command nil)
-;;                                (call-interactively 'compile)))
-;;(global-set-key (kbd "<f5>") 'mz/my_compile)
-(global-set-key (kbd "<f5>") 'cmake-ide-compile)
+(global-set-key (kbd "<f5>") 'mz/my_compile)
 (global-set-key (kbd "M-+") 'mz/fast-calc)
 
 (fset 'make_newline
@@ -656,6 +662,10 @@
 (global-set-key (kbd "C-!") 'repeat)
 (global-set-key (kbd "C-x g") 'magit-status)
 
+(define-key input-decode-map [?\C-m] [C-m])
+(global-set-key (kbd "<C-m> d") 'dictcc)
+(global-set-key (kbd "<C-m> D") 'dictcc-at-point)
+;; movement between different frames
 (global-set-key (kbd "M-g <left>") 'windmove-left)
 (global-set-key (kbd "M-g <right>") 'windmove-right)
 (global-set-key (kbd "M-g <up>") 'windmove-up)
@@ -735,7 +745,6 @@
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "M-s") 'helm-swoop)
-(global-set-key (kbd "C-x b") 'switch-to-buffer)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 (global-set-key (kbd "C-c h o") 'helm-occur)
@@ -758,14 +767,22 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-iswitchb)
-(global-set-key (kbd "C-c <left>") 'org-metaleft)
-(global-set-key (kbd "C-c <right>") 'org-metaright)
-(global-set-key (kbd "C-c <up>") 'org-metaup)
-(global-set-key (kbd "C-c <down>") 'org-metadown)
-(global-set-key (kbd "C-c S-<left>") 'org-metashiftleft)
-(global-set-key (kbd "C-c S-<right>") 'org-metashiftright)
-(global-set-key (kbd "C-c S-<up>") 'org-metashiftup)
-(global-set-key (kbd "C-c S-<down>") 'org-metashiftdown)
+(define-key org-mode-map (kbd "C-c <left>") 'org-metaleft)
+(define-key org-mode-map (kbd "C-c <right>") 'org-metaright)
+(define-key org-mode-map (kbd "C-c <up>") 'org-metaup)
+(define-key org-mode-map (kbd "C-c <down>") 'org-metadown)
+(define-key org-mode-map (kbd "C-c S-<left>") 'org-metashiftleft)
+(define-key org-mode-map (kbd "C-c S-<right>") 'org-metashiftright)
+(define-key org-mode-map (kbd "C-c S-<up>") 'org-metashiftup)
+(define-key org-mode-map (kbd "C-c S-<down>") 'org-metashiftdown)
+(define-key org-mode-map (kbd "C-c <left>") 'org-metaleft)
+(define-key org-mode-map (kbd "C-c <right>") 'org-metaright)
+(define-key org-mode-map (kbd "C-c <up>") 'org-metaup)
+(define-key org-mode-map (kbd "C-c <down>") 'org-metadown)
+(define-key org-mode-map (kbd "C-c S-<left>") 'org-metashiftleft)
+(define-key org-mode-map (kbd "C-c S-<right>") 'org-metashiftright)
+(define-key org-mode-map (kbd "C-c S-<up>") 'org-metashiftup)
+(define-key org-mode-map (kbd "C-c S-<down>") 'org-metashiftdown)
 
 (global-set-key (kbd "<f10>") 'gud-cont)
 (global-set-key (kbd "<f9>") 'gud-step);; equiv matlab step in
