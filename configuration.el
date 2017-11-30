@@ -71,8 +71,8 @@
       ;; invisible here anyway.
       (assq-delete-all 'which-func-mode mode-line-misc-info))
 (require 'smart-mode-line)
-(setq sml/theme 'powerline)
 (setq sml/no-confirm-load-theme t)
+(setq sml/theme 'dark)
 (sml/setup)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -228,6 +228,9 @@
     )
   )
 
+(when (memq window-system '(mac ns x))
+   (exec-path-from-shell-initialize))
+
 (require 'cl)
 
 (require 'smartparens)
@@ -259,6 +262,9 @@
 (add-to-list 'company-backends 'company-c-headers)
 (add-to-list 'company-backends 'company-irony)
 (add-to-list 'company-backends 'company-irony-c-headers)
+(add-to-list 'company-backends 'company-clang)
+(add-to-list 'company-backends 'company-jedi)
+(add-to-list 'company-backends 'company-elisp)
 (global-company-mode 1)
 
 (require 'volatile-highlights)
@@ -292,6 +298,8 @@
 (require 'sr-speedbar)
 
 (require 'dictcc)
+
+(require 'epc)
 
 (require 'yasnippet)
 (yas-global-mode 1)
@@ -442,7 +450,8 @@
 (add-hook 'R-mode-hook #'rainbow-mode)
 (add-hook 'R-mode-hook 'hs-minor-mode)
 
-(add-hook 'matlab-mode-hook 'auto-complete-mode)
+;(add-hook 'matlab-mode-hook 'auto-complete-mode)
+(add-hook 'matlab-mode-hook 'company-mode)
 (add-hook 'matlab-mode-hook 'hs-minor-mode)
 (add-hook 'matlab-mode-hook #'rainbow-delimiters-mode)
 (add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
@@ -505,8 +514,20 @@
 (add-hook 'sh-mode-hook #'rainbow-mode)
 (add-hook 'sh-mode-hook 'hs-minor-mode)
 
+(with-eval-after-load 'python
+  (defun python-shell-completion-native-try ()
+    "Return non-nil if can trigger native completion."
+    (let ((python-shell-completion-native-enable t)
+          (python-shell-completion-native-output-timeout
+           python-shell-completion-native-try-output-timeout))
+      (python-shell-completion-native-get-completions
+       (get-buffer-process (current-buffer))
+       nil "_"))))
+
 (require 'company-auctex)
+(require 'company-bibtex)
 (company-auctex-init)
+
 (setq-default TeX-engine 'xetex)
 (setq latex-run-command "xelatex --shell-escape")
 (setq-default TeX-PDF-mode t)
@@ -517,7 +538,15 @@
             (TeX-fold-mode 1)
             (hs-minor-mode)
             (add-hook 'find-file-hook 'TeX-fold-buffer t t)
-            (local-set-key [C-tab] 'TeX-complete-symbol)
+            (local-set-key [C-c C-g] 'TeX-kill-job)
+            )
+          )
+(add-hook 'LaTeX-mode-hook
+          (lambda ()
+            (flyspell-mode 1)
+            (TeX-fold-mode 1)
+            (hs-minor-mode)
+            (add-hook 'find-file-hook 'TeX-fold-buffer t t)
             (local-set-key [C-c C-g] 'TeX-kill-job)
             )
           )
@@ -531,6 +560,7 @@
    (LaTeX-add-environments
     '("frame" LaTeX-env-contents))))
 
+(add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
 (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
 (add-hook 'LaTeX-mode-hook
           (lambda()
@@ -605,8 +635,18 @@
 
 (setq org-log-done 'time)
 
+(setq org-file-apps
+      '((auto-mode . emacs)
+        ("\\.x?html?\\'" . "firefox %s")
+        ("\\.pdf\\'" . "okular \"%s\"")
+        ("\\.pdf::\\([0-9]+\\)\\'" . "okular \"%s\"")
+        ("\\.nrrd\\'" . "vv %s")
+        ("\\.jpg\\'" . "gpicview %s")
+        ("\\.raw\\'" . "imagej %s")
+        ("\\.png\\'" . "gpicview $s")))
+
 (org-babel-do-load-languages 'org-babel-load-languages
-                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (R . t) (gnuplot . t) (shell . t)))
+                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (R . t) (gnuplot . t) (shell . t) (org . t)))
 (setq org-confirm-babel-evaluate nil)
 
 (require 'ox-reveal)
@@ -614,13 +654,26 @@
 (require 'ox-pandoc)
 (require 'org-ref)
 
-(setq org-odt-preferred-output-format "docx")
+(setq reftex-default-bibliography '("~/Documents/Literature/bibliography.bib"))
+
+;; see org-ref for use of these variables
+(setq org-ref-bibliography-notes "~/Documents/Literature/Papers.org"
+      org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
+      org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
+
+(setq bibtex-completion-bibliography "~/Documents/Literature/bibliography.bib"
+      bibtex-completion-library-path "~/Documents/Literature/bibtex-pdfs/"
+      bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes")
+
+
+
+(setq org-pandoc-options-for-docx '((standalone . nil)))
 
 (setq helm-bibtex-format-citation-functions
       '((org-mode . (lambda (x) (insert (concat
-                                         "\\cite{"
+                                         "[[bibentry:"
                                          (mapconcat 'identity x ",")
-                                         "}")) ""))))
+                                         "]]")) ""))))
 
 (setq org-capture-templates
       '(
@@ -783,6 +836,10 @@
 (define-key org-mode-map (kbd "C-c S-<right>") 'org-metashiftright)
 (define-key org-mode-map (kbd "C-c S-<up>") 'org-metashiftup)
 (define-key org-mode-map (kbd "C-c S-<down>") 'org-metashiftdown)
+
+(define-key org-mode-map (kbd "C-c C-r") nil)
+(define-key org-mode-map (kbd "C-c C-r b") 'org-ref-helm-insert-cite-link)
+(define-key org-mode-map (kbd "C-c C-r r") 'org-ref-helm-insert-ref-link)
 
 (global-set-key (kbd "<f10>") 'gud-cont)
 (global-set-key (kbd "<f9>") 'gud-step);; equiv matlab step in
