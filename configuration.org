@@ -264,7 +264,7 @@
    Parenthesis mode, highlighting etc
    #+BEGIN_SRC emacs-lisp
      (when (memq window-system '(mac ns x))
-        (exec-path-from-shell-initialize))
+       (exec-path-from-shell-initialize))
 
      (require 'cl)
 
@@ -511,7 +511,7 @@
    #+END_SRC
 ** MATLAB MODE
    #+BEGIN_SRC emacs-lisp
-     ;(add-hook 'matlab-mode-hook 'auto-complete-mode)
+                                             ;(add-hook 'matlab-mode-hook 'auto-complete-mode)
      (add-hook 'matlab-mode-hook 'company-mode)
      (add-hook 'matlab-mode-hook 'hs-minor-mode)
      (add-hook 'matlab-mode-hook #'rainbow-delimiters-mode)
@@ -553,6 +553,7 @@
    #+END_SRC
 
 ** LISP MODE
+   Emacs Lisp configuration
    #+BEGIN_SRC emacs-lisp
      (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
      (add-hook 'lisp-mode-hook 'hs-minor-mode)
@@ -562,6 +563,11 @@
      (add-to-list 'auto-mode-alist '("\\.el$" . lisp-interaction-mode))
      (add-hook 'lisp-interaction-mode 'rainbow-delimiters-mode)
      (add-hook 'lisp-interaction-mode 'hs-minor-mode)
+   #+END_SRC
+   Common Lisp configuration
+   #+BEGIN_SRC emacs-lisp
+     (require 'slime)
+     (setq inferior-lisp-program "/usr/bin/sbcl")
    #+END_SRC
 ** GNUPLOT MODE
    #+BEGIN_SRC emacs-lisp
@@ -585,6 +591,7 @@
      (add-hook 'sh-mode-hook #'rainbow-delimiters-mode)
      (add-hook 'sh-mode-hook #'rainbow-mode)
      (add-hook 'sh-mode-hook 'hs-minor-mode)
+     (add-to-list 'hs-special-modes-alist '(sh-mode "\\(do\\|then\\|in\\)" "\\(done\\|fi\\|esac\\|elif\\)" "/[*/]" nil nil))
    #+END_SRC
 
 ** Python
@@ -606,7 +613,7 @@
      (require 'company-auctex)
      (require 'company-bibtex)
      (company-auctex-init)
-     
+
      (setq-default TeX-engine 'xetex)
      (setq latex-run-command "xelatex --shell-escape")
      (setq-default TeX-PDF-mode t)
@@ -738,7 +745,7 @@
    #+BEGIN_SRC emacs-lisp
 
      (org-babel-do-load-languages 'org-babel-load-languages
-                                  '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (R . t) (gnuplot . t) (shell . t) (org . t)))
+                                  '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (R . t) (gnuplot . t) (shell . t) (org . t) (lisp . t)))
      (setq org-confirm-babel-evaluate nil)
    #+END_SRC
 ** Org export
@@ -959,3 +966,4 @@
      ;; this is down here because it destroyes parens matching and coloring
      (global-set-key (kbd "M-p \" ") 'wrap-with-double-quotes)
    #+END_SRC
+   

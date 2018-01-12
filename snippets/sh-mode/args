@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name:args
+# key: args
+# --
+while [ -n "\$1" ]; do
+    case \$1 in
+        \"${1:-i}\") $0;;
+    esac
+    shift
+done

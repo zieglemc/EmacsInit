@@ -229,7 +229,7 @@
   )
 
 (when (memq window-system '(mac ns x))
-   (exec-path-from-shell-initialize))
+  (exec-path-from-shell-initialize))
 
 (require 'cl)
 
@@ -496,6 +496,9 @@
 (add-hook 'lisp-interaction-mode 'rainbow-delimiters-mode)
 (add-hook 'lisp-interaction-mode 'hs-minor-mode)
 
+(require 'slime)
+(setq inferior-lisp-program "/usr/bin/sbcl")
+
 (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
 (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot mode" t)
 
@@ -513,6 +516,7 @@
 (add-hook 'sh-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'sh-mode-hook #'rainbow-mode)
 (add-hook 'sh-mode-hook 'hs-minor-mode)
+(add-to-list 'hs-special-modes-alist '(sh-mode "\\(do\\|then\\|case\\)" "\\(done\\|fi\\|esac\\)" "/[*/]" nil nil))
 
 (with-eval-after-load 'python
   (defun python-shell-completion-native-try ()
@@ -646,7 +650,7 @@
         ("\\.png\\'" . "gpicview $s")))
 
 (org-babel-do-load-languages 'org-babel-load-languages
-                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (R . t) (gnuplot . t) (shell . t) (org . t)))
+                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (R . t) (gnuplot . t) (shell . t) (org . t) (lisp . t)))
 (setq org-confirm-babel-evaluate nil)
 
 (require 'ox-reveal)
