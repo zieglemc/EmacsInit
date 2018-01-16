@@ -3,9 +3,9 @@
   #+BEGIN_SRC emacs-lisp
     (require 'package)
     (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-    (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-                                            ;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-
+    ;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+    (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+    (package-initialize)
   #+END_SRC
   I occasionally save all my packages within my package-file. Here I check if any packages are missing.
   #+BEGIN_SRC emacs-lisp
@@ -690,7 +690,7 @@
    #+BEGIN_SRC emacs-lisp
      ;;    (require 'org-contacts)
      (setq org-directory "/home/zieglemc/Stuff/ToDo")
-
+     (define-obsolete-function-alias 'org-define-error 'define-error)
      (defun org-file-path (filename)
        "Return the absolute adress of an org file, given its relative name"
        (interactive)
@@ -743,9 +743,9 @@
    #+END_SRC
 ** Org Babel
    #+BEGIN_SRC emacs-lisp
-
+    
      (org-babel-do-load-languages 'org-babel-load-languages
-                                  '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (R . t) (gnuplot . t) (shell . t) (org . t) (lisp . t)))
+                                  '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (gnuplot . t) (shell . t) (org . t) (lisp . t)))
      (setq org-confirm-babel-evaluate nil)
    #+END_SRC
 ** Org export

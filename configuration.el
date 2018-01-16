@@ -1,7 +1,9 @@
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-                                        ;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+(package-initialize)
 
 (setq package-file "~/.emacs.d/package-list.el")
 (load package-file)
@@ -338,7 +340,7 @@
 ;; Wrap around region
 (setq yas-wrap-around-region t)
 
-(add-to-list 'load-path "/home/zieglemc/.emacs.d/elpa/helm-20170419.2242")
+;(add-to-list 'load-path "/home/zieglemc/.emacs.d/elpa/helm-20170419.2242")
 (require 'helm)
 (require 'helm-config)
 (require 'helm-google)
@@ -405,14 +407,14 @@
 (require 'rtags)
 (require 'company-rtags)
 (require 'flycheck-rtags)
-(setq rtags-completions-enabled t)
+ (setq rtags-completions-enabled t)
 (eval-after-load 'company
-  '(add-to-list
-    'company-backends 'company-rtags))
+   '(add-to-list
+      'company-backends 'company-rtags))
 (setq rtags-autostart-diagnostics t)
 (require 'helm-rtags)
 (cmake-ide-setup)
-                                        ;(setq rtags-use-helm t)
+;;                                         ;(setq rtags-use-helm t)
 
 ;; setup GDB
 (setq gdb-many-windows t ;; use gdb-many-windows by default
@@ -516,7 +518,7 @@
 (add-hook 'sh-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'sh-mode-hook #'rainbow-mode)
 (add-hook 'sh-mode-hook 'hs-minor-mode)
-(add-to-list 'hs-special-modes-alist '(sh-mode "\\(do\\|then\\|case\\)" "\\(done\\|fi\\|esac\\)" "/[*/]" nil nil))
+(add-to-list 'hs-special-modes-alist '(sh-mode "\\(do\\|then\\|in\\)" "\\(done\\|fi\\|esac\\|elif\\)" "/[*/]" nil nil))
 
 (with-eval-after-load 'python
   (defun python-shell-completion-native-try ()
@@ -599,7 +601,7 @@
 
 ;;    (require 'org-contacts)
 (setq org-directory "/home/zieglemc/Stuff/ToDo")
-
+(define-obsolete-function-alias 'org-define-error 'define-error)
 (defun org-file-path (filename)
   "Return the absolute adress of an org file, given its relative name"
   (interactive)
@@ -650,7 +652,7 @@
         ("\\.png\\'" . "gpicview $s")))
 
 (org-babel-do-load-languages 'org-babel-load-languages
-                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (R . t) (gnuplot . t) (shell . t) (org . t) (lisp . t)))
+                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (gnuplot . t) (shell . t) (org . t) (lisp . t)))
 (setq org-confirm-babel-evaluate nil)
 
 (require 'ox-reveal)
