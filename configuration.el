@@ -1,7 +1,6 @@
-
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+                                        ;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
@@ -340,7 +339,7 @@
 ;; Wrap around region
 (setq yas-wrap-around-region t)
 
-;(add-to-list 'load-path "/home/zieglemc/.emacs.d/elpa/helm-20170419.2242")
+(add-to-list 'load-path "/home/zieglemc/.emacs.d/elpa/helm-20170419.2242")
 (require 'helm)
 (require 'helm-config)
 (require 'helm-google)
@@ -407,14 +406,20 @@
 (require 'rtags)
 (require 'company-rtags)
 (require 'flycheck-rtags)
- (setq rtags-completions-enabled t)
-(eval-after-load 'company
-   '(add-to-list
-      'company-backends 'company-rtags))
 (setq rtags-autostart-diagnostics t)
+(rtags-diagnostics)
+(setq rtags-completions-enabled t)
+(eval-after-load 'company
+  '(add-to-list
+    'company-backends 'company-rtags))
 (require 'helm-rtags)
 (cmake-ide-setup)
-;;                                         ;(setq rtags-use-helm t)
+(setq rtags-display-result-backend 'helm)
+(defun my-flycheck-rtags-setup ()
+  (flycheck-select-checker 'rtags)
+  (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+  (setq-local flycheck-check-syntax-automatically nil))
+                                        ;(setq rtags-use-helm t)
 
 ;; setup GDB
 (setq gdb-many-windows t ;; use gdb-many-windows by default
@@ -428,10 +433,11 @@
   (require 'ede)
   (global-ede-mode)
   (hs-minor-mode)
-  (require 'flycheck)
-  (require 'flycheck-rtags)
-  (setq flycheck-checker 'c/c++-gcc)
+                                        ;       (setq flycheck-checker 'rtags)
                                         ;(flycheck-select-checker 'rtags)
+  (flycheck-select-checker 'rtags)
+  (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+  (setq-local flycheck-check-syntax-automatically nil)
   (flycheck-mode)
   (rainbow-mode)
   (rainbow-delimiters-mode)
@@ -442,10 +448,10 @@
   (irony-mode)
   )
 
-(add-hook 'c-mode-common-hook   'my-c-mode-common-hook)
+(add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
+
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 (add-hook 'c++-mode-hook 'my-c-mode-common-hook)
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
 (add-hook 'objc-mode-hook 'irony-mode)
 
 (add-hook 'R-mode-hook #'rainbow-delimiters-mode)
@@ -652,7 +658,7 @@
         ("\\.png\\'" . "gpicview $s")))
 
 (org-babel-do-load-languages 'org-babel-load-languages
-                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (gnuplot . t) (shell . t) (org . t) (lisp . t)))
+                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (gnuplot . t) (shell . t) (org . t) (lisp . t) (R . t)))
 (setq org-confirm-babel-evaluate nil)
 
 (require 'ox-reveal)
@@ -716,7 +722,7 @@
 
 (global-set-key "\C-x\\" 'mz/indent-buffer)
 (global-set-key (kbd "RET") 'newline-and-indent)  ; automatically indent when press RET
-(global-set-key (kbd "C-<tab>") 'company-complete)
+(global-set-key (kbd "C-<tab>") 'helm-company)
 (define-key global-map (kbd "C-.") 'company-files)
 (global-set-key (kbd "C-!") 'repeat)
 (global-set-key (kbd "C-x g") 'magit-status)
