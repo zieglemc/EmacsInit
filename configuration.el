@@ -261,7 +261,6 @@
 (require 'company-irony-c-headers)
 (add-hook 'after-init-hook 'global-company-mode)
 (add-to-list 'company-backends 'company-c-headers)
-(add-to-list 'company-backends 'company-irony)
 (add-to-list 'company-backends 'company-irony-c-headers)
 (add-to-list 'company-backends 'company-clang)
 (add-to-list 'company-backends 'company-jedi)
@@ -404,22 +403,22 @@
 (require 'magit)
 
 (require 'rtags)
-(require 'company-rtags)
-(require 'flycheck-rtags)
-(setq rtags-autostart-diagnostics t)
-(rtags-diagnostics)
-(setq rtags-completions-enabled t)
-(eval-after-load 'company
-  '(add-to-list
-    'company-backends 'company-rtags))
-(require 'helm-rtags)
-(cmake-ide-setup)
-(setq rtags-display-result-backend 'helm)
-(defun my-flycheck-rtags-setup ()
-  (flycheck-select-checker 'rtags)
-  (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
-  (setq-local flycheck-check-syntax-automatically nil))
-                                        ;(setq rtags-use-helm t)
+     (require 'company-rtags)
+     (require 'flycheck-rtags)
+     (setq rtags-autostart-diagnostics t)
+     (rtags-diagnostics)
+     (setq rtags-completions-enabled t)
+     (eval-after-load 'company
+       '(add-to-list
+         'company-backends 'company-rtags))
+     (require 'helm-rtags)
+;     (cmake-ide-setup)
+     (setq rtags-display-result-backend 'helm)
+     (defun my-flycheck-rtags-setup ()
+       (flycheck-select-checker 'rtags)
+       (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+       (setq-local flycheck-check-syntax-automatically nil))
+                                             ;(setq rtags-use-helm t)
 
 ;; setup GDB
 (setq gdb-many-windows t ;; use gdb-many-windows by default
@@ -430,11 +429,10 @@
 (setq c-basic-offset 4)
 (defun my-c-mode-common-hook ()
   ;; my customizations for all of c-mode and related modes
+  (rtags-start-process-unless-running)
   (require 'ede)
   (global-ede-mode)
   (hs-minor-mode)
-                                        ;       (setq flycheck-checker 'rtags)
-                                        ;(flycheck-select-checker 'rtags)
   (flycheck-select-checker 'rtags)
   (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
   (setq-local flycheck-check-syntax-automatically nil)
@@ -445,7 +443,7 @@
   (turn-on-auto-fill)
   (global-set-key [f6] 'run-cfile)
   (global-set-key [C-c C-y] 'uncomment-region)
-  (irony-mode)
+  ;(irony-mode)
   )
 
 (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
