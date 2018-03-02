@@ -265,7 +265,10 @@
 (add-to-list 'company-backends 'company-clang)
 (add-to-list 'company-backends 'company-jedi)
 (add-to-list 'company-backends 'company-elisp)
+(add-to-list 'company-backends 'company-jedi)
+(add-to-list 'company-backends 'company-anaconda)
 (global-company-mode 1)
+(setq company-idle-delay 'nil)
 
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
@@ -403,22 +406,22 @@
 (require 'magit)
 
 (require 'rtags)
-     (require 'company-rtags)
-     (require 'flycheck-rtags)
-     (setq rtags-autostart-diagnostics t)
-     (rtags-diagnostics)
-     (setq rtags-completions-enabled t)
-     (eval-after-load 'company
-       '(add-to-list
-         'company-backends 'company-rtags))
-     (require 'helm-rtags)
+(require 'company-rtags)
+(require 'flycheck-rtags)
+(setq rtags-autostart-diagnostics t)
+(rtags-diagnostics)
+(setq rtags-completions-enabled t)
+(eval-after-load 'company
+  '(add-to-list
+    'company-backends 'company-rtags))
+(require 'helm-rtags)
+(setq rtags-display-result-backend 'helm)
 ;     (cmake-ide-setup)
-     (setq rtags-display-result-backend 'helm)
-     (defun my-flycheck-rtags-setup ()
-       (flycheck-select-checker 'rtags)
-       (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
-       (setq-local flycheck-check-syntax-automatically nil))
-                                             ;(setq rtags-use-helm t)
+(setq rtags-display-result-backend 'helm)
+(defun my-flycheck-rtags-setup ()
+  (flycheck-select-checker 'rtags)
+  (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+  (setq-local flycheck-check-syntax-automatically nil))
 
 ;; setup GDB
 (setq gdb-many-windows t ;; use gdb-many-windows by default
@@ -433,10 +436,8 @@
   (require 'ede)
   (global-ede-mode)
   (hs-minor-mode)
-  (flycheck-select-checker 'rtags)
-  (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
-  (setq-local flycheck-check-syntax-automatically nil)
   (flycheck-mode)
+  (my-flycheck-rtags-setup)
   (rainbow-mode)
   (rainbow-delimiters-mode)
   (hs-minor-mode)
@@ -523,6 +524,27 @@
 (add-hook 'sh-mode-hook #'rainbow-mode)
 (add-hook 'sh-mode-hook 'hs-minor-mode)
 (add-to-list 'hs-special-modes-alist '(sh-mode "\\(do\\|then\\|in\\)" "\\(done\\|fi\\|esac\\|elif\\)" "/[*/]" nil nil))
+
+(defun my-python-mode-common-hook ()
+  ;; my customizations for all of c-mode and related modes
+  (require 'jedi)
+  (require 'ede)
+  (require 'elpy)
+  (require 'py-autopep8)
+  (require 'flycheck)
+  (global-ede-mode)
+  (hs-minor-mode)
+  (elpy-mode)
+  (flycheck-mode)
+  (rainbow-mode)
+  (rainbow-delimiters-mode)
+  (turn-on-auto-fill)
+  (jedi-mode)
+  (pyvenv-mode)
+  (anaconda-mode)
+  )
+
+(add-hook 'python-mode-hook 'my-python-mode-common-hook)
 
 (with-eval-after-load 'python
   (defun python-shell-completion-native-try ()
