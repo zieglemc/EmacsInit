@@ -638,12 +638,13 @@
    #+BEGIN_SRC emacs-lisp
      (require 'company-auctex)
      (require 'company-bibtex)
-     (company-auctex-init)
-
+     (add-to-list 'company-backends 'company-bibtex)
      (setq-default TeX-engine 'xetex)
      (setq latex-run-command "xelatex --shell-escape")
+     (setq TeX-parse-self t)
      (setq-default TeX-PDF-mode t)
      (setq-default TeX-master nil)
+     (company-auctex-init)
      (add-hook 'TeX-mode-hook
                (lambda ()
                  (flyspell-mode 1)
@@ -651,17 +652,18 @@
                  (hs-minor-mode)
                  (add-hook 'find-file-hook 'TeX-fold-buffer t t)
                  (local-set-key [C-c C-g] 'TeX-kill-job)
+                 (turn-on-auto-fill)
+                 (rainbow-delimiters-mode)
+                 (rainbow-mode)
+                 (local-set-key [C-tab] 'TeX-complete-symbol)
+                 (LaTeX-math-mode)
+                 (TeX-source-correlate-mode)
+                 (turn-on-reftex)
                  )
                )
-     (add-hook 'LaTeX-mode-hook
-               (lambda ()
-                 (flyspell-mode 1)
-                 (TeX-fold-mode 1)
-                 (hs-minor-mode)
-                 (add-hook 'find-file-hook 'TeX-fold-buffer t t)
-                 (local-set-key [C-c C-g] 'TeX-kill-job)
-                 )
-               )
+     (add-hook 'LaTeX-mode-hook 'TeX-mode-hook)
+
+     (setq reftex-plug-into-AUCTeX t)
 
      (add-to-list 'auto-mode-alist '("\\.tex$" . TeX-mode))
      (add-to-list 'auto-mode-alist '("\\.sty$" . TeX-mode))
@@ -672,15 +674,12 @@
         (LaTeX-add-environments
          '("frame" LaTeX-env-contents))))
 
-     (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
-     (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
-     (add-hook 'LaTeX-mode-hook
-               (lambda()
-                 (local-set-key [C-tab] 'TeX-complete-symbol)))
      (require 'auto-dictionary)
      (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1)))
-     (add-hook 'TeX-mode-hook #'rainbow-delimiters-mode)
-     (add-hook 'TeX-mode-hook #'rainbow-mode)
+
+     (require 'writegood-mode)
+     (global-set-key "\C-cg" 'writegood-mode)
+
      (setq TeX-view-program-selection
            (quote
             (((output-dvi style-pstricks)
@@ -689,7 +688,6 @@
              (output-pdf "Okular")
              (output-html "xdg-open"))))
      (setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)"))))
-
    #+END_SRC
 
 ** SQL
