@@ -137,7 +137,7 @@
 
     (defun mz/prelude-smart-open-line-above ()
       "Insert an empty line above the current line.
-              Position the cursor at it's beginning, according to the current mode."
+                  Position the cursor at it's beginning, according to the current mode."
       (interactive)
       (move-beginning-of-line nil)
       (newline-and-indent)
@@ -179,11 +179,14 @@
 
     (defun mz/write-package-install ()
       (insert "
-              (unless package-archive-contents
-                (package-refresh-contents))
-              (dolist (package mypackages)
-                (unless (package-installed-p package)
-                  (package-install package)))"
+                  (unless package-archive-contents
+                    (package-refresh-contents))
+                  (setq pp '())
+                  (dolist (p package-archive-contents)
+                          (push (car p) pp))
+                  (dolist (package mypackages)
+                    (unless (package-installed-p package)
+                      (if (member package pp) (package-install package))))"
               )
       )
 
