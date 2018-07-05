@@ -749,8 +749,18 @@
      (setq org-hide-leading-stars t)
      (setq org-ellipsis " ↷")
      (require 'org-bullets)
-     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-     (add-hook 'org-mode-hook (lambda () (hs-minor-mode 1)))
+
+     (defun my-org-mode-hook ()
+       (writegood-mode 1)
+       (org-bullets-mode 1)
+       (hs-minor-mode 1)
+       (visual-line-mode 1)
+       (auto-fill-mode 1)
+       (flyspell-mode 1)
+       (setq sentence-end-double-space nil)
+       )
+
+     (add-hook 'org-mode-hook 'my-org-mode-hook)
 
      (setq org-src-fontify-natively t)
      (setq org-src-tab-acts-natively t)
@@ -781,7 +791,6 @@
              ("\\.jpg\\'" . "gpicview %s")
              ("\\.raw\\'" . "imagej %s")
              ("\\.png\\'" . "gpicview $s")))
-
    #+END_SRC
 ** Org Babel
    #+BEGIN_SRC emacs-lisp

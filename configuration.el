@@ -111,7 +111,7 @@
 
 (defun mz/prelude-smart-open-line-above ()
   "Insert an empty line above the current line.
-          Position the cursor at it's beginning, according to the current mode."
+              Position the cursor at it's beginning, according to the current mode."
   (interactive)
   (move-beginning-of-line nil)
   (newline-and-indent)
@@ -153,11 +153,14 @@
 
 (defun mz/write-package-install ()
   (insert "
-          (unless package-archive-contents
-            (package-refresh-contents))
-          (dolist (package mypackages)
-            (unless (package-installed-p package)
-              (package-install package)))"
+              (unless package-archive-contents
+                (package-refresh-contents))
+              (setq pp '())
+              (dolist (p package-archive-contents)
+                      (push (car p) pp))
+              (dolist (package mypackages)
+                (unless (package-installed-p package)
+                  (if (member package pp) (package-install package))))"
           )
   )
 
@@ -658,8 +661,17 @@
 (setq org-hide-leading-stars t)
 (setq org-ellipsis " ↷")
 (require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-(add-hook 'org-mode-hook (lambda () (hs-minor-mode 1)))
+
+(defun my-org-mode-hook ()
+  (org-bullets-mode 1)
+  (hs-minor-mode 1)
+  (visual-line-mode 1)
+  (auto-fill-mode 1)
+  (flyspell-mode 1)
+  (setq sentence-end-double-space nil)
+  )
+
+(add-hook 'org-mode-hook 'my-org-mode-hook)
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
