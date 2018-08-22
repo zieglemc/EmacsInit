@@ -16,10 +16,10 @@
 (setq make-backup-files nil)
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
-(setq gc-cons-threshold 100000000)
+(setq gc-cons-threshold 1000000)
 (setq byte-compile-warnings '(not free-vars ))
-(setq max-lisp-eval-depth 10000)
-(setq max-specpdl-size 10000)
+(setq max-lisp-eval-depth 5000)
+(setq max-specpdl-size 5000)
 (setq debug-on-error nil)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (winner-mode t)
@@ -46,19 +46,13 @@
 (setq-default indent-tabs-mode nil)
 (delete-selection-mode)
 
-(if (file-exists-p "~/PATIENTS/PatDB.el")
-    (load-file "~/PATIENTS/PatDB.el")
-  )
-
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (global-linum-mode t)
 (display-time-mode t)
 (column-number-mode t)
 (global-prettify-symbols-mode t)
-(add-hook 'org-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'org-mode-hook #'rainbow-mode)
-(add-hook 'fundamental-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'fundamental-mode-hook 'rainbow-delimiters-mode)
 (setq frame-title-format
       (list (format "%s %%S: %%j " (system-name))
             '(buffer-file-name "%f" (dired-directory dired-directory "%b"))
@@ -71,6 +65,7 @@
       ;; We remove Which Function Mode from the mode line, because it's mostly
       ;; invisible here anyway.
       (assq-delete-all 'which-func-mode mode-line-misc-info))
+
 (require 'smart-mode-line)
 (setq sml/no-confirm-load-theme t)
 (setq sml/theme 'dark)
@@ -92,6 +87,8 @@
 
 (load-theme 'CrapCram t)
 (set-face-attribute 'default nil :height 95)
+
+(if (eq system-type 'windows-nt) (set-face-font 'default "-outline-Courier New-normal-normal-normal-mono-13-*-*-*-c-*-fontset-startup") (set-face-font 'default "-1ASC-Liberation Mono-normal-italic-normal-*-*-*-*-*-m-0-iso10646-1"))
 
 (defun mz/emacs-reload()
   "Reload the emacs ini file (~/.emacs.d/init.el)"
@@ -164,7 +161,6 @@
           )
   )
 
-
 (defun mz/print-package-list ()
   (interactive)
   (find-file package-file)
@@ -203,7 +199,6 @@
   (windmove-right)
   (outline-show-all)
   )
-
 
 (defun mz/fast-calc()
   "Parse for ++$1++ and substiute with the calculated result of $1."
@@ -247,14 +242,6 @@
 
 (require 'indent-guide)
 (indent-guide-global-mode 1)
-                                        ;(setq indent-guide-recursive t)
-
-(require 'semantic)
-(global-semanticdb-minor-mode 1)
-(global-semantic-idle-scheduler-mode 1)
-(global-semantic-stickyfunc-mode 1)
-(semantic-add-system-include "/usr/include/itk" 'c++-mode)
-(semantic-mode 1)
 
 (require 'multiple-cursors)
 
@@ -278,22 +265,11 @@
 
 ;; Package: clean-aindent-mode
 (require 'clean-aindent-mode)
-(add-hook 'prog-mode-hook 'clean-aindent-mode)
-
-;; Package: dtrt-indent
-(require 'dtrt-indent)
-(dtrt-indent-mode 1)
-(setq dtrt-indent-verbosity 0)
+(set 'clean-aindent-is-simple-indent t)
 
 ;; Package: ws-butler
 (require 'ws-butler)
-(add-hook 'prog-mode-hook 'ws-butler-mode)
-
-;; Package: projejctile
-(require 'projectile)
-(projectile-global-mode)
-(setq projectile-enable-caching t)
-(setq projectile-completion-system 'helm)
+(ws-butler-global-mode)
 
 (require 'undo-tree)
 (global-undo-tree-mode)
@@ -301,10 +277,7 @@
 (require 'anzu)
 (global-anzu-mode)
 
-(require 'sr-speedbar)
-
 (require 'dictcc)
-
 (require 'epc)
 
 (require 'yasnippet)
@@ -344,7 +317,6 @@
 ;; Wrap around region
 (setq yas-wrap-around-region t)
 
-(add-to-list 'load-path "/home/zieglemc/.emacs.d/elpa/helm-20170419.2242")
 (require 'helm)
 (require 'helm-config)
 (require 'helm-google)
@@ -369,34 +341,9 @@
 (setq helm-semantic-fuzzy-match t
       helm-imenu-fuzzy-match    t)
 
-
-;; Enable helm-gtags-mode
-;; (require 'helm-gtags)
-
-;; (setq
-;;  helm-gtags-ignore-case t
-;;  helm-gtags-auto-update t
-;;  helm-gtags-use-input-at-cursor t
-;;  helm-gtags-pulse-at-cursor t
-;;  helm-gtags-prefix-key "\C-cg"
-;;  helm-gtags-suggested-key-mapping t
-;;  )
-
-;; (add-hook 'dired-mode-hook 'helm-gtags-mode)
-;; (add-hook 'eshell-mode-hook 'helm-gtags-mode)
-;; (add-hook 'c-mode-hook 'helm-gtags-mode)
-;; (add-hook 'c++-mode-hook 'helm-gtags-mode)
-
 (require 'helm-grep)
 
 (helm-mode 1)
-
-;; (define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
-;; (define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
-;; (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
-;; (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-;; (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
-;; (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebihnd tab to do persistent action
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
@@ -407,6 +354,17 @@
 (define-key helm-grep-mode-map (kbd "p")  'helm-grep-mode-jump-other-window-backward)
 
 (require 'magit)
+
+(require 'flycheck)
+(global-flycheck-mode 1)
+
+(require 'irony)
+(unless (irony--find-server-executable) (call-interactively #'irony-install-server))
+(setq irony-cdb-compilation-databases '(irony-cdb-libclang irony-cdb-clang-complete))
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+(require 'company-irony)
+(add-to-list 'company-backends 'company-irony)
 
 (require 'rtags)
 (require 'company-rtags)
@@ -419,7 +377,6 @@
     'company-backends 'company-rtags))
 (require 'helm-rtags)
 (setq rtags-display-result-backend 'helm)
-                                        ;     (cmake-ide-setup)
 (setq rtags-display-result-backend 'helm)
 (defun my-flycheck-rtags-setup ()
   (flycheck-select-checker 'rtags)
@@ -436,25 +393,21 @@
 (defun my-c-mode-common-hook ()
   ;; my customizations for all of c-mode and related modes
   (rtags-start-process-unless-running)
-  (require 'ede)
-  (global-ede-mode)
   (hs-minor-mode)
-  (flycheck-mode)
   (my-flycheck-rtags-setup)
   (rainbow-mode)
   (rainbow-delimiters-mode)
   (hs-minor-mode)
+  (irony-mode)
   (turn-on-auto-fill)
   (global-set-key [f6] 'run-cfile)
   (global-set-key [C-c C-y] 'uncomment-region)
-                                        ;(irony-mode)
   )
 
 (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 (add-hook 'c++-mode-hook 'my-c-mode-common-hook)
-(add-hook 'objc-mode-hook 'irony-mode)
 
 (add-hook 'R-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'R-mode-hook #'rainbow-mode)
@@ -534,11 +487,9 @@
   (require 'ede)
   (require 'elpy)
   (require 'py-autopep8)
-  (require 'flycheck)
   (global-ede-mode)
   (hs-minor-mode)
   (elpy-mode)
-  (flycheck-mode)
   (rainbow-mode)
   (rainbow-delimiters-mode)
   (turn-on-auto-fill)
@@ -663,6 +614,7 @@
 (require 'org-bullets)
 
 (defun my-org-mode-hook ()
+  (writegood-mode 1)
   (org-bullets-mode 1)
   (hs-minor-mode 1)
   (visual-line-mode 1)
@@ -672,14 +624,14 @@
   )
 
 (add-hook 'org-mode-hook 'my-org-mode-hook)
+(add-hook 'org-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'org-mode-hook #'rainbow-mode)
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
 
 (setq org-agenda-custom-commands
       '(("W" agenda "" ((org-agenda-ndays 21)))))
-
-(setq org-agenda-files (quote ("~/Stuff/ToDo/agenda.org" "~/Stuff/ToDo/worktime.org" "~/Stuff/ToDo/todo.org" "~/Stuff/ToDo/ideas.org" "~/Stuff/ToDo/to-read.org")))
 
 (setq org-agenda-files `(
                          ,(org-file-path "worktime.org")
@@ -689,9 +641,8 @@
                          ,(org-file-path "agenda.org")
                          ))
 
-(define-key global-map "\C-c\C-x\C-s" 'mz/mark-done-and-archive)
-
 (setq org-log-done 'time)
+(define-key global-map "\C-c\C-x\C-s" 'mz/mark-done-and-archive)
 
 (setq org-file-apps
       '((auto-mode . emacs)
@@ -704,7 +655,7 @@
         ("\\.png\\'" . "gpicview $s")))
 
 (org-babel-do-load-languages 'org-babel-load-languages
-                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (sh . t) (python . t) (gnuplot . t) (shell . t) (org . t) (lisp . t) (R . t)))
+                             '((emacs-lisp . t) (ruby . t) (gnuplot . t) (python . t) (gnuplot . t) (shell . t) (org . t) (lisp . t) (R . t)))
 (setq org-confirm-babel-evaluate nil)
 
 (require 'ox-reveal)
@@ -906,3 +857,7 @@
 
 ;; this is down here because it destroyes parens matching and coloring
 (global-set-key (kbd "M-p \" ") 'wrap-with-double-quotes)
+
+(if (file-exists-p "~/PATIENTS/PatDB.el")
+    (load-file "~/PATIENTS/PatDB.el")
+  )
