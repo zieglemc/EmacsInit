@@ -11,4 +11,4 @@
 ;(load "~/.emacs.d/configuration.el")
 (load custom-file 'noerror)
 
-;(benchmark-init/deactivate)
+;(add-hook 'after-init-hook 'benchmark-init/deactivate)

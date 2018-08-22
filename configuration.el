@@ -59,6 +59,10 @@
             )
       )
 (which-function-mode)
+(require 'hlinum)
+(hlinum-activate)
+
+
 (setq-default header-line-format
               '((which-func-mode ("" which-func-format " "))))
 (setq mode-line-misc-info
@@ -245,18 +249,10 @@
 
 (require 'multiple-cursors)
 
-(hlinum-activate)
-
 (require 'company)
-(require 'company-irony-c-headers)
-(add-hook 'after-init-hook 'global-company-mode)
-(add-to-list 'company-backends 'company-c-headers)
-(add-to-list 'company-backends 'company-irony-c-headers)
-(add-to-list 'company-backends 'company-clang)
-(add-to-list 'company-backends 'company-jedi)
 (add-to-list 'company-backends 'company-elisp)
-(add-to-list 'company-backends 'company-jedi)
-(add-to-list 'company-backends 'company-anaconda)
+
+(add-hook 'after-init-hook 'global-company-mode)
 (global-company-mode 1)
 (setq company-idle-delay 'nil)
 
@@ -358,27 +354,19 @@
 (require 'flycheck)
 (global-flycheck-mode 1)
 
-(require 'irony)
-(unless (irony--find-server-executable) (call-interactively #'irony-install-server))
-(setq irony-cdb-compilation-databases '(irony-cdb-libclang irony-cdb-clang-complete))
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-
-(require 'company-irony)
-(add-to-list 'company-backends 'company-irony)
-
-(require 'rtags)
-(require 'company-rtags)
-(require 'flycheck-rtags)
-(setq rtags-autostart-diagnostics t)
-(rtags-diagnostics)
-(setq rtags-completions-enabled t)
-(eval-after-load 'company
-  '(add-to-list
-    'company-backends 'company-rtags))
-(require 'helm-rtags)
-(setq rtags-display-result-backend 'helm)
-(setq rtags-display-result-backend 'helm)
 (defun my-flycheck-rtags-setup ()
+  (require 'rtags)
+  (require 'company-rtags)
+  (require 'flycheck-rtags)
+  (setq rtags-autostart-diagnostics t)
+  (rtags-diagnostics)
+  (setq rtags-completions-enabled t)
+  (eval-after-load 'company
+    '(add-to-list
+      'company-backends 'company-rtags))
+  (require 'helm-rtags)
+  (setq rtags-display-result-backend 'helm)
+  (setq rtags-display-result-backend 'helm)
   (flycheck-select-checker 'rtags)
   (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
   (setq-local flycheck-check-syntax-automatically nil))
@@ -388,10 +376,21 @@
       gdb-show-main t  ;; Non-nil means display source file containing the main routine at startup
       )
 (setq c-default-style "linux" )
-
 (setq c-basic-offset 4)
+
 (defun my-c-mode-common-hook ()
   ;; my customizations for all of c-mode and related modes
+  (require 'irony)
+  (unless (irony--find-server-executable) (call-interactively #'irony-install-server))
+  (setq irony-cdb-compilation-databases '(irony-cdb-libclang irony-cdb-clang-complete))
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+  (require 'company-irony)
+  (require 'company-irony-c-headers)
+  (add-to-list 'company-backends 'company-c-headers)
+  (add-to-list 'company-backends 'company-irony-c-headers)
+  (add-to-list 'company-backends 'company-clang)
+  (add-to-list 'company-backends 'company-irony)
   (rtags-start-process-unless-running)
   (hs-minor-mode)
   (my-flycheck-rtags-setup)
@@ -487,6 +486,8 @@
   (require 'ede)
   (require 'elpy)
   (require 'py-autopep8)
+  (add-to-list 'company-backends 'company-jedi)
+  (add-to-list 'company-backends 'company-anaconda)
   (global-ede-mode)
   (hs-minor-mode)
   (elpy-mode)
@@ -510,45 +511,45 @@
        (get-buffer-process (current-buffer))
        nil "_"))))
 
-(require 'company-auctex)
-(require 'company-bibtex)
-(add-to-list 'company-backends 'company-bibtex)
 (setq-default TeX-engine 'xetex)
 (setq latex-run-command "xelatex --shell-escape")
 (setq TeX-parse-self t)
 (setq-default TeX-PDF-mode t)
 (setq-default TeX-master nil)
 (company-auctex-init)
+
+(defun my-latex-mode-hook()
+  (require 'company-auctex)
+  (require 'company-bibtex)
+  (add-to-list 'company-backends 'company-bibtex)
+  (flyspell-mode 1)
+  (TeX-fold-mode 1)
+  (hs-minor-mode)
+  (add-hook 'find-file-hook 'TeX-fold-buffer t t)
+  (local-set-key [C-c C-g] 'TeX-kill-job)
+  (turn-on-auto-fill)
+  (rainbow-delimiters-mode)
+  (rainbow-mode)
+  (local-set-key [C-tab] 'TeX-complete-symbol)
+  (LaTeX-math-mode)
+  (TeX-source-correlate-mode)
+  (turn-on-reftex)
+  (require 'auto-dictionary)
+  (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1)))
+
+  (require 'writegood-mode)
+  (global-set-key "\C-cg" 'writegood-mode)
+
+  )
+
 (add-hook 'TeX-mode-hook
           (lambda ()
-            (flyspell-mode 1)
-            (TeX-fold-mode 1)
-            (hs-minor-mode)
-            (add-hook 'find-file-hook 'TeX-fold-buffer t t)
-            (local-set-key [C-c C-g] 'TeX-kill-job)
-            (turn-on-auto-fill)
-            (rainbow-delimiters-mode)
-            (rainbow-mode)
-            (local-set-key [C-tab] 'TeX-complete-symbol)
-            (LaTeX-math-mode)
-            (TeX-source-correlate-mode)
-            (turn-on-reftex)
+            (my-latex-mode-hook)
             )
           )
 (add-hook 'LaTeX-mode-hook
           (lambda ()
-            (flyspell-mode 1)
-            (TeX-fold-mode 1)
-            (hs-minor-mode)
-            (add-hook 'find-file-hook 'TeX-fold-buffer t t)
-            (local-set-key [C-c C-g] 'TeX-kill-job)
-            (turn-on-auto-fill)
-            (rainbow-delimiters-mode)
-            (rainbow-mode)
-            (local-set-key [C-tab] 'TeX-complete-symbol)
-            (LaTeX-math-mode)
-            (TeX-source-correlate-mode)
-            (turn-on-reftex)
+            (my-latex-mode-hook)
             )
           )
 
@@ -562,12 +563,6 @@
  (lambda ()
    (LaTeX-add-environments
     '("frame" LaTeX-env-contents))))
-
-(require 'auto-dictionary)
-(add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1)))
-
-(require 'writegood-mode)
-(global-set-key "\C-cg" 'writegood-mode)
 
 (setq TeX-view-program-selection
       (quote
@@ -621,11 +616,11 @@
   (auto-fill-mode 1)
   (flyspell-mode 1)
   (setq sentence-end-double-space nil)
+  (rainbow-mode 1)
+  (rainbow-delimiters-mode 1)
   )
 
 (add-hook 'org-mode-hook 'my-org-mode-hook)
-(add-hook 'org-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'org-mode-hook #'rainbow-mode)
 
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)
@@ -661,14 +656,14 @@
 (require 'ox-reveal)
 (require 'ox-twbs)
 (require 'ox-pandoc)
-(require 'org-ref)
-
-(setq reftex-default-bibliography '("~/Documents/Literature/bibliography.bib"))
-
+;(require 'org-ref)
+;
+;(setq reftex-default-bibliography '("~/Documents/Literature/bibliography.bib"))
+;
 ;; see org-ref for use of these variables
-(setq org-ref-bibliography-notes "~/Documents/Literature/Papers.org"
-      org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
-      org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
+;(setq org-ref-bibliography-notes "~/Documents/Literature/Papers.org"
+;      org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
+;      org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
 
 (setq bibtex-completion-bibliography "~/Documents/Literature/bibliography.bib"
       bibtex-completion-library-path "~/Documents/Literature/bibtex-pdfs/"
