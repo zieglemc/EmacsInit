@@ -1,4 +1,4 @@
-(defun jp/replace-with-hiragena(romanji)
+(defun jp/replace-with-hiragana(romanji)
   "Converts a word in romanji into hiragana"
   (interactive "sWord to convert: ")
   (setq hiragana-list
