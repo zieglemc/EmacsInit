@@ -92,7 +92,9 @@
 (load-theme 'CrapCram t)
 (set-face-attribute 'default nil :height 95)
 
-(if (eq system-type 'windows-nt) (set-face-font 'default "-outline-Courier New-normal-normal-normal-mono-13-*-*-*-c-*-fontset-startup") (set-face-font 'default "-1ASC-Liberation Mono-normal-italic-normal-*-*-*-*-*-m-0-iso10646-1"))
+(if (eq system-type 'windows-nt)
+    (set-face-font 'default "-outline-Courier New-normal-normal-normal-mono-13-*-*-*-c-*-fontset-startup")
+  (set-face-font 'default "-1ASC-Liberation Mono-normal-italic-normal-*-*-*-*-*-m-0-iso10646-1"))
 
 (defun mz/emacs-reload()
   "Reload the emacs ini file (~/.emacs.d/init.el)"
@@ -108,6 +110,12 @@
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max))
   (jump-to-register 'o)
+  )
+
+(defun mz/indent-template()
+  "Function that allows to indent a org-capture-template"
+  (mz/indent-buffer)
+  ""
   )
 
 (defun mz/prelude-smart-open-line-above ()
@@ -588,13 +596,15 @@
 (add-hook 'nxml-mode-hook 'hs-minor-mode)
 (define-key nxml-mode-map (kbd "M-h") nil)
 
-;;    (require 'org-contacts)
-(setq org-directory "/home/zieglemc/Stuff/ToDo")
+(if (eq system-type 'windows-nt)
+    (setq org-directory "C:/zieglemc/Stuff/ToDo")
+  (setq org-directory "/home/zieglemc/Stuff/ToDo"))
+
 (define-obsolete-function-alias 'org-define-error 'define-error)
 (defun org-file-path (filename)
   "Return the absolute adress of an org file, given its relative name"
   (interactive)
-  (concat (file-name-as-directory org-directory) filename)
+  (message "%s" (concat (file-name-as-directory org-directory) filename))
   )
 
 (setq org-archive-location
@@ -653,17 +663,19 @@
                              '((emacs-lisp . t) (ruby . t) (gnuplot . t) (python . t) (gnuplot . t) (shell . t) (org . t) (lisp . t) (R . t)))
 (setq org-confirm-babel-evaluate nil)
 
+(setq org-export-coding-system 'utf-8)
+
 (require 'ox-reveal)
 (require 'ox-twbs)
 (require 'ox-pandoc)
-;(require 'org-ref)
-;
-;(setq reftex-default-bibliography '("~/Documents/Literature/bibliography.bib"))
-;
+                                        ;(require 'org-ref)
+                                        ;
+                                        ;(setq reftex-default-bibliography '("~/Documents/Literature/bibliography.bib"))
+                                        ;
 ;; see org-ref for use of these variables
-;(setq org-ref-bibliography-notes "~/Documents/Literature/Papers.org"
-;      org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
-;      org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
+                                        ;(setq org-ref-bibliography-notes "~/Documents/Literature/Papers.org"
+                                        ;      org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
+                                        ;      org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
 
 (setq bibtex-completion-bibliography "~/Documents/Literature/bibliography.bib"
       bibtex-completion-library-path "~/Documents/Literature/bibtex-pdfs/"
@@ -678,6 +690,16 @@
                                          "[[bibentry:"
                                          (mapconcat 'identity x ",")
                                          "]]")) ""))))
+
+(require 'org-drill)
+(add-to-list 'org-modules 'org-drill)
+(setq org-drill-add-random-noise-to-intervals-p t)
+(setq org-drill-hint-separator "|")
+(setq org-drill-left-cloze-delimiter "<[")
+(setq org-drill-right-cloze-delimiter "]>")
+(setq org-drill-learn-fraction 0.25)
+
+(load-file "~/.emacs.d/mz-functions/learnjapanese.el")
 
 (setq org-capture-templates
       '(
@@ -694,12 +716,14 @@
          entry
          (file (org-file-path "how-to.org")))
         ))
-;; (add-to-list 'org-capture-templates
-;;              '("c" "Contacts" entry (file (org-file-path "contacts.org"))
-;;                "* %(org-contacts-template-name)
-;; :PROPERTIES:
-;; :EMAIL: %(org-contacts-template-email)
-;; :END:"))
+
+(setq jp/vocabulary-file(org-file-path "Vocabulary.org"))
+(add-to-list 'org-capture-templates
+             '("j" "Japanese Word/Phrase" entry (file+headline jp/vocabulary-file "Words and Phrases")
+               "** %(jp/type-prompt)     :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: multisided\n   :ADDED:    %U\n   :END:\n*** Japanese\n    %(jp/japanese-get-word (jp/japanese-prompt))\n*** English\n    %(jp/english-prompt)"))
+(add-to-list 'org-capture-templates
+             '("J" "Japanese Grammar" entry (file+headline jp/vocabulary-file "Grammar")
+               "** %(jp/grammar-type-prompt) :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: hide2cloze\n   :ADDED:    %U\n   :END:\n*** Definition\n     %(jp/definition-prompt)\n*** Example\n    %(jp/japanese-get-word (jp/japanese-prompt))\n    %(jp/english-prompt)"))
 
 (global-set-key (kbd "M-%") 'anzu-query-replace)
 (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
