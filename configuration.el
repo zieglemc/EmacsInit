@@ -112,12 +112,6 @@
   (jump-to-register 'o)
   )
 
-(defun mz/indent-template()
-  "Function that allows to indent a org-capture-template"
-  (mz/indent-buffer)
-  ""
-  )
-
 (defun mz/prelude-smart-open-line-above ()
   "Insert an empty line above the current line.
               Position the cursor at it's beginning, according to the current mode."
@@ -723,7 +717,7 @@
                "** %(jp/type-prompt)     :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: multisided\n   :ADDED:    %U\n   :END:\n*** Japanese\n    %(jp/japanese-get-word (jp/japanese-prompt))\n*** English\n    %(jp/english-prompt)"))
 (add-to-list 'org-capture-templates
              '("J" "Japanese Grammar" entry (file+headline jp/vocabulary-file "Grammar")
-               "** %(jp/grammar-type-prompt) :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: hide2cloze\n   :ADDED:    %U\n   :END:\n*** Definition\n     %(jp/definition-prompt)\n*** Example\n    %(jp/japanese-get-word (jp/japanese-prompt))\n    %(jp/english-prompt)"))
+               "** %(jp/grammar-type-prompt) :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: hide2cloze\n   :ADDED:    %U\n   :END:\n   %(jp/definition-prompt)\n*** Example\n    %(jp/japanese-get-word (jp/japanese-prompt))\n    %(jp/english-prompt)"))
 
 (global-set-key (kbd "M-%") 'anzu-query-replace)
 (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)

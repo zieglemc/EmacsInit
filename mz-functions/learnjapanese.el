@@ -2,7 +2,8 @@
   "Converts a word in romanji into hiragana"
   (interactive "sWord to convert: ")
   (setq hiragana-list
-        '(("chiwa" "ちは") ("banwa" "ばんは") (" wa " "は") (" " "")
+        '(("chiwa" "ちは") ("banwa" "ばんは") (" wa " "は") ("pp" "つp")
+          ("kk" "つk") ("tt" "つt") ("ss" "つs") (" " "")
           ("kya" "きゃ") ("kyu" "きゅ") ("kyo" "きょ") ("sha" "しゃ")
           ("shu" "しゅ") ("sho" "しょ") ("cha" "ちゃ") ("chu" "ちゅ")
           ("cho" "ちょ") ("nya" "にゃ") ("nyu" "にゅ") ("nyo" "にょ")
@@ -31,7 +32,7 @@
            (nth 0 current-hiragana)
            (nth 1 current-hiragana)
            romaji)))
-  romaji)
+  (message "%s" romaji))
 
 (defun jp/japanese-prompt()
   "Prompt for a japanese word in romanji"
@@ -43,7 +44,7 @@
 
 (defun jp/type-prompt()
   "Prompt for a japanese word in romanji"
-  (setq jp/word-type (let ((choices '("Noun" "Adjective" "Verb" "Other")))
+  (setq jp/word-type (let ((choices '("Noun" "Adjective" "Verb" "Phrase" "Other")))
     (message "%s" (ido-completing-read "Word Type: " choices )))))
 
 (defun jp/grammar-type-prompt()
