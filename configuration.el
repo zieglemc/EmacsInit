@@ -662,14 +662,14 @@
 (require 'ox-reveal)
 (require 'ox-twbs)
 (require 'ox-pandoc)
-                                        ;(require 'org-ref)
-                                        ;
-                                        ;(setq reftex-default-bibliography '("~/Documents/Literature/bibliography.bib"))
-                                        ;
+(require 'org-ref)
+
+(setq reftex-default-bibliography '("~/Documents/Literature/bibliography.bib"))
+
 ;; see org-ref for use of these variables
-                                        ;(setq org-ref-bibliography-notes "~/Documents/Literature/Papers.org"
-                                        ;      org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
-                                        ;      org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
+(setq org-ref-bibliography-notes "~/Documents/Literature/Papers.org"
+      org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
+      org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
 
 (setq bibtex-completion-bibliography "~/Documents/Literature/bibliography.bib"
       bibtex-completion-library-path "~/Documents/Literature/bibtex-pdfs/"
@@ -695,29 +695,38 @@
 
 (load-file "~/.emacs.d/mz-functions/learnjapanese.el")
 
+(setq mz/todo-file (org-file-path "todo.org"))
+(setq mz/ideas-file (org-file-path "ideas.org"))
+(setq mz/to-read-file (org-file-path "to-read.org"))
+(setq mz/how-to-file (org-file-path "how-to.org"))
+(setq mz/agenda-file (org-file-path "agenda.org"))
+
 (setq org-capture-templates
       '(
         ("t" "Todo"
          entry
-         (file (org-file-path "todo.org")))
+         (file mz/todo-file))
         ("i" "Ideas"
          entry
-         (file (org-file-path "ideas.org")))
+         (file mz/ideas-file))
         ("r" "To Read"
          checkitem
-         (file (org-file-path "to-read.org")))
+         (file mz/to-read-file))
         ("h" "How-To"
          entry
-         (file (org-file-path "how-to.org")))
+         (file mz/how-to-file))
         ))
 
-(setq jp/vocabulary-file(org-file-path "Vocabulary.org"))
+(setq jp/vocabulary-file (org-file-path "Vocabulary.org"))
 (add-to-list 'org-capture-templates
              '("j" "Japanese Word/Phrase" entry (file+headline jp/vocabulary-file "Words and Phrases")
                "** %(jp/type-prompt)     :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: multisided\n   :ADDED:    %U\n   :END:\n*** Japanese\n    %(jp/japanese-get-word (jp/japanese-prompt))\n*** English\n    %(jp/english-prompt)"))
 (add-to-list 'org-capture-templates
              '("J" "Japanese Grammar" entry (file+headline jp/vocabulary-file "Grammar")
                "** %(jp/grammar-type-prompt) :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: hide2cloze\n   :ADDED:    %U\n   :END:\n   %(jp/definition-prompt)\n*** Example\n    %(jp/japanese-get-word (jp/japanese-prompt))\n    %(jp/english-prompt)"))
+(add-to-list 'org-capture-templates
+             '("a" "Agenda Entry" entry (file mz/agenda-file)
+               "* %^{Appointment}            %^G\n  %^T\n%?"))
 
 (global-set-key (kbd "M-%") 'anzu-query-replace)
 (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
