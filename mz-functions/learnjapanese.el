@@ -2,8 +2,8 @@
   "Converts a word in romanji into hiragana"
   (interactive "sWord to convert: ")
   (setq hiragana-list
-        '(("chiwa" "ちは") ("banwa" "ばんは") (" wa " "は") ("pp" "つp")
-          ("kk" "つk") ("tt" "つt") ("ss" "つs") ("dd" "つd") (" " "")
+        '(("chiwa" "ちは") ("banwa" "ばんは") (" wa " "は") ("pp" "つp") (" " "")
+          ("kk" "つk") ("cc" "つc") ("tt" "つt") ("ss" "つs") ("dd" "つd")
           ("kya" "きゃ") ("kyu" "きゅ") ("kyo" "きょ") ("sha" "しゃ")
           ("shu" "しゅ") ("sho" "しょ") ("cha" "ちゃ") ("chu" "ちゅ")
           ("cho" "ちょ") ("nya" "にゃ") ("nyu" "にゅ") ("nyo" "にょ")

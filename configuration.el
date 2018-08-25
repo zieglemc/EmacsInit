@@ -630,7 +630,7 @@
 (setq org-src-tab-acts-natively t)
 
 (setq org-agenda-custom-commands
-      '(("W" agenda "" ((org-agenda-ndays 21)))))
+      '(("W" "Show entries for 3 weeks" agenda "" ((org-agenda-span 21)))))
 
 (setq org-agenda-files `(
                          ,(org-file-path "worktime.org")
