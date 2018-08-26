@@ -45,12 +45,12 @@
 (defun jp/type-prompt()
   "Prompt for a japanese word in romanji"
   (setq jp/word-type (let ((choices '("Noun" "Adjective" "Verb" "Phrase" "Other")))
-    (message "%s" (ido-completing-read "Word Type: " choices )))))
+                       (message "%s" (ido-completing-read "Word Type: " choices )))))
 
 (defun jp/grammar-type-prompt()
   "Prompt for a japanese word in romanji"
   (setq jp/grammar-type (let ((choices '("Time" "Sentence Building" "Other")))
-    (message "%s" (ido-completing-read "Grammar Type: " choices )))))
+                          (message "%s" (ido-completing-read "Grammar Type: " choices )))))
 
 (defun jp/definition-prompt()
   "Prompt for a english word in romanji"
@@ -59,3 +59,30 @@
 (defun jp/japanese-get-word(word)
   "Returns a string with both romanji and hiragana"
   (concat word " / " (jp/replace-with-hiragana word)))
+
+(defun jp/vocabulary-from-cards()
+  (save-excursion
+    (goto-char (point-min))
+    (re-search-forward "^\* Words and Phrases" nil t)
+    (setq jp-words-start (point))
+    (if (re-search-forward "^\* " nil t)
+        (setq jp-words-end (point))
+      (setq jp-words-end (point-max)))
+    (goto-char jp-words-start)
+    (setq jp-word-pairs '())
+    (while (re-search-forward "^\*\*\* Japanese" jp-words-end t)
+      (progn
+        (forward-line 1)
+        (setq jp-word (buffer-substring-no-properties
+                       (line-beginning-position)
+                       (line-end-position))
+              )
+        (re-search-forward "^\*\*\* English" jp-words-end t)
+        (forward-line 1)
+        (setq en-word (buffer-substring-no-properties
+                       (line-beginning-position)
+                       (line-end-position)))
+        (setq jp-word-pairs
+              (cons (list jp-word en-word)
+                    jp-word-pairs))))
+    (reverse jp-word-pairs)))

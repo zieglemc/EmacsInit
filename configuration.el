@@ -93,14 +93,13 @@
 (set-face-attribute 'default nil :height 95)
 
 (if (eq system-type 'windows-nt)
-    (set-face-font 'default "-outline-Courier New-normal-normal-normal-mono-13-*-*-*-c-*-fontset-startup")
+    (set-face-font 'default "-outline-Consolas-normal-normal-normal-mono-13-*-*-*-c-*-fontset-auto4")
   (set-face-font 'default "-1ASC-Liberation Mono-normal-italic-normal-*-*-*-*-*-m-0-iso10646-1"))
 
 (defun mz/emacs-reload()
   "Reload the emacs ini file (~/.emacs.d/init.el)"
   (interactive)
-  (load-file '"~/.emacs.d/init.el")
-  )
+  (load-file '"~/.emacs.d/init.el"))
 
 (defun mz/indent-buffer ()
   "Indents an entire buffer using the default intenting scheme."
@@ -109,12 +108,11 @@
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max))
-  (jump-to-register 'o)
-  )
+  (jump-to-register 'o))
 
-(defun mz/prelude-smart-open-line-above ()
+(defun mz/new-line-above ()
   "Insert an empty line above the current line.
-              Position the cursor at it's beginning, according to the current mode."
+                  Position the cursor at it's beginning, according to the current mode."
   (interactive)
   (move-beginning-of-line nil)
   (newline-and-indent)
@@ -144,28 +142,24 @@
             (brace        . "{")
             (single-quote . "'")
             (double-quote . "\"")
-            (back-quote   . "`"));     (global-set-key (kbd "M-p \" ") 'wrap-with-double-quotes)
-  )
+            (back-quote   . "`")))
 
 (defun mz/print-list (list)
   (dotimes (item (length list))
     (insert (prin1-to-string (elt list item)))
-    (insert " ")
-    )
-  )
+    (insert " ")))
 
 (defun mz/write-package-install ()
   (insert "
-              (unless package-archive-contents
-                (package-refresh-contents))
-              (setq pp '())
-              (dolist (p package-archive-contents)
-                      (push (car p) pp))
-              (dolist (package mypackages)
-                (unless (package-installed-p package)
-                  (if (member package pp) (package-install package))))"
-          )
-  )
+                  (unless package-archive-contents
+                    (package-refresh-contents))
+                  (setq pp '())
+                  (dolist (p package-archive-contents)
+                          (push (car p) pp))
+                  (dolist (package mypackages)
+                    (unless (package-installed-p package)
+                      (if (member package pp) (package-install package))))"
+          ))
 
 (defun mz/print-package-list ()
   (interactive)
@@ -176,8 +170,7 @@
   (insert "))")
   (mz/write-package-install)
   (save-buffer)
-  (kill-buffer)
-  )
+  (kill-buffer))
 
 (defun mz/my_compile ()
   "Take the makefile in current folder or in build folder"
@@ -188,11 +181,8 @@
         )
     (progn
       (setq compile-command
-            (concat "cd " (replace-regexp-in-string "src" "build" (file-name-directory buffer-file-name)) " && make -j4"))
-      )
-    )
-  (compile compile-command)
-  )
+            (concat "cd " (replace-regexp-in-string "src" "build" (file-name-directory buffer-file-name)) " && make -j4"))))
+  (compile compile-command))
 
 (defun mz/workwndw()
   "Load specific files and the window accordingly"
@@ -203,8 +193,7 @@
   (split-window-below)
   (find-file "~/Stuff/ToDo/worktime.org")
   (windmove-right)
-  (outline-show-all)
-  )
+  (outline-show-all))
 
 (defun mz/fast-calc()
   "Parse for ++$1++ and substiute with the calculated result of $1."
@@ -217,21 +206,45 @@
       (when (re-search-forward "\\+\\+[ \\.0-9\\+\\(\\)\\*\\/\\-]+\\+\\+" nil t)
         (setf
          (point) (match-beginning 0)
-         (mark) (match-end 0)
-         )
-        )
+         (mark) (match-end 0)))
       (save-restriction
         (narrow-to-region (region-beginning) (region-end))
         (replace-string "++" "")
         (exchange-point-and-mark)
         (replace-string
          (buffer-substring (region-beginning) (region-end))
-         (calc-eval (buffer-substring (region-beginning) (region-end)))
-         )
-        )
-      )
-    )
-  )
+         (calc-eval (buffer-substring (region-beginning) (region-end))))))))
+
+
+(defun mz/next-buffer()
+  "Go to the next buffer and continue if the buffername starts with * (except scratch)"
+  (interactive)
+  (let ((currbuffer-name (buffer-name)))
+    (next-buffer)
+    (buffer-name)
+    (while
+        (and (string-match "^\\*.*\\*$" (buffer-name))
+             (not (string-match "^\\*scratch\\*$" (buffer-name)))
+             (not (string-match currbuffer-name (buffer-name))))
+      (next-buffer))))
+
+(defun mz/previous-buffer()
+  "Go to the previous buffer and continue if the buffername starts with * (except scratch)"
+  (interactive)
+  (let ((currbuffer-name (buffer-name)))
+    (previous-buffer)
+    (buffer-name)
+    (while
+        (and (string-match "^\\*.*\\*$" (buffer-name))
+             (not (string-match "^\\*scratch\\*$" (buffer-name)))
+             (not (string-match currbuffer-name (buffer-name))))
+      (previous-buffer))))
+
+(defun mz/mark-everything-in-parenthesis()
+  (interactive)
+  (sp-beginning-of-sexp)
+  (set-mark-command nil)
+  (sp-end-of-sexp))
 
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
@@ -730,16 +743,23 @@
 
 (global-set-key (kbd "M-%") 'anzu-query-replace)
 (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
-(global-set-key (kbd "M-o") 'mz/prelude-smart-open-line)
 (global-set-key (kbd "<f12>") 'eval-buffer)
+
+(global-unset-key (kbd "C-x C-b"))
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "<f5>") 'mz/my_compile)
 (global-set-key (kbd "M-+") 'mz/fast-calc)
+(global-set-key (kbd "M-o") 'mz/new-line-above)
+(global-set-key "\C-x\\" 'mz/indent-buffer)
+(global-unset-key (kbd "C-x <left>"))
+(global-set-key (kbd "C-x <left>") 'mz/previous-buffer)
+(global-unset-key (kbd "C-x <right>"))
+(global-set-key (kbd "C-x <right>") 'mz/next-buffer)
 
 (fset 'make_newline
       [?\C-e tab return])
 (global-set-key (kbd "C-<return>") 'make_newline)
 
-(global-set-key "\C-x\\" 'mz/indent-buffer)
 (global-set-key (kbd "RET") 'newline-and-indent)  ; automatically indent when press RET
 (global-set-key (kbd "C-<tab>") 'helm-company)
 (define-key global-map (kbd "C-.") 'company-files)
@@ -785,6 +805,7 @@
 (global-set-key (kbd "M-p _ ")  'wrap-with-underscores)
 (global-set-key (kbd "M-p ` ")  'wrap-with-back-quotes)
 (global-set-key (kbd "M-p d") 'sp-unwrap-sexp)
+(global-set-key (kbd "M-p m") 'mz/mark-everything-in-parenthesis)
 
 ;; multiple cursors
 (global-set-key (kbd "M-n <right>") 'mc/mark-next-like-this)
