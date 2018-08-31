@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: plot
+# key: plot
+# --
+plot(${1:data})
