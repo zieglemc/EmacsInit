@@ -1,50 +1,50 @@
-(require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
                                         ;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-(package-initialize)
 
-(setq package-file "~/.emacs.d/package-list.el")
-(load package-file)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
 (setq user-full-name "Marc Ziegler"
       user-email-adress "marc.ziegler@uk-erlangen.de")
 
-(setq custom-file "~/.emacs.d/emacs-custom.el")
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
 
 (setq auto-save-default nil)
 (setq make-backup-files nil)
-(setq inhibit-splash-screen t)
-(setq inhibit-startup-message t)
-(setq gc-cons-threshold 1000000)
-(setq byte-compile-warnings '(not free-vars ))
+
+(setq gc-cons-threshold (* 1024 1024 100))
 (setq max-lisp-eval-depth 5000)
+
 (setq max-specpdl-size 5000)
 (setq debug-on-error nil)
-(defalias 'yes-or-no-p 'y-or-n-p)
-(winner-mode t)
 
 ;; use space to indent by default
 (setq-default indent-tabs-mode nil)
-
 ;; set appearance of a tab that is represented by 4 spaces
 (setq-default tab-width 2)
-
+(setq-default indent-tabs-mode nil)
 ;; for fill column mode
 (setq-default fill-column 100)
-
-(setq global-mark-ring-max 5000         ; increase mark ring to contains 5000 entries
-      mark-ring-max 5000                ; increase kill ring to contains 5000 entries
-      mode-require-final-newline t      ; add a newline to end of file
-      )
+(setq mode-require-final-newline t)
+(setq sentence-end-double-space nil)
 
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-language-environment "UTF-8")
 (prefer-coding-system 'utf-8)
 
-(setq-default indent-tabs-mode nil)
+(setq global-mark-ring-max 5000)
+(setq mark-ring-max 5000)
 (delete-selection-mode)
+
+(define-key input-decode-map [?\C-m] [C-m])
+(define-key input-decode-map [?\C-i] [C-i])
+
+(setq custom-file "~/.emacs.d/emacs-custom.el")
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -52,17 +52,13 @@
 (display-time-mode t)
 (column-number-mode t)
 (global-prettify-symbols-mode t)
-(add-hook 'fundamental-mode-hook 'rainbow-delimiters-mode)
 (setq frame-title-format
       (list (format "%s %%S: %%j " (system-name))
             '(buffer-file-name "%f" (dired-directory dired-directory "%b"))
             )
       )
+
 (which-function-mode)
-(require 'hlinum)
-(hlinum-activate)
-
-
 (setq-default header-line-format
               '((which-func-mode ("" which-func-format " "))))
 (setq mode-line-misc-info
@@ -70,31 +66,48 @@
       ;; invisible here anyway.
       (assq-delete-all 'which-func-mode mode-line-misc-info))
 
-(require 'smart-mode-line)
-(setq sml/no-confirm-load-theme t)
-(setq sml/theme 'dark)
-(sml/setup)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(rainbow-delimiters-depth-1-face ((t (:foreground "white"))))
- '(rainbow-delimiters-depth-2-face ((t (:foreground "yellow"))))
- '(rainbow-delimiters-depth-3-face ((t (:foreground "dark orange"))))
- '(rainbow-delimiters-depth-4-face ((t (:foreground "chartreuse"))))
- '(rainbow-delimiters-depth-5-face ((t (:foreground "dark green"))))
- '(rainbow-delimiters-depth-6-face ((t (:foreground "cyan"))))
- '(rainbow-delimiters-depth-7-face ((t (:foreground "blue"))))
- '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta"))))
- '(rainbow-delimiters-depth-9-face ((t (:foreground "sienna")))))
-
 (load-theme 'CrapCram t)
 (set-face-attribute 'default nil :height 95)
 
 (if (eq system-type 'windows-nt)
     (set-face-font 'default "-outline-Consolas-normal-normal-normal-mono-13-*-*-*-c-*-fontset-auto4")
   (set-face-font 'default "-1ASC-Liberation Mono-normal-italic-normal-*-*-*-*-*-m-0-iso10646-1"))
+
+(use-package rainbow-delimiters
+:ensure t
+:config
+    (add-hook 'fundamental-mode-hook 'rainbow-delimiters-mode)
+    (custom-set-faces
+     '(rainbow-delimiters-depth-1-face ((t (:foreground "white"))))
+     '(rainbow-delimiters-depth-2-face ((t (:foreground "yellow"))))
+     '(rainbow-delimiters-depth-3-face ((t (:foreground "dark orange"))))
+     '(rainbow-delimiters-depth-4-face ((t (:foreground "chartreuse"))))
+     '(rainbow-delimiters-depth-5-face ((t (:foreground "dark green"))))
+     '(rainbow-delimiters-depth-6-face ((t (:foreground "cyan"))))
+     '(rainbow-delimiters-depth-7-face ((t (:foreground "blue"))))
+     '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta"))))
+     '(rainbow-delimiters-depth-9-face ((t (:foreground "sienna")))))
+)
+
+(use-package hlinum
+:ensure t
+:config
+    (hlinum-activate)
+)
+
+(use-package smart-mode-line
+:ensure t
+:config
+    (setq sml/no-confirm-load-theme t)
+    (setq sml/theme 'dark)
+    (sml/setup)
+)
+
+(use-package indent-guide
+:ensure t
+:config
+    (indent-guide-global-mode 1)
+)
 
 (defun mz/emacs-reload()
   "Reload the emacs ini file (~/.emacs.d/init.el)"
@@ -246,173 +259,192 @@
   (set-mark-command nil)
   (sp-end-of-sexp))
 
-(when (memq window-system '(mac ns x))
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns))
+  :ensure t
+  :config
   (exec-path-from-shell-initialize))
 
-(require 'cl)
+(use-package smartparens
+  :ensure t
+  :config
+  (setq sp-base-key-bindings 'paredit)
+  (setq sp-hybrid-kill-entire-symbol nil)
+  (sp-use-paredit-bindings)
+  (show-smartparens-global-mode 1)
+  (smartparens-global-mode 1)
+  )
 
-(require 'smartparens)
-(require 'smartparens-config)
-(setq sp-base-key-bindings 'paredit)
-(setq sp-hybrid-kill-entire-symbol nil)
-(sp-use-paredit-bindings)
-(show-smartparens-global-mode 1)
-(smartparens-global-mode 1)
+(use-package multiple-cursors
+  :ensure t)
 
-(require 'indent-guide)
-(indent-guide-global-mode 1)
-
-(require 'multiple-cursors)
-
-(require 'company)
-(add-to-list 'company-backends 'company-elisp)
-
-(add-hook 'after-init-hook 'global-company-mode)
-(global-company-mode 1)
-(setq company-idle-delay 'nil)
-
-(require 'volatile-highlights)
-(volatile-highlights-mode t)
-
-;; Package: clean-aindent-mode
-(require 'clean-aindent-mode)
-(set 'clean-aindent-is-simple-indent t)
+(use-package clean-aindent-mode
+  :ensure t
+  :config
+  (set 'clean-aindent-is-simple-indent t)
+  )
 
 ;; Package: ws-butler
-(require 'ws-butler)
-(ws-butler-global-mode)
+(use-package ws-butler
+  :ensure t
+  :config
+  (ws-butler-global-mode))
 
-(require 'undo-tree)
-(global-undo-tree-mode)
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode))
 
-(require 'anzu)
-(global-anzu-mode)
+(use-package dictcc
+  :ensure t)
 
-(require 'dictcc)
-(require 'epc)
+(use-package winner
+  :ensure t
+  :init
+  (winner-mode)
+  :bind ((  "M-g <prior>" . winner-undo)
+     ("M-g <next>" . winner-redo)
+     :map winner-mode-map
+     ("C-c <left>" . nil)
+     ("C-c <right>" . nil))
+  )
 
-(require 'yasnippet)
-(yas-global-mode 1)
+(use-package anzu
+  :ensure t
+  :config
+  (global-anzu-mode))
 
-;; Jump to end of snippet definition
-(define-key yas-keymap (kbd "<return>") 'yas/exit-all-snippets)
+(use-package epc
+  :ensure t)
 
-;; Inter-field navigation
-(defun yas/goto-end-of-active-field ()
-  (interactive)
-  (let* ((snippet (car (yas--snippets-at-point)))
-         (position (yas--field-end (yas--snippet-active-field snippet))))
-    (if (= (point) position)
-        (move-end-of-line 1)
-      (goto-char position))))
+(use-package flyspell
+  :ensure t
+  :config
+  (use-package auto-dictionary
+    :ensure t
+    :init
+    (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1))))
+  (use-package writegood-mode
+    :ensure t
+    :init
+    (add-hook 'flyspell-mode-hook (lambda () (writegood-mode 1)))))
 
-(defun yas/goto-start-of-active-field ()
-  (interactive)
-  (let* ((snippet (car (yas--snippets-at-point)))
-         (position (yas--field-start (yas--snippet-active-field snippet))))
-    (if (= (point) position)
-        (move-beginning-of-line 1)
-      (goto-char position))))
+(use-package company
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-elisp)
+  (add-hook 'after-init-hook 'global-company-mode)
+  (global-company-mode 1)
+  (setq company-idle-delay 'nil)
+  )
 
-(define-key yas-keymap (kbd "C-e") 'yas/goto-end-of-active-field)
-(define-key yas-keymap (kbd "C-a") 'yas/goto-start-of-active-field)
-;; (define-key yas-minor-mode-map [(tab)] nil)
-;; (define-key yas-minor-mode-map (kbd "TAB") nil)
-;; (define-key yas-minor-mode-map (kbd "C-<tab>") 'yas-expand)
-;; No dropdowns please, yas
-(setq yas-prompt-functions '(yas/ido-prompt yas/completing-prompt))
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1)
+  :bind (:map yas-keymap
+              ("<return>" . yas/exit-all-snippets)
+              ("C-e" . (lambda()
+                         (interactive)
+                         (let* ((snippet (car (yas--snippets-at-point)))
+                                (position (yas--field-end (yas--snippet-active-field snippet))))
+                           (if (= (point) position)
+                               (move-end-of-line 1)
+                             (goto-char position)))))
+              ("C-a" . (lambda()
+                         (interactive)
+                         (let* ((snippet (car (yas--snippets-at-point)))
+                                (position (yas--field-start (yas--snippet-active-field snippet))))
+                           (if (= (point) position)
+                               (move-beginning-of-line 1)
+                             (goto-char position))))))
+  :config
+  (setq yas-verbosity 1)
+  (setq yas-wrap-around-region t))
 
-;; No need to be so verbose
-(setq yas-verbosity 1)
+(use-package magit
+:ensure t)
 
-;; Wrap around region
-(setq yas-wrap-around-region t)
+(use-package flycheck
+:ensure t
+:config
+(global-flycheck-mode 1))
 
-(require 'helm)
-(require 'helm-config)
-(require 'helm-google)
-(require 'helm-flycheck)
-(require 'helm-flyspell)
-(require 'helm-company)
-(defvar helm-alive-p)
-(when (executable-find "curl")
-  (setq helm-google-suggest-use-curl-p t))
-
-(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-      helm-ff-file-name-history-use-recentf t)
-
-(helm-autoresize-mode t)
-
-(setq helm-apropos-fuzzy-match t)
-(setq helm-buffers-fuzzy-matching t
-      helm-recentf-fuzzy-match    t)
-(setq helm-semantic-fuzzy-match t
-      helm-imenu-fuzzy-match    t)
-
-(require 'helm-grep)
-
-(helm-mode 1)
-
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebihnd tab to do persistent action
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-
-(define-key helm-grep-mode-map (kbd "<return>")  'helm-grep-mode-jump-other-window)
-(define-key helm-grep-mode-map (kbd "n")  'helm-grep-mode-jump-other-window-forward)
-(define-key helm-grep-mode-map (kbd "p")  'helm-grep-mode-jump-other-window-backward)
-
-(require 'magit)
-
-(require 'flycheck)
-(global-flycheck-mode 1)
-
-(defun my-flycheck-rtags-setup ()
-  (require 'rtags)
-  (require 'company-rtags)
-  (require 'flycheck-rtags)
-  (setq rtags-autostart-diagnostics t)
-  (rtags-diagnostics)
-  (setq rtags-completions-enabled t)
-  (eval-after-load 'company
-    '(add-to-list
-      'company-backends 'company-rtags))
-  (require 'helm-rtags)
-  (setq rtags-display-result-backend 'helm)
-  (setq rtags-display-result-backend 'helm)
-  (flycheck-select-checker 'rtags)
-  (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
-  (setq-local flycheck-check-syntax-automatically nil))
+(use-package rtags
+  :ensure t
+  :config
+  (progn
+    ;; Start rtags upon entering a C/C++ file
+    (add-hook
+     'c-mode-common-hook
+     (lambda () (if (not (is-current-file-tramp))
+               (rtags-start-process-unless-running))))
+    (add-hook
+     'c++-mode-common-hook
+     (lambda () (if (not (is-current-file-tramp))
+               (rtags-start-process-unless-running))))
+    ;; Flycheck setup
+    (use-package flycheck-rtags
+      :ensure t
+      :config
+      (defun my-flycheck-rtags-setup ()
+        (flycheck-select-checker 'rtags)
+        ;; RTags creates more accurate overlays.
+        (setq-local flycheck-highlighting-mode nil)
+        (setq-local flycheck-check-syntax-automatically nil))
+      )
+    (use-package helm-rtags
+      :ensure t
+      :config
+      (setq rtags-display-result-backend 'helm)
+      )
+    ;; c-mode-common-hook is also called by c++-mode
+    (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
+    )
+  )
+;; Use irony for completion
+(use-package irony
+  :ensure t
+  :config
+  (progn
+    (add-hook
+     'c-mode-common-hook
+     (lambda () (if (not (is-current-file-tramp)) (irony-mode))))
+    (add-hook
+     'c++-mode-common-hook
+     (lambda () (if (not (is-current-file-tramp)) (irony-mode))))
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+    (use-package company-irony
+      :ensure t
+      :config
+      (push 'company-irony company-backends)
+      )
+    (use-package company-irony-c-headers
+      :ensure t
+      :config
+      (add-to-list 'company-backends 'company-c-headers)
+      (add-to-list 'company-backends 'company-irony-c-headers)
+      (add-to-list 'company-backends 'company-clang)
+      )
+    ))
 
 ;; setup GDB
 (setq gdb-many-windows t ;; use gdb-many-windows by default
       gdb-show-main t  ;; Non-nil means display source file containing the main routine at startup
       )
-(setq c-default-style "linux" )
-(setq c-basic-offset 4)
 
 (defun my-c-mode-common-hook ()
   ;; my customizations for all of c-mode and related modes
-  (require 'irony)
+  (setq c-default-style "linux" )
+  (setq c-basic-offset 4)
   (unless (irony--find-server-executable) (call-interactively #'irony-install-server))
   (setq irony-cdb-compilation-databases '(irony-cdb-libclang irony-cdb-clang-complete))
-  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-
-  (require 'company-irony)
-  (require 'company-irony-c-headers)
-  (add-to-list 'company-backends 'company-c-headers)
-  (add-to-list 'company-backends 'company-irony-c-headers)
-  (add-to-list 'company-backends 'company-clang)
-  (add-to-list 'company-backends 'company-irony)
   (rtags-start-process-unless-running)
+  (setq rtags-autostart-diagnostics t)
+  (rtags-diagnostics)
   (hs-minor-mode)
-  (my-flycheck-rtags-setup)
   (rainbow-mode)
   (rainbow-delimiters-mode)
-  (hs-minor-mode)
-  (irony-mode)
   (turn-on-auto-fill)
   (global-set-key [f6] 'run-cfile)
   (global-set-key [C-c C-y] 'uncomment-region)
@@ -421,72 +453,55 @@
 (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
-(add-hook 'c++-mode-hook 'my-c-mode-common-hook)
 
 (add-hook 'R-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'R-mode-hook #'rainbow-mode)
 (add-hook 'R-mode-hook 'hs-minor-mode)
 
-;(add-hook 'matlab-mode-hook 'auto-complete-mode)
-(add-hook 'matlab-mode-hook 'company-mode)
-(add-hook 'matlab-mode-hook 'hs-minor-mode)
-(add-hook 'matlab-mode-hook #'rainbow-delimiters-mode)
-(add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
-(add-hook 'matlab-mode-hook
-          (lambda () (local-set-key (kbd "<f5>") 'matlab-shell-run-cell)))
-(add-hook 'matlab-mode-hook
-          (lambda () (local-set-key (kbd "S-<f5>") 'matlab-shell-run-region)))
-(add-hook 'matlab-mode-hook
-          (lambda () (local-unset-key (kbd "M-s"))))
-(add-hook 'matlab-mode-hook
-          (lambda () (local-set-key (kbd "C-m m") 'matlab-show-matlab-shell-buffer)))
-(add-hook 'matlab-mode-hook
-          (lambda () (local-set-key (kbd "C-m e") 'matlab-end-of-defun)))
-(add-hook 'matlab-mode-hook
-          (lambda () (local-set-key (kbd "C-m a") 'matlab-beginning-of-defun)))
-(defun matlab/db (com)
-  (interactive)
-  (switch-to-buffer "*MATLAB*")
-  (end-of-buffer)
-  (insert com)
-  (comint-send-input)
-  )
-(add-hook 'matlab-mode-hook
-          (lambda () (local-set-key (kbd "<f9>") (lambda () (interactive) (matlab/db "dbcont")))))
-(add-hook 'matlab-mode-hook
-          (lambda () (local-set-key (kbd "<f6>") (lambda () (interactive) (matlab/db "dbstep")))))
-(add-hook 'matlab-mode-hook
-          (lambda () (local-set-key (kbd "<f7>") (lambda () (interactive) (matlab/db "dbstep in")))))
-(add-hook 'matlab-mode-hook
-          (lambda () (local-set-key (kbd "<f8>") (lambda () (interactive) (matlab/db "dbstep out")))))
-
-(add-hook 'julia-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'julia-mode-hook 'hs-minor-mode)
+(use-package julia-mode
+:ensure t
+:init
 (add-to-list 'auto-mode-alist '("\\.jl$" . julia-mode))
+:config
+  (add-hook 'julia-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'julia-mode-hook 'hs-minor-mode)
+       (use-package flycheck-julia
+  :ensure t)
+  (use-package julia-shell
+  :ensure t))
 
 (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
-(add-to-list 'company-backends 'company-elisp)
 (add-to-list 'auto-mode-alist '("\\.el$" . lisp-interaction-mode))
 (add-hook 'lisp-interaction-mode 'rainbow-delimiters-mode)
 (add-hook 'lisp-interaction-mode 'hs-minor-mode)
 
-(require 'slime)
+(use-package slime
+:ensure t
+:config
 (setq inferior-lisp-program "/usr/bin/sbcl")
+)
 
-(autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
-(autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot mode" t)
+(use-package gnuplot-mode
+:ensure t
+:config
+(use-package gnuplot
+:ensure t
+:config
+  (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
+  (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot mode" t)
 
-(add-to-list 'auto-mode-alist '("\\.gnu$" . gnuplot-mode))
-(add-to-list 'auto-mode-alist '("\\.plt$" . gnuplot-mode))
+  (add-to-list 'auto-mode-alist '("\\.gnu$" . gnuplot-mode))
+  (add-to-list 'auto-mode-alist '("\\.plt$" . gnuplot-mode))
 
-(add-hook 'gnuplot-mode-hook
-          (lambda () (local-set-key (kbd "C-c C-c") 'gnuplot-run-buffer)))
-(add-hook 'gnuplot-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'gnuplot-mode-hook #'rainbow-mode)
-(add-hook 'gnuplot-mode-hook 'hs-minor-mode)
+  (add-hook 'gnuplot-mode-hook
+            (lambda () (local-set-key (kbd "C-c C-c") 'gnuplot-run-buffer)))
+  (add-hook 'gnuplot-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'gnuplot-mode-hook #'rainbow-mode)
+  (add-hook 'gnuplot-mode-hook 'hs-minor-mode)
+  ))
 
 (add-hook 'shell-script-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'shell-script-mode-hook #'rainbow-mode)
@@ -495,113 +510,136 @@
 (add-hook 'sh-mode-hook 'hs-minor-mode)
 (add-to-list 'hs-special-modes-alist '(sh-mode "\\(do\\|then\\|in\\)" "\\(done\\|fi\\|esac\\|elif\\)" "/[*/]" nil nil))
 
-(defun my-python-mode-common-hook ()
-  ;; my customizations for all of c-mode and related modes
-  (require 'jedi)
-  (require 'ede)
-  (require 'elpy)
-  (require 'py-autopep8)
-  (add-to-list 'company-backends 'company-jedi)
-  (add-to-list 'company-backends 'company-anaconda)
-  (global-ede-mode)
-  (hs-minor-mode)
-  (elpy-mode)
-  (rainbow-mode)
-  (rainbow-delimiters-mode)
-  (turn-on-auto-fill)
-  (jedi-mode)
-  (pyvenv-mode)
-  (anaconda-mode)
-  )
+(use-package python
+    :mode ("\\.py\\'" . python-mode)
+    ("\\.wsgi$" . python-mode)
+    :interpreter ("python" . python-mode)
+    :init
+    (setq-default indent-tabs-mode nil)
+    :config
+    (setq python-indent-offset 4)
 
-(add-hook 'python-mode-hook 'my-python-mode-common-hook)
+    (use-package py-autopep8
+:ensure t)
 
-(with-eval-after-load 'python
-  (defun python-shell-completion-native-try ()
-    "Return non-nil if can trigger native completion."
-    (let ((python-shell-completion-native-enable t)
-          (python-shell-completion-native-output-timeout
-           python-shell-completion-native-try-output-timeout))
-      (python-shell-completion-native-get-completions
-       (get-buffer-process (current-buffer))
-       nil "_"))))
+    (add-hook 'python-mode-hook 'smartparens-mode)
+    (add-hook 'python-mode-hook 'rainbow-mode)
+    (add-hook 'python-mode-hook 'rainbow-delimiters-mode)
+    (add-hook 'python-mode-hook 'ede-mode)
+    (add-hook 'python-mode-hook 'turn-on-auto-fill)
+    (add-hook 'python-mode-hook 'hs-minor-mode)
+    )
 
-(setq-default TeX-engine 'xetex)
-(setq latex-run-command "xelatex --shell-escape")
-(setq TeX-parse-self t)
-(setq-default TeX-PDF-mode t)
-(setq-default TeX-master nil)
-(company-auctex-init)
 
-(defun my-latex-mode-hook()
-  (require 'company-auctex)
-  (require 'company-bibtex)
-  (add-to-list 'company-backends 'company-bibtex)
-  (flyspell-mode 1)
-  (TeX-fold-mode 1)
-  (hs-minor-mode)
-  (add-hook 'find-file-hook 'TeX-fold-buffer t t)
-  (local-set-key [C-c C-g] 'TeX-kill-job)
-  (turn-on-auto-fill)
-  (rainbow-delimiters-mode)
-  (rainbow-mode)
-  (local-set-key [C-tab] 'TeX-complete-symbol)
-  (LaTeX-math-mode)
-  (TeX-source-correlate-mode)
-  (turn-on-reftex)
-  (require 'auto-dictionary)
-  (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1)))
+  (use-package jedi
+    :ensure t
+    :config
+    (use-package company-jedi
+:ensure t
+:init
+(add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
+(setq company-jedi-python-bin "python")))
 
-  (require 'writegood-mode)
-  (global-set-key "\C-cg" 'writegood-mode)
 
-  )
+  (use-package anaconda-mode
+    :ensure t
+    :init (add-hook 'python-mode-hook 'anaconda-mode)
+    (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+    :config (use-package company-anaconda
+  :ensure t
+  :init (add-hook 'python-mode-hook 'anaconda-mode)
+  (eval-after-load "company"
+    '(add-to-list 'company-backends '(company-anaconda :with company-capf)))))
 
-(add-hook 'TeX-mode-hook
-          (lambda ()
-            (my-latex-mode-hook)
-            )
-          )
-(add-hook 'LaTeX-mode-hook
-          (lambda ()
-            (my-latex-mode-hook)
-            )
-          )
+  (use-package elpy
+    :ensure t
+    :commands elpy-enable
+    :init (with-eval-after-load 'python (elpy-enable))
 
-(setq reftex-plug-into-AUCTeX t)
+    :config
+    (electric-indent-local-mode -1)
+    (delete 'elpy-module-highlight-indentation elpy-modules)
+    (delete 'elpy-module-flymake elpy-modules)
 
-(add-to-list 'auto-mode-alist '("\\.tex$" . TeX-mode))
-(add-to-list 'auto-mode-alist '("\\.sty$" . TeX-mode))
+    (defun ha/elpy-goto-definition ()
+(interactive)
+(condition-case err
+    (elpy-goto-definition)
+  ('error (xref-find-definitions (symbol-name (symbol-at-point))))))
 
-(TeX-add-style-hook
- "latex"
- (lambda ()
-   (LaTeX-add-environments
-    '("frame" LaTeX-env-contents))))
+    :bind (:map elpy-mode-map ([remap elpy-goto-definition] .
+       ha/elpy-goto-definition)))
 
-(setq TeX-view-program-selection
-      (quote
-       (((output-dvi style-pstricks)
-         "dvips and gv")
-        (output-dvi "xdvi")
-        (output-pdf "Okular")
-        (output-html "xdg-open"))))
-(setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)"))))
+(use-package auctex
+     :ensure t
+     :mode (("\\.tex\\'" . latex-mode)
+      ("\\.sty\\'" . latex-mode))
+     :commands (latex-mode LaTeX-mode plain-tex-mode)
+     :init
+     (progn
+ (defun my-latex-mode-hook()
+   (TeX-fold-mode 1)
+   (hs-minor-mode)
+   (add-hook 'find-file-hook 'TeX-fold-buffer t t)
+   (local-set-key [C-c C-g] 'TeX-kill-job)
+   (turn-on-auto-fill)
+   (rainbow-delimiters-mode)
+   (rainbow-mode)
+   (TeX-source-correlate-mode)
+   (turn-on-reftex)
+   (LaTeX-math-mode)
+   (LaTeX-preview-setup)
+   (flyspell-mode 1)
+   )
+
+ (setq TeX-auto-save t
+       TeX-parse-self t
+       TeX-save-query nil
+       TeX-PDF-mode t
+       TeX-master nil
+       TeX-engine 'xetex
+       latex-run-command "xelatex --shell-escape"
+       reftex-plug-into-AUCTeX t)
+ )
+     :config
+     (use-package company-auctex
+ :ensure t
+ :config
+ (company-auctex-init)
+ )
+     (use-package company-bibtex
+ :ensure t
+ :config
+ (add-to-list 'company-backends 'company-bibtex))
+
+     (TeX-add-style-hook
+"latex"
+(lambda ()
+  (LaTeX-add-environments
+   '("frame" LaTeX-env-contents))))
+
+     (setq TeX-view-program-selection
+     (quote
+      (((output-dvi style-pstricks)
+  "dvips and gv")
+       (output-dvi "xdvi")
+       (output-pdf "Okular")
+       (output-html "xdg-open"))))
+     (setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)")))))
 
 (add-to-list 'auto-mode-alist '("\\.sql$" . sql-mode))
 
-(require 'sgml-mode)
-(require 'nxml-mode)
-(add-to-list 'hs-special-modes-alist
-             '(nxml-mode
-               "<!--\\|<[^/>]*[^/]>"
-               "-->\\|</[^/>]*[^/]>"
+(use-package sgml-mode
+:ensure t)
+     (add-to-list 'hs-special-modes-alist
+                  '(nxml-mode
+                    "<!--\\|<[^/>]*[^/]>"
+                    "-->\\|</[^/>]*[^/]>"
 
-               "<!--"
-               sgml-skip-tag-forward
-               nil))
-(add-hook 'nxml-mode-hook 'hs-minor-mode)
-(define-key nxml-mode-map (kbd "M-h") nil)
+                    "<!--"
+                    sgml-skip-tag-forward
+                    nil))
+     (add-hook 'nxml-mode-hook 'hs-minor-mode)
 
 (if (eq system-type 'windows-nt)
     (setq org-directory "C:/zieglemc/Stuff/ToDo")
@@ -623,16 +661,16 @@
 
 (setq org-hide-leading-stars t)
 (setq org-ellipsis " ↷")
-(require 'org-bullets)
+(use-package org-bullets
+:ensure t
+)
 
 (defun my-org-mode-hook ()
-  (writegood-mode 1)
   (org-bullets-mode 1)
   (hs-minor-mode 1)
   (visual-line-mode 1)
   (auto-fill-mode 1)
   (flyspell-mode 1)
-  (setq sentence-end-double-space nil)
   (rainbow-mode 1)
   (rainbow-delimiters-mode 1)
   )
@@ -672,40 +710,44 @@
 
 (setq org-export-coding-system 'utf-8)
 
-(require 'ox-reveal)
-(require 'ox-twbs)
-(require 'ox-pandoc)
-(require 'org-ref)
+(use-package ox-reveal
+  :ensure t)
+(use-package ox-twbs
+  :ensure t)
+(use-package ox-pandoc
+  :ensure t
+  :config
+  (setq org-pandoc-options-for-docx '((standalone . nil)))
+  )
+(use-package org-ref
+  :ensure t)
 
 (setq reftex-default-bibliography '("~/Documents/Literature/bibliography.bib"))
 
 ;; see org-ref for use of these variables
 (setq org-ref-bibliography-notes "~/Documents/Literature/Papers.org"
-      org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
-      org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
+org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
+org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
 
 (setq bibtex-completion-bibliography "~/Documents/Literature/bibliography.bib"
-      bibtex-completion-library-path "~/Documents/Literature/bibtex-pdfs/"
-      bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes")
+bibtex-completion-library-path "~/Documents/Literature/bibtex-pdfs/"
+bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes")
 
+(use-package helm-bibtex
+  :ensure t
+  :config
+  (setq helm-bibtex-format-citation-functions
+  '((org-mode . (lambda (x) (insert (concat
+       "[[bibentry:"
+       (mapconcat 'identity x ",")
+       "]]")) "")))))
 
-
-(setq org-pandoc-options-for-docx '((standalone . nil)))
-
-(setq helm-bibtex-format-citation-functions
-      '((org-mode . (lambda (x) (insert (concat
-                                         "[[bibentry:"
-                                         (mapconcat 'identity x ",")
-                                         "]]")) ""))))
-
-(require 'org-drill)
 (add-to-list 'org-modules 'org-drill)
 (setq org-drill-add-random-noise-to-intervals-p t)
 (setq org-drill-hint-separator "|")
 (setq org-drill-left-cloze-delimiter "<[")
 (setq org-drill-right-cloze-delimiter "]>")
 (setq org-drill-learn-fraction 0.25)
-
 (load-file "~/.emacs.d/mz-functions/learnjapanese.el")
 
 (setq mz/todo-file (org-file-path "todo.org"))
@@ -766,7 +808,7 @@
 (global-set-key (kbd "C-!") 'repeat)
 (global-set-key (kbd "C-x g") 'magit-status)
 
-(define-key input-decode-map [?\C-m] [C-m])
+
 (global-set-key (kbd "<C-m> d") 'dictcc)
 (global-set-key (kbd "<C-m> D") 'dictcc-at-point)
 ;; movement between different frames
@@ -774,10 +816,6 @@
 (global-set-key (kbd "M-g <right>") 'windmove-right)
 (global-set-key (kbd "M-g <up>") 'windmove-up)
 (global-set-key (kbd "M-g <down>") 'windmove-down)
-(global-set-key (kbd "M-g <prior>") 'winner-undo)
-(global-set-key (kbd "M-g <next>") 'winner-redo)
-(define-key winner-mode-map (kbd "C-c <left>") nil)
-(define-key winner-mode-map (kbd "C-c <right>") nil)
 
 ;; smartparens bindings
 (global-set-key (kbd "M-p a") 'sp-beginning-of-sexp)
