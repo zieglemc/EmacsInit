@@ -74,40 +74,40 @@
   (set-face-font 'default "-1ASC-Liberation Mono-normal-italic-normal-*-*-*-*-*-m-0-iso10646-1"))
 
 (use-package rainbow-delimiters
-:ensure t
-:config
-    (add-hook 'fundamental-mode-hook 'rainbow-delimiters-mode)
-    (custom-set-faces
-     '(rainbow-delimiters-depth-1-face ((t (:foreground "white"))))
-     '(rainbow-delimiters-depth-2-face ((t (:foreground "yellow"))))
-     '(rainbow-delimiters-depth-3-face ((t (:foreground "dark orange"))))
-     '(rainbow-delimiters-depth-4-face ((t (:foreground "chartreuse"))))
-     '(rainbow-delimiters-depth-5-face ((t (:foreground "dark green"))))
-     '(rainbow-delimiters-depth-6-face ((t (:foreground "cyan"))))
-     '(rainbow-delimiters-depth-7-face ((t (:foreground "blue"))))
-     '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta"))))
-     '(rainbow-delimiters-depth-9-face ((t (:foreground "sienna")))))
-)
+  :ensure t
+  :config
+  (add-hook 'fundamental-mode-hook 'rainbow-delimiters-mode)
+  (custom-set-faces
+   '(rainbow-delimiters-depth-1-face ((t (:foreground "white"))))
+   '(rainbow-delimiters-depth-2-face ((t (:foreground "yellow"))))
+   '(rainbow-delimiters-depth-3-face ((t (:foreground "dark orange"))))
+   '(rainbow-delimiters-depth-4-face ((t (:foreground "chartreuse"))))
+   '(rainbow-delimiters-depth-5-face ((t (:foreground "dark green"))))
+   '(rainbow-delimiters-depth-6-face ((t (:foreground "cyan"))))
+   '(rainbow-delimiters-depth-7-face ((t (:foreground "blue"))))
+   '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta"))))
+   '(rainbow-delimiters-depth-9-face ((t (:foreground "sienna")))))
+  )
 
 (use-package hlinum
-:ensure t
-:config
-    (hlinum-activate)
-)
+  :ensure t
+  :config
+  (hlinum-activate)
+  )
 
 (use-package smart-mode-line
-:ensure t
-:config
-    (setq sml/no-confirm-load-theme t)
-    (setq sml/theme 'dark)
-    (sml/setup)
-)
+  :ensure t
+  :config
+  (setq sml/no-confirm-load-theme t)
+  (setq sml/theme 'dark)
+  (sml/setup)
+  )
 
 (use-package indent-guide
-:ensure t
-:config
-    (indent-guide-global-mode 1)
-)
+  :ensure t
+  :config
+  (indent-guide-global-mode 1)
+  )
 
 (defun mz/emacs-reload()
   "Reload the emacs ini file (~/.emacs.d/init.el)"
@@ -267,13 +267,17 @@
 
 (use-package smartparens
   :ensure t
+  :bind (:map smartparens-mode-map
+              ("C-<left>" . nil)
+              ("C-<right>" . nil)
+              ("M-r" . nil)
+              ("M-s" . nil))
   :config
   (setq sp-base-key-bindings 'paredit)
   (setq sp-hybrid-kill-entire-symbol nil)
   (sp-use-paredit-bindings)
   (show-smartparens-global-mode 1)
-  (smartparens-global-mode 1)
-  )
+  (smartparens-global-mode 1))
 
 (use-package multiple-cursors
   :ensure t)
@@ -281,8 +285,7 @@
 (use-package clean-aindent-mode
   :ensure t
   :config
-  (set 'clean-aindent-is-simple-indent t)
-  )
+  (set 'clean-aindent-is-simple-indent t))
 
 ;; Package: ws-butler
 (use-package ws-butler
@@ -296,21 +299,22 @@
   (global-undo-tree-mode))
 
 (use-package dictcc
-  :ensure t)
+  :ensure t
+  :bind (("<C-m> d" . dictcc)
+         ("<C-m> D" . dictcc-at-point)))
 
 (use-package winner
   :ensure t
   :init
   (winner-mode)
-  :bind ((  "M-g <prior>" . winner-undo)
-     ("M-g <next>" . winner-redo)
-     :map winner-mode-map
-     ("C-c <left>" . nil)
-     ("C-c <right>" . nil))
-  )
+  :bind (:map winner-mode-map
+         ("C-c <left>" . nil)
+         ("C-c <right>" . nil)))
 
 (use-package anzu
   :ensure t
+  :bind (("M-%" . anzu-query-replace)
+         ("C-M-%" . anzu-query-repalce-regexp))
   :config
   (global-anzu-mode))
 
@@ -331,6 +335,7 @@
 
 (use-package company
   :ensure t
+  :bind (("C-." . company-files))
   :config
   (add-to-list 'company-backends 'company-elisp)
   (add-hook 'after-init-hook 'global-company-mode)
@@ -362,13 +367,70 @@
   (setq yas-verbosity 1)
   (setq yas-wrap-around-region t))
 
+(use-package helm
+  :ensure t
+  :bind (("C-z" . helm-select-action)
+         ("<tab>" . helm-execute-persistent-action)
+         ("C-i" . helm-execute-persistent-action)
+         ("C-x C-h" . helm-command-prefix)
+         ("C-x h" . nil)
+         ("M-x" . helm-M-x)
+         ("M-y" . helm-show-kill-ring)
+         ("C-x b" . helm-mini)
+         ("M-s" . helm-swoop)
+         ("C-x C-f" . helm-find-files)
+         ("C-x h w" . helm-wikipedia-suggest)
+         ("C-x h SPC" . helm-all-mark-rings)
+         ("C-x h o" . helm-occur)
+         ("C-x h x" . helm-register)
+         :map helm-grep-mode-map
+         ("<return>" . helm-grep-mode-jump-other-window)
+         ("n" . helm-grep-mode-jump-other-window-forward)
+         ("p" . helm-grep-mode-jump-other-window-backward)
+         )
+  :config
+  (defvar helm-alive-p)
+  (setq helm-split-window-in-side-p t ; open helm buffer inside current window, not occupy whole other window
+        helm-move-to-line-cycle-in-source t ; move to end/beginning of source when reaching top/bottom of source.
+        helm-ff-search-library-in-sexp t ; search for library in `require' and `declare-function' sexp.
+        helm-scroll-amount 8 ; scroll 8 lines other window using M-<next>/M-<prior>
+        helm-ff-file-name-history-use-recentf t)
+
+  (helm-autoresize-mode t)
+
+  (setq helm-apropos-fuzzy-match t)
+  (setq helm-buffers-fuzzy-matching t
+        helm-recentf-fuzzy-match    t)
+  (setq helm-semantic-fuzzy-match t
+        helm-imenu-fuzzy-match    t)
+  (helm-mode 1)
+  )
+
+(use-package helm-flycheck
+  :ensure t
+  :after (helm flycheck)
+  )
+(use-package helm-flyspell
+  :ensure t
+  :after (helm flyspell)
+  )
+(use-package helm-company
+  :ensure t
+  :after (helm company)
+  :bind (("C-<tab>" . helm-company)))
+
 (use-package magit
-:ensure t)
+  :ensure t
+  :bind (( "C-x g" . magit-status)))
+
+(use-package hydra
+  :ensure t
+  )
 
 (use-package flycheck
-:ensure t
-:config
-(global-flycheck-mode 1))
+  :ensure t
+  :config
+  (global-flycheck-mode 1))
 
 (use-package rtags
   :ensure t
@@ -378,11 +440,11 @@
     (add-hook
      'c-mode-common-hook
      (lambda () (if (not (is-current-file-tramp))
-               (rtags-start-process-unless-running))))
+                    (rtags-start-process-unless-running))))
     (add-hook
      'c++-mode-common-hook
      (lambda () (if (not (is-current-file-tramp))
-               (rtags-start-process-unless-running))))
+                    (rtags-start-process-unless-running))))
     ;; Flycheck setup
     (use-package flycheck-rtags
       :ensure t
@@ -435,7 +497,7 @@
 
 (defun my-c-mode-common-hook ()
   ;; my customizations for all of c-mode and related modes
-  (setq c-default-style "linux" )
+  (setq c-default-style linux"" )
   (setq c-basic-offset 4)
   (unless (irony--find-server-executable) (call-interactively #'irony-install-server))
   (setq irony-cdb-compilation-databases '(irony-cdb-libclang irony-cdb-clang-complete))
@@ -459,16 +521,16 @@
 (add-hook 'R-mode-hook 'hs-minor-mode)
 
 (use-package julia-mode
-:ensure t
-:init
-(add-to-list 'auto-mode-alist '("\\.jl$" . julia-mode))
-:config
+  :ensure t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.jl$" . julia-mode))
+  :config
   (add-hook 'julia-mode-hook #'rainbow-delimiters-mode)
   (add-hook 'julia-mode-hook 'hs-minor-mode)
-       (use-package flycheck-julia
-  :ensure t)
+  (use-package flycheck-julia
+    :ensure t)
   (use-package julia-shell
-  :ensure t))
+    :ensure t))
 
 (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
@@ -479,29 +541,29 @@
 (add-hook 'lisp-interaction-mode 'hs-minor-mode)
 
 (use-package slime
-:ensure t
-:config
-(setq inferior-lisp-program "/usr/bin/sbcl")
-)
+  :ensure t
+  :config
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+  )
 
 (use-package gnuplot-mode
-:ensure t
-:config
-(use-package gnuplot
-:ensure t
-:config
-  (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
-  (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot mode" t)
+  :ensure t
+  :config
+  (use-package gnuplot
+    :ensure t
+    :config
+    (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
+    (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot mode" t)
 
-  (add-to-list 'auto-mode-alist '("\\.gnu$" . gnuplot-mode))
-  (add-to-list 'auto-mode-alist '("\\.plt$" . gnuplot-mode))
+    (add-to-list 'auto-mode-alist '("\\.gnu$" . gnuplot-mode))
+    (add-to-list 'auto-mode-alist '("\\.plt$" . gnuplot-mode))
 
-  (add-hook 'gnuplot-mode-hook
-            (lambda () (local-set-key (kbd "C-c C-c") 'gnuplot-run-buffer)))
-  (add-hook 'gnuplot-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'gnuplot-mode-hook #'rainbow-mode)
-  (add-hook 'gnuplot-mode-hook 'hs-minor-mode)
-  ))
+    (add-hook 'gnuplot-mode-hook
+              (lambda () (local-set-key (kbd "C-c C-c") 'gnuplot-run-buffer)))
+    (add-hook 'gnuplot-mode-hook #'rainbow-delimiters-mode)
+    (add-hook 'gnuplot-mode-hook #'rainbow-mode)
+    (add-hook 'gnuplot-mode-hook 'hs-minor-mode)
+    ))
 
 (add-hook 'shell-script-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'shell-script-mode-hook #'rainbow-mode)
@@ -511,135 +573,135 @@
 (add-to-list 'hs-special-modes-alist '(sh-mode "\\(do\\|then\\|in\\)" "\\(done\\|fi\\|esac\\|elif\\)" "/[*/]" nil nil))
 
 (use-package python
-    :mode ("\\.py\\'" . python-mode)
-    ("\\.wsgi$" . python-mode)
-    :interpreter ("python" . python-mode)
+  :mode ("\\.py\\'" . python-mode)
+  ("\\.wsgi$" . python-mode)
+  :interpreter ("python" . python-mode)
+  :init
+  (setq-default indent-tabs-mode nil)
+  :config
+  (setq python-indent-offset 4)
+
+  (use-package py-autopep8
+    :ensure t)
+
+  (add-hook 'python-mode-hook 'smartparens-mode)
+  (add-hook 'python-mode-hook 'rainbow-mode)
+  (add-hook 'python-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'python-mode-hook 'ede-mode)
+  (add-hook 'python-mode-hook 'turn-on-auto-fill)
+  (add-hook 'python-mode-hook 'hs-minor-mode)
+  )
+
+
+(use-package jedi
+  :ensure t
+  :config
+  (use-package company-jedi
+    :ensure t
     :init
-    (setq-default indent-tabs-mode nil)
-    :config
-    (setq python-indent-offset 4)
-
-    (use-package py-autopep8
-:ensure t)
-
-    (add-hook 'python-mode-hook 'smartparens-mode)
-    (add-hook 'python-mode-hook 'rainbow-mode)
-    (add-hook 'python-mode-hook 'rainbow-delimiters-mode)
-    (add-hook 'python-mode-hook 'ede-mode)
-    (add-hook 'python-mode-hook 'turn-on-auto-fill)
-    (add-hook 'python-mode-hook 'hs-minor-mode)
-    )
+    (add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
+    (setq company-jedi-python-bin "python")))
 
 
-  (use-package jedi
-    :ensure t
-    :config
-    (use-package company-jedi
-:ensure t
-:init
-(add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
-(setq company-jedi-python-bin "python")))
-
-
-  (use-package anaconda-mode
-    :ensure t
-    :init (add-hook 'python-mode-hook 'anaconda-mode)
-    (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-    :config (use-package company-anaconda
+(use-package anaconda-mode
   :ensure t
   :init (add-hook 'python-mode-hook 'anaconda-mode)
-  (eval-after-load "company"
-    '(add-to-list 'company-backends '(company-anaconda :with company-capf)))))
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+  :config (use-package company-anaconda
+            :ensure t
+            :init (add-hook 'python-mode-hook 'anaconda-mode)
+            (eval-after-load "company"
+              '(add-to-list 'company-backends '(company-anaconda :with company-capf)))))
 
-  (use-package elpy
-    :ensure t
-    :commands elpy-enable
-    :init (with-eval-after-load 'python (elpy-enable))
+(use-package elpy
+  :ensure t
+  :commands elpy-enable
+  :init (with-eval-after-load 'python (elpy-enable))
 
-    :config
-    (electric-indent-local-mode -1)
-    (delete 'elpy-module-highlight-indentation elpy-modules)
-    (delete 'elpy-module-flymake elpy-modules)
+  :config
+  (electric-indent-local-mode -1)
+  (delete 'elpy-module-highlight-indentation elpy-modules)
+  (delete 'elpy-module-flymake elpy-modules)
 
-    (defun ha/elpy-goto-definition ()
-(interactive)
-(condition-case err
-    (elpy-goto-definition)
-  ('error (xref-find-definitions (symbol-name (symbol-at-point))))))
+  (defun ha/elpy-goto-definition ()
+    (interactive)
+    (condition-case err
+        (elpy-goto-definition)
+      ('error (xref-find-definitions (symbol-name (symbol-at-point))))))
 
-    :bind (:map elpy-mode-map ([remap elpy-goto-definition] .
-       ha/elpy-goto-definition)))
+  :bind (:map elpy-mode-map ([remap elpy-goto-definition] .
+                             ha/elpy-goto-definition)))
 
 (use-package auctex
-     :ensure t
-     :mode (("\\.tex\\'" . latex-mode)
-      ("\\.sty\\'" . latex-mode))
-     :commands (latex-mode LaTeX-mode plain-tex-mode)
-     :init
-     (progn
- (defun my-latex-mode-hook()
-   (TeX-fold-mode 1)
-   (hs-minor-mode)
-   (add-hook 'find-file-hook 'TeX-fold-buffer t t)
-   (local-set-key [C-c C-g] 'TeX-kill-job)
-   (turn-on-auto-fill)
-   (rainbow-delimiters-mode)
-   (rainbow-mode)
-   (TeX-source-correlate-mode)
-   (turn-on-reftex)
-   (LaTeX-math-mode)
-   (LaTeX-preview-setup)
-   (flyspell-mode 1)
-   )
+  :ensure t
+  :mode (("\\.tex\\'" . latex-mode)
+         ("\\.sty\\'" . latex-mode))
+  :commands (latex-mode LaTeX-mode plain-tex-mode)
+  :init
+  (progn
+    (defun my-latex-mode-hook()
+      (TeX-fold-mode 1)
+      (hs-minor-mode)
+      (add-hook 'find-file-hook 'TeX-fold-buffer t t)
+      (local-set-key [C-c C-g] 'TeX-kill-job)
+      (turn-on-auto-fill)
+      (rainbow-delimiters-mode)
+      (rainbow-mode)
+      (TeX-source-correlate-mode)
+      (turn-on-reftex)
+      (LaTeX-math-mode)
+      (LaTeX-preview-setup)
+      (flyspell-mode 1)
+      )
 
- (setq TeX-auto-save t
-       TeX-parse-self t
-       TeX-save-query nil
-       TeX-PDF-mode t
-       TeX-master nil
-       TeX-engine 'xetex
-       latex-run-command "xelatex --shell-escape"
-       reftex-plug-into-AUCTeX t)
- )
-     :config
-     (use-package company-auctex
- :ensure t
- :config
- (company-auctex-init)
- )
-     (use-package company-bibtex
- :ensure t
- :config
- (add-to-list 'company-backends 'company-bibtex))
+    (setq TeX-auto-save t
+          TeX-parse-self t
+          TeX-save-query nil
+          TeX-PDF-mode t
+          TeX-master nil
+          TeX-engine 'xetex
+          latex-run-command "xelatex --shell-escape"
+          reftex-plug-into-AUCTeX t)
+    )
+  :config
+  (use-package company-auctex
+    :ensure t
+    :config
+    (company-auctex-init)
+    )
+  (use-package company-bibtex
+    :ensure t
+    :config
+    (add-to-list 'company-backends 'company-bibtex))
 
-     (TeX-add-style-hook
-"latex"
-(lambda ()
-  (LaTeX-add-environments
-   '("frame" LaTeX-env-contents))))
+  (TeX-add-style-hook
+   "latex"
+   (lambda ()
+     (LaTeX-add-environments
+      '("frame" LaTeX-env-contents))))
 
-     (setq TeX-view-program-selection
-     (quote
-      (((output-dvi style-pstricks)
-  "dvips and gv")
-       (output-dvi "xdvi")
-       (output-pdf "Okular")
-       (output-html "xdg-open"))))
-     (setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)")))))
+  (setq TeX-view-program-selection
+        (quote
+         (((output-dvi style-pstricks)
+           "dvips and gv")
+          (output-dvi "xdvi")
+          (output-pdf "Okular")
+          (output-html "xdg-open"))))
+  (setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)")))))
 
 (add-to-list 'auto-mode-alist '("\\.sql$" . sql-mode))
 
 (use-package sgml-mode
-:ensure t)
-     (add-to-list 'hs-special-modes-alist
-                  '(nxml-mode
-                    "<!--\\|<[^/>]*[^/]>"
-                    "-->\\|</[^/>]*[^/]>"
+  :ensure t)
+(add-to-list 'hs-special-modes-alist
+             '(nxml-mode
+               "<!--\\|<[^/>]*[^/]>"
+               "-->\\|</[^/>]*[^/]>"
 
-                    "<!--"
-                    sgml-skip-tag-forward
-                    nil))
-     (add-hook 'nxml-mode-hook 'hs-minor-mode)
+               "<!--"
+               sgml-skip-tag-forward
+               nil))
+(add-hook 'nxml-mode-hook 'hs-minor-mode)
 
 (if (eq system-type 'windows-nt)
     (setq org-directory "C:/zieglemc/Stuff/ToDo")
@@ -662,8 +724,8 @@
 (setq org-hide-leading-stars t)
 (setq org-ellipsis " ↷")
 (use-package org-bullets
-:ensure t
-)
+  :ensure t
+  )
 
 (defun my-org-mode-hook ()
   (org-bullets-mode 1)
@@ -726,28 +788,28 @@
 
 ;; see org-ref for use of these variables
 (setq org-ref-bibliography-notes "~/Documents/Literature/Papers.org"
-org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
-org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
+      org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
+      org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
 
 (setq bibtex-completion-bibliography "~/Documents/Literature/bibliography.bib"
-bibtex-completion-library-path "~/Documents/Literature/bibtex-pdfs/"
-bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes")
+      bibtex-completion-library-path "~/Documents/Literature/bibtex-pdfs/"
+      bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes")
 
 (use-package helm-bibtex
   :ensure t
   :config
   (setq helm-bibtex-format-citation-functions
-  '((org-mode . (lambda (x) (insert (concat
-       "[[bibentry:"
-       (mapconcat 'identity x ",")
-       "]]")) "")))))
+        '((org-mode . (lambda (x) (insert (concat
+                                           "[[bibentry:"
+                                           (mapconcat 'identity x ",")
+                                           "]]")) "")))))
 
 (add-to-list 'org-modules 'org-drill)
 (setq org-drill-add-random-noise-to-intervals-p t)
 (setq org-drill-hint-separator "|")
 (setq org-drill-left-cloze-delimiter "<[")
 (setq org-drill-right-cloze-delimiter "]>")
-(setq org-drill-learn-fraction 0.25)
+(setq org-drill-learn-fraction 0.15)
 (load-file "~/.emacs.d/mz-functions/learnjapanese.el")
 
 (setq mz/todo-file (org-file-path "todo.org"))
@@ -783,12 +845,110 @@ bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes")
              '("a" "Agenda Entry" entry (file mz/agenda-file)
                "* %^{Appointment}            %^G\n  %^T\n%?"))
 
-(global-set-key (kbd "M-%") 'anzu-query-replace)
-(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
-(global-set-key (kbd "<f12>") 'eval-buffer)
+(defhydra hydra-window-stuff ()
+  "
+               Split: _v_ert  _s_:horz
+              Delete: _c_lose  _o_nly
+       Switch Window: _h_:left  _j_:down  _k_:up  _l_:right
+             Buffers: _p_revious  _n_ext  _b_:select  _f_ind-file  _F_projectile
+              Winner: _u_ndo  _r_edo
+              Resize: _H_:splitter left  _J_:splitter down  _K_:splitter up  _L_:splitter right
+                Move: _a_:up  _z_:down  _i_menu"
 
+  ("z" scroll-up-line)
+  ("a" scroll-down-line)
+  ("i" idomenu)
+
+  ("u" winner-undo)
+  ("r" winner-redo)
+
+  ("h" windmove-left)
+  ("j" windmove-down)
+  ("k" windmove-up)
+  ("l" windmove-right)
+
+  ("p" mz/previous-buffer)
+  ("n" mz/next-buffer)
+  ("b" ido-switch-buffer)
+  ("f" ido-find-file)
+  ("F" projectile-find-file)
+
+  ("s" split-window-below)
+  ("v" split-window-right)
+
+  ("c" delete-window)
+  ("o" delete-other-windows)
+
+  ("H" hydra-move-splitter-left)
+  ("J" hydra-move-splitter-down)
+  ("K" hydra-move-splitter-up)
+  ("L" hydra-move-splitter-right)
+
+  ("q" nil))
+
+(defhydra hydra-zoom (global-map "<f2>")
+  "zoom"
+  ("g" text-scale-increase "in")
+  ("l" text-scale-decrease "out"))
+
+(defhydra hydra-hs (:idle 1.0)
+  "
+     Hide^^            ^Show^            ^Toggle^    ^Navigation^
+     ----------------------------------------------------------------
+     _h_ hide all      _s_ show all      _t_oggle    _n_ext line
+     _d_ hide block    _a_ show block              _p_revious line
+     _l_ hide level
+
+     _SPC_ cancel
+     "
+  ("s" hs-show-all)
+  ("h" hs-hide-all)
+  ("a" hs-show-block)
+  ("d" hs-hide-block)
+  ("t" hs-toggle-hiding)
+  ("l" hs-hide-level)
+  ("n" forward-line)
+  ("p" (forward-line -1))
+  ("SPC" nil)
+  )
+
+(defhydra hydra-multiple-cursors (global-map "M-n")
+  "
+     ^Up^            ^Down^        ^Miscellaneous^
+----------------------------------------------
+[_p_]   Next    [_n_]   Next    [_l_] Edit lines
+[_P_]   Skip    [_N_]   Skip    [_a_] Mark all
+[_M-p_] Unmark  [_M-n_] Unmark  [_q_] Quit"
+  ("l" mc/edit-lines :exit t)
+  ("a" mc/mark-all-like-this :exit t)
+  ("n" mc/mark-next-like-this)
+  ("N" mc/skip-to-next-like-this)
+  ("M-n" mc/unmark-next-like-this)
+  ("p" mc/mark-previous-like-this)
+  ("P" mc/skip-to-previous-like-this)
+  ("M-p" mc/unmark-previous-like-this)
+  ("q" nil))
+
+(defhydra hydra-org (org-mode-map "C-c h" :color red :hint nil)
+  "
+Navigation^
+---------------------------------------------------------
+_j_ next heading
+_k_ prev heading
+_h_ next heading (same level)
+_l_ prev heading (same level)
+_u_p higher heading
+_g_o to
+"
+  ("j" outline-next-visible-heading)
+  ("k" outline-previous-visible-heading)
+  ("h" org-forward-heading-same-level)
+  ("l" org-backward-heading-same-level)
+  ("u" outline-up-heading)
+  ("g" org-goto :exit t))
+
+(global-set-key (kbd "<f12>") 'eval-buffer)
 (global-unset-key (kbd "C-x C-b"))
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "<f5>") 'mz/my_compile)
 (global-set-key (kbd "M-+") 'mz/fast-calc)
 (global-set-key (kbd "M-o") 'mz/new-line-above)
@@ -798,24 +958,9 @@ bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes")
 (global-unset-key (kbd "C-x <right>"))
 (global-set-key (kbd "C-x <right>") 'mz/next-buffer)
 
-(fset 'make_newline
-      [?\C-e tab return])
 (global-set-key (kbd "C-<return>") 'make_newline)
-
-(global-set-key (kbd "RET") 'newline-and-indent)  ; automatically indent when press RET
-(global-set-key (kbd "C-<tab>") 'helm-company)
-(define-key global-map (kbd "C-.") 'company-files)
+(global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "C-!") 'repeat)
-(global-set-key (kbd "C-x g") 'magit-status)
-
-
-(global-set-key (kbd "<C-m> d") 'dictcc)
-(global-set-key (kbd "<C-m> D") 'dictcc-at-point)
-;; movement between different frames
-(global-set-key (kbd "M-g <left>") 'windmove-left)
-(global-set-key (kbd "M-g <right>") 'windmove-right)
-(global-set-key (kbd "M-g <up>") 'windmove-up)
-(global-set-key (kbd "M-g <down>") 'windmove-down)
 
 ;; smartparens bindings
 (global-set-key (kbd "M-p a") 'sp-beginning-of-sexp)
@@ -830,10 +975,6 @@ bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes")
 (global-set-key (kbd "M-p <right>") 'sp-forward-slurp-sexp)
 (global-set-key (kbd "M-p C-<left>") 'sp-backward-barf-sexp)
 (global-set-key (kbd "M-p C-<right>") 'sp-previous-barf-sexp)
-(define-key smartparens-mode-map (kbd "C-<left>") nil)
-(define-key smartparens-mode-map (kbd "C-<right>") nil)
-(define-key smartparens-mode-map (kbd "M-r") nil)
-(define-key smartparens-mode-map (kbd "M-s") nil)
 (global-set-key (kbd "M-p t") 'sp-transpose-sexp)
 (global-set-key (kbd "M-p k") 'sp-kill-sexp)
 (global-set-key (kbd "M-p ( ")  'wrap-with-parens)
@@ -845,28 +986,16 @@ bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes")
 (global-set-key (kbd "M-p d") 'sp-unwrap-sexp)
 (global-set-key (kbd "M-p m") 'mz/mark-everything-in-parenthesis)
 
-;; multiple cursors
-(global-set-key (kbd "M-n <right>") 'mc/mark-next-like-this)
-(global-set-key (kbd "M-n <left>") 'mc/mark-previous-like-this)
-(global-set-key (kbd "M-n C-<right>") 'mc/skip-to-next-like-this)
-(global-set-key (kbd "M-n C-<left>") 'mc/skip-to-previous-like-this)
-(global-set-key (kbd "M-n <") 'mc/unmark-next-like-this)
-(global-set-key (kbd "M-n >") 'mc/unmark-previous-like-this)
-(global-set-key (kbd "M-n a") 'mc/mark-all-like-this)
-
-;; sr-speedbar
-(global-set-key (kbd "M-g f") 'sr-speedbar-toggle)
-
 ;; ibuffer
 (global-unset-key (kbd "C-x C-b"))
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
 ;; hide and show region
 (global-unset-key (kbd "M-h"))
-(global-set-key (kbd "M-h a") 'hs-hide-all)
-(global-set-key (kbd "M-h <tab>") 'hs-toggle-hiding)
-(global-set-key (kbd "M-h s a") 'hs-show-all)
-(global-set-key (kbd "M-h r") 'hs-hide-block)
-(global-set-key (kbd "M-h s r") 'hs-show-block)
+(global-set-key (kbd "M-h") 'hydra-hs/body)
+
+;; window stuff
+(global-set-key (kbd "M-g") 'hydra-window-stuff/body)
 
 ;; rtags
 (global-unset-key (kbd "M-r"))
@@ -878,46 +1007,12 @@ bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes")
 (global-set-key (kbd "M-r r") 'rtags-rename-symbol)
 (global-set-key (kbd "M-r p") 'rtags-reparse-file)
 
-;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-unset-key (kbd "C-x c"))
-
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "M-s") 'helm-swoop)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
-(global-set-key (kbd "C-c h o") 'helm-occur)
-
-(global-set-key (kbd "C-c h C-c w") 'helm-wikipedia-suggest)
-
-(global-set-key (kbd "C-c h x") 'helm-register)
-;; (global-set-key (kbd "C-x r j") 'jump-to-register)
-
-(define-key 'help-command (kbd "C-f") 'helm-apropos)
-(define-key 'help-command (kbd "r") 'helm-info-emacs)
-(define-key 'help-command (kbd "C-l") 'helm-locate-library)
-
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-unset-key (kbd "C-x c"))
-
 (define-key org-mode-map (kbd "C-<tab>") nil)
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-iswitchb)
-(define-key org-mode-map (kbd "C-c <left>") 'org-metaleft)
-(define-key org-mode-map (kbd "C-c <right>") 'org-metaright)
-(define-key org-mode-map (kbd "C-c <up>") 'org-metaup)
-(define-key org-mode-map (kbd "C-c <down>") 'org-metadown)
-(define-key org-mode-map (kbd "C-c S-<left>") 'org-metashiftleft)
-(define-key org-mode-map (kbd "C-c S-<right>") 'org-metashiftright)
-(define-key org-mode-map (kbd "C-c S-<up>") 'org-metashiftup)
-(define-key org-mode-map (kbd "C-c S-<down>") 'org-metashiftdown)
 (define-key org-mode-map (kbd "C-c <left>") 'org-metaleft)
 (define-key org-mode-map (kbd "C-c <right>") 'org-metaright)
 (define-key org-mode-map (kbd "C-c <up>") 'org-metaup)
@@ -937,7 +1032,7 @@ bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes")
 (global-set-key (kbd "<f7>") 'gud-finish) ;; equiv matlab step out
 
 ;; this is down here because it destroyes parens matching and coloring
-(global-set-key (kbd "M-p \" ") 'wrap-with-double-quotes)
+(global-set-key (kbd "M-p \" " ) 'wrap-with-double-quotes)
 
 (if (file-exists-p "~/PATIENTS/PatDB.el")
     (load-file "~/PATIENTS/PatDB.el")
