@@ -621,9 +621,16 @@
    #+END_SRC
 ** R-mode
    #+BEGIN_SRC emacs-lisp
-     (add-hook 'R-mode-hook #'rainbow-delimiters-mode)
-     (add-hook 'R-mode-hook #'rainbow-mode)
-     (add-hook 'R-mode-hook 'hs-minor-mode)
+          (use-package ess
+            :ensure t
+            :config
+            (use-package ess-smart-underscore
+              :ensure t)
+            )
+
+          (add-hook 'R-mode-hook #'rainbow-delimiters-mode)
+          (add-hook 'R-mode-hook #'rainbow-mode)
+          (add-hook 'R-mode-hook 'hs-minor-mode)
    #+END_SRC
 ** JULIA MODE
    #+BEGIN_SRC emacs-lisp

@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: rt
-# key: rt
-# --
-${1:name} <- read.table(${2:fname},header=${$3:T})
-$0

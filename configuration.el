@@ -541,6 +541,13 @@
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
+(use-package ess
+  :ensure t
+  :config
+  (use-package ess-smart-underscore
+    :ensure t)
+  )
+
 (add-hook 'R-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'R-mode-hook #'rainbow-mode)
 (add-hook 'R-mode-hook 'hs-minor-mode)
@@ -747,7 +754,7 @@
 (add-to-list 'auto-mode-alist '("\\.todo$" . org-mode))
 
 (setq org-hide-leading-stars t)
-(setq org-ellipsis " ↷")
+(setq org-ellipsis " 竊ｷ")
 (use-package org-bullets
   :ensure t
   )

@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: el
-# key: el
-# --
-
-else (${1:conditional}) {
-   $0
-}

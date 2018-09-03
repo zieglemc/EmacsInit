@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: ei
+# key: ei
+# --
+
+else if (${1:conditional}) {
+   $0
+}

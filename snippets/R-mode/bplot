@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: bplot
-# key: bplot
-# --
-boxplot(${1:data})
