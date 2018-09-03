@@ -1,6 +1,16 @@
+(add-to-list 'package-archives '("stable" . "http://stable.melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-                                        ;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+
+(setq package-archive-priorities
+      '(("MELPA Stable" . 10)
+        ("GNU ELPA"     . 5)
+        ("MELPA"        . 0))
+      ;; Pin a couple of packages to MELPA
+      package-pinned-packages
+      '(;; I maintain these and know what changes
+        ("flycheck"  . "MELPA")))
+
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -89,6 +99,9 @@
    '(rainbow-delimiters-depth-9-face ((t (:foreground "sienna")))))
   )
 
+(use-package rainbow-mode
+  :ensure t)
+
 (use-package hlinum
   :ensure t
   :config
@@ -137,25 +150,6 @@
   (interactive)
   (org-todo 'done)
   (org-archive-subtree))
-
-(defmacro def-pairs (pairs)
-  `(progn
-     ,@(cl-loop for (key . val) in pairs
-                collect
-                `(defun ,(read (concat
-                                "wrap-with-"
-                                (prin1-to-string key)
-                                "s"))
-                     (&optional arg)
-                   (interactive "p")
-                   (sp-wrap-with-pair ,val)))))
-
-(def-pairs ((paren        . "(")
-            (bracket      . "[")
-            (brace        . "{")
-            (single-quote . "'")
-            (double-quote . "\"")
-            (back-quote   . "`")))
 
 (defun mz/print-list (list)
   (dotimes (item (length list))
@@ -267,17 +261,30 @@
 
 (use-package smartparens
   :ensure t
-  :bind (:map smartparens-mode-map
-              ("C-<left>" . nil)
-              ("C-<right>" . nil)
-              ("M-r" . nil)
-              ("M-s" . nil))
+  :init (smartparens-global-mode 1)
+  :bind (("M-p a" . sp-beginning-of-sexp)
+         ("M-p e" . sp-end-of-sexp)
+         ("M-p k" . sp-kill-sexp)
+         ("M-p d" . sp-unwrap-sexp)
+         ("M-p m" . mz/mark-everything-in-parenthesis)
+         ("M-p r" . sp-rewrap-sexp)
+         :map smartparens-mode-map
+         ("C-<left>" . nil)
+         ("C-<right>" . nil)
+         ("M-r" . nil)
+         ("M-s" . nil))
   :config
-  (setq sp-base-key-bindings 'paredit)
-  (setq sp-hybrid-kill-entire-symbol nil)
-  (sp-use-paredit-bindings)
-  (show-smartparens-global-mode 1)
-  (smartparens-global-mode 1))
+  (turn-on-smartparens-mode)
+  (sp-pair "(" ")" :wrap "M-p (")
+  (sp-pair "[" "]" :wrap "M-p [")
+  (sp-pair "{" "}" :wrap "M-p {")
+  (sp-pair "'" "'" :wrap "M-p '")
+  (sp-pair "$" "$" :wrap "M-p $")
+  (sp-pair "<" ">" :wrap "M-p <")
+  (sp-local-pair 'org-mode "/" "/" :wrap "M-p /")
+  (sp-local-pair 'org-mode "_" "_" :wrap "M-p _")
+  )
+
 
 (use-package multiple-cursors
   :ensure t)
@@ -296,7 +303,15 @@
 (use-package undo-tree
   :ensure t
   :config
-  (global-undo-tree-mode))
+  (global-undo-tree-mode)
+  (setq undo-tree-visualizer-timestamps t)
+  (setq undo-tree-visualizer-diff t))
+
+(use-package guide-key
+  :ensure t
+  :config
+  (setq guide-key/guide-key-sequence t)
+  (guide-key-mode 1))
 
 (use-package dictcc
   :ensure t
@@ -308,8 +323,8 @@
   :init
   (winner-mode)
   :bind (:map winner-mode-map
-         ("C-c <left>" . nil)
-         ("C-c <right>" . nil)))
+              ("C-c <left>" . nil)
+              ("C-c <right>" . nil)))
 
 (use-package anzu
   :ensure t
@@ -369,10 +384,7 @@
 
 (use-package helm
   :ensure t
-  :bind (("C-z" . helm-select-action)
-         ("<tab>" . helm-execute-persistent-action)
-         ("C-i" . helm-execute-persistent-action)
-         ("C-x C-h" . helm-command-prefix)
+  :bind (("C-x C-h" . helm-command-prefix)
          ("C-x h" . nil)
          ("M-x" . helm-M-x)
          ("M-y" . helm-show-kill-ring)
@@ -383,6 +395,10 @@
          ("C-x h SPC" . helm-all-mark-rings)
          ("C-x h o" . helm-occur)
          ("C-x h x" . helm-register)
+         :map helm-map
+         ("C-z" . helm-select-action)
+         ("<tab>" . helm-execute-persistent-action)
+         ("C-i" . helm-execute-persistent-action)
          :map helm-grep-mode-map
          ("<return>" . helm-grep-mode-jump-other-window)
          ("n" . helm-grep-mode-jump-other-window-forward)
@@ -434,6 +450,15 @@
 
 (use-package rtags
   :ensure t
+  :init
+  (global-unset-key (kbd "M-r"))
+  :bind (("M-r d" . rtags-find-symbol-at-point)
+         ("M-r f" . rtags-find-symbol)
+         ("M-r <left>" . rtags-location-stack-back)
+         ("M-r <right>" . rtags-location-stack-forward)
+         ("M-r l" . rtags-taglist)
+         ("M-r r" . rtags-rename-symbol)
+         ("M-r p" . rtags-reparse-file))
   :config
   (progn
     ;; Start rtags upon entering a C/C++ file
@@ -847,13 +872,13 @@
 
 (defhydra hydra-window-stuff ()
   "
-               Split: _v_ert  _s_:horz
-              Delete: _c_lose  _o_nly
-       Switch Window: _h_:left  _j_:down  _k_:up  _l_:right
-             Buffers: _p_revious  _n_ext  _b_:select  _f_ind-file  _F_projectile
-              Winner: _u_ndo  _r_edo
-              Resize: _H_:splitter left  _J_:splitter down  _K_:splitter up  _L_:splitter right
-                Move: _a_:up  _z_:down  _i_menu"
+                    Split: _v_ert  _s_:horz
+                   Delete: _c_lose  _o_nly
+            Switch Window: _h_:left  _j_:down  _k_:up  _l_:right
+                  Buffers: _p_revious  _n_ext  _b_:select  _f_ind-file  _F_projectile
+                   Winner: _u_ndo  _r_edo
+                   Resize: _H_:splitter left  _J_:splitter down  _K_:splitter up  _L_:splitter right
+                     Move: _a_:up  _z_:down  _i_menu"
 
   ("z" scroll-up-line)
   ("a" scroll-down-line)
@@ -869,8 +894,8 @@
 
   ("p" mz/previous-buffer)
   ("n" mz/next-buffer)
-  ("b" ido-switch-buffer)
-  ("f" ido-find-file)
+  ("b" helm-mini)
+  ("f" helm-find-file)
   ("F" projectile-find-file)
 
   ("s" split-window-below)
@@ -893,14 +918,14 @@
 
 (defhydra hydra-hs (:idle 1.0)
   "
-     Hide^^            ^Show^            ^Toggle^    ^Navigation^
-     ----------------------------------------------------------------
-     _h_ hide all      _s_ show all      _t_oggle    _n_ext line
-     _d_ hide block    _a_ show block              _p_revious line
-     _l_ hide level
+          Hide^^            ^Show^            ^Toggle^    ^Navigation^
+          ----------------------------------------------------------------
+          _h_ hide all      _s_ show all      _t_oggle    _n_ext line
+          _d_ hide block    _a_ show block              _p_revious line
+          _l_ hide level
 
-     _SPC_ cancel
-     "
+          _SPC_ cancel
+          "
   ("s" hs-show-all)
   ("h" hs-hide-all)
   ("a" hs-show-block)
@@ -912,13 +937,13 @@
   ("SPC" nil)
   )
 
-(defhydra hydra-multiple-cursors (global-map "M-n")
+(defhydra hydra-multiple-cursors ()
   "
-     ^Up^            ^Down^        ^Miscellaneous^
-----------------------------------------------
-[_p_]   Next    [_n_]   Next    [_l_] Edit lines
-[_P_]   Skip    [_N_]   Skip    [_a_] Mark all
-[_M-p_] Unmark  [_M-n_] Unmark  [_q_] Quit"
+          ^Up^            ^Down^        ^Miscellaneous^
+     ----------------------------------------------
+     [_p_]   Next    [_n_]   Next    [_l_] Edit lines
+     [_P_]   Skip    [_N_]   Skip    [_a_] Mark all
+     [_M-p_] Unmark  [_M-n_] Unmark  [_q_] Quit"
   ("l" mc/edit-lines :exit t)
   ("a" mc/mark-all-like-this :exit t)
   ("n" mc/mark-next-like-this)
@@ -929,17 +954,17 @@
   ("M-p" mc/unmark-previous-like-this)
   ("q" nil))
 
-(defhydra hydra-org (org-mode-map "C-c h" :color red :hint nil)
+(defhydra hydra-org (:color red :hint nil)
   "
-Navigation^
----------------------------------------------------------
-_j_ next heading
-_k_ prev heading
-_h_ next heading (same level)
-_l_ prev heading (same level)
-_u_p higher heading
-_g_o to
-"
+     Navigation^
+     ---------------------------------------------------------
+     _j_ next heading
+     _k_ prev heading
+     _h_ next heading (same level)
+     _l_ prev heading (same level)
+     _u_p higher heading
+     _g_o to
+     "
   ("j" outline-next-visible-heading)
   ("k" outline-previous-visible-heading)
   ("h" org-forward-heading-same-level)
@@ -947,65 +972,62 @@ _g_o to
   ("u" outline-up-heading)
   ("g" org-goto :exit t))
 
+
+(defhydra smartparens-hydra ()
+  "
+  ^LevelMovement^          ^Movement^      ^ParensMovement^
+  --------------------------------------------
+  [_d_] LevelDown        [_f_] Forward      [_<left>_] BarfLeft
+  [_a_] BackLevelUp      [_b_] Back         [_<right>_] BarfRight
+  [_w_] LevelUp          [_n_] Next         [_C-<left>_] SlurpLeft
+  [_s_] BackLevelDown    [_t_] Transpose    [_C-<right>_] SlurpRight
+
+  [_k_] Kill     [_q_] Quit
+"
+  ("d" sp-down-sexp)
+  ("w" sp-up-sexp)
+  ("a" sp-backward-up-sexp)
+  ("s" sp-backward-down-sexp)
+
+  ("f" sp-forward-sexp)
+  ("b" sp-backward-sexp)
+  ("t"  sp-transpose-sexp)
+  ("n"  sp-next-sexp)
+
+  ("<left>" sp-backward-barf-sexp)
+  ("<right>" sp-forward-barf-sexp)
+  ("C-<left>" sp-backward-slurp-sexp)
+  ("C-<right>" sp-forward-slurp-sexp)
+
+  ("k" sp-kill-sexp "Kill" :color blue)
+  ("q" nil "Quit" :color blue))
+
 (global-set-key (kbd "<f12>") 'eval-buffer)
-(global-unset-key (kbd "C-x C-b"))
 (global-set-key (kbd "<f5>") 'mz/my_compile)
 (global-set-key (kbd "M-+") 'mz/fast-calc)
 (global-set-key (kbd "M-o") 'mz/new-line-above)
-(global-set-key "\C-x\\" 'mz/indent-buffer)
+(global-set-key (kbd "C-x \\") 'mz/indent-buffer)
+
 (global-unset-key (kbd "C-x <left>"))
-(global-set-key (kbd "C-x <left>") 'mz/previous-buffer)
 (global-unset-key (kbd "C-x <right>"))
+(global-set-key (kbd "C-x <left>") 'mz/previous-buffer)
 (global-set-key (kbd "C-x <right>") 'mz/next-buffer)
 
 (global-set-key (kbd "C-<return>") 'make_newline)
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "C-!") 'repeat)
 
-;; smartparens bindings
-(global-set-key (kbd "M-p a") 'sp-beginning-of-sexp)
-(global-set-key (kbd "M-p e") 'sp-end-of-sexp)
-(global-set-key (kbd "M-p <down>") 'sp-down-sexp)
-(global-set-key (kbd "M-p <up>") 'sp-up-sexp)
-(global-set-key (kbd "M-p f") 'sp-forward-sexp)
-(global-set-key (kbd "M-p b") 'sp-backward-sexp)
-(global-set-key (kbd "M-p n") 'sp-next-sexp)
-(global-set-key (kbd "M-p r") 'sp-rewrap-sexp)
-(global-set-key (kbd "M-p <left>") 'sp-backward-slurp-sexp)
-(global-set-key (kbd "M-p <right>") 'sp-forward-slurp-sexp)
-(global-set-key (kbd "M-p C-<left>") 'sp-backward-barf-sexp)
-(global-set-key (kbd "M-p C-<right>") 'sp-previous-barf-sexp)
-(global-set-key (kbd "M-p t") 'sp-transpose-sexp)
-(global-set-key (kbd "M-p k") 'sp-kill-sexp)
-(global-set-key (kbd "M-p ( ")  'wrap-with-parens)
-(global-set-key (kbd "M-p [ ")  'wrap-with-brackets)
-(global-set-key (kbd "M-p { ")  'wrap-with-braces)
-(global-set-key (kbd "M-p ' ")  'wrap-with-single-quotes)
-(global-set-key (kbd "M-p _ ")  'wrap-with-underscores)
-(global-set-key (kbd "M-p ` ")  'wrap-with-back-quotes)
-(global-set-key (kbd "M-p d") 'sp-unwrap-sexp)
-(global-set-key (kbd "M-p m") 'mz/mark-everything-in-parenthesis)
-
 ;; ibuffer
 (global-unset-key (kbd "C-x C-b"))
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-;; hide and show region
+;; hydras
 (global-unset-key (kbd "M-h"))
 (global-set-key (kbd "M-h") 'hydra-hs/body)
-
-;; window stuff
+(global-set-key (kbd "M-n") 'hydra-multiple-cursors/body)
+(global-set-key (kbd "M-P") 'smartparens-hydra/body)
 (global-set-key (kbd "M-g") 'hydra-window-stuff/body)
-
-;; rtags
-(global-unset-key (kbd "M-r"))
-(global-set-key (kbd "M-r d") 'rtags-find-symbol-at-point)
-(global-set-key (kbd "M-r f") 'rtags-find-symbol)
-(global-set-key (kbd "M-r <left>") 'rtags-location-stack-back)
-(global-set-key (kbd "M-r <right>") 'rtags-location-stack-forward)
-(global-set-key (kbd "M-r l") 'rtags-taglist)
-(global-set-key (kbd "M-r r") 'rtags-rename-symbol)
-(global-set-key (kbd "M-r p") 'rtags-reparse-file)
+(define-key org-mode-map (kbd "C-c h") 'hydra-org/body)
 
 (define-key org-mode-map (kbd "C-<tab>") nil)
 
@@ -1031,8 +1053,9 @@ _g_o to
 (global-set-key (kbd "<f8>") 'gud-next) ;; equiv matlab step 1
 (global-set-key (kbd "<f7>") 'gud-finish) ;; equiv matlab step out
 
-;; this is down here because it destroyes parens matching and coloring
-(global-set-key (kbd "M-p \" " ) 'wrap-with-double-quotes)
+
+;; this pair is defined down here since it messed up smartparens...
+(sp-pair "\"" "\"" :wrap "M-p \"")
 
 (if (file-exists-p "~/PATIENTS/PatDB.el")
     (load-file "~/PATIENTS/PatDB.el")

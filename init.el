@@ -4,6 +4,7 @@
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (require 'package)
+(setq package-enable-at-startup nil)
 (package-initialize)
 ;(benchmark-init/activate)
 
