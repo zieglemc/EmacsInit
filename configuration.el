@@ -279,8 +279,8 @@
   (sp-pair "[" "]" :wrap "M-p [")
   (sp-pair "{" "}" :wrap "M-p {")
   (sp-pair "'" "'" :wrap "M-p '")
-  (sp-pair "$" "$" :wrap "M-p $")
   (sp-pair "<" ">" :wrap "M-p <")
+  (sp-local-pair 'latex-mode "$" "$" :wrap "M-p $")
   (sp-local-pair 'org-mode "/" "/" :wrap "M-p /")
   (sp-local-pair 'org-mode "_" "_" :wrap "M-p _")
   )
@@ -389,7 +389,6 @@
          ("M-x" . helm-M-x)
          ("M-y" . helm-show-kill-ring)
          ("C-x b" . helm-mini)
-         ("M-s" . helm-swoop)
          ("C-x C-f" . helm-find-files)
          ("C-x h w" . helm-wikipedia-suggest)
          ("C-x h SPC" . helm-all-mark-rings)
@@ -421,6 +420,11 @@
         helm-imenu-fuzzy-match    t)
   (helm-mode 1)
   )
+
+(use-package helm-swoop
+  :ensure t
+  :after (helm)
+  :bind  (("M-s" . helm-swoop)))
 
 (use-package helm-flycheck
   :ensure t
@@ -754,7 +758,7 @@
 (add-to-list 'auto-mode-alist '("\\.todo$" . org-mode))
 
 (setq org-hide-leading-stars t)
-(setq org-ellipsis " 竊ｷ")
+(setq org-ellipsis " ↷")
 (use-package org-bullets
   :ensure t
   )
@@ -816,25 +820,35 @@
 (use-package org-ref
   :ensure t)
 
-(setq reftex-default-bibliography '("~/Documents/Literature/bibliography.bib"))
 
-;; see org-ref for use of these variables
-(setq org-ref-bibliography-notes "~/Documents/Literature/Papers.org"
-      org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
-      org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
+(if (eq system-type 'gnu/linux)
+    (progn (setq reftex-default-bibliography '("~/Documents/Literature/bibliography.bib"))
 
-(setq bibtex-completion-bibliography "~/Documents/Literature/bibliography.bib"
-      bibtex-completion-library-path "~/Documents/Literature/bibtex-pdfs/"
-      bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes")
+           (setq org-ref-bibliography-notes "~/Documents/Literature/Papers.org"
+                 org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
+                 org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
+
+           (setq bibtex-completion-bibliography "~/Documents/Literature/bibliography.bib"
+                 bibtex-completion-library-path "~/Documents/Literature/bibtex-pdfs/"
+                 bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes"))
+  (progn (setq reftex-default-bibliography '("C:/zieglemc/24Documents/Literature/bibliography.bib"))
+
+         (setq org-ref-bibliography-notes "C:/zieglemc/24Documents/Literature/Papers.org"
+               org-ref-default-bibliography '("C:/zieglemc/24Documents/Literature/bibliography.bib")
+               org-ref-pdf-directory "C:/zieglemc/24Documents/Literature/bibtex-pdfs/")
+
+         (setq bibtex-completion-bibliography "C:/zieglemc/24Documents/Literature/bibliography.bib"
+               bibtex-completion-library-path "C:/zieglemc/24Documents/Literature/bibtex-pdfs/"
+               bibtex-completion-notes-path "C:/zieglemc/24Documents/Literature/helm-bibtex-notes")))
 
 (use-package helm-bibtex
   :ensure t
   :config
   (setq helm-bibtex-format-citation-functions
         '((org-mode . (lambda (x) (insert (concat
-                                           "[[bibentry:"
-                                           (mapconcat 'identity x ",")
-                                           "]]")) "")))))
+                                      "[[bibentry:"
+                                      (mapconcat 'identity x ",")
+                                      "]]")) "")))))
 
 (add-to-list 'org-modules 'org-drill)
 (setq org-drill-add-random-noise-to-intervals-p t)
@@ -878,136 +892,144 @@
                "* %^{Appointment}            %^G\n  %^T\n%?"))
 
 (defhydra hydra-window-stuff ()
-  "
-                    Split: _v_ert  _s_:horz
-                   Delete: _c_lose  _o_nly
-            Switch Window: _h_:left  _j_:down  _k_:up  _l_:right
-                  Buffers: _p_revious  _n_ext  _b_:select  _f_ind-file  _F_projectile
-                   Winner: _u_ndo  _r_edo
-                   Resize: _H_:splitter left  _J_:splitter down  _K_:splitter up  _L_:splitter right
-                     Move: _a_:up  _z_:down  _i_menu"
-
-  ("z" scroll-up-line)
-  ("a" scroll-down-line)
-  ("i" idomenu)
-
-  ("u" winner-undo)
-  ("r" winner-redo)
-
-  ("h" windmove-left)
-  ("j" windmove-down)
-  ("k" windmove-up)
-  ("l" windmove-right)
-
-  ("p" mz/previous-buffer)
-  ("n" mz/next-buffer)
-  ("b" helm-mini)
-  ("f" helm-find-file)
-  ("F" projectile-find-file)
-
-  ("s" split-window-below)
-  ("v" split-window-right)
-
-  ("c" delete-window)
-  ("o" delete-other-windows)
-
-  ("H" hydra-move-splitter-left)
-  ("J" hydra-move-splitter-down)
-  ("K" hydra-move-splitter-up)
-  ("L" hydra-move-splitter-right)
-
-  ("q" nil))
-
-(defhydra hydra-zoom (global-map "<f2>")
-  "zoom"
-  ("g" text-scale-increase "in")
-  ("l" text-scale-decrease "out"))
-
-(defhydra hydra-hs (:idle 1.0)
-  "
-          Hide^^            ^Show^            ^Toggle^    ^Navigation^
-          ----------------------------------------------------------------
-          _h_ hide all      _s_ show all      _t_oggle    _n_ext line
-          _d_ hide block    _a_ show block              _p_revious line
-          _l_ hide level
-
-          _SPC_ cancel
-          "
-  ("s" hs-show-all)
-  ("h" hs-hide-all)
-  ("a" hs-show-block)
-  ("d" hs-hide-block)
-  ("t" hs-toggle-hiding)
-  ("l" hs-hide-level)
-  ("n" forward-line)
-  ("p" (forward-line -1))
-  ("SPC" nil)
-  )
-
-(defhydra hydra-multiple-cursors ()
-  "
-          ^Up^            ^Down^        ^Miscellaneous^
-     ----------------------------------------------
-     [_p_]   Next    [_n_]   Next    [_l_] Edit lines
-     [_P_]   Skip    [_N_]   Skip    [_a_] Mark all
-     [_M-p_] Unmark  [_M-n_] Unmark  [_q_] Quit"
-  ("l" mc/edit-lines :exit t)
-  ("a" mc/mark-all-like-this :exit t)
-  ("n" mc/mark-next-like-this)
-  ("N" mc/skip-to-next-like-this)
-  ("M-n" mc/unmark-next-like-this)
-  ("p" mc/mark-previous-like-this)
-  ("P" mc/skip-to-previous-like-this)
-  ("M-p" mc/unmark-previous-like-this)
-  ("q" nil))
-
-(defhydra hydra-org (:color red :hint nil)
-  "
-     Navigation^
-     ---------------------------------------------------------
-     _j_ next heading
-     _k_ prev heading
-     _h_ next heading (same level)
-     _l_ prev heading (same level)
-     _u_p higher heading
-     _g_o to
-     "
-  ("j" outline-next-visible-heading)
-  ("k" outline-previous-visible-heading)
-  ("h" org-forward-heading-same-level)
-  ("l" org-backward-heading-same-level)
-  ("u" outline-up-heading)
-  ("g" org-goto :exit t))
-
-
-(defhydra smartparens-hydra ()
-  "
-  ^LevelMovement^          ^Movement^      ^ParensMovement^
-  --------------------------------------------
-  [_d_] LevelDown        [_f_] Forward      [_<left>_] BarfLeft
-  [_a_] BackLevelUp      [_b_] Back         [_<right>_] BarfRight
-  [_w_] LevelUp          [_n_] Next         [_C-<left>_] SlurpLeft
-  [_s_] BackLevelDown    [_t_] Transpose    [_C-<right>_] SlurpRight
-
-  [_k_] Kill     [_q_] Quit
+       "
+                         Split: _v_ert  _s_:horz
+                        Delete: _c_lose  _o_nly
+                        Winner: _u_ndo  _r_edo
+                 Switch Window: _h_:left  _j_:down  _k_:up  _l_:right
+                       Buffers: _p_revious  _n_ext  _b_:select  _f_ind-file  _F_projectile
+                        Resize: _H_:splitter left  _J_:splitter down  _K_:splitter up  _L_:splitter right
+                          Move: _a_:up  _z_:down  _g_oto  _i_menu
 "
-  ("d" sp-down-sexp)
-  ("w" sp-up-sexp)
-  ("a" sp-backward-up-sexp)
-  ("s" sp-backward-down-sexp)
 
-  ("f" sp-forward-sexp)
-  ("b" sp-backward-sexp)
-  ("t"  sp-transpose-sexp)
-  ("n"  sp-next-sexp)
+       ("z" scroll-up-line)
+       ("a" scroll-down-line)
+       ("g" goto-line)
+       ("i" idomenu)
 
-  ("<left>" sp-backward-barf-sexp)
-  ("<right>" sp-forward-barf-sexp)
-  ("C-<left>" sp-backward-slurp-sexp)
-  ("C-<right>" sp-forward-slurp-sexp)
+       ("u" winner-undo)
+       ("r" winner-redo)
 
-  ("k" sp-kill-sexp "Kill" :color blue)
-  ("q" nil "Quit" :color blue))
+       ("h" windmove-left)
+       ("j" windmove-down)
+       ("k" windmove-up)
+       ("l" windmove-right)
+       ("<left>" windmove-left :exit t)
+       ("<right>" windmove-right :exit t)
+       ("<up>" windmove-up :exit t)
+       ("<down>" windmove-down :exit t)
+
+       ("p" mz/previous-buffer)
+       ("n" mz/next-buffer)
+       ("b" helm-mini)
+       ("f" helm-find-file)
+       ("F" projectile-find-file)
+
+       ("s" split-window-below)
+       ("v" split-window-right)
+
+       ("c" delete-window)
+       ("o" delete-other-windows)
+
+       ("H" hydra-move-splitter-left)
+       ("J" hydra-move-splitter-down)
+       ("K" hydra-move-splitter-up)
+       ("L" hydra-move-splitter-right)
+
+       ("q" nil))
+
+     (defhydra hydra-zoom (global-map "<f2>")
+       "zoom"
+       ("g" text-scale-increase "in")
+       ("l" text-scale-decrease "out"))
+
+     (defhydra hydra-hs (:idle 1.0)
+       "
+               Hide^^            ^Show^            ^Toggle^    ^Navigation^
+               ----------------------------------------------------------------
+               _h_ hide all      _s_ show all      _t_oggle    _n_ext line
+               _d_ hide block    _a_ show block              _p_revious line
+               _l_ hide level
+
+               _SPC_ cancel
+               "
+       ("s" hs-show-all)
+       ("h" hs-hide-all)
+       ("a" hs-show-block)
+       ("d" hs-hide-block)
+       ("t" hs-toggle-hiding)
+       ("l" hs-hide-level)
+       ("n" forward-line)
+       ("p" (forward-line -1))
+       ("SPC" nil)
+       )
+
+     (defhydra hydra-multiple-cursors ()
+       "
+               ^Up^            ^Down^        ^Miscellaneous^
+          ----------------------------------------------
+          [_p_]   Next    [_n_]   Next    [_l_] Edit lines
+          [_P_]   Skip    [_N_]   Skip    [_a_] Mark all
+          [_M-p_] Unmark  [_M-n_] Unmark  [_q_] Quit"
+       ("l" mc/edit-lines :exit t)
+       ("a" mc/mark-all-like-this :exit t)
+       ("n" mc/mark-next-like-this)
+       ("N" mc/skip-to-next-like-this)
+       ("M-n" mc/unmark-next-like-this)
+       ("p" mc/mark-previous-like-this)
+       ("P" mc/skip-to-previous-like-this)
+       ("M-p" mc/unmark-previous-like-this)
+       ("q" nil))
+
+     (defhydra hydra-org (:color red :hint nil)
+       "
+          Navigation^
+          ---------------------------------------------------------
+          _j_ next heading
+          _k_ prev heading
+          _h_ next heading (same level)
+          _l_ prev heading (same level)
+          _u_p higher heading
+          _<tab>_ Cycle visibility
+          _g_o to
+          "
+       ("j" outline-next-visible-heading)
+       ("k" outline-previous-visible-heading)
+       ("h" org-forward-heading-same-level)
+       ("l" org-backward-heading-same-level)
+       ("u" outline-up-heading)
+       ("<tab>" org-cycle)
+       ("g" org-goto :exit t))
+
+
+     (defhydra smartparens-hydra ()
+       "
+       ^LevelMovement^          ^Movement^      ^ParensMovement^
+       --------------------------------------------
+       [_d_] LevelDown        [_f_] Forward      [_<left>_] BarfLeft
+       [_a_] BackLevelUp      [_b_] Back         [_<right>_] BarfRight
+       [_w_] LevelUp          [_n_] Next         [_C-<left>_] SlurpLeft
+       [_s_] BackLevelDown    [_t_] Transpose    [_C-<right>_] SlurpRight
+
+       [_k_] Kill     [_q_] Quit
+     "
+       ("d" sp-down-sexp)
+       ("w" sp-up-sexp)
+       ("a" sp-backward-up-sexp)
+       ("s" sp-backward-down-sexp)
+
+       ("f" sp-forward-sexp)
+       ("b" sp-backward-sexp)
+       ("t"  sp-transpose-sexp)
+       ("n"  sp-next-sexp)
+
+       ("<left>" sp-backward-barf-sexp)
+       ("<right>" sp-forward-barf-sexp)
+       ("C-<left>" sp-backward-slurp-sexp)
+       ("C-<right>" sp-forward-slurp-sexp)
+
+       ("k" sp-kill-sexp "Kill" :color blue)
+       ("q" nil "Quit" :color blue))
 
 (global-set-key (kbd "<f12>") 'eval-buffer)
 (global-set-key (kbd "<f5>") 'mz/my_compile)

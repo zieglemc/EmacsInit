@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (auctex undo-tree ws-butler writegood-mode use-package smartparens smart-mode-line slime rtags rainbow-delimiters py-autopep8 ox-twbs ox-reveal ox-pandoc org-ref org-bullets multiple-cursors magit julia-shell jedi indent-guide hlinum helm-flyspell helm-flycheck helm-company guide-key gnuplot-mode gnuplot flycheck-julia exec-path-from-shell elpy dictcc company-jedi company-irony-c-headers company-irony company-anaconda clean-aindent-mode auto-dictionary anzu))))
+    (helm-swoop auctex undo-tree ws-butler writegood-mode use-package smartparens smart-mode-line slime rtags rainbow-delimiters py-autopep8 ox-twbs ox-reveal ox-pandoc org-ref org-bullets multiple-cursors magit julia-shell jedi indent-guide hlinum helm-flyspell helm-flycheck helm-company guide-key gnuplot-mode gnuplot flycheck-julia exec-path-from-shell elpy dictcc company-jedi company-irony-c-headers company-irony company-anaconda clean-aindent-mode auto-dictionary anzu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

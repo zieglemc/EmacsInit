@@ -300,9 +300,6 @@
 
   #+END_SRC
 
-  #+RESULTS:
-  : mz/mark-everything-in-parenthesis
-
 * Activate global packages
 ** Global modes and packages
    Parenthesis mode, highlighting etc
@@ -333,8 +330,8 @@
        (sp-pair "[" "]" :wrap "M-p [")
        (sp-pair "{" "}" :wrap "M-p {")
        (sp-pair "'" "'" :wrap "M-p '")
-       (sp-pair "$" "$" :wrap "M-p $")
        (sp-pair "<" ">" :wrap "M-p <")
+       (sp-local-pair 'latex-mode "$" "$" :wrap "M-p $")
        (sp-local-pair 'org-mode "/" "/" :wrap "M-p /")
        (sp-local-pair 'org-mode "_" "_" :wrap "M-p _")
        )
@@ -453,7 +450,6 @@
               ("M-x" . helm-M-x)
               ("M-y" . helm-show-kill-ring)
               ("C-x b" . helm-mini)
-              ("M-s" . helm-swoop)
               ("C-x C-f" . helm-find-files)
               ("C-x h w" . helm-wikipedia-suggest)
               ("C-x h SPC" . helm-all-mark-rings)
@@ -485,6 +481,11 @@
              helm-imenu-fuzzy-match    t)
        (helm-mode 1)
        )
+
+     (use-package helm-swoop
+       :ensure t
+       :after (helm)
+       :bind  (("M-s" . helm-swoop)))
 
      (use-package helm-flycheck
        :ensure t
@@ -935,25 +936,35 @@
      (use-package org-ref
        :ensure t)
 
-     (setq reftex-default-bibliography '("~/Documents/Literature/bibliography.bib"))
 
-     ;; see org-ref for use of these variables
-     (setq org-ref-bibliography-notes "~/Documents/Literature/Papers.org"
-           org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
-           org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
+     (if (eq system-type 'gnu/linux)
+         (progn (setq reftex-default-bibliography '("~/Documents/Literature/bibliography.bib"))
 
-     (setq bibtex-completion-bibliography "~/Documents/Literature/bibliography.bib"
-           bibtex-completion-library-path "~/Documents/Literature/bibtex-pdfs/"
-           bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes")
+                (setq org-ref-bibliography-notes "~/Documents/Literature/Papers.org"
+                      org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
+                      org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
+
+                (setq bibtex-completion-bibliography "~/Documents/Literature/bibliography.bib"
+                      bibtex-completion-library-path "~/Documents/Literature/bibtex-pdfs/"
+                      bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes"))
+       (progn (setq reftex-default-bibliography '("C:/zieglemc/24Documents/Literature/bibliography.bib"))
+
+              (setq org-ref-bibliography-notes "C:/zieglemc/24Documents/Literature/Papers.org"
+                    org-ref-default-bibliography '("C:/zieglemc/24Documents/Literature/bibliography.bib")
+                    org-ref-pdf-directory "C:/zieglemc/24Documents/Literature/bibtex-pdfs/")
+
+              (setq bibtex-completion-bibliography "C:/zieglemc/24Documents/Literature/bibliography.bib"
+                    bibtex-completion-library-path "C:/zieglemc/24Documents/Literature/bibtex-pdfs/"
+                    bibtex-completion-notes-path "C:/zieglemc/24Documents/Literature/helm-bibtex-notes")))
 
      (use-package helm-bibtex
        :ensure t
        :config
        (setq helm-bibtex-format-citation-functions
              '((org-mode . (lambda (x) (insert (concat
-                                                "[[bibentry:"
-                                                (mapconcat 'identity x ",")
-                                                "]]")) "")))))
+                                           "[[bibentry:"
+                                           (mapconcat 'identity x ",")
+                                           "]]")) "")))))
    #+END_SRC
 ** Org drill
    #+BEGIN_SRC emacs-lisp
@@ -1012,14 +1023,16 @@
        "
                          Split: _v_ert  _s_:horz
                         Delete: _c_lose  _o_nly
+                        Winner: _u_ndo  _r_edo
                  Switch Window: _h_:left  _j_:down  _k_:up  _l_:right
                        Buffers: _p_revious  _n_ext  _b_:select  _f_ind-file  _F_projectile
-                        Winner: _u_ndo  _r_edo
                         Resize: _H_:splitter left  _J_:splitter down  _K_:splitter up  _L_:splitter right
-                          Move: _a_:up  _z_:down  _i_menu"
+                          Move: _a_:up  _z_:down  _g_oto  _i_menu
+"
 
        ("z" scroll-up-line)
        ("a" scroll-down-line)
+       ("g" goto-line)
        ("i" idomenu)
 
        ("u" winner-undo)
@@ -1029,6 +1042,10 @@
        ("j" windmove-down)
        ("k" windmove-up)
        ("l" windmove-right)
+       ("<left>" windmove-left :exit t)
+       ("<right>" windmove-right :exit t)
+       ("<up>" windmove-up :exit t)
+       ("<down>" windmove-down :exit t)
 
        ("p" mz/previous-buffer)
        ("n" mz/next-buffer)
@@ -1081,7 +1098,8 @@
           ----------------------------------------------
           [_p_]   Next    [_n_]   Next    [_l_] Edit lines
           [_P_]   Skip    [_N_]   Skip    [_a_] Mark all
-          [_M-p_] Unmark  [_M-n_] Unmark  [_q_] Quit"
+          [_M-p_] Unmark  [_M-n_] Unmark  [_q_] Quit
+       "
        ("l" mc/edit-lines :exit t)
        ("a" mc/mark-all-like-this :exit t)
        ("n" mc/mark-next-like-this)
@@ -1101,6 +1119,7 @@
           _h_ next heading (same level)
           _l_ prev heading (same level)
           _u_p higher heading
+          _<tab>_ Cycle visibility
           _g_o to
           "
        ("j" outline-next-visible-heading)
@@ -1108,6 +1127,7 @@
        ("h" org-forward-heading-same-level)
        ("l" org-backward-heading-same-level)
        ("u" outline-up-heading)
+       ("<tab>" org-cycle)
        ("g" org-goto :exit t))
 
 
