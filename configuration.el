@@ -750,6 +750,10 @@
   (message "%s" (concat (file-name-as-directory org-directory) filename))
   )
 
+(use-package org-plus-contrib
+  :ensure t
+  )
+
 (setq org-archive-location
       (concat (org-file-path "archive.org") "::* From %s" ))
 
@@ -801,6 +805,21 @@
         ("\\.jpg\\'" . "gpicview %s")
         ("\\.raw\\'" . "imagej %s")
         ("\\.png\\'" . "gpicview $s")))
+
+(add-to-list 'org-modules 'org-collector)
+
+(defun mz/org-property-sum (prop)
+  "Add up all the TALLY properties of headings underneath the current one
+     The total is written to the TALLY_SUM property of this heading"
+  (interactive "sProperty: ")
+  (let ((total 0))
+    (save-excursion
+      (org-map-tree
+       (lambda ()
+         (let ((n (org-entry-get (point) prop)))
+           (when (stringp n)
+             (setq total (+ total (string-to-number n))))))))
+    (number-to-string total)))
 
 (org-babel-do-load-languages 'org-babel-load-languages
                              '((emacs-lisp . t) (ruby . t) (gnuplot . t) (python . t) (gnuplot . t) (shell . t) (org . t) (lisp . t) (R . t)))
@@ -970,7 +989,8 @@
           ----------------------------------------------
           [_p_]   Next    [_n_]   Next    [_l_] Edit lines
           [_P_]   Skip    [_N_]   Skip    [_a_] Mark all
-          [_M-p_] Unmark  [_M-n_] Unmark  [_q_] Quit"
+          [_M-p_] Unmark  [_M-n_] Unmark  [_q_] Quit
+       "
        ("l" mc/edit-lines :exit t)
        ("a" mc/mark-all-like-this :exit t)
        ("n" mc/mark-next-like-this)
