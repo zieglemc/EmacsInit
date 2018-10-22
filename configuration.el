@@ -138,7 +138,7 @@
 
 (defun mz/new-line-above ()
   "Insert an empty line above the current line.
-                  Position the cursor at it's beginning, according to the current mode."
+   Position the cursor at it's beginning, according to the current mode."
   (interactive)
   (move-beginning-of-line nil)
   (newline-and-indent)
@@ -188,7 +188,9 @@
         )
     (progn
       (setq compile-command
-            (concat "cd " (replace-regexp-in-string "src" "build" (file-name-directory buffer-file-name)) " && make -j4"))))
+            (concat "cd "
+                    (replace-regexp-in-string "src" "build" (file-name-directory buffer-file-name))
+                    " && make -j4"))))
   (compile compile-command))
 
 (defun mz/workwndw()
@@ -220,7 +222,9 @@
         (exchange-point-and-mark)
         (replace-string
          (buffer-substring (region-beginning) (region-end))
-         (calc-eval (buffer-substring (region-beginning) (region-end))))))))
+         (calc-eval
+          (buffer-substring
+           (region-beginning) (region-end))))))))
 
 
 (defun mz/next-buffer()
@@ -232,6 +236,8 @@
     (while
         (and (string-match "^\\*.*\\*$" (buffer-name))
              (not (string-match "^\\*scratch\\*$" (buffer-name)))
+             (not (string-match "^\\*R\\*$" (buffer-name)))
+             (not (string-match "^\\*julia\\*$" (buffer-name)))
              (not (string-match currbuffer-name (buffer-name))))
       (next-buffer))))
 
@@ -557,16 +563,15 @@
 (add-hook 'R-mode-hook 'hs-minor-mode)
 
 (use-package julia-mode
-  :ensure t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.jl$" . julia-mode))
-  :config
-  (add-hook 'julia-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'julia-mode-hook 'hs-minor-mode)
-  (use-package flycheck-julia
-    :ensure t)
-  (use-package julia-shell
-    :ensure t))
+  :ensure t)
+(use-package flycheck-julia
+  :ensure t)
+(use-package julia-shell
+  :ensure t)
+(add-to-list 'auto-mode-alist '("\\.jl$" . ess-julia-mode))
+(add-hook 'ess-julia-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'ess-julia-mode-hook 'hs-minor-mode)
+(add-hook 'ess-julia-mode-hook 'flycheck-mode)
 
 (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
@@ -750,9 +755,9 @@
   (message "%s" (concat (file-name-as-directory org-directory) filename))
   )
 
-(use-package org-plus-contrib
-  :ensure t
-  )
+(unless (package-installed-p 'org-plus-contrib)
+  (package-refresh-contents)
+  (package-install 'org-plus-contrib))
 
 (setq org-archive-location
       (concat (org-file-path "archive.org") "::* From %s" ))
@@ -865,9 +870,9 @@
   :config
   (setq helm-bibtex-format-citation-functions
         '((org-mode . (lambda (x) (insert (concat
-                                      "[[bibentry:"
-                                      (mapconcat 'identity x ",")
-                                      "]]")) "")))))
+                                           "[[bibentry:"
+                                           (mapconcat 'identity x ",")
+                                           "]]")) "")))))
 
 (add-to-list 'org-modules 'org-drill)
 (setq org-drill-add-random-noise-to-intervals-p t)
@@ -911,7 +916,7 @@
                "* %^{Appointment}            %^G\n  %^T\n%?"))
 
 (defhydra hydra-window-stuff ()
-       "
+  "
                          Split: _v_ert  _s_:horz
                         Delete: _c_lose  _o_nly
                         Winner: _u_ndo  _r_edo
@@ -921,49 +926,49 @@
                           Move: _a_:up  _z_:down  _g_oto  _i_menu
 "
 
-       ("z" scroll-up-line)
-       ("a" scroll-down-line)
-       ("g" goto-line)
-       ("i" idomenu)
+  ("z" scroll-up-line)
+  ("a" scroll-down-line)
+  ("g" goto-line)
+  ("i" idomenu)
 
-       ("u" winner-undo)
-       ("r" winner-redo)
+  ("u" winner-undo)
+  ("r" winner-redo)
 
-       ("h" windmove-left)
-       ("j" windmove-down)
-       ("k" windmove-up)
-       ("l" windmove-right)
-       ("<left>" windmove-left :exit t)
-       ("<right>" windmove-right :exit t)
-       ("<up>" windmove-up :exit t)
-       ("<down>" windmove-down :exit t)
+  ("h" windmove-left)
+  ("j" windmove-down)
+  ("k" windmove-up)
+  ("l" windmove-right)
+  ("<left>" windmove-left :exit t)
+  ("<right>" windmove-right :exit t)
+  ("<up>" windmove-up :exit t)
+  ("<down>" windmove-down :exit t)
 
-       ("p" mz/previous-buffer)
-       ("n" mz/next-buffer)
-       ("b" helm-mini)
-       ("f" helm-find-file)
-       ("F" projectile-find-file)
+  ("p" mz/previous-buffer)
+  ("n" mz/next-buffer)
+  ("b" helm-mini)
+  ("f" helm-find-file)
+  ("F" projectile-find-file)
 
-       ("s" split-window-below)
-       ("v" split-window-right)
+  ("s" split-window-below)
+  ("v" split-window-right)
 
-       ("c" delete-window)
-       ("o" delete-other-windows)
+  ("c" delete-window)
+  ("o" delete-other-windows)
 
-       ("H" hydra-move-splitter-left)
-       ("J" hydra-move-splitter-down)
-       ("K" hydra-move-splitter-up)
-       ("L" hydra-move-splitter-right)
+  ("H" hydra-move-splitter-left)
+  ("J" hydra-move-splitter-down)
+  ("K" hydra-move-splitter-up)
+  ("L" hydra-move-splitter-right)
 
-       ("q" nil))
+  ("q" nil))
 
-     (defhydra hydra-zoom (global-map "<f2>")
-       "zoom"
-       ("g" text-scale-increase "in")
-       ("l" text-scale-decrease "out"))
+(defhydra hydra-zoom (global-map "<f2>")
+  "zoom"
+  ("g" text-scale-increase "in")
+  ("l" text-scale-decrease "out"))
 
-     (defhydra hydra-hs (:idle 1.0)
-       "
+(defhydra hydra-hs (:idle 1.0)
+  "
                Hide^^            ^Show^            ^Toggle^    ^Navigation^
                ----------------------------------------------------------------
                _h_ hide all      _s_ show all      _t_oggle    _n_ext line
@@ -972,37 +977,37 @@
 
                _SPC_ cancel
                "
-       ("s" hs-show-all)
-       ("h" hs-hide-all)
-       ("a" hs-show-block)
-       ("d" hs-hide-block)
-       ("t" hs-toggle-hiding)
-       ("l" hs-hide-level)
-       ("n" forward-line)
-       ("p" (forward-line -1))
-       ("SPC" nil)
-       )
+  ("s" hs-show-all)
+  ("h" hs-hide-all)
+  ("a" hs-show-block)
+  ("d" hs-hide-block)
+  ("t" hs-toggle-hiding)
+  ("l" hs-hide-level)
+  ("n" forward-line)
+  ("p" (forward-line -1))
+  ("SPC" nil)
+  )
 
-     (defhydra hydra-multiple-cursors ()
-       "
+(defhydra hydra-multiple-cursors ()
+  "
                ^Up^            ^Down^        ^Miscellaneous^
           ----------------------------------------------
           [_p_]   Next    [_n_]   Next    [_l_] Edit lines
           [_P_]   Skip    [_N_]   Skip    [_a_] Mark all
           [_M-p_] Unmark  [_M-n_] Unmark  [_q_] Quit
        "
-       ("l" mc/edit-lines :exit t)
-       ("a" mc/mark-all-like-this :exit t)
-       ("n" mc/mark-next-like-this)
-       ("N" mc/skip-to-next-like-this)
-       ("M-n" mc/unmark-next-like-this)
-       ("p" mc/mark-previous-like-this)
-       ("P" mc/skip-to-previous-like-this)
-       ("M-p" mc/unmark-previous-like-this)
-       ("q" nil))
+  ("l" mc/edit-lines :exit t)
+  ("a" mc/mark-all-like-this :exit t)
+  ("n" mc/mark-next-like-this)
+  ("N" mc/skip-to-next-like-this)
+  ("M-n" mc/unmark-next-like-this)
+  ("p" mc/mark-previous-like-this)
+  ("P" mc/skip-to-previous-like-this)
+  ("M-p" mc/unmark-previous-like-this)
+  ("q" nil))
 
-     (defhydra hydra-org (:color red :hint nil)
-       "
+(defhydra hydra-org (:color red :hint nil)
+  "
           Navigation^
           ---------------------------------------------------------
           _j_ next heading
@@ -1013,17 +1018,17 @@
           _<tab>_ Cycle visibility
           _g_o to
           "
-       ("j" outline-next-visible-heading)
-       ("k" outline-previous-visible-heading)
-       ("h" org-forward-heading-same-level)
-       ("l" org-backward-heading-same-level)
-       ("u" outline-up-heading)
-       ("<tab>" org-cycle)
-       ("g" org-goto :exit t))
+  ("j" outline-next-visible-heading)
+  ("k" outline-previous-visible-heading)
+  ("h" org-forward-heading-same-level)
+  ("l" org-backward-heading-same-level)
+  ("u" outline-up-heading)
+  ("<tab>" org-cycle)
+  ("g" org-goto :exit t))
 
 
-     (defhydra smartparens-hydra ()
-       "
+(defhydra smartparens-hydra ()
+  "
        ^LevelMovement^          ^Movement^      ^ParensMovement^
        --------------------------------------------
        [_d_] LevelDown        [_f_] Forward      [_<left>_] BarfLeft
@@ -1033,23 +1038,23 @@
 
        [_k_] Kill     [_q_] Quit
      "
-       ("d" sp-down-sexp)
-       ("w" sp-up-sexp)
-       ("a" sp-backward-up-sexp)
-       ("s" sp-backward-down-sexp)
+  ("d" sp-down-sexp)
+  ("w" sp-up-sexp)
+  ("a" sp-backward-up-sexp)
+  ("s" sp-backward-down-sexp)
 
-       ("f" sp-forward-sexp)
-       ("b" sp-backward-sexp)
-       ("t"  sp-transpose-sexp)
-       ("n"  sp-next-sexp)
+  ("f" sp-forward-sexp)
+  ("b" sp-backward-sexp)
+  ("t"  sp-transpose-sexp)
+  ("n"  sp-next-sexp)
 
-       ("<left>" sp-backward-barf-sexp)
-       ("<right>" sp-forward-barf-sexp)
-       ("C-<left>" sp-backward-slurp-sexp)
-       ("C-<right>" sp-forward-slurp-sexp)
+  ("<left>" sp-backward-barf-sexp)
+  ("<right>" sp-forward-barf-sexp)
+  ("C-<left>" sp-backward-slurp-sexp)
+  ("C-<right>" sp-forward-slurp-sexp)
 
-       ("k" sp-kill-sexp "Kill" :color blue)
-       ("q" nil "Quit" :color blue))
+  ("k" sp-kill-sexp "Kill" :color blue)
+  ("q" nil "Quit" :color blue))
 
 (global-set-key (kbd "<f12>") 'eval-buffer)
 (global-set-key (kbd "<f5>") 'mz/my_compile)
