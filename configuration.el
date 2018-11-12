@@ -755,9 +755,9 @@
   (message "%s" (concat (file-name-as-directory org-directory) filename))
   )
 
-(unless (package-installed-p 'org-plus-contrib)
-  (package-refresh-contents)
-  (package-install 'org-plus-contrib))
+(use-package org
+  :ensure org-plus-contrib
+  )
 
 (setq org-archive-location
       (concat (org-file-path "archive.org") "::* From %s" ))
