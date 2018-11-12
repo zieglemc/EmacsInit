@@ -123,12 +123,12 @@
   )
 
 (defun mz/emacs-reload()
-  "Reload the emacs ini file (~/.emacs.d/init.el)"
+  "Reload the Emacs ini file (~/.emacs.d/init.el)."
   (interactive)
   (load-file '"~/.emacs.d/init.el"))
 
 (defun mz/indent-buffer ()
-  "Indents an entire buffer using the default intenting scheme."
+  "Indent an entire buffer using the default intenting scheme."
   (interactive)
   (point-to-register 'o)
   (delete-trailing-whitespace)
@@ -138,7 +138,7 @@
 
 (defun mz/new-line-above ()
   "Insert an empty line above the current line.
-   Position the cursor at it's beginning, according to the current mode."
+Position the cursor at it's beginning, according to the current mode."
   (interactive)
   (move-beginning-of-line nil)
   (newline-and-indent)
@@ -146,17 +146,19 @@
   (indent-according-to-mode))
 
 (defun mz/mark-done-and-archive ()
-  "Mark the state of an org-mode item as DONE and archive it."
+  "Mark the state of an 'org-mode' item as DONE and archive it."
   (interactive)
   (org-todo 'done)
   (org-archive-subtree))
 
 (defun mz/print-list (list)
+  "A function to print a LIST in a formatted matter."
   (dotimes (item (length list))
     (insert (prin1-to-string (elt list item)))
     (insert " ")))
 
 (defun mz/write-package-install ()
+  "Write a function to a file which iterates over a package list and installes missing packages."
   (insert "
                   (unless package-archive-contents
                     (package-refresh-contents))
@@ -169,6 +171,7 @@
           ))
 
 (defun mz/print-package-list ()
+  "Print the list of all packages installed. This function should not be needed if use-package is used."
   (interactive)
   (find-file package-file)
   (erase-buffer)
@@ -180,7 +183,7 @@
   (kill-buffer))
 
 (defun mz/my_compile ()
-  "Take the makefile in current folder or in build folder"
+  "Take the makefile in current folder or in build folder."
   (interactive)
   (if (file-exists-p "Makefile")
       (progn
@@ -194,7 +197,7 @@
   (compile compile-command))
 
 (defun mz/workwndw()
-  "Load specific files and the window accordingly"
+  "Load specific files and the window accordingly."
   (interactive)
   (find-file "~/Stuff/ToDo/todo.org")
   (split-window-right)
@@ -227,33 +230,43 @@
            (region-beginning) (region-end))))))))
 
 
+(defun mz/buffer-skippable (buffername)
+  "Check if the BUFFERNAME startes either with '*' or is within the buffer-exceptions."
+  (setq star-buffer-exceptions '("^\\*scratch\\*$" "^\\*R\\*$" "^\\*julia\\*$") )
+  (setq normal-buffer-exceptions '("^magit-.*$"))
+  (setq in-star-buffers nil)
+  (setq in-buffer-exceptions nil)
+
+  (dolist (current-restring star-buffer-exceptions in-star-buffers)
+    (setq in-star-buffers (cons (not (string-match current-restring buffername)) in-star-buffers)))
+  (setq in-star-buffers (cons (string-match "^\\*.*\\*$" buffername) in-star-buffers))
+
+  (dolist (current-restring normal-buffer-exceptions in-buffer-exceptions)
+    (setq in-buffer-exceptions (cons (string-match current-restring buffername) in-buffer-exceptions)))
+
+  (or (null (memq nil in-star-buffers)) (null (memq nil in-buffer-exceptions)))
+  )
+
 (defun mz/next-buffer()
-  "Go to the next buffer and continue if the buffername starts with * (except scratch)"
+  "Go to the next buffer and continue if the buffer is skippable according to mz/buffer-skippable."
   (interactive)
   (let ((currbuffer-name (buffer-name)))
     (next-buffer)
     (buffer-name)
-    (while
-        (and (string-match "^\\*.*\\*$" (buffer-name))
-             (not (string-match "^\\*scratch\\*$" (buffer-name)))
-             (not (string-match "^\\*R\\*$" (buffer-name)))
-             (not (string-match "^\\*julia\\*$" (buffer-name)))
-             (not (string-match currbuffer-name (buffer-name))))
+    (while (mz/buffer-skippable (buffer-name))
       (next-buffer))))
 
 (defun mz/previous-buffer()
-  "Go to the previous buffer and continue if the buffername starts with * (except scratch)"
+  "Go to the previous buffer and continue if the buffer is skippable according to mz/buffer-skippable."
   (interactive)
   (let ((currbuffer-name (buffer-name)))
     (previous-buffer)
     (buffer-name)
-    (while
-        (and (string-match "^\\*.*\\*$" (buffer-name))
-             (not (string-match "^\\*scratch\\*$" (buffer-name)))
-             (not (string-match currbuffer-name (buffer-name))))
+    (while (mz/buffer-skippable (buffer-name))
       (previous-buffer))))
 
 (defun mz/mark-everything-in-parenthesis()
+  "Mark everything within parenthesis."
   (interactive)
   (sp-beginning-of-sexp)
   (set-mark-command nil)
