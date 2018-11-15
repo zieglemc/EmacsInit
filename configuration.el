@@ -298,12 +298,13 @@ Position the cursor at it's beginning, according to the current mode."
   (sp-pair "[" "]" :wrap "M-p [")
   (sp-pair "{" "}" :wrap "M-p {")
   (sp-pair "'" "'" :wrap "M-p '")
-  (sp-pair "<" ">" :wrap "M-p <")
+  (sp-local-pair 'emacs-lisp-mode "'" "")
+  (sp-local-pair 'sh-mode "<" ">" :wrap "M-p <")
+  (sp-local-pair 'xml-mode "<" "/>" :wrap "M-p <")
   (sp-local-pair 'latex-mode "$" "$" :wrap "M-p $")
   (sp-local-pair 'org-mode "/" "/" :wrap "M-p /")
   (sp-local-pair 'org-mode "_" "_" :wrap "M-p _")
   )
-
 
 (use-package multiple-cursors
   :ensure t)
@@ -352,6 +353,14 @@ Position the cursor at it's beginning, according to the current mode."
   :config
   (global-anzu-mode))
 
+(use-package recentf
+  :ensure t
+  :init
+  (setq recentf-max-saved-items 200
+        recentf-max-menu-items 20)
+  (recentf-mode)
+  )
+
 (use-package epc
   :ensure t)
 
@@ -365,7 +374,10 @@ Position the cursor at it's beginning, according to the current mode."
   (use-package writegood-mode
     :ensure t
     :init
-    (add-hook 'flyspell-mode-hook (lambda () (writegood-mode 1)))))
+    (add-hook 'flyspell-mode-hook (lambda () (writegood-mode 1)))
+    :config
+    (set-face-underline 'writegood-passive-voice-face nil)
+    (set-face-background 'writegood-duplicates-face "#AA1111")))
 
 (use-package company
   :ensure t
@@ -978,7 +990,8 @@ Position the cursor at it's beginning, according to the current mode."
 (defhydra hydra-zoom (global-map "<f2>")
   "zoom"
   ("g" text-scale-increase "in")
-  ("l" text-scale-decrease "out"))
+  ("l" text-scale-decrease "out")
+  ("q" nil))
 
 (defhydra hydra-hs (:idle 1.0)
   "

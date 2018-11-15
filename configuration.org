@@ -348,14 +348,13 @@
        (sp-pair "[" "]" :wrap "M-p [")
        (sp-pair "{" "}" :wrap "M-p {")
        (sp-pair "'" "'" :wrap "M-p '")
-       (sp-local-pair 'lisp-mode "'" nil :actions :rem)
+       (sp-local-pair 'emacs-lisp-mode "'" "")
        (sp-local-pair 'sh-mode "<" ">" :wrap "M-p <")
        (sp-local-pair 'xml-mode "<" "/>" :wrap "M-p <")
        (sp-local-pair 'latex-mode "$" "$" :wrap "M-p $")
        (sp-local-pair 'org-mode "/" "/" :wrap "M-p /")
        (sp-local-pair 'org-mode "_" "_" :wrap "M-p _")
        )
-
 
      (use-package multiple-cursors
        :ensure t)
@@ -426,6 +425,7 @@
          :ensure t
          :init
          (add-hook 'flyspell-mode-hook (lambda () (writegood-mode 1)))
+         :config
          (set-face-underline 'writegood-passive-voice-face nil)
          (set-face-background 'writegood-duplicates-face "#AA1111")))
    #+END_SRC
