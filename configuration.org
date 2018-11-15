@@ -81,7 +81,7 @@
     (define-key input-decode-map [?\C-i] [C-i])
   #+END_SRC
 
-  Finally, lets define the load-path for the emacs-custiom file and make yes/no to y/n
+  Finally, lets define the load-path for the emacs-custom file and make yes/no to y/n
   #+BEGIN_SRC emacs-lisp
     (setq custom-file "~/.emacs.d/emacs-custom.el")
     (defalias 'yes-or-no-p 'y-or-n-p)
@@ -348,7 +348,9 @@
        (sp-pair "[" "]" :wrap "M-p [")
        (sp-pair "{" "}" :wrap "M-p {")
        (sp-pair "'" "'" :wrap "M-p '")
-       (sp-pair "<" ">" :wrap "M-p <")
+       (sp-local-pair 'lisp-mode "'" nil :actions :rem)
+       (sp-local-pair 'sh-mode "<" ">" :wrap "M-p <")
+       (sp-local-pair 'xml-mode "<" "/>" :wrap "M-p <")
        (sp-local-pair 'latex-mode "$" "$" :wrap "M-p $")
        (sp-local-pair 'org-mode "/" "/" :wrap "M-p /")
        (sp-local-pair 'org-mode "_" "_" :wrap "M-p _")
@@ -402,6 +404,14 @@
        :config
        (global-anzu-mode))
 
+     (use-package recentf
+       :ensure t
+       :init
+       (setq recentf-max-saved-items 200
+             recentf-max-menu-items 20)
+       (recentf-mode)
+       )
+
      (use-package epc
        :ensure t)
 
@@ -415,7 +425,9 @@
        (use-package writegood-mode
          :ensure t
          :init
-         (add-hook 'flyspell-mode-hook (lambda () (writegood-mode 1)))))
+         (add-hook 'flyspell-mode-hook (lambda () (writegood-mode 1)))
+         (set-face-underline 'writegood-passive-voice-face nil)
+         (set-face-background 'writegood-duplicates-face "#AA1111")))
    #+END_SRC
 ** Company
    Basic company setup
@@ -935,8 +947,6 @@
     (add-to-list 'org-modules 'org-collector)
 
   #+END_SRC
-
-
 ** Org functions
    Somes useful elisp functions to use in org-mode
    #+BEGIN_SRC emacs-lisp
@@ -1109,7 +1119,8 @@
      (defhydra hydra-zoom (global-map "<f2>")
        "zoom"
        ("g" text-scale-increase "in")
-       ("l" text-scale-decrease "out"))
+       ("l" text-scale-decrease "out")
+       ("q" nil))
 
      (defhydra hydra-hs (:idle 1.0)
        "
