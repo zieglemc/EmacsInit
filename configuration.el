@@ -232,7 +232,7 @@ Position the cursor at it's beginning, according to the current mode."
 
 (defun mz/buffer-skippable (buffername)
   "Check if the BUFFERNAME startes either with '*' or is within the buffer-exceptions."
-  (setq star-buffer-exceptions '("^\\*scratch\\*$" "^\\*R\\*$" "^\\*julia\\*$") )
+  (setq star-buffer-exceptions '("^\\*scratch\\*$" "^\\*R\\*$" "^\\*julia\\*$" "^\\*shell\\*$") )
   (setq normal-buffer-exceptions '("^magit-.*$"))
   (setq in-star-buffers nil)
   (setq in-buffer-exceptions nil)
@@ -550,6 +550,8 @@ Position the cursor at it's beginning, according to the current mode."
       )
     ))
 
+(use-package cmake-mode
+  :ensure t)
 ;; setup GDB
 (setq gdb-many-windows t ;; use gdb-many-windows by default
       gdb-show-main t  ;; Non-nil means display source file containing the main routine at startup
@@ -575,6 +577,7 @@ Position the cursor at it's beginning, according to the current mode."
 (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+(add-hook 'c++-mode-common-hook 'my-c-mode-common-hook)
 
 (use-package ess
   :ensure t

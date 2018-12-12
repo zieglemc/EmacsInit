@@ -8,7 +8,7 @@
     (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-collector org-drill)))
  '(package-selected-packages
    (quote
-    (org-plus-contrib helm-swoop auctex undo-tree ws-butler writegood-mode use-package smartparens smart-mode-line slime rtags rainbow-delimiters py-autopep8 ox-twbs ox-reveal ox-pandoc org-ref org-bullets multiple-cursors magit julia-shell jedi indent-guide hlinum helm-flyspell helm-flycheck helm-company guide-key gnuplot-mode gnuplot flycheck-julia exec-path-from-shell elpy dictcc company-jedi company-irony-c-headers company-irony company-anaconda clean-aindent-mode auto-dictionary anzu))))
+    (cmake-mode org-plus-contrib helm-swoop auctex undo-tree ws-butler writegood-mode use-package smartparens smart-mode-line slime rtags rainbow-delimiters py-autopep8 ox-twbs ox-reveal ox-pandoc org-ref org-bullets multiple-cursors magit julia-shell jedi indent-guide hlinum helm-flyspell helm-flycheck helm-company guide-key gnuplot-mode gnuplot flycheck-julia exec-path-from-shell elpy dictcc company-jedi company-irony-c-headers company-irony company-anaconda clean-aindent-mode auto-dictionary anzu))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

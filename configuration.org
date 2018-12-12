@@ -277,7 +277,7 @@
 
     (defun mz/buffer-skippable (buffername)
       "Check if the BUFFERNAME startes either with '*' or is within the buffer-exceptions."
-      (setq star-buffer-exceptions '("^\\*scratch\\*$" "^\\*R\\*$" "^\\*julia\\*$") )
+      (setq star-buffer-exceptions '("^\\*scratch\\*$" "^\\*R\\*$" "^\\*julia\\*$" "^\\*shell\\*$") )
       (setq normal-buffer-exceptions '("^magit-.*$"))
       (setq in-star-buffers nil)
       (setq in-buffer-exceptions nil)
@@ -623,6 +623,8 @@
    #+END_SRC
 ** C++-MODE
    #+BEGIN_SRC emacs-lisp
+     (use-package cmake-mode
+       :ensure t)
      ;; setup GDB
      (setq gdb-many-windows t ;; use gdb-many-windows by default
            gdb-show-main t  ;; Non-nil means display source file containing the main routine at startup
@@ -648,6 +650,7 @@
      (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
 
      (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+     (add-hook 'c++-mode-common-hook 'my-c-mode-common-hook)
 
    #+END_SRC
 ** R-mode
