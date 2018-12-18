@@ -496,32 +496,20 @@ Position the cursor at it's beginning, according to the current mode."
          ("M-r p" . rtags-reparse-file))
   :config
   (progn
-    ;; Start rtags upon entering a C/C++ file
-    (add-hook
-     'c-mode-common-hook
-     (lambda () (if (not (is-current-file-tramp))
-                    (rtags-start-process-unless-running))))
-    (add-hook
-     'c++-mode-common-hook
-     (lambda () (if (not (is-current-file-tramp))
-                    (rtags-start-process-unless-running))))
-    ;; Flycheck setup
-    (use-package flycheck-rtags
+    (use-package company-rtags
       :ensure t
       :config
-      (defun my-flycheck-rtags-setup ()
-        (flycheck-select-checker 'rtags)
-        ;; RTags creates more accurate overlays.
-        (setq-local flycheck-highlighting-mode nil)
-        (setq-local flycheck-check-syntax-automatically nil))
+      (add-to-list 'company-backends 'company-rtags)
       )
     (use-package helm-rtags
       :ensure t
       :config
       (setq rtags-display-result-backend 'helm)
       )
-    ;; c-mode-common-hook is also called by c++-mode
-    (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
+    ;; Flycheck setup
+    (use-package flycheck-rtags
+      :ensure t
+      )
     )
   )
 ;; Use irony for completion
@@ -529,12 +517,6 @@ Position the cursor at it's beginning, according to the current mode."
   :ensure t
   :config
   (progn
-    (add-hook
-     'c-mode-common-hook
-     (lambda () (if (not (is-current-file-tramp)) (irony-mode))))
-    (add-hook
-     'c++-mode-common-hook
-     (lambda () (if (not (is-current-file-tramp)) (irony-mode))))
     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
     (use-package company-irony
       :ensure t
@@ -559,7 +541,7 @@ Position the cursor at it's beginning, according to the current mode."
 
 (defun my-c-mode-common-hook ()
   ;; my customizations for all of c-mode and related modes
-  (setq c-default-style linux"" )
+  (setq c-default-style "linux" )
   (setq c-basic-offset 4)
   (unless (irony--find-server-executable) (call-interactively #'irony-install-server))
   (setq irony-cdb-compilation-databases '(irony-cdb-libclang irony-cdb-clang-complete))
@@ -572,7 +554,13 @@ Position the cursor at it's beginning, according to the current mode."
   (turn-on-auto-fill)
   (global-set-key [f6] 'run-cfile)
   (global-set-key [C-c C-y] 'uncomment-region)
-  )
+  (rtags-start-process-unless-running)
+  (irony-mode)
+  (flycheck-select-checker 'rtags)
+  ;; RTags creates more accurate overlays.
+  (setq-local flycheck-highlighting-mode nil)
+  (setq-local flycheck-check-syntax-automatically nil))
+
 
 (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
 
