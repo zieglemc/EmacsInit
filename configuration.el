@@ -644,7 +644,7 @@ Position the cursor at it's beginning, according to the current mode."
   (add-hook 'python-mode-hook 'smartparens-mode)
   (add-hook 'python-mode-hook 'rainbow-mode)
   (add-hook 'python-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'python-mode-hook 'ede-mode)
+  (add-hook 'python-mode-hook 'global-ede-mode)
   (add-hook 'python-mode-hook 'turn-on-auto-fill)
   (add-hook 'python-mode-hook 'hs-minor-mode)
   )
@@ -795,7 +795,7 @@ Position the cursor at it's beginning, according to the current mode."
   (auto-fill-mode 1)
   (flyspell-mode 1)
   (rainbow-mode 1)
-  (rainbow-delimiters-mode 1)
+  (rainbow-delimiters-mode 0)
   )
 
 (add-hook 'org-mode-hook 'my-org-mode-hook)
