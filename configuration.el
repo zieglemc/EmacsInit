@@ -483,6 +483,25 @@ Position the cursor at it's beginning, according to the current mode."
   :config
   (global-flycheck-mode 1))
 
+;; Use irony for completion
+(use-package irony
+  :ensure t
+  :config
+  (progn
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+    (use-package company-irony
+      :ensure t
+      :config
+      (push 'company-irony company-backends)
+      )
+    (use-package company-irony-c-headers
+      :ensure t
+      :config
+      (add-to-list 'company-backends 'company-c-headers)
+      (add-to-list 'company-backends 'company-irony-c-headers)
+      (add-to-list 'company-backends 'company-clang)
+      )
+    ))
 (use-package rtags
   :ensure t
   :init
@@ -512,25 +531,6 @@ Position the cursor at it's beginning, according to the current mode."
       )
     )
   )
-;; Use irony for completion
-(use-package irony
-  :ensure t
-  :config
-  (progn
-    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-    (use-package company-irony
-      :ensure t
-      :config
-      (push 'company-irony company-backends)
-      )
-    (use-package company-irony-c-headers
-      :ensure t
-      :config
-      (add-to-list 'company-backends 'company-c-headers)
-      (add-to-list 'company-backends 'company-irony-c-headers)
-      (add-to-list 'company-backends 'company-clang)
-      )
-    ))
 
 (use-package cmake-mode
   :ensure t)
@@ -742,7 +742,7 @@ Position the cursor at it's beginning, according to the current mode."
          (((output-dvi style-pstricks)
            "dvips and gv")
           (output-dvi "xdvi")
-          (output-pdf "Okular")
+          (output-pdf "okular")
           (output-html "xdg-open"))))
   (setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)")))))
 

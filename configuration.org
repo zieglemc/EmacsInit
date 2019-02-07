@@ -554,6 +554,25 @@
 ** R-Tags and irony
    #+BEGIN_SRC emacs-lisp
 
+     ;; Use irony for completion
+     (use-package irony
+       :ensure t
+       :config
+       (progn
+         (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+         (use-package company-irony
+           :ensure t
+           :config
+           (push 'company-irony company-backends)
+           )
+         (use-package company-irony-c-headers
+           :ensure t
+           :config
+           (add-to-list 'company-backends 'company-c-headers)
+           (add-to-list 'company-backends 'company-irony-c-headers)
+           (add-to-list 'company-backends 'company-clang)
+           )
+         ))
      (use-package rtags
        :ensure t
        :init
@@ -583,26 +602,8 @@
            )
          )
        )
-     ;; Use irony for completion
-     (use-package irony
-       :ensure t
-       :config
-       (progn
-         (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-         (use-package company-irony
-           :ensure t
-           :config
-           (push 'company-irony company-backends)
-           )
-         (use-package company-irony-c-headers
-           :ensure t
-           :config
-           (add-to-list 'company-backends 'company-c-headers)
-           (add-to-list 'company-backends 'company-irony-c-headers)
-           (add-to-list 'company-backends 'company-clang)
-           )
-         ))
    #+END_SRC
+
 ** C++-MODE
    #+BEGIN_SRC emacs-lisp
      (use-package cmake-mode
@@ -841,7 +842,7 @@
               (((output-dvi style-pstricks)
                 "dvips and gv")
                (output-dvi "xdvi")
-               (output-pdf "Okular")
+               (output-pdf "okular")
                (output-html "xdg-open"))))
        (setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)")))))
    #+END_SRC
