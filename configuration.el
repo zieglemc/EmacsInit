@@ -250,20 +250,16 @@ Position the cursor at it's beginning, according to the current mode."
 (defun mz/next-buffer()
   "Go to the next buffer and continue if the buffer is skippable according to mz/buffer-skippable."
   (interactive)
-  (let ((currbuffer-name (buffer-name)))
     (next-buffer)
-    (buffer-name)
     (while (mz/buffer-skippable (buffer-name))
-      (next-buffer))))
+      (next-buffer)))
 
 (defun mz/previous-buffer()
   "Go to the previous buffer and continue if the buffer is skippable according to mz/buffer-skippable."
   (interactive)
-  (let ((currbuffer-name (buffer-name)))
-    (previous-buffer)
-    (buffer-name)
-    (while (mz/buffer-skippable (buffer-name))
-      (previous-buffer))))
+  (previous-buffer)
+  (while (mz/buffer-skippable (buffer-name))
+      (previous-buffer)))
 
 (defun mz/mark-everything-in-parenthesis()
   "Mark everything within parenthesis."
@@ -986,10 +982,10 @@ Position the cursor at it's beginning, according to the current mode."
 
 (defhydra hydra-hs (:idle 1.0)
   "
-               Hide^^            ^Show^            ^Toggle^    ^Navigation^
+               Hide^^            ^Show^          ^Toggle^      ^Navigation^
                ----------------------------------------------------------------
-               _h_ hide all      _s_ show all      _t_oggle    _n_ext line
-               _d_ hide block    _a_ show block              _p_revious line
+               _h_ hide all      _s_ show all    _t_oggle      _n_ext line
+               _d_ hide block    _a_ show block  _TAB_toggle   _p_revious line
                _l_ hide level
 
                _SPC_ cancel
@@ -999,6 +995,7 @@ Position the cursor at it's beginning, according to the current mode."
   ("a" hs-show-block)
   ("d" hs-hide-block)
   ("t" hs-toggle-hiding)
+  ("TAB" hs-toggle-hiding :exit t)
   ("l" hs-hide-level)
   ("n" forward-line)
   ("p" (forward-line -1))
