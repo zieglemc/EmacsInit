@@ -331,6 +331,8 @@ Position the cursor at it's beginning, according to the current mode."
 
 (use-package dictcc
   :ensure t
+  :init
+  (define-key input-decode-map [?\C-m] [C-m])
   :bind (("<C-m> d" . dictcc)
          ("<C-m> D" . dictcc-at-point)))
 
