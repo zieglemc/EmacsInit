@@ -50,9 +50,6 @@
 (setq mark-ring-max 5000)
 (delete-selection-mode)
 
-(define-key input-decode-map [?\C-m] [C-m])
-(define-key input-decode-map [?\C-i] [C-i])
-
 (setq custom-file "~/.emacs.d/emacs-custom.el")
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -250,16 +247,16 @@ Position the cursor at it's beginning, according to the current mode."
 (defun mz/next-buffer()
   "Go to the next buffer and continue if the buffer is skippable according to mz/buffer-skippable."
   (interactive)
-    (next-buffer)
-    (while (mz/buffer-skippable (buffer-name))
-      (next-buffer)))
+  (next-buffer)
+  (while (mz/buffer-skippable (buffer-name))
+    (next-buffer)))
 
 (defun mz/previous-buffer()
   "Go to the previous buffer and continue if the buffer is skippable according to mz/buffer-skippable."
   (interactive)
   (previous-buffer)
   (while (mz/buffer-skippable (buffer-name))
-      (previous-buffer)))
+    (previous-buffer)))
 
 (defun mz/mark-everything-in-parenthesis()
   "Mark everything within parenthesis."
@@ -692,32 +689,6 @@ Position the cursor at it's beginning, according to the current mode."
   :mode (("\\.tex\\'" . latex-mode)
          ("\\.sty\\'" . latex-mode))
   :commands (latex-mode LaTeX-mode plain-tex-mode)
-  :init
-  (progn
-    (defun my-latex-mode-hook()
-      (TeX-fold-mode 1)
-      (hs-minor-mode)
-      (add-hook 'find-file-hook 'TeX-fold-buffer t t)
-      (local-set-key [C-c C-g] 'TeX-kill-job)
-      (turn-on-auto-fill)
-      (rainbow-delimiters-mode)
-      (rainbow-mode)
-      (TeX-source-correlate-mode)
-      (turn-on-reftex)
-      (LaTeX-math-mode)
-      (LaTeX-preview-setup)
-      (flyspell-mode 1)
-      )
-
-    (setq TeX-auto-save t
-          TeX-parse-self t
-          TeX-save-query nil
-          TeX-PDF-mode t
-          TeX-master nil
-          TeX-engine 'xetex
-          latex-run-command "xelatex --shell-escape"
-          reftex-plug-into-AUCTeX t)
-    )
   :config
   (use-package company-auctex
     :ensure t
@@ -733,16 +704,43 @@ Position the cursor at it's beginning, according to the current mode."
    "latex"
    (lambda ()
      (LaTeX-add-environments
-      '("frame" LaTeX-env-contents))))
+      '("frame" LaTeX-env-contents)))))
 
-  (setq TeX-view-program-selection
-        (quote
-         (((output-dvi style-pstricks)
-           "dvips and gv")
-          (output-dvi "xdvi")
-          (output-pdf "okular")
-          (output-html "xdg-open"))))
-  (setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)")))))
+
+(defun my-latex-mode-hook()
+  (TeX-fold-mode 1)
+  (hs-minor-mode)
+  (add-hook 'find-file-hook 'TeX-fold-buffer t t)
+  (local-set-key [C-c C-g] 'TeX-kill-job)
+  (turn-on-auto-fill)
+  (rainbow-delimiters-mode)
+  (rainbow-mode)
+  (TeX-source-correlate-mode)
+  (turn-on-reftex)
+  (LaTeX-math-mode)
+  (LaTeX-preview-setup)
+  (flyspell-mode 1)
+  (setq TeX-auto-save t
+        TeX-parse-self t
+        TeX-save-query nil
+        TeX-PDF-mode t
+        TeX-master nil
+        TeX-engine 'xetex
+        latex-run-command "xelatex --shell-escape"
+        reftex-plug-into-AUCTeX t)
+  )
+
+(add-hook 'latex-mode-hook 'my-latex-mode-hook)
+(add-hook 'LaTeX-mode-hook 'my-latex-mode-hook)
+
+(setq TeX-view-program-selection
+      (quote
+       (((output-dvi style-pstricks)
+         "dvips and gv")
+        (output-dvi "xdvi")
+        (output-pdf "okular")
+        (output-html "xdg-open"))))
+(setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)"))))
 
 (add-to-list 'auto-mode-alist '("\\.sql$" . sql-mode))
 
@@ -757,6 +755,9 @@ Position the cursor at it's beginning, according to the current mode."
                sgml-skip-tag-forward
                nil))
 (add-hook 'nxml-mode-hook 'hs-minor-mode)
+
+(use-package csv-mode
+  :ensure t)
 
 (if (eq system-type 'windows-nt)
     (setq org-directory "C:/zieglemc/Stuff/ToDo")
@@ -1126,6 +1127,9 @@ Position the cursor at it's beginning, according to the current mode."
 
 ;; this pair is defined down here since it messed up smartparens...
 (sp-pair "\"" "\"" :wrap "M-p \"")
+
+(define-key input-decode-map [?\C-m] [C-m])
+(define-key input-decode-map [?\C-i] [C-i])
 
 (if (file-exists-p "~/PATIENTS/PatDB.el")
     (load-file "~/PATIENTS/PatDB.el")
