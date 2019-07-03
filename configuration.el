@@ -693,13 +693,15 @@ Position the cursor at it's beginning, according to the current mode."
   (use-package company-auctex
     :ensure t
     :config
-    (company-auctex-init)
-    )
+    (company-auctex-init))
   (use-package company-bibtex
     :ensure t
     :config
     (add-to-list 'company-backends 'company-bibtex))
-
+  (use-package outline-magic
+    :ensure t)
+  (use-package outline-toc-mode
+    :ensure t)
   (TeX-add-style-hook
    "latex"
    (lambda ()
@@ -709,7 +711,9 @@ Position the cursor at it's beginning, according to the current mode."
 
 (defun my-latex-mode-hook()
   (TeX-fold-mode 1)
-  (hs-minor-mode)
+  (hs-minor-mode nil)
+  (outline-minor-mode 1)
+  (outline-toc-mode 1)
   (add-hook 'find-file-hook 'TeX-fold-buffer t t)
   (local-set-key [C-c C-g] 'TeX-kill-job)
   (turn-on-auto-fill)
@@ -722,17 +726,18 @@ Position the cursor at it's beginning, according to the current mode."
   (flyspell-mode 1)
   (setq TeX-auto-save t
         TeX-parse-self t
-        TeX-save-query nil
+        TeX-save-query t
         TeX-PDF-mode t
-        TeX-master nil
         TeX-engine 'xetex
         latex-run-command "xelatex --shell-escape"
         reftex-plug-into-AUCTeX t)
+  (local-unset-key (kbd "$"))
   )
 
 (add-hook 'latex-mode-hook 'my-latex-mode-hook)
 (add-hook 'LaTeX-mode-hook 'my-latex-mode-hook)
 
+(add-to-list 'TeX-view-program-list '("okular" "okular -p %(outpage) --unique %o"))
 (setq TeX-view-program-selection
       (quote
        (((output-dvi style-pstricks)
