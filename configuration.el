@@ -16,8 +16,7 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(setq user-full-name "Marc Ziegler"
-      user-email-adress "marc.ziegler@uk-erlangen.de")
+(setq user-full-name "Marc Ziegler")
 
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
@@ -465,9 +464,10 @@ Position the cursor at it's beginning, according to the current mode."
   :after (helm company)
   :bind (("C-<tab>" . helm-company)))
 
-(use-package magit
-  :ensure t
-  :bind (( "C-x g" . magit-status)))
+(if (locate-file "git" exec-path)
+    (use-package magit
+      :ensure t
+      :bind (( "C-x g" . magit-status))))
 
 (use-package hydra
   :ensure t
@@ -478,89 +478,95 @@ Position the cursor at it's beginning, according to the current mode."
   :config
   (global-flycheck-mode 1))
 
-;; Use irony for completion
-(use-package irony
-  :ensure t
-  :config
-  (progn
-    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-    (use-package company-irony
-      :ensure t
-      :config
-      (push 'company-irony company-backends)
-      )
-    (use-package company-irony-c-headers
-      :ensure t
-      :config
-      (add-to-list 'company-backends 'company-c-headers)
-      (add-to-list 'company-backends 'company-irony-c-headers)
-      (add-to-list 'company-backends 'company-clang)
-      )
-    ))
-(use-package rtags
-  :ensure t
-  :init
-  (global-unset-key (kbd "M-r"))
-  :bind (("M-r d" . rtags-find-symbol-at-point)
-         ("M-r f" . rtags-find-symbol)
-         ("M-r <left>" . rtags-location-stack-back)
-         ("M-r <right>" . rtags-location-stack-forward)
-         ("M-r l" . rtags-taglist)
-         ("M-r r" . rtags-rename-symbol)
-         ("M-r p" . rtags-reparse-file))
-  :config
-  (progn
-    (use-package company-rtags
-      :ensure t
-      :config
-      (add-to-list 'company-backends 'company-rtags)
-      )
-    (use-package helm-rtags
-      :ensure t
-      :config
-      (setq rtags-display-result-backend 'helm)
-      )
-    ;; Flycheck setup
-    (use-package flycheck-rtags
-      :ensure t
-      )
-    )
-  )
+;;; Use irony for completion
+(if (locate-file "gcc" exec-path)
+    (progn
+      (use-package irony
+        :ensure t
+        :config
+        (progn
+          (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+          (use-package company-irony
+            :ensure t
+            :config
+            (push 'company-irony company-backends)
+            )
+          (use-package company-irony-c-headers
+            :ensure t
+            :config
+            (add-to-list 'company-backends 'company-c-headers)
+            (add-to-list 'company-backends 'company-irony-c-headers)
+            (add-to-list 'company-backends 'company-clang)
+            )
+          ))
+      (use-package rtags
+        :ensure t
+        :init
+        (global-unset-key (kbd "M-r"))
+        :bind (("M-r d" . rtags-find-symbol-at-point)
+               ("M-r f" . rtags-find-symbol)
+               ("M-r <left>" . rtags-location-stack-back)
+               ("M-r <right>" . rtags-location-stack-forward)
+               ("M-r l" . rtags-taglist)
+               ("M-r r" . rtags-rename-symbol)
+               ("M-r p" . rtags-reparse-file))
+        :config
+        (progn
+          (use-package company-rtags
+            :ensure t
+            :config
+            (add-to-list 'company-backends 'company-rtags)
+            )
+          (use-package helm-rtags
+            :ensure t
+            :config
+            (setq rtags-display-result-backend 'helm)
+            )
+          ;; Flycheck setup
+          (use-package flycheck-rtags
+            :ensure t
+            )
+          )
+        )))
 
-(use-package cmake-mode
-  :ensure t)
-;; setup GDB
-(setq gdb-many-windows t ;; use gdb-many-windows by default
-      gdb-show-main t  ;; Non-nil means display source file containing the main routine at startup
-      )
+(if (locate-file "gcc" exec-path)
+    (progn
+      (use-package cmake-mode
+        :ensure t)
+      ;; setup GDB
+      (setq gdb-many-windows t ;; use gdb-many-windows by default
+            gdb-show-main t  ;; Non-nil means display source file containing the main routine at startup
+            )
 
-(defun my-c-mode-common-hook ()
-  ;; my customizations for all of c-mode and related modes
-  (setq c-default-style "linux" )
-  (setq c-basic-offset 4)
-  (unless (irony--find-server-executable) (call-interactively #'irony-install-server))
-  (setq irony-cdb-compilation-databases '(irony-cdb-libclang irony-cdb-clang-complete))
-  (rtags-start-process-unless-running)
-  (setq rtags-autostart-diagnostics t)
-  (rtags-diagnostics)
-  (hs-minor-mode)
-  (rainbow-mode)
-  (rainbow-delimiters-mode)
-  (turn-on-auto-fill)
-  (global-set-key [f6] 'run-cfile)
-  (global-set-key [C-c C-y] 'uncomment-region)
-  (rtags-start-process-unless-running)
-  (irony-mode)
-  (flycheck-select-checker 'rtags)
-  ;; RTags creates more accurate overlays.
-  (setq-local flycheck-highlighting-mode nil)
-  (setq-local flycheck-check-syntax-automatically nil))
+      (defun my-c-mode-common-hook ()
+        ;; my customizations for all of c-mode and related modes
+        (setq c-default-style "linux" )
+        (setq c-basic-offset 4)
+        (unless (irony--find-server-executable) (call-interactively #'irony-install-server))
+        (setq irony-cdb-compilation-databases '(irony-cdb-libclang irony-cdb-clang-complete))
+        (rtags-start-process-unless-running)
+        (setq rtags-autostart-diagnostics t)
+        (rtags-diagnostics)
+        (hs-minor-mode)
+        (rainbow-mode)
+        (rainbow-delimiters-mode)
+        (turn-on-auto-fill)
+        (global-set-key [f6] 'run-cfile)
+        (global-set-key [C-c C-y] 'uncomment-region)
+        (rtags-start-process-unless-running)
+        (irony-mode)
+        (flycheck-select-checker 'rtags)
+        ;; RTags creates more accurate overlays.
+        (setq-local flycheck-highlighting-mode nil)
+        (setq-local flycheck-check-syntax-automatically nil))
 
 
-(add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
+      (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
 
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
-(add-hook 'c++-mode-common-hook 'my-c-mode-common-hook)
+      (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+      (add-hook 'c++-mode-common-hook 'my-c-mode-common-hook)
+
+      ))
 
 (use-package ess
   :ensure t
@@ -573,16 +579,18 @@ Position the cursor at it's beginning, according to the current mode."
 (add-hook 'R-mode-hook #'rainbow-mode)
 (add-hook 'R-mode-hook 'hs-minor-mode)
 
-(use-package julia-mode
-  :ensure t)
-(use-package flycheck-julia
-  :ensure t)
-(use-package julia-shell
-  :ensure t)
-(add-to-list 'auto-mode-alist '("\\.jl$" . ess-julia-mode))
-(add-hook 'ess-julia-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'ess-julia-mode-hook 'hs-minor-mode)
-(add-hook 'ess-julia-mode-hook 'flycheck-mode)
+(if (locate-file "julia" exec-path)
+    (progn
+      (use-package julia-mode
+        :ensure t)
+      (use-package flycheck-julia
+        :ensure t)
+      (use-package julia-shell
+        :ensure t)
+      (add-to-list 'auto-mode-alist '("\\.jl$" . ess-julia-mode))
+      (add-hook 'ess-julia-mode-hook #'rainbow-delimiters-mode)
+      (add-hook 'ess-julia-mode-hook 'hs-minor-mode)
+      (add-hook 'ess-julia-mode-hook 'flycheck-mode)))
 
 (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
@@ -592,30 +600,34 @@ Position the cursor at it's beginning, according to the current mode."
 (add-hook 'lisp-interaction-mode 'rainbow-delimiters-mode)
 (add-hook 'lisp-interaction-mode 'hs-minor-mode)
 
-(use-package slime
-  :ensure t
-  :config
-  (setq inferior-lisp-program "/usr/bin/sbcl")
-  )
+(if (locate-file "sbcl" exec-path)
+    (progn
+      (use-package slime
+        :ensure t
+        :config
+        (setq inferior-lisp-program "/usr/bin/sbcl")
+        )))
 
-(use-package gnuplot-mode
-  :ensure t
-  :config
-  (use-package gnuplot
-    :ensure t
-    :config
-    (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
-    (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot mode" t)
+(if (locate-file "gnuplot" exec-path)
+    (progn
+      (use-package gnuplot-mode
+        :ensure t
+        :config
+        (use-package gnuplot
+          :ensure t
+          :config
+          (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
+          (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot mode" t)
 
-    (add-to-list 'auto-mode-alist '("\\.gnu$" . gnuplot-mode))
-    (add-to-list 'auto-mode-alist '("\\.plt$" . gnuplot-mode))
+          (add-to-list 'auto-mode-alist '("\\.gnu$" . gnuplot-mode))
+          (add-to-list 'auto-mode-alist '("\\.plt$" . gnuplot-mode))
 
-    (add-hook 'gnuplot-mode-hook
-              (lambda () (local-set-key (kbd "C-c C-c") 'gnuplot-run-buffer)))
-    (add-hook 'gnuplot-mode-hook #'rainbow-delimiters-mode)
-    (add-hook 'gnuplot-mode-hook #'rainbow-mode)
-    (add-hook 'gnuplot-mode-hook 'hs-minor-mode)
-    ))
+          (add-hook 'gnuplot-mode-hook
+                    (lambda () (local-set-key (kbd "C-c C-c") 'gnuplot-run-buffer)))
+          (add-hook 'gnuplot-mode-hook #'rainbow-delimiters-mode)
+          (add-hook 'gnuplot-mode-hook #'rainbow-mode)
+          (add-hook 'gnuplot-mode-hook 'hs-minor-mode)
+          ))))
 
 (add-hook 'shell-script-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'shell-script-mode-hook #'rainbow-mode)
@@ -624,128 +636,132 @@ Position the cursor at it's beginning, according to the current mode."
 (add-hook 'sh-mode-hook 'hs-minor-mode)
 (add-to-list 'hs-special-modes-alist '(sh-mode "\\(do\\|then\\|in\\)" "\\(done\\|fi\\|esac\\|elif\\)" "/[*/]" nil nil))
 
-(use-package python
-  :mode ("\\.py\\'" . python-mode)
-  ("\\.wsgi$" . python-mode)
-  :interpreter ("python" . python-mode)
-  :init
-  (setq-default indent-tabs-mode nil)
-  :config
-  (setq python-indent-offset 4)
+(if (locate-file "python" exec-path)
+    (progn
+      (use-package python
+        :mode ("\\.py\\'" . python-mode)
+        ("\\.wsgi$" . python-mode)
+        :interpreter ("python" . python-mode)
+        :init
+        (setq-default indent-tabs-mode nil)
+        :config
+        (setq python-indent-offset 4)
 
-  (use-package py-autopep8
-    :ensure t)
+        (use-package py-autopep8
+          :ensure t)
 
-  (add-hook 'python-mode-hook 'smartparens-mode)
-  (add-hook 'python-mode-hook 'rainbow-mode)
-  (add-hook 'python-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'python-mode-hook 'global-ede-mode)
-  (add-hook 'python-mode-hook 'turn-on-auto-fill)
-  (add-hook 'python-mode-hook 'hs-minor-mode)
-  )
-
-
-(use-package jedi
-  :ensure t
-  :config
-  (use-package company-jedi
-    :ensure t
-    :init
-    (add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
-    (setq company-jedi-python-bin "python")))
+        (add-hook 'python-mode-hook 'smartparens-mode)
+        (add-hook 'python-mode-hook 'rainbow-mode)
+        (add-hook 'python-mode-hook 'rainbow-delimiters-mode)
+        (add-hook 'python-mode-hook 'global-ede-mode)
+        (add-hook 'python-mode-hook 'turn-on-auto-fill)
+        (add-hook 'python-mode-hook 'hs-minor-mode)
+        )
 
 
-(use-package anaconda-mode
-  :ensure t
-  :init (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-  :config (use-package company-anaconda
-            :ensure t
-            :init (add-hook 'python-mode-hook 'anaconda-mode)
-            (eval-after-load "company"
-              '(add-to-list 'company-backends '(company-anaconda :with company-capf)))))
-
-(use-package elpy
-  :ensure t
-  :commands elpy-enable
-  :init (with-eval-after-load 'python (elpy-enable))
-
-  :config
-  (electric-indent-local-mode -1)
-  (delete 'elpy-module-highlight-indentation elpy-modules)
-  (delete 'elpy-module-flymake elpy-modules)
-
-  (defun ha/elpy-goto-definition ()
-    (interactive)
-    (condition-case err
-        (elpy-goto-definition)
-      ('error (xref-find-definitions (symbol-name (symbol-at-point))))))
-
-  :bind (:map elpy-mode-map ([remap elpy-goto-definition] .
-                             ha/elpy-goto-definition)))
-
-(use-package auctex
-  :ensure t
-  :mode (("\\.tex\\'" . latex-mode)
-         ("\\.sty\\'" . latex-mode))
-  :commands (latex-mode LaTeX-mode plain-tex-mode)
-  :config
-  (use-package company-auctex
-    :ensure t
-    :config
-    (company-auctex-init))
-  (use-package company-bibtex
-    :ensure t
-    :config
-    (add-to-list 'company-backends 'company-bibtex))
-  (use-package outline-magic
-    :ensure t)
-  (use-package outline-toc-mode
-    :ensure t)
-  (TeX-add-style-hook
-   "latex"
-   (lambda ()
-     (LaTeX-add-environments
-      '("frame" LaTeX-env-contents)))))
+      (use-package jedi
+        :ensure t
+        :config
+        (use-package company-jedi
+          :ensure t
+          :init
+          (add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
+          (setq company-jedi-python-bin "python")))
 
 
-(defun my-latex-mode-hook()
-  (TeX-fold-mode 1)
-  (hs-minor-mode nil)
-  (outline-minor-mode 1)
-  (outline-toc-mode 1)
-  (add-hook 'find-file-hook 'TeX-fold-buffer t t)
-  (local-set-key [C-c C-g] 'TeX-kill-job)
-  (turn-on-auto-fill)
-  (rainbow-delimiters-mode)
-  (rainbow-mode)
-  (TeX-source-correlate-mode)
-  (turn-on-reftex)
-  (LaTeX-math-mode)
-  (LaTeX-preview-setup)
-  (flyspell-mode 1)
-  (setq TeX-auto-save t
-        TeX-parse-self t
-        TeX-save-query t
-        TeX-PDF-mode t
-        TeX-engine 'xetex
-        latex-run-command "xelatex --shell-escape"
-        reftex-plug-into-AUCTeX t)
-  (local-unset-key (kbd "$"))
-  )
+      (use-package anaconda-mode
+        :ensure t
+        :init (add-hook 'python-mode-hook 'anaconda-mode)
+        (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+        :config (use-package company-anaconda
+                  :ensure t
+                  :init (add-hook 'python-mode-hook 'anaconda-mode)
+                  (eval-after-load "company"
+                    '(add-to-list 'company-backends '(company-anaconda :with company-capf)))))
 
-(add-hook 'latex-mode-hook 'my-latex-mode-hook)
-(add-hook 'LaTeX-mode-hook 'my-latex-mode-hook)
+      (use-package elpy
+        :ensure t
+        :commands elpy-enable
+        :init (with-eval-after-load 'python (elpy-enable))
 
-(add-to-list 'TeX-view-program-list '("okular" "okular -p %(outpage) --unique %o"))
-(setq TeX-view-program-selection
-      (quote
-       (((output-dvi style-pstricks)
-         "dvips and gv")
-        (output-dvi "xdvi")
-        (output-pdf "okular")
-        (output-html "xdg-open"))))
-(setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)"))))
+        :config
+        (electric-indent-local-mode -1)
+        (delete 'elpy-module-highlight-indentation elpy-modules)
+        (delete 'elpy-module-flymake elpy-modules)
+
+        (defun ha/elpy-goto-definition ()
+          (interactive)
+          (condition-case err
+              (elpy-goto-definition)
+            ('error (xref-find-definitions (symbol-name (symbol-at-point))))))
+
+        :bind (:map elpy-mode-map ([remap elpy-goto-definition] .
+                                   ha/elpy-goto-definition)))))
+
+(if (locate-file "xelatex" exec-path)
+    (progn
+      (use-package auctex
+        :ensure t
+        :mode (("\\.tex\\'" . latex-mode)
+               ("\\.sty\\'" . latex-mode))
+        :commands (latex-mode LaTeX-mode plain-tex-mode)
+        :config
+        (use-package company-auctex
+          :ensure t
+          :config
+          (company-auctex-init))
+        (use-package company-bibtex
+          :ensure t
+          :config
+          (add-to-list 'company-backends 'company-bibtex))
+        (use-package outline-magic
+          :ensure t
+          :config
+          (define-key outline-minor-mode-map (kbd "<backtab>") 'outline-cycle))
+        (TeX-add-style-hook
+         "latex"
+         (lambda ()
+           (LaTeX-add-environments
+            '("frame" LaTeX-env-contents)))))
+
+
+      (defun my-latex-mode-hook()
+        (TeX-fold-mode 1)
+        (hs-minor-mode nil)
+        (outline-minor-mode 1)
+        (add-hook 'find-file-hook 'TeX-fold-buffer t t)
+        (local-set-key [C-c C-g] 'TeX-kill-job)
+        (turn-on-auto-fill)
+        (rainbow-delimiters-mode)
+        (rainbow-mode)
+        (TeX-source-correlate-mode)
+        (turn-on-reftex)
+        (LaTeX-math-mode)
+        (LaTeX-preview-setup)
+        (flyspell-mode 1)
+        (setq TeX-auto-save t
+              TeX-parse-self t
+              TeX-save-query t
+              TeX-PDF-mode t
+              TeX-engine 'xetex
+              latex-run-command "xelatex --shell-escape"
+              reftex-plug-into-AUCTeX t)
+        (local-unset-key (kbd "$"))
+        )
+
+      (add-hook 'latex-mode-hook 'my-latex-mode-hook)
+      (add-hook 'LaTeX-mode-hook 'my-latex-mode-hook)
+
+      (add-to-list 'TeX-view-program-list '("okular" "okular -p %(outpage) --unique %o"))
+      (setq TeX-view-program-selection
+            (quote
+             (((output-dvi style-pstricks)
+               "dvips and gv")
+              (output-dvi "xdvi")
+              (output-pdf "okular")
+              (output-html "xdg-open"))))
+      (setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)"))))
+      ))
 
 (add-to-list 'auto-mode-alist '("\\.sql$" . sql-mode))
 
@@ -856,11 +872,13 @@ Position the cursor at it's beginning, according to the current mode."
   :ensure t)
 (use-package ox-twbs
   :ensure t)
-(use-package ox-pandoc
-  :ensure t
-  :config
-  (setq org-pandoc-options-for-docx '((standalone . nil)))
-  )
+
+(if (locate-file "xelatex" exec-path)
+    (use-package ox-pandoc
+      :ensure t
+      :config
+      (setq org-pandoc-options-for-docx '((standalone . nil)))
+      ))
 (use-package org-ref
   :ensure t)
 
@@ -1123,15 +1141,6 @@ Position the cursor at it's beginning, according to the current mode."
 (define-key org-mode-map (kbd "C-c C-r") nil)
 (define-key org-mode-map (kbd "C-c C-r b") 'org-ref-helm-insert-cite-link)
 (define-key org-mode-map (kbd "C-c C-r r") 'org-ref-helm-insert-ref-link)
-
-(global-set-key (kbd "<f10>") 'gud-cont)
-(global-set-key (kbd "<f9>") 'gud-step);; equiv matlab step in
-(global-set-key (kbd "<f8>") 'gud-next) ;; equiv matlab step 1
-(global-set-key (kbd "<f7>") 'gud-finish) ;; equiv matlab step out
-
-
-;; this pair is defined down here since it messed up smartparens...
-(sp-pair "\"" "\"" :wrap "M-p \"")
 
 (define-key input-decode-map [?\C-m] [C-m])
 (define-key input-decode-map [?\C-i] [C-i])
