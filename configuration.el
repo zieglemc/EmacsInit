@@ -328,7 +328,8 @@ Position the cursor at it's beginning, according to the current mode."
 (use-package dictcc
   :ensure t
   :init
-  (define-key input-decode-map [?\C-m] [C-m])
+  (if window-system
+  (define-key input-decode-map [?\C-m] [C-m]))
   :bind (("<C-m> d" . dictcc)
          ("<C-m> D" . dictcc-at-point)))
 
@@ -590,7 +591,8 @@ Position the cursor at it's beginning, according to the current mode."
       (add-to-list 'auto-mode-alist '("\\.jl$" . ess-julia-mode))
       (add-hook 'ess-julia-mode-hook #'rainbow-delimiters-mode)
       (add-hook 'ess-julia-mode-hook 'hs-minor-mode)
-      (add-hook 'ess-julia-mode-hook 'flycheck-mode)))
+      (add-hook 'ess-julia-mode-hook 'flycheck-mode)
+      (add-to-list 'hs-special-modes-alist '(sh-mode "\\(function\\|while\\|for\\|if\\)" "\\(end\\)" "/[*/]" nil nil))))
 
 (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
@@ -779,6 +781,17 @@ Position the cursor at it's beginning, according to the current mode."
 
 (use-package csv-mode
   :ensure t)
+
+(if (locate-file "lua" exec-path)
+    (progn
+      (use-package lua-mode
+        :ensure t)
+      (use-package flymake-lua
+        :ensure t)
+      (use-package luarocks
+        :ensure t)
+      (use-package company-lua
+        :ensure t)))
 
 (if (eq system-type 'windows-nt)
     (setq org-directory "C:/zieglemc/Stuff/ToDo")
@@ -1142,8 +1155,10 @@ Position the cursor at it's beginning, according to the current mode."
 (define-key org-mode-map (kbd "C-c C-r b") 'org-ref-helm-insert-cite-link)
 (define-key org-mode-map (kbd "C-c C-r r") 'org-ref-helm-insert-ref-link)
 
-(define-key input-decode-map [?\C-m] [C-m])
-(define-key input-decode-map [?\C-i] [C-i])
+(if window-system
+    (progn
+      (define-key input-decode-map [?\C-m] [C-m])
+      (define-key input-decode-map [?\C-i] [C-i])))
 
 (if (file-exists-p "~/PATIENTS/PatDB.el")
     (load-file "~/PATIENTS/PatDB.el")

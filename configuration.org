@@ -378,7 +378,8 @@
      (use-package dictcc
        :ensure t
        :init
-       (define-key input-decode-map [?\C-m] [C-m])
+       (if window-system
+       (define-key input-decode-map [?\C-m] [C-m]))
        :bind (("<C-m> d" . dictcc)
               ("<C-m> D" . dictcc-at-point)))
 
@@ -668,7 +669,8 @@
            (add-to-list 'auto-mode-alist '("\\.jl$" . ess-julia-mode))
            (add-hook 'ess-julia-mode-hook #'rainbow-delimiters-mode)
            (add-hook 'ess-julia-mode-hook 'hs-minor-mode)
-           (add-hook 'ess-julia-mode-hook 'flycheck-mode)))
+           (add-hook 'ess-julia-mode-hook 'flycheck-mode)
+           (add-to-list 'hs-special-modes-alist '(sh-mode "\\(function\\|while\\|for\\|if\\)" "\\(end\\)" "/[*/]" nil nil))))
    #+END_SRC
 
 ** LISP MODE
@@ -883,6 +885,20 @@
      (use-package csv-mode
        :ensure t)
    #+END_SRC
+** Lua
+   #+begin_src emacs-lisp
+     (if (locate-file "lua" exec-path)
+         (progn
+           (use-package lua-mode
+             :ensure t)
+           (use-package flymake-lua
+             :ensure t)
+           (use-package luarocks
+             :ensure t)
+           (use-package company-lua
+             :ensure t)))
+   #+end_src
+
 * ORG-MODE
   My org-mode setup
   #+BEGIN_SRC emacs-lisp
@@ -1276,8 +1292,10 @@
    Since there are some special keybindings which are interpreted as something different
    (like "C-i" == "<tab>") these have to be decoded.
    #+BEGIN_SRC emacs-lisp
-     (define-key input-decode-map [?\C-m] [C-m])
-     (define-key input-decode-map [?\C-i] [C-i])
+     (if window-system
+         (progn
+           (define-key input-decode-map [?\C-m] [C-m])
+           (define-key input-decode-map [?\C-i] [C-i])))
    #+END_SRC
 
 * Work related Stuff
