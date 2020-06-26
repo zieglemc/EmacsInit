@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: function
+# key: fun
+# --
+
+"""
+  ---
+  $1($2)
+  ---
+  DOCSTRING
+
+"""
+
+function ${1:fun_name}(${2:args})
+         $0
+end

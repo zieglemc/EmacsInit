@@ -228,8 +228,8 @@ Position the cursor at it's beginning, according to the current mode."
 
 (defun mz/buffer-skippable (buffername)
   "Check if the BUFFERNAME startes either with '*' or is within the buffer-exceptions."
-  (setq star-buffer-exceptions '("^\\*scratch\\*$" "^\\*R\\*$" "^\\*julia\\*$" "^\\*shell\\*$") )
-  (setq normal-buffer-exceptions '("^magit-.*$"))
+  (setq star-buffer-exceptions '("^\\*scratch\\*$" "^\\*R\\*$" "^\\*julia.*\\*$" "^\\*shell\\*$") )
+  (setq normal-buffer-exceptions '("^magit[-:].*$"))
   (setq in-star-buffers nil)
   (setq in-buffer-exceptions nil)
 
@@ -329,7 +329,7 @@ Position the cursor at it's beginning, according to the current mode."
   :ensure t
   :init
   (if window-system
-  (define-key input-decode-map [?\C-m] [C-m]))
+      (define-key input-decode-map [?\C-m] [C-m]))
   :bind (("<C-m> d" . dictcc)
          ("<C-m> D" . dictcc-at-point)))
 
@@ -591,8 +591,12 @@ Position the cursor at it's beginning, according to the current mode."
       (add-to-list 'auto-mode-alist '("\\.jl$" . ess-julia-mode))
       (add-hook 'ess-julia-mode-hook #'rainbow-delimiters-mode)
       (add-hook 'ess-julia-mode-hook 'hs-minor-mode)
+      (add-hook 'julia-mode-hook 'hs-minor-mode)
       (add-hook 'ess-julia-mode-hook 'flycheck-mode)
-      (add-to-list 'hs-special-modes-alist '(sh-mode "\\(function\\|while\\|for\\|if\\)" "\\(end\\)" "/[*/]" nil nil))))
+      (add-to-list 'hs-special-modes-alist
+                   '(julia-mode "\\(function*\\|while*\\|for*\\|if*\\)" "\\(end\\)" "/[*/]" forward-sexp hs-c-like-adjust-block-beginning))
+      (add-to-list 'hs-special-modes-alist
+                   '(ess-julia-mode "\\(function*\\|while*\\|for*\\|if*\\)" "\\(end\\)" "/[*/]" forward-sexp hs-c-like-adjust-block-beginning))))
 
 (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'lisp-mode-hook 'hs-minor-mode)
@@ -791,7 +795,9 @@ Position the cursor at it's beginning, according to the current mode."
       (use-package luarocks
         :ensure t)
       (use-package company-lua
-        :ensure t)))
+        :ensure t
+        :config
+        (add-to-list 'company-backends 'company-lua))))
 
 (if (eq system-type 'windows-nt)
     (setq org-directory "C:/zieglemc/Stuff/ToDo")
