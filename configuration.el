@@ -5,12 +5,7 @@
 (setq package-archive-priorities
       '(("MELPA Stable" . 10)
         ("GNU ELPA"     . 5)
-        ("MELPA"        . 0))
-      ;; Pin a couple of packages to MELPA
-      package-pinned-packages
-      '(;; I maintain these and know what changes
-        ("flycheck"  . "MELPA")))
-
+        ("MELPA"        . 0)))
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -49,7 +44,7 @@
 (setq mark-ring-max 5000)
 (delete-selection-mode)
 
-(setq custom-file "~/.emacs.d/emacs-custom.el")
+(setq custom-file (concat user-emacs-directory "emacs-custom.el"))
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (tool-bar-mode -1)
@@ -71,13 +66,37 @@
       ;; We remove Which Function Mode from the mode line, because it's mostly
       ;; invisible here anyway.
       (assq-delete-all 'which-func-mode mode-line-misc-info))
+(winner-mode)
 
 (load-theme 'CrapCram t)
 (set-face-attribute 'default nil :height 95)
 
 (if (eq system-type 'windows-nt)
     (set-face-font 'default "-outline-Consolas-normal-normal-normal-mono-13-*-*-*-c-*-fontset-auto4")
-  (set-face-font 'default "-1ASC-Liberation Mono-normal-italic-normal-*-*-*-*-*-m-0-iso10646-1"))
+  (set-face-font 'default "-CTDB-Fira Code-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1"))
+
+(use-package ligature
+  :load-path "/home/zieglemc/TEST/emacs-evil/ligature"
+  :config
+  ;;   ;; Enable the "www" ligature in every possible major mode
+  (ligature-set-ligatures 't '("www"))
+  ;;   ;; Enable traditional ligature support in eww-mode, if the
+  ;;   ;; `variable-pitch' face supports it
+  ;;   (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
+  ;;   ;; Enable all Cascadia Code ligatures in programming modes
+  ;;   ;; Enable ligatures in programming modes
+  (ligature-set-ligatures 'prog-mode '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
+                                       ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
+                                       "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
+                                       "#_(" ".-" ".=" ".." "..<" "..." "?=" ";;" "/*" "/**"
+                                       "/=" "/==" "/>" "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>"
+                                       "++" "+++" "+>" "=:=" "==" "===" "==>" "=>" "=>>" "<="
+                                       "=<<" "=/=" ">-" ">=" ">=>" ">>" ">>-" ">>=" ">>>" "<*"
+                                       "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
+                                       "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
+                                       "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
+
+  (global-ligature-mode 't))
 
 (use-package rainbow-delimiters
   :ensure t
@@ -104,18 +123,18 @@
   (hlinum-activate)
   )
 
+(use-package indent-guide
+  :ensure t
+  :config
+  (indent-guide-global-mode 1)
+  )
+
 (use-package smart-mode-line
   :ensure t
   :config
   (setq sml/no-confirm-load-theme t)
   (setq sml/theme 'dark)
   (sml/setup)
-  )
-
-(use-package indent-guide
-  :ensure t
-  :config
-  (indent-guide-global-mode 1)
   )
 
 (defun mz/emacs-reload()
@@ -152,31 +171,6 @@ Position the cursor at it's beginning, according to the current mode."
   (dotimes (item (length list))
     (insert (prin1-to-string (elt list item)))
     (insert " ")))
-
-(defun mz/write-package-install ()
-  "Write a function to a file which iterates over a package list and installes missing packages."
-  (insert "
-                  (unless package-archive-contents
-                    (package-refresh-contents))
-                  (setq pp '())
-                  (dolist (p package-archive-contents)
-                          (push (car p) pp))
-                  (dolist (package mypackages)
-                    (unless (package-installed-p package)
-                      (if (member package pp) (package-install package))))"
-          ))
-
-(defun mz/print-package-list ()
-  "Print the list of all packages installed. This function should not be needed if use-package is used."
-  (interactive)
-  (find-file package-file)
-  (erase-buffer)
-  (insert "(defvar mypackages '(")
-  (mz/print-list package-activated-list)
-  (insert "))")
-  (mz/write-package-install)
-  (save-buffer)
-  (kill-buffer))
 
 (defun mz/my_compile ()
   "Take the makefile in current folder or in build folder."
@@ -228,7 +222,8 @@ Position the cursor at it's beginning, according to the current mode."
 
 (defun mz/buffer-skippable (buffername)
   "Check if the BUFFERNAME startes either with '*' or is within the buffer-exceptions."
-  (setq star-buffer-exceptions '("^\\*scratch\\*$" "^\\*R\\*$" "^\\*julia.*\\*$" "^\\*shell\\*$") )
+  (setq star-buffer-exceptions '("^\\*scratch\\*$" "^\\*R.*\\*$" "^\\*Python.*\\*$"
+                                 "^\\*julia.*\\*$" "^\\*shell\\*$") )
   (setq normal-buffer-exceptions '("^magit[-:].*$"))
   (setq in-star-buffers nil)
   (setq in-buffer-exceptions nil)
@@ -264,11 +259,19 @@ Position the cursor at it's beginning, according to the current mode."
   (set-mark-command nil)
   (sp-end-of-sexp))
 
-(use-package exec-path-from-shell
-  :if (memq window-system '(mac ns))
-  :ensure t
+(use-package dashboard
+  :preface
+  (defun mz/dashboard-banner ()
+    "Set a dashboard banner including information on package initialization
+  time and garbage collections."""
+    (setq dashboard-banner-logo-title
+          (format "Emacs ready in %.2f seconds with %d garbage collections."
+                  (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
   :config
-  (exec-path-from-shell-initialize))
+  (setq dashboard-startup-banner 'logo)
+  (dashboard-setup-startup-hook)
+  :hook ((after-init     . dashboard-refresh-buffer)
+         (dashboard-mode . mz/dashboard-banner)))
 
 (use-package smartparens
   :ensure t
@@ -295,22 +298,20 @@ Position the cursor at it's beginning, according to the current mode."
   (sp-local-pair 'xml-mode "<" "/>" :wrap "M-p <")
   (sp-local-pair 'latex-mode "$" "$" :wrap "M-p $")
   (sp-local-pair 'org-mode "/" "/" :wrap "M-p /")
-  (sp-local-pair 'org-mode "_" "_" :wrap "M-p _")
-  )
+  (sp-local-pair 'org-mode "_" "_" :wrap "M-p _"))
 
-(use-package multiple-cursors
-  :ensure t)
-
-(use-package clean-aindent-mode
+(use-package guide-key
   :ensure t
   :config
-  (set 'clean-aindent-is-simple-indent t))
+  (setq guide-key/guide-key-sequence t)
+  (guide-key-mode 1))
 
-;; Package: ws-butler
-(use-package ws-butler
+(use-package anzu
   :ensure t
+  :bind (("M-%" . anzu-query-replace)
+         ("C-M-%" . anzu-query-replace-regexp))
   :config
-  (ws-butler-global-mode))
+  (global-anzu-mode 1))
 
 (use-package undo-tree
   :ensure t
@@ -319,11 +320,15 @@ Position the cursor at it's beginning, according to the current mode."
   (setq undo-tree-visualizer-timestamps t)
   (setq undo-tree-visualizer-diff t))
 
-(use-package guide-key
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns))
   :ensure t
   :config
-  (setq guide-key/guide-key-sequence t)
-  (guide-key-mode 1))
+  (exec-path-from-shell-initialize))
+
+
+(use-package multiple-cursors
+  :ensure t)
 
 (use-package dictcc
   :ensure t
@@ -333,51 +338,29 @@ Position the cursor at it's beginning, according to the current mode."
   :bind (("<C-m> d" . dictcc)
          ("<C-m> D" . dictcc-at-point)))
 
-(use-package winner
-  :ensure t
-  :init
-  (winner-mode)
-  :bind (:map winner-mode-map
-              ("C-c <left>" . nil)
-              ("C-c <right>" . nil)))
-
-(use-package anzu
-  :ensure t
-  :bind (("M-%" . anzu-query-replace)
-         ("C-M-%" . anzu-query-repalce-regexp))
-  :config
-  (global-anzu-mode))
-
 (use-package recentf
   :ensure t
   :init
   (setq recentf-max-saved-items 200
         recentf-max-menu-items 20)
-  (recentf-mode)
-  )
-
-(use-package epc
-  :ensure t)
+  (recentf-mode))
 
 (use-package flyspell
+  :ensure t)
+
+(use-package writegood-mode
   :ensure t
+  :init
+  (add-hook 'flyspell-mode-hook (lambda () (writegood-mode 1)))
   :config
-  (use-package auto-dictionary
-    :ensure t
-    :init
-    (add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1))))
-  (use-package writegood-mode
-    :ensure t
-    :init
-    (add-hook 'flyspell-mode-hook (lambda () (writegood-mode 1)))
-    :config
-    (set-face-underline 'writegood-passive-voice-face nil)
-    (set-face-background 'writegood-duplicates-face "#AA1111")))
+  (set-face-underline 'writegood-passive-voice-face nil)
+  (set-face-background 'writegood-duplicates-face "#AA1111"))
 
 (use-package company
   :ensure t
   :bind (("C-." . company-files))
   :config
+  (setq company-frontends nil)
   (add-to-list 'company-backends 'company-elisp)
   (add-hook 'after-init-hook 'global-company-mode)
   (global-company-mode 1)
@@ -463,111 +446,23 @@ Position the cursor at it's beginning, according to the current mode."
 (use-package helm-company
   :ensure t
   :after (helm company)
-  :bind (("C-<tab>" . helm-company)))
+  :bind (("C-<tab>" . helm-company))
+  :init (progn
+          (defun my-helm-company-complete ()
+            (interactive)
+            (when (company-complete) (helm-company)))
+          (add-to-list 'completion-at-point-functions
+                       #'comint-dynamic-complete-filename)))
 
 (if (locate-file "git" exec-path)
     (use-package magit
       :ensure t
       :bind (( "C-x g" . magit-status))))
 
-(use-package hydra
-  :ensure t
-  )
-
 (use-package flycheck
   :ensure t
   :config
   (global-flycheck-mode 1))
-
-;;; Use irony for completion
-(if (locate-file "gcc" exec-path)
-    (progn
-      (use-package irony
-        :ensure t
-        :config
-        (progn
-          (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-          (use-package company-irony
-            :ensure t
-            :config
-            (push 'company-irony company-backends)
-            )
-          (use-package company-irony-c-headers
-            :ensure t
-            :config
-            (add-to-list 'company-backends 'company-c-headers)
-            (add-to-list 'company-backends 'company-irony-c-headers)
-            (add-to-list 'company-backends 'company-clang)
-            )
-          ))
-      (use-package rtags
-        :ensure t
-        :init
-        (global-unset-key (kbd "M-r"))
-        :bind (("M-r d" . rtags-find-symbol-at-point)
-               ("M-r f" . rtags-find-symbol)
-               ("M-r <left>" . rtags-location-stack-back)
-               ("M-r <right>" . rtags-location-stack-forward)
-               ("M-r l" . rtags-taglist)
-               ("M-r r" . rtags-rename-symbol)
-               ("M-r p" . rtags-reparse-file))
-        :config
-        (progn
-          (use-package company-rtags
-            :ensure t
-            :config
-            (add-to-list 'company-backends 'company-rtags)
-            )
-          (use-package helm-rtags
-            :ensure t
-            :config
-            (setq rtags-display-result-backend 'helm)
-            )
-          ;; Flycheck setup
-          (use-package flycheck-rtags
-            :ensure t
-            )
-          )
-        )))
-
-(if (locate-file "gcc" exec-path)
-    (progn
-      (use-package cmake-mode
-        :ensure t)
-      ;; setup GDB
-      (setq gdb-many-windows t ;; use gdb-many-windows by default
-            gdb-show-main t  ;; Non-nil means display source file containing the main routine at startup
-            )
-
-      (defun my-c-mode-common-hook ()
-        ;; my customizations for all of c-mode and related modes
-        (setq c-default-style "linux" )
-        (setq c-basic-offset 4)
-        (unless (irony--find-server-executable) (call-interactively #'irony-install-server))
-        (setq irony-cdb-compilation-databases '(irony-cdb-libclang irony-cdb-clang-complete))
-        (rtags-start-process-unless-running)
-        (setq rtags-autostart-diagnostics t)
-        (rtags-diagnostics)
-        (hs-minor-mode)
-        (rainbow-mode)
-        (rainbow-delimiters-mode)
-        (turn-on-auto-fill)
-        (global-set-key [f6] 'run-cfile)
-        (global-set-key [C-c C-y] 'uncomment-region)
-        (rtags-start-process-unless-running)
-        (irony-mode)
-        (flycheck-select-checker 'rtags)
-        ;; RTags creates more accurate overlays.
-        (setq-local flycheck-highlighting-mode nil)
-        (setq-local flycheck-check-syntax-automatically nil))
-
-
-      (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
-
-      (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
-      (add-hook 'c++-mode-common-hook 'my-c-mode-common-hook)
-
-      ))
 
 (use-package ess
   :ensure t
@@ -606,14 +501,6 @@ Position the cursor at it's beginning, according to the current mode."
 (add-hook 'lisp-interaction-mode 'rainbow-delimiters-mode)
 (add-hook 'lisp-interaction-mode 'hs-minor-mode)
 
-(if (locate-file "sbcl" exec-path)
-    (progn
-      (use-package slime
-        :ensure t
-        :config
-        (setq inferior-lisp-program "/usr/bin/sbcl")
-        )))
-
 (if (locate-file "gnuplot" exec-path)
     (progn
       (use-package gnuplot-mode
@@ -642,6 +529,8 @@ Position the cursor at it's beginning, according to the current mode."
 (add-hook 'sh-mode-hook 'hs-minor-mode)
 (add-to-list 'hs-special-modes-alist '(sh-mode "\\(do\\|then\\|in\\)" "\\(done\\|fi\\|esac\\|elif\\)" "/[*/]" nil nil))
 
+(add-to-list 'auto-mode-alist '("\\.service$" . conf-mode))
+
 (if (locate-file "python" exec-path)
     (progn
       (use-package python
@@ -664,16 +553,11 @@ Position the cursor at it's beginning, according to the current mode."
         (add-hook 'python-mode-hook 'hs-minor-mode)
         )
 
-
-      (use-package jedi
+      (use-package company-jedi
         :ensure t
-        :config
-        (use-package company-jedi
-          :ensure t
-          :init
-          (add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
-          (setq company-jedi-python-bin "python")))
-
+        :init
+        (add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
+        (setq company-jedi-python-bin "python"))
 
       (use-package anaconda-mode
         :ensure t
@@ -716,10 +600,6 @@ Position the cursor at it's beginning, according to the current mode."
           :ensure t
           :config
           (company-auctex-init))
-        (use-package company-bibtex
-          :ensure t
-          :config
-          (add-to-list 'company-backends 'company-bibtex))
         (use-package outline-magic
           :ensure t
           :config
@@ -758,7 +638,7 @@ Position the cursor at it's beginning, according to the current mode."
       (add-hook 'latex-mode-hook 'my-latex-mode-hook)
       (add-hook 'LaTeX-mode-hook 'my-latex-mode-hook)
 
-      (add-to-list 'TeX-view-program-list '("okular" "okular -p %(outpage) --unique %o"))
+      ;;(add-to-list 'TeX-view-program-list '("okular" "okular -p %(outpage) --unique %o"))
       (setq TeX-view-program-selection
             (quote
              (((output-dvi style-pstricks)
@@ -768,20 +648,6 @@ Position the cursor at it's beginning, according to the current mode."
               (output-html "xdg-open"))))
       (setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)"))))
       ))
-
-(add-to-list 'auto-mode-alist '("\\.sql$" . sql-mode))
-
-(use-package sgml-mode
-  :ensure t)
-(add-to-list 'hs-special-modes-alist
-             '(nxml-mode
-               "<!--\\|<[^/>]*[^/]>"
-               "-->\\|</[^/>]*[^/]>"
-
-               "<!--"
-               sgml-skip-tag-forward
-               nil))
-(add-hook 'nxml-mode-hook 'hs-minor-mode)
 
 (use-package csv-mode
   :ensure t)
@@ -887,8 +753,6 @@ Position the cursor at it's beginning, according to the current mode."
 
 (setq org-export-coding-system 'utf-8)
 
-(use-package ox-reveal
-  :ensure t)
 (use-package ox-twbs
   :ensure t)
 
@@ -898,38 +762,6 @@ Position the cursor at it's beginning, according to the current mode."
       :config
       (setq org-pandoc-options-for-docx '((standalone . nil)))
       ))
-(use-package org-ref
-  :ensure t)
-
-
-(if (eq system-type 'gnu/linux)
-    (progn (setq reftex-default-bibliography '("~/Documents/Literature/bibliography.bib"))
-
-           (setq org-ref-bibliography-notes "~/Documents/Literature/Papers.org"
-                 org-ref-default-bibliography '("~/Documents/Literature/bibliography.bib")
-                 org-ref-pdf-directory "~/Documents/Literature/bibtex-pdfs/")
-
-           (setq bibtex-completion-bibliography "~/Documents/Literature/bibliography.bib"
-                 bibtex-completion-library-path "~/Documents/Literature/bibtex-pdfs/"
-                 bibtex-completion-notes-path "~/Documents/Literature/helm-bibtex-notes"))
-  (progn (setq reftex-default-bibliography '("C:/zieglemc/24Documents/Literature/bibliography.bib"))
-
-         (setq org-ref-bibliography-notes "C:/zieglemc/24Documents/Literature/Papers.org"
-               org-ref-default-bibliography '("C:/zieglemc/24Documents/Literature/bibliography.bib")
-               org-ref-pdf-directory "C:/zieglemc/24Documents/Literature/bibtex-pdfs/")
-
-         (setq bibtex-completion-bibliography "C:/zieglemc/24Documents/Literature/bibliography.bib"
-               bibtex-completion-library-path "C:/zieglemc/24Documents/Literature/bibtex-pdfs/"
-               bibtex-completion-notes-path "C:/zieglemc/24Documents/Literature/helm-bibtex-notes")))
-
-(use-package helm-bibtex
-  :ensure t
-  :config
-  (setq helm-bibtex-format-citation-functions
-        '((org-mode . (lambda (x) (insert (concat
-                                           "[[bibentry:"
-                                           (mapconcat 'identity x ",")
-                                           "]]")) "")))))
 
 (add-to-list 'org-modules 'org-drill)
 (setq org-drill-add-random-noise-to-intervals-p t)
@@ -972,149 +804,6 @@ Position the cursor at it's beginning, according to the current mode."
              '("a" "Agenda Entry" entry (file mz/agenda-file)
                "* %^{Appointment}            %^G\n  %^T\n%?"))
 
-(defhydra hydra-window-stuff ()
-  "
-                         Split: _v_ert  _s_:horz
-                        Delete: _c_lose  _o_nly
-                        Winner: _u_ndo  _r_edo
-                 Switch Window: _h_:left  _j_:down  _k_:up  _l_:right
-                       Buffers: _p_revious  _n_ext  _b_:select  _f_ind-file  _F_projectile
-                        Resize: _H_:splitter left  _J_:splitter down  _K_:splitter up  _L_:splitter right
-                          Move: _a_:up  _z_:down  _g_oto  _i_menu
-"
-
-  ("z" scroll-up-line)
-  ("a" scroll-down-line)
-  ("g" goto-line)
-  ("i" idomenu)
-
-  ("u" winner-undo)
-  ("r" winner-redo)
-
-  ("h" windmove-left)
-  ("j" windmove-down)
-  ("k" windmove-up)
-  ("l" windmove-right)
-  ("<left>" windmove-left :exit t)
-  ("<right>" windmove-right :exit t)
-  ("<up>" windmove-up :exit t)
-  ("<down>" windmove-down :exit t)
-
-  ("p" mz/previous-buffer)
-  ("n" mz/next-buffer)
-  ("b" helm-mini)
-  ("f" helm-find-file)
-  ("F" projectile-find-file)
-
-  ("s" split-window-below)
-  ("v" split-window-right)
-
-  ("c" delete-window)
-  ("o" delete-other-windows)
-
-  ("H" hydra-move-splitter-left)
-  ("J" hydra-move-splitter-down)
-  ("K" hydra-move-splitter-up)
-  ("L" hydra-move-splitter-right)
-
-  ("q" nil))
-
-(defhydra hydra-zoom (global-map "<f2>")
-  "zoom"
-  ("g" text-scale-increase "in")
-  ("l" text-scale-decrease "out")
-  ("q" nil))
-
-(defhydra hydra-hs (:idle 1.0)
-  "
-               Hide^^            ^Show^          ^Toggle^      ^Navigation^
-               ----------------------------------------------------------------
-               _h_ hide all      _s_ show all    _t_oggle      _n_ext line
-               _d_ hide block    _a_ show block  _TAB_toggle   _p_revious line
-               _l_ hide level
-
-               _SPC_ cancel
-               "
-  ("s" hs-show-all)
-  ("h" hs-hide-all)
-  ("a" hs-show-block)
-  ("d" hs-hide-block)
-  ("t" hs-toggle-hiding)
-  ("TAB" hs-toggle-hiding :exit t)
-  ("l" hs-hide-level)
-  ("n" forward-line)
-  ("p" (forward-line -1))
-  ("SPC" nil)
-  )
-
-(defhydra hydra-multiple-cursors ()
-  "
-               ^Up^            ^Down^        ^Miscellaneous^
-          ----------------------------------------------
-          [_p_]   Next    [_n_]   Next    [_l_] Edit lines
-          [_P_]   Skip    [_N_]   Skip    [_a_] Mark all
-          [_M-p_] Unmark  [_M-n_] Unmark  [_q_] Quit
-       "
-  ("l" mc/edit-lines :exit t)
-  ("a" mc/mark-all-like-this :exit t)
-  ("n" mc/mark-next-like-this)
-  ("N" mc/skip-to-next-like-this)
-  ("M-n" mc/unmark-next-like-this)
-  ("p" mc/mark-previous-like-this)
-  ("P" mc/skip-to-previous-like-this)
-  ("M-p" mc/unmark-previous-like-this)
-  ("q" nil))
-
-(defhydra hydra-org (:color red :hint nil)
-  "
-          Navigation^
-          ---------------------------------------------------------
-          _j_ next heading
-          _k_ prev heading
-          _h_ next heading (same level)
-          _l_ prev heading (same level)
-          _u_p higher heading
-          _<tab>_ Cycle visibility
-          _g_o to
-          "
-  ("j" outline-next-visible-heading)
-  ("k" outline-previous-visible-heading)
-  ("h" org-forward-heading-same-level)
-  ("l" org-backward-heading-same-level)
-  ("u" outline-up-heading)
-  ("<tab>" org-cycle)
-  ("g" org-goto :exit t))
-
-
-(defhydra smartparens-hydra ()
-  "
-       ^LevelMovement^          ^Movement^      ^ParensMovement^
-       --------------------------------------------
-       [_d_] LevelDown        [_f_] Forward      [_<left>_] BarfLeft
-       [_a_] BackLevelUp      [_b_] Back         [_<right>_] BarfRight
-       [_w_] LevelUp          [_n_] Next         [_C-<left>_] SlurpLeft
-       [_s_] BackLevelDown    [_t_] Transpose    [_C-<right>_] SlurpRight
-
-       [_k_] Kill     [_q_] Quit
-     "
-  ("d" sp-down-sexp)
-  ("w" sp-up-sexp)
-  ("a" sp-backward-up-sexp)
-  ("s" sp-backward-down-sexp)
-
-  ("f" sp-forward-sexp)
-  ("b" sp-backward-sexp)
-  ("t"  sp-transpose-sexp)
-  ("n"  sp-next-sexp)
-
-  ("<left>" sp-backward-barf-sexp)
-  ("<right>" sp-forward-barf-sexp)
-  ("C-<left>" sp-backward-slurp-sexp)
-  ("C-<right>" sp-forward-slurp-sexp)
-
-  ("k" sp-kill-sexp "Kill" :color blue)
-  ("q" nil "Quit" :color blue))
-
 (global-set-key (kbd "<f12>") 'eval-buffer)
 (global-set-key (kbd "<f5>") 'mz/my_compile)
 (global-set-key (kbd "M-+") 'mz/fast-calc)
@@ -1134,13 +823,8 @@ Position the cursor at it's beginning, according to the current mode."
 (global-unset-key (kbd "C-x C-b"))
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-;; hydras
-(global-unset-key (kbd "M-h"))
-(global-set-key (kbd "M-h") 'hydra-hs/body)
-(global-set-key (kbd "M-n") 'hydra-multiple-cursors/body)
-(global-set-key (kbd "M-P") 'smartparens-hydra/body)
-(global-set-key (kbd "M-g") 'hydra-window-stuff/body)
-(define-key org-mode-map (kbd "C-c h") 'hydra-org/body)
+(define-key winner-mode-map (kbd "C-c <left>") nil)
+(define-key winner-mode-map (kbd "C-c <right>") nil)
 
 (define-key org-mode-map (kbd "C-<tab>") nil)
 
@@ -1166,6 +850,4 @@ Position the cursor at it's beginning, according to the current mode."
       (define-key input-decode-map [?\C-m] [C-m])
       (define-key input-decode-map [?\C-i] [C-i])))
 
-(if (file-exists-p "~/PATIENTS/PatDB.el")
-    (load-file "~/PATIENTS/PatDB.el")
-  )
+

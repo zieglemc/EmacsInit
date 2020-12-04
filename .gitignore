@@ -28,3 +28,6 @@ url
 /history
 /.gitignore.rej
 /.python-environments
+/transient
+/.mc-list.el
+/*~
