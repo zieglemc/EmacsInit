@@ -72,11 +72,11 @@
 (set-face-attribute 'default nil :height 95)
 
 (if (eq system-type 'windows-nt)
-    (set-face-font 'default "-outline-Consolas-normal-normal-normal-mono-13-*-*-*-c-*-fontset-auto4")
+    (set-face-font 'default "-outline-Fira Code-normal-normal-normal-mono-*-*-*-*-c-*-iso10646-1")
   (set-face-font 'default "-CTDB-Fira Code-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1"))
 
 (use-package ligature
-  :load-path "/home/zieglemc/TEST/emacs-evil/ligature"
+  :load-path (lambda () (concat user-emacs-directory "ligature"))
   :config
   ;;   ;; Enable the "www" ligature in every possible major mode
   (ligature-set-ligatures 't '("www"))
@@ -454,7 +454,7 @@ Position the cursor at it's beginning, according to the current mode."
           (add-to-list 'completion-at-point-functions
                        #'comint-dynamic-complete-filename)))
 
-(if (locate-file "git" exec-path)
+(if (or (locate-file "git" exec-path) (locate-file "git.exe" exec-path))
     (use-package magit
       :ensure t
       :bind (( "C-x g" . magit-status))))
