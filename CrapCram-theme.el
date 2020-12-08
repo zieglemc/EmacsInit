@@ -10,8 +10,18 @@
  '(minibuffer-prompt ((t (:weight bold :foreground "#729fcf"))))
  '(highlight ((t (:background "light gray" :foreground "gray21"))))
  '(region ((t (:background "dim gray" :foreground "#e1e1e0"))))
- '(shadow ((((class color grayscale) (min-colors 88) (background light)) (:foreground "grey50")) (((class color grayscale) (min-colors 88) (background dark)) (:foreground "grey70")) (((class color) (min-colors 8) (background light)) (:foreground "green")) (((class color) (min-colors 8) (background dark)) (:foreground "yellow"))))
- '(secondary-selection ((((class color) (min-colors 88) (background light)) (:background "yellow1")) (((class color) (min-colors 88) (background dark)) (:background "SkyBlue4")) (((class color) (min-colors 16) (background light)) (:background "yellow")) (((class color) (min-colors 16) (background dark)) (:background "SkyBlue4")) (((class color) (min-colors 8)) (:foreground "black" :background "cyan")) (t (:inverse-video t))))
+ '(shadow
+   ((((class color grayscale) (min-colors 88) (background light)) (:foreground "grey50"))
+    (((class color grayscale) (min-colors 88) (background dark)) (:foreground "grey70"))
+    (((class color) (min-colors 8) (background light)) (:foreground "green"))
+    (((class color) (min-colors 8) (background dark)) (:foreground "yellow"))))
+ '(secondary-selection
+   ((((class color) (min-colors 88) (background light)) (:background "yellow1"))
+    (((class color) (min-colors 88) (background dark)) (:background "SkyBlue4"))
+    (((class color) (min-colors 16) (background light)) (:background "yellow"))
+    (((class color) (min-colors 16) (background dark)) (:background "SkyBlue4"))
+    (((class color) (min-colors 8)) (:foreground "black" :background "cyan"))
+    (t (:inverse-video t))))
  '(trailing-whitespace ((t (:background "#ff4242"))))
  '(font-lock-builtin-face ((t (:foreground "#23d7d7"))))
  '(font-lock-comment-delimiter-face ((default (:inherit (font-lock-comment-face)))))
@@ -40,11 +50,25 @@
  '(mode-line-highlight ((((class color) (min-colors 88)) (:box (:line-width 2 :color "grey40" :style released-button))) (t (:inherit (highlight)))))
  '(mode-line-inactive ((t (:weight light :box (:line-width -1 :color "grey40" :style nil) :foreground "#eeeeec" :background "#878787" :inherit (mode-line)))))
  '(isearch ((t (:foreground "#000000" :background "#fcffad"))))
- '(isearch-fail ((((class color) (min-colors 88) (background light)) (:background "RosyBrown1")) (((class color) (min-colors 88) (background dark)) (:background "red4")) (((class color) (min-colors 16)) (:background "red")) (((class color) (min-colors 8)) (:background "red")) (((class color grayscale)) (:foreground "grey")) (t (:inverse-video t))))
+ '(isearch-fail
+   ((((class color) (min-colors 88) (background light)) (:background "RosyBrown1"))
+    (((class color) (min-colors 88) (background dark)) (:background "red4"))
+    (((class color) (min-colors 16)) (:background "red"))
+    (((class color) (min-colors 8)) (:background "red"))
+    (((class color grayscale)) (:foreground "grey")) (t (:inverse-video t))))
  '(lazy-highlight ((t (:background "#338f86"))))
- '(match ((((class color) (min-colors 88) (background light)) (:background "yellow1")) (((class color) (min-colors 88) (background dark)) (:background "RoyalBlue3")) (((class color) (min-colors 8) (background light)) (:foreground "black" :background "yellow")) (((class color) (min-colors 8) (background dark)) (:foreground "white" :background "blue")) (((type tty) (class mono)) (:inverse-video t)) (t (:background "gray"))))
+ '(match
+   ((((class color) (min-colors 88) (background light)) (:background "yellow1"))
+    (((class color) (min-colors 88) (background dark)) (:background "RoyalBlue3"))
+    (((class color) (min-colors 8) (background light)) (:foreground "black" :background "yellow"))
+    (((class color) (min-colors 8) (background dark)) (:foreground "white" :background "blue"))
+    (((type tty) (class mono)) (:inverse-video t)) (t (:background "gray"))))
  '(next-error ((t (:inherit (region)))))
  '(query-replace ((t (:inherit (isearch)))))
- '(default ((t (:inherit nil :stipple nil :background "gray2" :foreground "pale goldenrod" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono")))))
+ '(default
+    ((t (:inherit nil :stipple nil :background "gray2" :foreground "pale goldenrod"
+                  :inverse-video nil :box nil :strike-through nil :overline nil
+                  :underline nil :slant normal :weight normal :height 113 :width normal
+                  :foundry "unknown" :family "DejaVu Sans Mono")))))
 
 (provide-theme 'CrapCram)

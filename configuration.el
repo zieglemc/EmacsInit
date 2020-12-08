@@ -37,12 +37,16 @@
 
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
-(set-language-environment "UTF-8")
+(set-language-environment 'utf-8) 
 (prefer-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8)
+(setq default-file-name-coding-system 'utf-8)
 
 (setq global-mark-ring-max 5000)
 (setq mark-ring-max 5000)
 (delete-selection-mode)
+
+(setq visible-bell 1)
 
 (setq custom-file (concat user-emacs-directory "emacs-custom.el"))
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -62,24 +66,25 @@
 (which-function-mode)
 (setq-default header-line-format
               '((which-func-mode ("" which-func-format " "))))
-(setq mode-line-misc-info
-      ;; We remove Which Function Mode from the mode line, because it's mostly
-      ;; invisible here anyway.
-      (assq-delete-all 'which-func-mode mode-line-misc-info))
+;; (setq mode-line-misc-info
+;;       ;; We remove Which Function Mode from the mode line, because it's mostly
+;;       ;; invisible here anyway.
+;;       (assq-delete-all 'which-func-mode mode-line-misc-info))
 (winner-mode)
 
 (load-theme 'CrapCram t)
-(set-face-attribute 'default nil :height 95)
 
 (if (eq system-type 'windows-nt)
     (set-face-font 'default "-outline-Fira Code-normal-normal-normal-mono-*-*-*-*-c-*-iso10646-1")
   (set-face-font 'default "-CTDB-Fira Code-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1"))
 
+(set-face-attribute 'default nil :height 95)
+
 (use-package ligature
   :load-path (lambda () (concat user-emacs-directory "ligature"))
   :config
   ;;   ;; Enable the "www" ligature in every possible major mode
-  (ligature-set-ligatures 't '("www"))
+  (ligature-set-ligatures 't '("www" "->" "-->" "<|" "|>"))
   ;;   ;; Enable traditional ligature support in eww-mode, if the
   ;;   ;; `variable-pitch' face supports it
   ;;   (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
@@ -129,13 +134,40 @@
   (indent-guide-global-mode 1)
   )
 
-(use-package smart-mode-line
+(use-package doom-modeline
   :ensure t
+  :init (doom-modeline-mode t)
   :config
-  (setq sml/no-confirm-load-theme t)
-  (setq sml/theme 'dark)
-  (sml/setup)
+    (setq doom-modeline-height 15)
   )
+
+(use-package all-the-icons
+  :ensure t
+  )
+
+(use-package dashboard
+  :preface
+  (defun mz/dashboard-banner ()
+    "Set a dashboard banner including information on package initialization
+  time and garbage collections."""
+    (setq dashboard-banner-logo-title
+          (format "Emacs ready in %.2f seconds with %d garbage collections."
+                  (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
+
+  :config
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-center-content t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-week-agenda t)
+  (setq dashboard-filter-agenda-entry (lambda () (when (org-entry-is-done-p) (point))))
+  (setq dashboard-footer-messages '("Dashboard is pretty cool!"))
+  (setq dashboard-footer-icon (all-the-icons-fileicon "emacs"
+                                                      :height 1.1
+                                                      :v-adjust -0.05
+                                                      :face 'font-lock-keyword-face))
+  (dashboard-setup-startup-hook)
+  :hook ((after-init     . dashboard-refresh-buffer)
+         (dashboard-mode . mz/dashboard-banner)))
 
 (defun mz/emacs-reload()
   "Reload the Emacs ini file (~/.emacs.d/init.el)."
@@ -258,20 +290,6 @@ Position the cursor at it's beginning, according to the current mode."
   (sp-beginning-of-sexp)
   (set-mark-command nil)
   (sp-end-of-sexp))
-
-(use-package dashboard
-  :preface
-  (defun mz/dashboard-banner ()
-    "Set a dashboard banner including information on package initialization
-  time and garbage collections."""
-    (setq dashboard-banner-logo-title
-          (format "Emacs ready in %.2f seconds with %d garbage collections."
-                  (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
-  :config
-  (setq dashboard-startup-banner 'logo)
-  (dashboard-setup-startup-hook)
-  :hook ((after-init     . dashboard-refresh-buffer)
-         (dashboard-mode . mz/dashboard-banner)))
 
 (use-package smartparens
   :ensure t
@@ -458,6 +476,16 @@ Position the cursor at it's beginning, according to the current mode."
     (use-package magit
       :ensure t
       :bind (( "C-x g" . magit-status))))
+
+;     (use-package evil
+;       :ensure t
+;       :init
+;       (setq evil-want-integration t)
+;       (setq evil-want-keybinding nil)
+;       (setq evil-want-C-u-scroll t)
+;       :config
+;       (evil-mode 1)
+;       )
 
 (use-package flycheck
   :ensure t
@@ -666,8 +694,8 @@ Position the cursor at it's beginning, according to the current mode."
         (add-to-list 'company-backends 'company-lua))))
 
 (if (eq system-type 'windows-nt)
-    (setq org-directory "C:/zieglemc/Stuff/ToDo")
-  (setq org-directory "/home/zieglemc/Stuff/ToDo"))
+    (setq org-directory "C:/ToDo")
+  (setq org-directory "/home/zieglemc/ToDo"))
 
 (define-obsolete-function-alias 'org-define-error 'define-error)
 (defun org-file-path (filename)
@@ -683,14 +711,20 @@ Position the cursor at it's beginning, according to the current mode."
 (setq org-archive-location
       (concat (org-file-path "archive.org") "::* From %s" ))
 
-(setq org-reveal-root "file:///home/zieglemc/src/reveal.js-master/js/reveal.js")
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.todo$" . org-mode))
 
 (setq org-hide-leading-stars t)
-(setq org-ellipsis " ↷")
+(setq org-ellipsis "  ↘") ;(format "%s" (all-the-icons-material "wrap_text" :height 1.5)))
+
 (use-package org-bullets
   :ensure t
+  )
+
+(use-package org-pretty-tags
+  :ensure t
+  :config
+  (org-pretty-tags-global-mode)
   )
 
 (defun my-org-mode-hook ()
@@ -712,7 +746,6 @@ Position the cursor at it's beginning, according to the current mode."
       '(("W" "Show entries for 3 weeks" agenda "" ((org-agenda-span 21)))))
 
 (setq org-agenda-files `(
-                         ,(org-file-path "worktime.org")
                          ,(org-file-path "todo.org")
                          ,(org-file-path "ideas.org")
                          ,(org-file-path "to-read.org")
@@ -763,13 +796,13 @@ Position the cursor at it's beginning, according to the current mode."
       (setq org-pandoc-options-for-docx '((standalone . nil)))
       ))
 
-(add-to-list 'org-modules 'org-drill)
-(setq org-drill-add-random-noise-to-intervals-p t)
-(setq org-drill-hint-separator "|")
-(setq org-drill-left-cloze-delimiter "<[")
-(setq org-drill-right-cloze-delimiter "]>")
-(setq org-drill-learn-fraction 0.15)
-(load-file "~/.emacs.d/mz-functions/learnjapanese.el")
+;(add-to-list 'org-modules 'org-drill)
+;(setq org-drill-add-random-noise-to-intervals-p t)
+;(setq org-drill-hint-separator "|")
+;(setq org-drill-left-cloze-delimiter "<[")
+;(setq org-drill-right-cloze-delimiter "]>")
+;(setq org-drill-learn-fraction 0.15)
+;(load-file "~/.emacs.d/mz-functions/learnjapanese.el")
 
 (setq mz/todo-file (org-file-path "todo.org"))
 (setq mz/ideas-file (org-file-path "ideas.org"))
@@ -849,5 +882,3 @@ Position the cursor at it's beginning, according to the current mode."
     (progn
       (define-key input-decode-map [?\C-m] [C-m])
       (define-key input-decode-map [?\C-i] [C-i])))
-
-
