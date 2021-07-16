@@ -37,7 +37,7 @@
 
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
-(set-language-environment 'utf-8) 
+(set-language-environment 'utf-8)
 (prefer-coding-system 'utf-8)
 (setq locale-coding-system 'utf-8)
 (setq default-file-name-coding-system 'utf-8)
@@ -138,7 +138,7 @@
   :ensure t
   :init (doom-modeline-mode t)
   :config
-    (setq doom-modeline-height 15)
+  (setq doom-modeline-height 15)
   )
 
 (use-package all-the-icons
@@ -146,6 +146,7 @@
   )
 
 (use-package dashboard
+  :ensure t
   :preface
   (defun mz/dashboard-banner ()
     "Set a dashboard banner including information on package initialization
@@ -166,7 +167,7 @@
                                                       :v-adjust -0.05
                                                       :face 'font-lock-keyword-face))
   (dashboard-setup-startup-hook)
-  :hook ((after-init     . dashboard-refresh-buffer)
+  :hook ((emacs-startup . dashboard-refresh-buffer)
          (dashboard-mode . mz/dashboard-banner)))
 
 (defun mz/emacs-reload()
@@ -747,8 +748,6 @@ Position the cursor at it's beginning, according to the current mode."
 
 (setq org-agenda-files `(
                          ,(org-file-path "todo.org")
-                         ,(org-file-path "ideas.org")
-                         ,(org-file-path "to-read.org")
                          ,(org-file-path "agenda.org")
                          ))
 
@@ -796,18 +795,25 @@ Position the cursor at it's beginning, according to the current mode."
       (setq org-pandoc-options-for-docx '((standalone . nil)))
       ))
 
-;(add-to-list 'org-modules 'org-drill)
-;(setq org-drill-add-random-noise-to-intervals-p t)
-;(setq org-drill-hint-separator "|")
-;(setq org-drill-left-cloze-delimiter "<[")
-;(setq org-drill-right-cloze-delimiter "]>")
-;(setq org-drill-learn-fraction 0.15)
-;(load-file "~/.emacs.d/mz-functions/learnjapanese.el")
+;;(add-to-list 'org-modules 'org-drill)
+;;(setq org-drill-add-random-noise-to-intervals-p t)
+;;(setq org-drill-hint-separator "|")
+;;(setq org-drill-left-cloze-delimiter "<[")
+;;(setq org-drill-right-cloze-delimiter "]>")
+;;(setq org-drill-learn-fraction 0.15)
+;;(load-file "~/.emacs.d/mz-functions/learnjapanese.el")
+;; (setq jp/vocabulary-file (org-file-path "Vocabulary.org"))
+;; (add-to-list 'org-capture-templates
+;;              '("j" "Japanese Word/Phrase" entry (file+headline jp/vocabulary-file "Words and Phrases")
+;;                "** %(jp/type-prompt)     :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: multisided\n   :ADDED:    %U\n   :END:\n*** Japanese\n    %(jp/japanese-get-word (jp/japanese-prompt))\n*** English\n    %(jp/english-prompt)"))
+;; (add-to-list 'org-capture-templates
+;;              '("J" "Japanese Grammar" entry (file+headline jp/vocabulary-file "Grammar")
+;;                "** %(jp/grammar-type-prompt) :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: hide2cloze\n   :ADDED:    %U\n   :END:\n   %(jp/definition-prompt)\n*** Example\n    %(jp/japanese-get-word (jp/japanese-prompt))\n    %(jp/english-prompt)"))
 
 (setq mz/todo-file (org-file-path "todo.org"))
-(setq mz/ideas-file (org-file-path "ideas.org"))
-(setq mz/to-read-file (org-file-path "to-read.org"))
-(setq mz/how-to-file (org-file-path "how-to.org"))
+                                        ;(setq mz/ideas-file (org-file-path "ideas.org"))
+                                        ;(setq mz/to-read-file (org-file-path "to-read.org"))
+                                        ;(setq mz/how-to-file (org-file-path "how-to.org"))
 (setq mz/agenda-file (org-file-path "agenda.org"))
 
 (setq org-capture-templates
@@ -815,24 +821,17 @@ Position the cursor at it's beginning, according to the current mode."
         ("t" "Todo"
          entry
          (file mz/todo-file))
-        ("i" "Ideas"
-         entry
-         (file mz/ideas-file))
-        ("r" "To Read"
-         checkitem
-         (file mz/to-read-file))
-        ("h" "How-To"
-         entry
-         (file mz/how-to-file))
+                                        ;("i" "Ideas"
+                                        ; entry
+                                        ; (file mz/ideas-file))
+                                        ;("r" "To Read"
+                                        ; checkitem
+                                        ; (file mz/to-read-file))
+                                        ;("h" "How-To"
+                                        ; entry
+                                        ; (file mz/how-to-file))
         ))
 
-(setq jp/vocabulary-file (org-file-path "Vocabulary.org"))
-(add-to-list 'org-capture-templates
-             '("j" "Japanese Word/Phrase" entry (file+headline jp/vocabulary-file "Words and Phrases")
-               "** %(jp/type-prompt)     :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: multisided\n   :ADDED:    %U\n   :END:\n*** Japanese\n    %(jp/japanese-get-word (jp/japanese-prompt))\n*** English\n    %(jp/english-prompt)"))
-(add-to-list 'org-capture-templates
-             '("J" "Japanese Grammar" entry (file+headline jp/vocabulary-file "Grammar")
-               "** %(jp/grammar-type-prompt) :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: hide2cloze\n   :ADDED:    %U\n   :END:\n   %(jp/definition-prompt)\n*** Example\n    %(jp/japanese-get-word (jp/japanese-prompt))\n    %(jp/english-prompt)"))
 (add-to-list 'org-capture-templates
              '("a" "Agenda Entry" entry (file mz/agenda-file)
                "* %^{Appointment}            %^G\n  %^T\n%?"))

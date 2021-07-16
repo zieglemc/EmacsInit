@@ -4,12 +4,12 @@
     (add-to-list 'package-archives '("stable" . "http://stable.melpa.org/packages/"))
     (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
     (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-
+    
     (setq package-archive-priorities
           '(("MELPA Stable" . 10)
             ("GNU ELPA"     . 5)
             ("MELPA"        . 0)))
-
+    
     (unless (package-installed-p 'use-package)
       (package-refresh-contents)
       (package-install 'use-package))
@@ -60,7 +60,7 @@
   #+BEGIN_SRC emacs-lisp
     (set-terminal-coding-system 'utf-8)
     (set-keyboard-coding-system 'utf-8)
-    (set-language-environment 'utf-8) 
+    (set-language-environment 'utf-8)
     (prefer-coding-system 'utf-8)
     (setq locale-coding-system 'utf-8)
     (setq default-file-name-coding-system 'utf-8)
@@ -96,7 +96,7 @@
                 '(buffer-file-name "%f" (dired-directory dired-directory "%b"))
                 )
           )
-
+    
     (which-function-mode)
     (setq-default header-line-format
                   '((which-func-mode ("" which-func-format " "))))
@@ -109,13 +109,13 @@
   and load my own custom theme and fonts
   #+BEGIN_SRC emacs-lisp
     (load-theme 'CrapCram t)
-
+    
     (if (eq system-type 'windows-nt)
         (set-face-font 'default "-outline-Fira Code-normal-normal-normal-mono-*-*-*-*-c-*-iso10646-1")
       (set-face-font 'default "-CTDB-Fira Code-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1"))
-
+    
     (set-face-attribute 'default nil :height 95)
-
+    
     (use-package ligature
       :load-path (lambda () (concat user-emacs-directory "ligature"))
       :config
@@ -136,7 +136,7 @@
                                            "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
                                            "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
                                            "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
-
+    
       (global-ligature-mode 't))
   #+END_SRC
   Now initialize some packages for further modifications to the UI
@@ -156,22 +156,22 @@
        '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta"))))
        '(rainbow-delimiters-depth-9-face ((t (:foreground "sienna")))))
       )
-
+    
     (use-package rainbow-mode
       :ensure t)
-
+    
     (use-package hlinum
       :ensure t
       :config
       (hlinum-activate)
       )
-
+    
     (use-package indent-guide
       :ensure t
       :config
       (indent-guide-global-mode 1)
       )
-
+    
   #+END_SRC
   Use the doom-modeline since it looks much nicer compared to the default emacs one
   #+begin_src emacs-lisp
@@ -179,25 +179,26 @@
       :ensure t
       :init (doom-modeline-mode t)
       :config
-        (setq doom-modeline-height 15)
+      (setq doom-modeline-height 15)
       )
   #+end_src
-  
+
   Add the dashboard to greet the user on starting emacs
   #+BEGIN_SRC emacs-lisp
     (use-package all-the-icons
       :ensure t
       )
-
+    
     (use-package dashboard
+      :ensure t
       :preface
       (defun mz/dashboard-banner ()
-        "Set a dashboard banner including information on package initialization
+        """Set a dashboard banner including information on package initialization
       time and garbage collections."""
         (setq dashboard-banner-logo-title
               (format "Emacs ready in %.2f seconds with %d garbage collections."
                       (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
-
+    
       :config
       (setq dashboard-startup-banner 'logo)
       (setq dashboard-center-content t)
@@ -210,7 +211,7 @@
                                                           :v-adjust -0.05
                                                           :face 'font-lock-keyword-face))
       (dashboard-setup-startup-hook)
-      :hook ((after-init     . dashboard-refresh-buffer)
+      :hook ((emacs-startup . dashboard-refresh-buffer)
              (dashboard-mode . mz/dashboard-banner)))
   #+END_SRC
 
@@ -221,7 +222,7 @@
       "Reload the Emacs ini file (~/.emacs.d/init.el)."
       (interactive)
       (load-file '"~/.emacs.d/init.el"))
-
+    
     (defun mz/indent-buffer ()
       "Indent an entire buffer using the default intenting scheme."
       (interactive)
@@ -230,7 +231,7 @@
       (indent-region (point-min) (point-max) nil)
       (untabify (point-min) (point-max))
       (jump-to-register 'o))
-
+    
     (defun mz/new-line-above ()
       "Insert an empty line above the current line.
     Position the cursor at it's beginning, according to the current mode."
@@ -239,19 +240,19 @@
       (newline-and-indent)
       (forward-line -1)
       (indent-according-to-mode))
-
+    
     (defun mz/mark-done-and-archive ()
       "Mark the state of an 'org-mode' item as DONE and archive it."
       (interactive)
       (org-todo 'done)
       (org-archive-subtree))
-
+    
     (defun mz/print-list (list)
       "A function to print a LIST in a formatted matter."
       (dotimes (item (length list))
         (insert (prin1-to-string (elt list item)))
         (insert " ")))
-
+    
     (defun mz/my_compile ()
       "Take the makefile in current folder or in build folder."
       (interactive)
@@ -265,7 +266,7 @@
                         (replace-regexp-in-string "src" "build" (file-name-directory buffer-file-name))
                         " && make -j4"))))
       (compile compile-command))
-
+    
     (defun mz/workwndw()
       "Load specific files and the window accordingly."
       (interactive)
@@ -276,7 +277,7 @@
       (find-file "~/Stuff/ToDo/worktime.org")
       (windmove-right)
       (outline-show-all))
-
+    
     (defun mz/fast-calc()
       "Parse for ++$1++ and substiute with the calculated result of $1."
       (interactive)
@@ -298,8 +299,8 @@
              (calc-eval
               (buffer-substring
                (region-beginning) (region-end))))))))
-
-
+    
+    
     (defun mz/buffer-skippable (buffername)
       "Check if the BUFFERNAME startes either with '*' or is within the buffer-exceptions."
       (setq star-buffer-exceptions '("^\\*scratch\\*$" "^\\*R.*\\*$" "^\\*Python.*\\*$"
@@ -307,31 +308,31 @@
       (setq normal-buffer-exceptions '("^magit[-:].*$"))
       (setq in-star-buffers nil)
       (setq in-buffer-exceptions nil)
-
+    
       (dolist (current-restring star-buffer-exceptions in-star-buffers)
         (setq in-star-buffers (cons (not (string-match current-restring buffername)) in-star-buffers)))
       (setq in-star-buffers (cons (string-match "^\\*.*\\*$" buffername) in-star-buffers))
-
+    
       (dolist (current-restring normal-buffer-exceptions in-buffer-exceptions)
         (setq in-buffer-exceptions (cons (string-match current-restring buffername) in-buffer-exceptions)))
-
+    
       (or (null (memq nil in-star-buffers)) (null (memq nil in-buffer-exceptions)))
       )
-
+    
     (defun mz/next-buffer()
       "Go to the next buffer and continue if the buffer is skippable according to mz/buffer-skippable."
       (interactive)
       (next-buffer)
       (while (mz/buffer-skippable (buffer-name))
         (next-buffer)))
-
+    
     (defun mz/previous-buffer()
       "Go to the previous buffer and continue if the buffer is skippable according to mz/buffer-skippable."
       (interactive)
       (previous-buffer)
       (while (mz/buffer-skippable (buffer-name))
         (previous-buffer)))
-
+    
     (defun mz/mark-everything-in-parenthesis()
       "Mark everything within parenthesis."
       (interactive)
@@ -374,20 +375,20 @@
        (sp-local-pair 'latex-mode "$" "$" :wrap "M-p $")
        (sp-local-pair 'org-mode "/" "/" :wrap "M-p /")
        (sp-local-pair 'org-mode "_" "_" :wrap "M-p _"))
-
+     
      (use-package guide-key
        :ensure t
        :config
        (setq guide-key/guide-key-sequence t)
        (guide-key-mode 1))
-
+     
      (use-package anzu
        :ensure t
        :bind (("M-%" . anzu-query-replace)
               ("C-M-%" . anzu-query-replace-regexp))
        :config
        (global-anzu-mode 1))
-
+     
      (use-package undo-tree
        :ensure t
        :config
@@ -402,11 +403,11 @@
        :ensure t
        :config
        (exec-path-from-shell-initialize))
-
-
+     
+     
      (use-package multiple-cursors
        :ensure t)
-
+     
      (use-package dictcc
        :ensure t
        :init
@@ -414,17 +415,17 @@
            (define-key input-decode-map [?\C-m] [C-m]))
        :bind (("<C-m> d" . dictcc)
               ("<C-m> D" . dictcc-at-point)))
-
+     
      (use-package recentf
        :ensure t
        :init
        (setq recentf-max-saved-items 200
              recentf-max-menu-items 20)
        (recentf-mode))
-
+     
      (use-package flyspell
        :ensure t)
-
+     
      (use-package writegood-mode
        :ensure t
        :init
@@ -506,9 +507,9 @@
              helm-ff-search-library-in-sexp t ; search for library in `require' and `declare-function' sexp.
              helm-scroll-amount 8 ; scroll 8 lines other window using M-<next>/M-<prior>
              helm-ff-file-name-history-use-recentf t)
-
+     
        (helm-autoresize-mode t)
-
+     
        (setq helm-apropos-fuzzy-match t)
        (setq helm-buffers-fuzzy-matching t
              helm-recentf-fuzzy-match    t)
@@ -516,12 +517,12 @@
              helm-imenu-fuzzy-match    t)
        (helm-mode 1)
        )
-
+     
      (use-package helm-swoop
        :ensure t
        :after (helm)
        :bind  (("M-s" . helm-swoop)))
-
+     
      (use-package helm-flycheck
        :ensure t
        :after (helm flycheck)
@@ -540,7 +541,7 @@
                  (when (company-complete) (helm-company)))
                (add-to-list 'completion-at-point-functions
                             #'comint-dynamic-complete-filename)))
-
+     
    #+END_SRC
 ** Magit
    #+BEGIN_SRC emacs-lisp
@@ -551,16 +552,16 @@
    #+END_SRC
 ** Evil-mode
    Alright, here the evil-mode package is loaded and defined to use vim-like movements and controls.
-   #+begin_src emacs-lisp 
-;     (use-package evil
-;       :ensure t
-;       :init
-;       (setq evil-want-integration t)
-;       (setq evil-want-keybinding nil)
-;       (setq evil-want-C-u-scroll t)
-;       :config
-;       (evil-mode 1)
-;       )
+   #+begin_src emacs-lisp
+                                             ;     (use-package evil
+                                             ;       :ensure t
+                                             ;       :init
+                                             ;       (setq evil-want-integration t)
+                                             ;       (setq evil-want-keybinding nil)
+                                             ;       (setq evil-want-C-u-scroll t)
+                                             ;       :config
+                                             ;       (evil-mode 1)
+                                             ;       )
    #+end_src
 
 
@@ -580,7 +581,7 @@
        (use-package ess-smart-underscore
          :ensure t)
        )
-
+     
      (add-hook 'R-mode-hook #'rainbow-delimiters-mode)
      (add-hook 'R-mode-hook #'rainbow-mode)
      (add-hook 'R-mode-hook 'hs-minor-mode)
@@ -616,7 +617,7 @@
      (add-to-list 'auto-mode-alist '("\\.el$" . lisp-interaction-mode))
      (add-hook 'lisp-interaction-mode 'rainbow-delimiters-mode)
      (add-hook 'lisp-interaction-mode 'hs-minor-mode)
-
+     
    #+END_SRC
 ** GNUPLOT MODE
    #+BEGIN_SRC emacs-lisp
@@ -630,10 +631,10 @@
                :config
                (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
                (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot mode" t)
-
+     
                (add-to-list 'auto-mode-alist '("\\.gnu$" . gnuplot-mode))
                (add-to-list 'auto-mode-alist '("\\.plt$" . gnuplot-mode))
-
+     
                (add-hook 'gnuplot-mode-hook
                          (lambda () (local-set-key (kbd "C-c C-c") 'gnuplot-run-buffer)))
                (add-hook 'gnuplot-mode-hook #'rainbow-delimiters-mode)
@@ -650,7 +651,7 @@
      (add-hook 'sh-mode-hook #'rainbow-mode)
      (add-hook 'sh-mode-hook 'hs-minor-mode)
      (add-to-list 'hs-special-modes-alist '(sh-mode "\\(do\\|then\\|in\\)" "\\(done\\|fi\\|esac\\|elif\\)" "/[*/]" nil nil))
-
+     
      (add-to-list 'auto-mode-alist '("\\.service$" . conf-mode))
    #+END_SRC
 
@@ -666,10 +667,10 @@
              (setq-default indent-tabs-mode nil)
              :config
              (setq python-indent-offset 4)
-
+     
              (use-package py-autopep8
                :ensure t)
-
+     
              (add-hook 'python-mode-hook 'smartparens-mode)
              (add-hook 'python-mode-hook 'rainbow-mode)
              (add-hook 'python-mode-hook 'rainbow-delimiters-mode)
@@ -677,13 +678,13 @@
              (add-hook 'python-mode-hook 'turn-on-auto-fill)
              (add-hook 'python-mode-hook 'hs-minor-mode)
              )
-
+     
            (use-package company-jedi
              :ensure t
              :init
              (add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
              (setq company-jedi-python-bin "python"))
-
+     
            (use-package anaconda-mode
              :ensure t
              :init (add-hook 'python-mode-hook 'anaconda-mode)
@@ -693,27 +694,27 @@
                        :init (add-hook 'python-mode-hook 'anaconda-mode)
                        (eval-after-load "company"
                          '(add-to-list 'company-backends '(company-anaconda :with company-capf)))))
-
+     
            (use-package elpy
              :ensure t
              :commands elpy-enable
              :init (with-eval-after-load 'python (elpy-enable))
-
+     
              :config
              (electric-indent-local-mode -1)
              (delete 'elpy-module-highlight-indentation elpy-modules)
              (delete 'elpy-module-flymake elpy-modules)
-
+     
              (defun ha/elpy-goto-definition ()
                (interactive)
                (condition-case err
                    (elpy-goto-definition)
                  ('error (xref-find-definitions (symbol-name (symbol-at-point))))))
-
+     
              :bind (:map elpy-mode-map ([remap elpy-goto-definition] .
                                         ha/elpy-goto-definition)))))
-
-
+     
+     
    #+END_SRC
 ** AUCTEX
    Everything that corresponds to latex
@@ -739,8 +740,8 @@
               (lambda ()
                 (LaTeX-add-environments
                  '("frame" LaTeX-env-contents)))))
-
-
+     
+     
            (defun my-latex-mode-hook()
              (TeX-fold-mode 1)
              (hs-minor-mode nil)
@@ -764,10 +765,10 @@
                    reftex-plug-into-AUCTeX t)
              (local-unset-key (kbd "$"))
              )
-
+     
            (add-hook 'latex-mode-hook 'my-latex-mode-hook)
            (add-hook 'LaTeX-mode-hook 'my-latex-mode-hook)
-
+     
            ;;(add-to-list 'TeX-view-program-list '("okular" "okular -p %(outpage) --unique %o"))
            (setq TeX-view-program-selection
                  (quote
@@ -805,37 +806,37 @@
     (if (eq system-type 'windows-nt)
         (setq org-directory "C:/ToDo")
       (setq org-directory "/home/zieglemc/ToDo"))
-
+    
     (define-obsolete-function-alias 'org-define-error 'define-error)
     (defun org-file-path (filename)
       "Return the absolute adress of an org file, given its relative name"
       (interactive)
       (message "%s" (concat (file-name-as-directory org-directory) filename))
       )
-
+    
     (use-package org
       :ensure org-plus-contrib
       )
-
+    
     (setq org-archive-location
           (concat (org-file-path "archive.org") "::* From %s" ))
-
+    
     (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
     (add-to-list 'auto-mode-alist '("\\.todo$" . org-mode))
-
+    
     (setq org-hide-leading-stars t)
     (setq org-ellipsis "  ↘") ;(format "%s" (all-the-icons-material "wrap_text" :height 1.5)))
-
+    
     (use-package org-bullets
       :ensure t
       )
-
+    
     (use-package org-pretty-tags
       :ensure t
       :config
       (org-pretty-tags-global-mode)
       )
-
+    
     (defun my-org-mode-hook ()
       (org-bullets-mode 1)
       (hs-minor-mode 1)
@@ -845,25 +846,23 @@
       (rainbow-mode 1)
       (rainbow-delimiters-mode 0)
       )
-
+    
     (add-hook 'org-mode-hook 'my-org-mode-hook)
-
+    
     (setq org-src-fontify-natively t)
     (setq org-src-tab-acts-natively t)
-
+    
     (setq org-agenda-custom-commands
           '(("W" "Show entries for 3 weeks" agenda "" ((org-agenda-span 21)))))
-
+    
     (setq org-agenda-files `(
                              ,(org-file-path "todo.org")
-                             ,(org-file-path "ideas.org")
-                             ,(org-file-path "to-read.org")
                              ,(org-file-path "agenda.org")
                              ))
-
+    
     (setq org-log-done 'time)
     (define-key global-map "\C-c\C-x\C-s" 'mz/mark-done-and-archive)
-
+    
     (setq org-file-apps
           '((auto-mode . emacs)
             ("\\.x?html?\\'" . "firefox %s")
@@ -873,7 +872,7 @@
             ("\\.jpg\\'" . "gpicview %s")
             ("\\.raw\\'" . "imagej %s")
             ("\\.png\\'" . "gpicview $s")))
-
+    
     (add-to-list 'org-modules 'org-collector)
   #+END_SRC
 ** Org functions
@@ -902,10 +901,10 @@
 ** Org export
    #+BEGIN_SRC emacs-lisp
      (setq org-export-coding-system 'utf-8)
-
+     
      (use-package ox-twbs
        :ensure t)
-
+     
      (if (locate-file "xelatex" exec-path)
          (use-package ox-pandoc
            :ensure t
@@ -916,51 +915,51 @@
 ** Org drill
    In the case that I want to restart using org-drill, these lines must be uncommented.
    #+BEGIN_SRC emacs-lisp
-     ;(add-to-list 'org-modules 'org-drill)
-     ;(setq org-drill-add-random-noise-to-intervals-p t)
-     ;(setq org-drill-hint-separator "|")
-     ;(setq org-drill-left-cloze-delimiter "<[")
-     ;(setq org-drill-right-cloze-delimiter "]>")
-     ;(setq org-drill-learn-fraction 0.15)
-     ;(load-file "~/.emacs.d/mz-functions/learnjapanese.el")
+     ;;(add-to-list 'org-modules 'org-drill)
+     ;;(setq org-drill-add-random-noise-to-intervals-p t)
+     ;;(setq org-drill-hint-separator "|")
+     ;;(setq org-drill-left-cloze-delimiter "<[")
+     ;;(setq org-drill-right-cloze-delimiter "]>")
+     ;;(setq org-drill-learn-fraction 0.15)
+     ;;(load-file "~/.emacs.d/mz-functions/learnjapanese.el")
+     ;; (setq jp/vocabulary-file (org-file-path "Vocabulary.org"))
+     ;; (add-to-list 'org-capture-templates
+     ;;              '("j" "Japanese Word/Phrase" entry (file+headline jp/vocabulary-file "Words and Phrases")
+     ;;                "** %(jp/type-prompt)     :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: multisided\n   :ADDED:    %U\n   :END:\n*** Japanese\n    %(jp/japanese-get-word (jp/japanese-prompt))\n*** English\n    %(jp/english-prompt)"))
+     ;; (add-to-list 'org-capture-templates
+     ;;              '("J" "Japanese Grammar" entry (file+headline jp/vocabulary-file "Grammar")
+     ;;                "** %(jp/grammar-type-prompt) :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: hide2cloze\n   :ADDED:    %U\n   :END:\n   %(jp/definition-prompt)\n*** Example\n    %(jp/japanese-get-word (jp/japanese-prompt))\n    %(jp/english-prompt)"))
    #+END_SRC
 ** Org mode capture templates
    #+BEGIN_SRC emacs-lisp
      (setq mz/todo-file (org-file-path "todo.org"))
-     (setq mz/ideas-file (org-file-path "ideas.org"))
-     (setq mz/to-read-file (org-file-path "to-read.org"))
-     (setq mz/how-to-file (org-file-path "how-to.org"))
+                                             ;(setq mz/ideas-file (org-file-path "ideas.org"))
+                                             ;(setq mz/to-read-file (org-file-path "to-read.org"))
+                                             ;(setq mz/how-to-file (org-file-path "how-to.org"))
      (setq mz/agenda-file (org-file-path "agenda.org"))
-
+     
      (setq org-capture-templates
            '(
              ("t" "Todo"
               entry
               (file mz/todo-file))
-             ("i" "Ideas"
-              entry
-              (file mz/ideas-file))
-             ("r" "To Read"
-              checkitem
-              (file mz/to-read-file))
-             ("h" "How-To"
-              entry
-              (file mz/how-to-file))
+                                             ;("i" "Ideas"
+                                             ; entry
+                                             ; (file mz/ideas-file))
+                                             ;("r" "To Read"
+                                             ; checkitem
+                                             ; (file mz/to-read-file))
+                                             ;("h" "How-To"
+                                             ; entry
+                                             ; (file mz/how-to-file))
              ))
-
-     (setq jp/vocabulary-file (org-file-path "Vocabulary.org"))
-     (add-to-list 'org-capture-templates
-                  '("j" "Japanese Word/Phrase" entry (file+headline jp/vocabulary-file "Words and Phrases")
-                    "** %(jp/type-prompt)     :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: multisided\n   :ADDED:    %U\n   :END:\n*** Japanese\n    %(jp/japanese-get-word (jp/japanese-prompt))\n*** English\n    %(jp/english-prompt)"))
-     (add-to-list 'org-capture-templates
-                  '("J" "Japanese Grammar" entry (file+headline jp/vocabulary-file "Grammar")
-                    "** %(jp/grammar-type-prompt) :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: hide2cloze\n   :ADDED:    %U\n   :END:\n   %(jp/definition-prompt)\n*** Example\n    %(jp/japanese-get-word (jp/japanese-prompt))\n    %(jp/english-prompt)"))
+     
      (add-to-list 'org-capture-templates
                   '("a" "Agenda Entry" entry (file mz/agenda-file)
                     "* %^{Appointment}            %^G\n  %^T\n%?"))
-
-
-
+     
+     
+     
    #+END_SRC
 * Global Keybindings
 ** Personal keybindings
@@ -970,28 +969,28 @@
      (global-set-key (kbd "M-+") 'mz/fast-calc)
      (global-set-key (kbd "M-o") 'mz/new-line-above)
      (global-set-key (kbd "C-x \\") 'mz/indent-buffer)
-
+     
      (global-unset-key (kbd "C-x <left>"))
      (global-unset-key (kbd "C-x <right>"))
      (global-set-key (kbd "C-x <left>") 'mz/previous-buffer)
      (global-set-key (kbd "C-x <right>") 'mz/next-buffer)
-
+     
      (global-set-key (kbd "C-<return>") 'make_newline)
      (global-set-key (kbd "RET") 'newline-and-indent)
      (global-set-key (kbd "C-!") 'repeat)
-
+     
      ;; ibuffer
      (global-unset-key (kbd "C-x C-b"))
      (global-set-key (kbd "C-x C-b") 'ibuffer)
-
+     
      (define-key winner-mode-map (kbd "C-c <left>") nil)
      (define-key winner-mode-map (kbd "C-c <right>") nil)
-
+     
    #+END_SRC
 ** Global Org Keybindings
    #+BEGIN_SRC emacs-lisp
      (define-key org-mode-map (kbd "C-<tab>") nil)
-
+     
      (global-set-key "\C-cl" 'org-store-link)
      (global-set-key "\C-ca" 'org-agenda)
      (global-set-key "\C-cc" 'org-capture)
@@ -1004,7 +1003,7 @@
      (define-key org-mode-map (kbd "C-c S-<right>") 'org-metashiftright)
      (define-key org-mode-map (kbd "C-c S-<up>") 'org-metashiftup)
      (define-key org-mode-map (kbd "C-c S-<down>") 'org-metashiftdown)
-
+     
      (define-key org-mode-map (kbd "C-c C-r") nil)
      (define-key org-mode-map (kbd "C-c C-r b") 'org-ref-helm-insert-cite-link)
      (define-key org-mode-map (kbd "C-c C-r r") 'org-ref-helm-insert-ref-link)
@@ -1018,4 +1017,3 @@
            (define-key input-decode-map [?\C-m] [C-m])
            (define-key input-decode-map [?\C-i] [C-i])))
    #+END_SRC
-
