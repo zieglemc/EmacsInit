@@ -170,8 +170,7 @@
       :ensure t
       :config
       (indent-guide-global-mode 1)
-      )
-    
+      )    
   #+END_SRC
   Use the doom-modeline since it looks much nicer compared to the default emacs one
   #+begin_src emacs-lisp
@@ -182,37 +181,34 @@
       (setq doom-modeline-height 15)
       )
   #+end_src
-
   Add the dashboard to greet the user on starting emacs
   #+BEGIN_SRC emacs-lisp
-    (use-package all-the-icons
-      :ensure t
-      )
-    
-    (use-package dashboard
-      :ensure t
-      :preface
-      (defun mz/dashboard-banner ()
-        """Set a dashboard banner including information on package initialization
-      time and garbage collections."""
-        (setq dashboard-banner-logo-title
-              (format "Emacs ready in %.2f seconds with %d garbage collections."
-                      (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
-    
-      :config
-      (setq dashboard-startup-banner 'logo)
-      (setq dashboard-center-content t)
-      (setq dashboard-set-file-icons t)
-      (setq dashboard-week-agenda t)
-      (setq dashboard-filter-agenda-entry (lambda () (when (org-entry-is-done-p) (point))))
-      (setq dashboard-footer-messages '("Dashboard is pretty cool!"))
-      (setq dashboard-footer-icon (all-the-icons-fileicon "emacs"
-                                                          :height 1.1
-                                                          :v-adjust -0.05
-                                                          :face 'font-lock-keyword-face))
-      (dashboard-setup-startup-hook)
-      :hook ((emacs-startup . dashboard-refresh-buffer)
-             (dashboard-mode . mz/dashboard-banner)))
+        (use-package all-the-icons
+          :ensure t
+          )
+        
+        (use-package dashboard
+          :ensure t
+          :preface
+          (defun mz/dashboard-banner ()
+            """Set a dashboard banner including information on package initialization
+          time and garbage collections."""
+            (setq dashboard-banner-logo-title
+                  (format "Emacs ready in %.2f seconds with %d garbage collections."
+                          (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
+        
+          :config
+          (setq dashboard-startup-banner 'logo)
+          (setq dashboard-center-content t)
+          (setq dashboard-set-file-icons t)
+          (setq dashboard-week-agenda t)
+          (setq dashboard-filter-agenda-entry (lambda () (when (org-entry-is-done-p) (point))))
+          (setq dashboard-footer-messages '("Dashboard is pretty cool!"))
+          (setq dashboard-footer-icon (all-the-icons-fileicon "emacs"
+                                                              :height 1.1
+                                                              :v-adjust -0.05
+                                                              :face 'font-lock-keyword-face))
+          (dashboard-setup-startup-hook))
   #+END_SRC
 
 * Utility functions
@@ -340,10 +336,6 @@
       (set-mark-command nil)
       (sp-end-of-sexp))
   #+END_SRC
-
-  #+RESULTS:
-  : mz/mark-everything-in-parenthesis
-
 * Activate global packages
 ** Global modes and packages
    The following packages are concerned with some visual things, like parenthesis mode, highlighting
@@ -408,14 +400,6 @@
      (use-package multiple-cursors
        :ensure t)
      
-     (use-package dictcc
-       :ensure t
-       :init
-       (if window-system
-           (define-key input-decode-map [?\C-m] [C-m]))
-       :bind (("<C-m> d" . dictcc)
-              ("<C-m> D" . dictcc-at-point)))
-     
      (use-package recentf
        :ensure t
        :init
@@ -434,6 +418,17 @@
        (set-face-underline 'writegood-passive-voice-face nil)
        (set-face-background 'writegood-duplicates-face "#AA1111"))
    #+END_SRC
+   For quick translations dictcc can be used. However this package seems currently deprecated and
+   therefore is currently not used.
+   #+BEGIN_SRC emacs-lisp
+     ;; (use-package dictcc
+     ;;   :ensure t
+     ;;   :init
+     ;;   (if window-system
+     ;;       (define-key input-decode-map [?\C-m] [C-m]))
+     ;;   :bind (("<C-m> d" . dictcc)
+     ;;          ("<C-m> D" . dictcc-at-point)))
+   #+END_SRC
 ** Company
    Basic company setup
    #+BEGIN_SRC emacs-lisp
@@ -443,6 +438,7 @@
        :config
        (setq company-frontends nil)
        (add-to-list 'company-backends 'company-elisp)
+       (add-to-list 'company-backends 'company-capf)
        (add-hook 'after-init-hook 'global-company-mode)
        (global-company-mode 1)
        (setq company-idle-delay 'nil)
@@ -553,31 +549,46 @@
 ** Evil-mode
    Alright, here the evil-mode package is loaded and defined to use vim-like movements and controls.
    #+begin_src emacs-lisp
-                                             ;     (use-package evil
-                                             ;       :ensure t
-                                             ;       :init
-                                             ;       (setq evil-want-integration t)
-                                             ;       (setq evil-want-keybinding nil)
-                                             ;       (setq evil-want-C-u-scroll t)
-                                             ;       :config
-                                             ;       (evil-mode 1)
-                                             ;       )
+     ;;     (use-package evil
+     ;;       :ensure t
+     ;;       :init
+     ;;       (setq evil-want-integration t)
+     ;;       (setq evil-want-keybinding nil)
+     ;;       (setq evil-want-C-u-scroll t)
+     ;;       :config
+     ;;       (evil-mode 1)
+     ;;       )
    #+end_src
-
 
 * Programming Stuff
   We add modes for several programming languages and local keybindings
-  #+BEGIN_SRC emacs-lisp
-    (use-package flycheck
-      :ensure t
-      :config
-      (global-flycheck-mode 1))
-  #+END_SRC
+** Flycheck for syntax checking
+   Activate global flycheck mode to have syntax checking for all languages
+   #+BEGIN_SRC emacs-lisp
+     (use-package flycheck
+       :ensure t
+       :config
+       (global-flycheck-mode 1))
+   #+END_SRC
+** LSP-Mode
+   Language-Server-Protocol mode can be used for autocompletion, linter and so on for many
+   different programming languages. It has integration with company, flycheck and projectile.
+   #+begin_src emacs-lisp
+     (use-package lsp-mode
+       :ensure t
+       :hook (lsp-mode . company-mode)
+       :config
+       (use-package helm-lsp
+         :ensure t
+         :commands helm-lsp-workspace-symbol)
+       )
+   #+end_src
 ** R-mode
    #+BEGIN_SRC emacs-lisp
      (use-package ess
        :ensure t
        :config
+       ;;:hook (R-mode . lsp-mode)
        (use-package ess-smart-underscore
          :ensure t)
        )
@@ -585,6 +596,7 @@
      (add-hook 'R-mode-hook #'rainbow-delimiters-mode)
      (add-hook 'R-mode-hook #'rainbow-mode)
      (add-hook 'R-mode-hook 'hs-minor-mode)
+     (add-hook 'R-mode-hook 'lsp-mode)
    #+END_SRC
 ** JULIA MODE
    #+BEGIN_SRC emacs-lisp
@@ -663,6 +675,7 @@
              :mode ("\\.py\\'" . python-mode)
              ("\\.wsgi$" . python-mode)
              :interpreter ("python" . python-mode)
+             :hook (python-mode . lsp-deferred)
              :init
              (setq-default indent-tabs-mode nil)
              :config
@@ -677,44 +690,7 @@
              (add-hook 'python-mode-hook 'global-ede-mode)
              (add-hook 'python-mode-hook 'turn-on-auto-fill)
              (add-hook 'python-mode-hook 'hs-minor-mode)
-             )
-     
-           (use-package company-jedi
-             :ensure t
-             :init
-             (add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
-             (setq company-jedi-python-bin "python"))
-     
-           (use-package anaconda-mode
-             :ensure t
-             :init (add-hook 'python-mode-hook 'anaconda-mode)
-             (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-             :config (use-package company-anaconda
-                       :ensure t
-                       :init (add-hook 'python-mode-hook 'anaconda-mode)
-                       (eval-after-load "company"
-                         '(add-to-list 'company-backends '(company-anaconda :with company-capf)))))
-     
-           (use-package elpy
-             :ensure t
-             :commands elpy-enable
-             :init (with-eval-after-load 'python (elpy-enable))
-     
-             :config
-             (electric-indent-local-mode -1)
-             (delete 'elpy-module-highlight-indentation elpy-modules)
-             (delete 'elpy-module-flymake elpy-modules)
-     
-             (defun ha/elpy-goto-definition ()
-               (interactive)
-               (condition-case err
-                   (elpy-goto-definition)
-                 ('error (xref-find-definitions (symbol-name (symbol-at-point))))))
-     
-             :bind (:map elpy-mode-map ([remap elpy-goto-definition] .
-                                        ha/elpy-goto-definition)))))
-     
-     
+             )))
    #+END_SRC
 ** AUCTEX
    Everything that corresponds to latex
@@ -778,7 +754,15 @@
                    (output-pdf "okular")
                    (output-html "xdg-open"))))
            (setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)"))))
-           ))
+     
+           (use-package lsp-latex
+             :ensure t
+             :hook ((Latex-mode . lsp)
+                    (latex-mode . lsp)
+                    (bibtex-mode . lsp))
+             )
+           )
+       )
    #+END_SRC
 ** CSV
    #+BEGIN_SRC emacs-lisp
@@ -891,7 +875,6 @@
                   (setq total (+ total (string-to-number n))))))))
          (number-to-string total)))
    #+END_SRC
-
 ** Org Babel
    #+BEGIN_SRC emacs-lisp
      (org-babel-do-load-languages 'org-babel-load-languages
@@ -933,9 +916,9 @@
 ** Org mode capture templates
    #+BEGIN_SRC emacs-lisp
      (setq mz/todo-file (org-file-path "todo.org"))
-                                             ;(setq mz/ideas-file (org-file-path "ideas.org"))
-                                             ;(setq mz/to-read-file (org-file-path "to-read.org"))
-                                             ;(setq mz/how-to-file (org-file-path "how-to.org"))
+     ;;(setq mz/ideas-file (org-file-path "ideas.org"))
+     ;;(setq mz/to-read-file (org-file-path "to-read.org"))
+     ;;(setq mz/how-to-file (org-file-path "how-to.org"))
      (setq mz/agenda-file (org-file-path "agenda.org"))
      
      (setq org-capture-templates
@@ -943,23 +926,20 @@
              ("t" "Todo"
               entry
               (file mz/todo-file))
-                                             ;("i" "Ideas"
-                                             ; entry
-                                             ; (file mz/ideas-file))
-                                             ;("r" "To Read"
-                                             ; checkitem
-                                             ; (file mz/to-read-file))
-                                             ;("h" "How-To"
-                                             ; entry
-                                             ; (file mz/how-to-file))
+             ;;("i" "Ideas"
+             ;; entry
+             ;; (file mz/ideas-file))
+             ;;("r" "To Read"
+             ;; checkitem
+             ;; (file mz/to-read-file))
+             ;;("h" "How-To"
+             ;; entry
+             ;; (file mz/how-to-file))
              ))
      
      (add-to-list 'org-capture-templates
                   '("a" "Agenda Entry" entry (file mz/agenda-file)
                     "* %^{Appointment}            %^G\n  %^T\n%?"))
-     
-     
-     
    #+END_SRC
 * Global Keybindings
 ** Personal keybindings
@@ -1004,9 +984,9 @@
      (define-key org-mode-map (kbd "C-c S-<up>") 'org-metashiftup)
      (define-key org-mode-map (kbd "C-c S-<down>") 'org-metashiftdown)
      
-     (define-key org-mode-map (kbd "C-c C-r") nil)
-     (define-key org-mode-map (kbd "C-c C-r b") 'org-ref-helm-insert-cite-link)
-     (define-key org-mode-map (kbd "C-c C-r r") 'org-ref-helm-insert-ref-link)
+     (define-key org-mode-map (kbd "C-c C-r") Nil)
+     ;;(define-key org-mode-map (kbd "C-c C-r b") 'org-ref-helm-insert-cite-link)
+     ;;(define-key org-mode-map (kbd "C-c C-r r") 'org-ref-helm-insert-ref-link)
    #+END_SRC
 ** Other Keybindings
    Since there are some special keybindings which are interpreted as something different

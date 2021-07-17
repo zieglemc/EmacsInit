@@ -149,7 +149,7 @@
   :ensure t
   :preface
   (defun mz/dashboard-banner ()
-    "Set a dashboard banner including information on package initialization
+    """Set a dashboard banner including information on package initialization
   time and garbage collections."""
     (setq dashboard-banner-logo-title
           (format "Emacs ready in %.2f seconds with %d garbage collections."
@@ -166,9 +166,7 @@
                                                       :height 1.1
                                                       :v-adjust -0.05
                                                       :face 'font-lock-keyword-face))
-  (dashboard-setup-startup-hook)
-  :hook ((emacs-startup . dashboard-refresh-buffer)
-         (dashboard-mode . mz/dashboard-banner)))
+  (dashboard-setup-startup-hook))
 
 (defun mz/emacs-reload()
   "Reload the Emacs ini file (~/.emacs.d/init.el)."
@@ -349,14 +347,6 @@ Position the cursor at it's beginning, according to the current mode."
 (use-package multiple-cursors
   :ensure t)
 
-(use-package dictcc
-  :ensure t
-  :init
-  (if window-system
-      (define-key input-decode-map [?\C-m] [C-m]))
-  :bind (("<C-m> d" . dictcc)
-         ("<C-m> D" . dictcc-at-point)))
-
 (use-package recentf
   :ensure t
   :init
@@ -375,12 +365,21 @@ Position the cursor at it's beginning, according to the current mode."
   (set-face-underline 'writegood-passive-voice-face nil)
   (set-face-background 'writegood-duplicates-face "#AA1111"))
 
+;; (use-package dictcc
+;;   :ensure t
+;;   :init
+;;   (if window-system
+;;       (define-key input-decode-map [?\C-m] [C-m]))
+;;   :bind (("<C-m> d" . dictcc)
+;;          ("<C-m> D" . dictcc-at-point)))
+
 (use-package company
   :ensure t
   :bind (("C-." . company-files))
   :config
   (setq company-frontends nil)
   (add-to-list 'company-backends 'company-elisp)
+  (add-to-list 'company-backends 'company-capf)
   (add-hook 'after-init-hook 'global-company-mode)
   (global-company-mode 1)
   (setq company-idle-delay 'nil)
@@ -478,24 +477,34 @@ Position the cursor at it's beginning, according to the current mode."
       :ensure t
       :bind (( "C-x g" . magit-status))))
 
-;     (use-package evil
-;       :ensure t
-;       :init
-;       (setq evil-want-integration t)
-;       (setq evil-want-keybinding nil)
-;       (setq evil-want-C-u-scroll t)
-;       :config
-;       (evil-mode 1)
-;       )
+;;     (use-package evil
+;;       :ensure t
+;;       :init
+;;       (setq evil-want-integration t)
+;;       (setq evil-want-keybinding nil)
+;;       (setq evil-want-C-u-scroll t)
+;;       :config
+;;       (evil-mode 1)
+;;       )
 
 (use-package flycheck
   :ensure t
   :config
   (global-flycheck-mode 1))
 
+(use-package lsp-mode
+  :ensure t
+  :hook (lsp-mode . company-mode)
+  :config
+  (use-package helm-lsp
+    :ensure t
+    :commands helm-lsp-workspace-symbol)
+  )
+
 (use-package ess
   :ensure t
   :config
+  ;;:hook (R-mode . lsp-mode)
   (use-package ess-smart-underscore
     :ensure t)
   )
@@ -503,6 +512,7 @@ Position the cursor at it's beginning, according to the current mode."
 (add-hook 'R-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'R-mode-hook #'rainbow-mode)
 (add-hook 'R-mode-hook 'hs-minor-mode)
+(add-hook 'R-mode-hook 'lsp-mode)
 
 (if (locate-file "julia" exec-path)
     (progn
@@ -566,6 +576,7 @@ Position the cursor at it's beginning, according to the current mode."
         :mode ("\\.py\\'" . python-mode)
         ("\\.wsgi$" . python-mode)
         :interpreter ("python" . python-mode)
+        :hook (python-mode . lsp-deferred)
         :init
         (setq-default indent-tabs-mode nil)
         :config
@@ -580,42 +591,7 @@ Position the cursor at it's beginning, according to the current mode."
         (add-hook 'python-mode-hook 'global-ede-mode)
         (add-hook 'python-mode-hook 'turn-on-auto-fill)
         (add-hook 'python-mode-hook 'hs-minor-mode)
-        )
-
-      (use-package company-jedi
-        :ensure t
-        :init
-        (add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
-        (setq company-jedi-python-bin "python"))
-
-      (use-package anaconda-mode
-        :ensure t
-        :init (add-hook 'python-mode-hook 'anaconda-mode)
-        (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-        :config (use-package company-anaconda
-                  :ensure t
-                  :init (add-hook 'python-mode-hook 'anaconda-mode)
-                  (eval-after-load "company"
-                    '(add-to-list 'company-backends '(company-anaconda :with company-capf)))))
-
-      (use-package elpy
-        :ensure t
-        :commands elpy-enable
-        :init (with-eval-after-load 'python (elpy-enable))
-
-        :config
-        (electric-indent-local-mode -1)
-        (delete 'elpy-module-highlight-indentation elpy-modules)
-        (delete 'elpy-module-flymake elpy-modules)
-
-        (defun ha/elpy-goto-definition ()
-          (interactive)
-          (condition-case err
-              (elpy-goto-definition)
-            ('error (xref-find-definitions (symbol-name (symbol-at-point))))))
-
-        :bind (:map elpy-mode-map ([remap elpy-goto-definition] .
-                                   ha/elpy-goto-definition)))))
+        )))
 
 (if (locate-file "xelatex" exec-path)
     (progn
@@ -676,7 +652,15 @@ Position the cursor at it's beginning, according to the current mode."
               (output-pdf "okular")
               (output-html "xdg-open"))))
       (setq LaTeX-command-style (quote (("" "%(PDF)%(latex) --shell-escape %S%(PDFout)"))))
-      ))
+
+      (use-package lsp-latex
+        :ensure t
+        :hook ((Latex-mode . lsp)
+               (latex-mode . lsp)
+               (bibtex-mode . lsp))
+        )
+      )
+  )
 
 (use-package csv-mode
   :ensure t)
@@ -811,9 +795,9 @@ Position the cursor at it's beginning, according to the current mode."
 ;;                "** %(jp/grammar-type-prompt) :drill:\n   :PROPERTIES:\n   :DRILL_CARD_TYPE: hide2cloze\n   :ADDED:    %U\n   :END:\n   %(jp/definition-prompt)\n*** Example\n    %(jp/japanese-get-word (jp/japanese-prompt))\n    %(jp/english-prompt)"))
 
 (setq mz/todo-file (org-file-path "todo.org"))
-                                        ;(setq mz/ideas-file (org-file-path "ideas.org"))
-                                        ;(setq mz/to-read-file (org-file-path "to-read.org"))
-                                        ;(setq mz/how-to-file (org-file-path "how-to.org"))
+;;(setq mz/ideas-file (org-file-path "ideas.org"))
+;;(setq mz/to-read-file (org-file-path "to-read.org"))
+;;(setq mz/how-to-file (org-file-path "how-to.org"))
 (setq mz/agenda-file (org-file-path "agenda.org"))
 
 (setq org-capture-templates
@@ -821,15 +805,15 @@ Position the cursor at it's beginning, according to the current mode."
         ("t" "Todo"
          entry
          (file mz/todo-file))
-                                        ;("i" "Ideas"
-                                        ; entry
-                                        ; (file mz/ideas-file))
-                                        ;("r" "To Read"
-                                        ; checkitem
-                                        ; (file mz/to-read-file))
-                                        ;("h" "How-To"
-                                        ; entry
-                                        ; (file mz/how-to-file))
+        ;;("i" "Ideas"
+        ;; entry
+        ;; (file mz/ideas-file))
+        ;;("r" "To Read"
+        ;; checkitem
+        ;; (file mz/to-read-file))
+        ;;("h" "How-To"
+        ;; entry
+        ;; (file mz/how-to-file))
         ))
 
 (add-to-list 'org-capture-templates
@@ -873,9 +857,9 @@ Position the cursor at it's beginning, according to the current mode."
 (define-key org-mode-map (kbd "C-c S-<up>") 'org-metashiftup)
 (define-key org-mode-map (kbd "C-c S-<down>") 'org-metashiftdown)
 
-(define-key org-mode-map (kbd "C-c C-r") nil)
-(define-key org-mode-map (kbd "C-c C-r b") 'org-ref-helm-insert-cite-link)
-(define-key org-mode-map (kbd "C-c C-r r") 'org-ref-helm-insert-ref-link)
+(define-key org-mode-map (kbd "C-c C-r") Nil)
+;;(define-key org-mode-map (kbd "C-c C-r b") 'org-ref-helm-insert-cite-link)
+;;(define-key org-mode-map (kbd "C-c C-r r") 'org-ref-helm-insert-ref-link)
 
 (if window-system
     (progn
