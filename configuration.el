@@ -682,7 +682,7 @@ Position the cursor at it's beginning, according to the current mode."
     (setq org-directory "C:/ToDo")
   (setq org-directory "/home/zieglemc/ToDo"))
 
-(define-obsolete-function-alias 'org-define-error 'define-error)
+(define-obsolete-function-alias 'org-define-error 'define-error "27.0")
 (defun org-file-path (filename)
   "Return the absolute adress of an org file, given its relative name"
   (interactive)

@@ -32,3 +32,4 @@ url
 /.mc-list.el
 /emacs-custom.el
 /*~
+/eln-cache/

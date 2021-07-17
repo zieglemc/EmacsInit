@@ -790,37 +790,37 @@
     (if (eq system-type 'windows-nt)
         (setq org-directory "C:/ToDo")
       (setq org-directory "/home/zieglemc/ToDo"))
-    
-    (define-obsolete-function-alias 'org-define-error 'define-error)
+
+    (define-obsolete-function-alias 'org-define-error 'define-error "27.0")
     (defun org-file-path (filename)
       "Return the absolute adress of an org file, given its relative name"
       (interactive)
       (message "%s" (concat (file-name-as-directory org-directory) filename))
       )
-    
+
     (use-package org
       :ensure org-plus-contrib
       )
-    
+
     (setq org-archive-location
           (concat (org-file-path "archive.org") "::* From %s" ))
-    
+
     (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
     (add-to-list 'auto-mode-alist '("\\.todo$" . org-mode))
-    
+
     (setq org-hide-leading-stars t)
     (setq org-ellipsis "  ↘") ;(format "%s" (all-the-icons-material "wrap_text" :height 1.5)))
-    
+
     (use-package org-bullets
       :ensure t
       )
-    
+
     (use-package org-pretty-tags
       :ensure t
       :config
       (org-pretty-tags-global-mode)
       )
-    
+
     (defun my-org-mode-hook ()
       (org-bullets-mode 1)
       (hs-minor-mode 1)
@@ -830,23 +830,23 @@
       (rainbow-mode 1)
       (rainbow-delimiters-mode 0)
       )
-    
+
     (add-hook 'org-mode-hook 'my-org-mode-hook)
-    
+
     (setq org-src-fontify-natively t)
     (setq org-src-tab-acts-natively t)
-    
+
     (setq org-agenda-custom-commands
           '(("W" "Show entries for 3 weeks" agenda "" ((org-agenda-span 21)))))
-    
+
     (setq org-agenda-files `(
                              ,(org-file-path "todo.org")
                              ,(org-file-path "agenda.org")
                              ))
-    
+
     (setq org-log-done 'time)
     (define-key global-map "\C-c\C-x\C-s" 'mz/mark-done-and-archive)
-    
+
     (setq org-file-apps
           '((auto-mode . emacs)
             ("\\.x?html?\\'" . "firefox %s")
@@ -856,7 +856,7 @@
             ("\\.jpg\\'" . "gpicview %s")
             ("\\.raw\\'" . "imagej %s")
             ("\\.png\\'" . "gpicview $s")))
-    
+
     (add-to-list 'org-modules 'org-collector)
   #+END_SRC
 ** Org functions
