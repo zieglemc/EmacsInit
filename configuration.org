@@ -96,7 +96,7 @@
                 '(buffer-file-name "%f" (dired-directory dired-directory "%b"))
                 )
           )
-    
+  
     (which-function-mode)
     (setq-default header-line-format
                   '((which-func-mode ("" which-func-format " "))))
@@ -109,13 +109,13 @@
   and load my own custom theme and fonts
   #+BEGIN_SRC emacs-lisp
     (load-theme 'CrapCram t)
-    
+  
     (if (eq system-type 'windows-nt)
         (set-face-font 'default "-outline-Fira Code-normal-normal-normal-mono-*-*-*-*-c-*-iso10646-1")
       (set-face-font 'default "-CTDB-Fira Code-normal-normal-normal-*-*-*-*-*-d-0-iso10646-1"))
-    
+  
     (set-face-attribute 'default nil :height 95)
-    
+  
     (use-package ligature
       :load-path (lambda () (concat user-emacs-directory "ligature"))
       :config
@@ -136,7 +136,7 @@
                                            "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
                                            "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
                                            "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
-    
+  
       (global-ligature-mode 't))
   #+END_SRC
   Now initialize some packages for further modifications to the UI
@@ -156,16 +156,16 @@
        '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta"))))
        '(rainbow-delimiters-depth-9-face ((t (:foreground "sienna")))))
       )
-    
+  
     (use-package rainbow-mode
       :ensure t)
-    
+  
     (use-package hlinum
       :ensure t
       :config
       (hlinum-activate)
       )
-    
+  
     (use-package indent-guide
       :ensure t
       :config
@@ -183,32 +183,32 @@
   #+end_src
   Add the dashboard to greet the user on starting emacs
   #+BEGIN_SRC emacs-lisp
-        (use-package all-the-icons
-          :ensure t
-          )
-        
-        (use-package dashboard
-          :ensure t
-          :preface
-          (defun mz/dashboard-banner ()
-            """Set a dashboard banner including information on package initialization
-          time and garbage collections."""
-            (setq dashboard-banner-logo-title
-                  (format "Emacs ready in %.2f seconds with %d garbage collections."
-                          (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
-        
-          :config
-          (setq dashboard-startup-banner 'logo)
-          (setq dashboard-center-content t)
-          (setq dashboard-set-file-icons t)
-          (setq dashboard-week-agenda t)
-          (setq dashboard-filter-agenda-entry (lambda () (when (org-entry-is-done-p) (point))))
-          (setq dashboard-footer-messages '("Dashboard is pretty cool!"))
-          (setq dashboard-footer-icon (all-the-icons-fileicon "emacs"
-                                                              :height 1.1
-                                                              :v-adjust -0.05
-                                                              :face 'font-lock-keyword-face))
-          (dashboard-setup-startup-hook))
+    (use-package all-the-icons
+      :ensure t
+      )
+    
+    (use-package dashboard
+      :ensure t
+      :preface
+      (defun mz/dashboard-banner ()
+        """Set a dashboard banner including information on package initialization
+      time and garbage collections."""
+        (setq dashboard-banner-logo-title
+              (format "Emacs ready in %.2f seconds with %d garbage collections."
+                      (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
+    
+      :config
+      (setq dashboard-startup-banner 'logo)
+      (setq dashboard-center-content t)
+      (setq dashboard-set-file-icons t)
+      (setq dashboard-week-agenda t)
+      (setq dashboard-filter-agenda-entry (lambda () (when (org-entry-is-done-p) (point))))
+      (setq dashboard-footer-messages '("Dashboard is pretty cool!"))
+      (setq dashboard-footer-icon (all-the-icons-fileicon "emacs"
+                                                          :height 1.1
+                                                          :v-adjust -0.05
+                                                          :face 'font-lock-keyword-face))
+      (dashboard-setup-startup-hook))
   #+END_SRC
 
 * Utility functions
@@ -367,20 +367,20 @@
        (sp-local-pair 'latex-mode "$" "$" :wrap "M-p $")
        (sp-local-pair 'org-mode "/" "/" :wrap "M-p /")
        (sp-local-pair 'org-mode "_" "_" :wrap "M-p _"))
-     
+   
      (use-package guide-key
        :ensure t
        :config
        (setq guide-key/guide-key-sequence t)
        (guide-key-mode 1))
-     
+   
      (use-package anzu
        :ensure t
        :bind (("M-%" . anzu-query-replace)
               ("C-M-%" . anzu-query-replace-regexp))
        :config
        (global-anzu-mode 1))
-     
+   
      (use-package undo-tree
        :ensure t
        :config
@@ -395,21 +395,21 @@
        :ensure t
        :config
        (exec-path-from-shell-initialize))
-     
-     
+   
+   
      (use-package multiple-cursors
        :ensure t)
-     
+   
      (use-package recentf
        :ensure t
        :init
        (setq recentf-max-saved-items 200
              recentf-max-menu-items 20)
        (recentf-mode))
-     
+   
      (use-package flyspell
        :ensure t)
-     
+   
      (use-package writegood-mode
        :ensure t
        :init
@@ -503,9 +503,9 @@
              helm-ff-search-library-in-sexp t ; search for library in `require' and `declare-function' sexp.
              helm-scroll-amount 8 ; scroll 8 lines other window using M-<next>/M-<prior>
              helm-ff-file-name-history-use-recentf t)
-     
+   
        (helm-autoresize-mode t)
-     
+   
        (setq helm-apropos-fuzzy-match t)
        (setq helm-buffers-fuzzy-matching t
              helm-recentf-fuzzy-match    t)
@@ -513,12 +513,12 @@
              helm-imenu-fuzzy-match    t)
        (helm-mode 1)
        )
-     
+   
      (use-package helm-swoop
        :ensure t
        :after (helm)
        :bind  (("M-s" . helm-swoop)))
-     
+   
      (use-package helm-flycheck
        :ensure t
        :after (helm flycheck)
@@ -537,7 +537,7 @@
                  (when (company-complete) (helm-company)))
                (add-to-list 'completion-at-point-functions
                             #'comint-dynamic-complete-filename)))
-     
+   
    #+END_SRC
 ** Magit
    #+BEGIN_SRC emacs-lisp
@@ -984,7 +984,7 @@
      (define-key org-mode-map (kbd "C-c S-<up>") 'org-metashiftup)
      (define-key org-mode-map (kbd "C-c S-<down>") 'org-metashiftdown)
      
-     (define-key org-mode-map (kbd "C-c C-r") Nil)
+     (define-key org-mode-map (kbd "C-c C-r") nil)
      ;;(define-key org-mode-map (kbd "C-c C-r b") 'org-ref-helm-insert-cite-link)
      ;;(define-key org-mode-map (kbd "C-c C-r r") 'org-ref-helm-insert-ref-link)
    #+END_SRC

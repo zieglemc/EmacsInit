@@ -857,7 +857,7 @@ Position the cursor at it's beginning, according to the current mode."
 (define-key org-mode-map (kbd "C-c S-<up>") 'org-metashiftup)
 (define-key org-mode-map (kbd "C-c S-<down>") 'org-metashiftdown)
 
-(define-key org-mode-map (kbd "C-c C-r") Nil)
+(define-key org-mode-map (kbd "C-c C-r") nil)
 ;;(define-key org-mode-map (kbd "C-c C-r b") 'org-ref-helm-insert-cite-link)
 ;;(define-key org-mode-map (kbd "C-c C-r r") 'org-ref-helm-insert-ref-link)
 

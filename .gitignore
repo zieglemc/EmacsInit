@@ -30,4 +30,5 @@ url
 /.python-environments
 /transient
 /.mc-list.el
+/emacs-custom.el
 /*~

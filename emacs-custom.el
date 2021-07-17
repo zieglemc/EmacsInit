@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lsp-latex company-anaconda helm-lsp company-capf lsp-mode yasnippet ws-butler writegood-mode use-package undo-tree smartparens smart-mode-line rainbow-mode rainbow-delimiters pyvenv python-environment py-autopep8 page-break-lines ox-twbs ox-reveal ox-pandoc org-ref org-pretty-tags org-plus-contrib org-bullets multiple-cursors memoize magit luarocks julia-shell indent-guide hlinum highlight-indentation helm-swoop helm-flyspell helm-flycheck helm-company guide-key flymake-lua flycheck-julia exec-path-from-shell ess-smart-underscore epc doom-modeline dictcc dashboard csv-mode company-lua cmake-mode clean-aindent-mode auto-dictionary auto-complete auctex anzu anaconda-mode)))
+   '(csv-mode yasnippet writegood-mode use-package undo-tree smartparens rainbow-mode rainbow-delimiters py-autopep8 ox-twbs ox-pandoc org-pretty-tags org-plus-contrib org-bullets multiple-cursors magit luarocks lsp-latex julia-shell indent-guide hlinum helm-swoop helm-flyspell helm-flycheck helm-company guide-key flymake-lua flycheck-julia exec-path-from-shell ess-smart-underscore doom-modeline dashboard company-lua auctex anzu)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
